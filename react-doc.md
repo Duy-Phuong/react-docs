@@ -41,3 +41,26 @@ Default la 3000
 ## Cau truc thu muc
 
 ## Component
+### Su dung resource template
+Bootstrap 3.3.7
+![](../root/img/2019-12-25-23-51-09.png)  
+
+downloadva copy 3 folder css, font, js dua vao public
+
+![](../root/img/2019-12-25-23-53-09.png)  
+
+https://getbootstrap.com/docs/3.3/getting-started/#download
+
+Khai bao va use in index.html
+```html
+<!-- Bootstrap -->
+    <link href="%PUBLIC_URL%/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="%PUBLIC_URL%/js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="%PUBLIC_URL%/js/bootstrap.min.js"></script>
+```
+
+Download jquery: Click **Download the compressed, production jQuery 3.4.1**
+Luu y: %PUBLIC_URL%
