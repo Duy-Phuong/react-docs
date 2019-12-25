@@ -1,24 +1,21 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
+import Header from "./Component/Header";
+import Product from "./Component/Product";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React First App
-        </a>
-      </header>
+      <Header />
+
+      <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <Product></Product>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <Product></Product>
+        </div>
+      </div>
     </div>
   );
 }

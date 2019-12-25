@@ -2,6 +2,9 @@ LINK
 https://www.youtube.com/watch?v=gL5HBA_1bDQ&list=PLJ5qtRQovuEOoKffoCBzTfvzMTTORnoyp
 https://github.com/nghiepuit
 
+LINK TẢI: http://nhasachtinhoc.blogspot.com/2019/12/chia-se-khoa-hoc-react-front-to-back-2019.html
+
+
 ## Install
 
 Install extendsion: React developer tool
@@ -64,3 +67,8 @@ Khai bao va use in index.html
 
 Download jquery: Click **Download the compressed, production jQuery 3.4.1**
 Luu y: %PUBLIC_URL%
+
+Sau do tao component Header, Product trong folder Component/
+Thay tat ca ten `class` trong tag thanh `className` de khoi loi
+
+Phai dat tat ca source JSX trong tag wraper in render() : co the div cha bao boc tat ca
