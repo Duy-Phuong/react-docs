@@ -172,3 +172,41 @@ function Product() {
 
 export default Product;
 ```
+
+## Props
+
+SD this.props.key trong class Component to display info
+Noi dung ben trong the access by: this.props.children
+
+```js
+// App.js
+<Robot name="NEXUS3" title="MR003">
+  333
+</Robot>;
+
+// Robot.js
+import React, { Component } from "react";
+
+class Robot extends Component {
+  render() {
+    return (
+      <div>
+        <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <div className="thumbnail">
+            <div className="caption">
+              <h3>{this.props.title}</h3>
+              <p>{this.props.name}</p>
+              <p>
+                <a className="btn btn-primary">{this.props.children}</a>
+                <a className="btn btn-default">Action</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default Robot;
+```
