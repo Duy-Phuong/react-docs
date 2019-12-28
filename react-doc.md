@@ -247,3 +247,105 @@ Phai co constructor(props) va bind
 
 **Cach 2**: su dung cu phap
 `ten func = () => {}` roi goi binh thuong `this.onHandleClick` va k can constructor
+
+## Ref
+
+Lay value input tag by REF
+file ProductList
+
+```js
+import React, { Component } from "react";
+
+class ProductList extends Component {
+  constructor(props) {
+    super(props);
+    this.onSave = this.onSave.bind(this);
+  }
+  onSave() {
+    console.log(this.refs);
+    alert(this.refs.name.value);
+  }
+
+  // cach 2
+  onSave2 = () => {
+    console.log(this.refs);
+    alert(this.refs.name.value);
+  };
+
+  render() {
+    return (
+      <div>
+        <div className="row">
+          <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2"></div>
+          <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+            <div className="panel panel-success">
+              <div className="panel-heading">
+                <h3 className="panel-title">Panel title</h3>
+              </div>
+              <div className="panel-body">
+                <div className="form-group">
+                  <label>Product name:</label>
+                  <input
+                    type="text"
+                    name=""
+                    id=""
+                    className="form-control"
+                    ref="name"
+                  />
+                  <br></br>
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    onClick={this.onSave}
+                  >
+                    SAVE
+                  </button>
+                  &nbsp;&nbsp;&nbsp;
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    onClick={this.onSave2}
+                  >
+                    SAVE ARROW FUNC
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default ProductList;
+```
+
+## State
+
+https://github.com/nghiepuit/lesson07-state
+la trang thai cua component, khai bao nhung gia tri can luu tru cua Component do
+Tao o constructor, Prop khong the thay doi value nhung state thi co, state is private in Component
+Prop nhan gia tri tu ben ngoai
+
+use setState():
+
+```js
+constructor(props) {
+    super(props);
+    // create state here
+    this.state = {
+      posts: [],
+      comments: []
+    };
+  }
+
+// Correct
+this.setState({ comment: "Hello" });
+
+// Correct
+this.setState((state, props) => ({
+  // not use this
+  counter: state.counter + props.increment
+}));
+```
