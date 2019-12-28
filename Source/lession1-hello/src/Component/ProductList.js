@@ -1,6 +1,6 @@
 import React from "react";
 
-function Product() {
+function ProductList() {
   var product = {
     id: 1,
     name: "TV",
@@ -9,7 +9,7 @@ function Product() {
 
   function showProduct(product) {
     return (
-      <div>
+      <div key={product.id}>
         <h5>Name : {product.name}</h5>
         <p>Status: {product.status ? "avaiable" : "out of stock"}</p>
       </div>
@@ -31,7 +31,7 @@ function Product() {
 
   var elements = users.map((user, index) => {
     return (
-      <div key="user.id">
+      <div key={user.id}>
         <p>
           {index}. firstName: {user.firstName}
         </p>
@@ -45,13 +45,9 @@ function Product() {
     <div>
       <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div className="thumbnail">
-          <img
-            src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone8-gold-select-2018?wid=940&hei=1112&fmt=png-alpha&qlt=80&.v=1550795416637"
-            alt="image"
-          />
           <div className="caption">
-            <h3>IPhone</h3>
-            <p>15.000.000</p>
+            <div>{showProduct(product)}</div>
+            <div>{elements}</div>
           </div>
         </div>
 
@@ -63,4 +59,4 @@ function Product() {
   );
 }
 
-export default Product;
+export default ProductList;

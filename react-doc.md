@@ -100,12 +100,12 @@ Note:
 - use: "{}"
 - class => className
 - Toan tu 3 ngoi
+- Phai co key khi loop
 
 ```js
 import React from "react";
 
-function Product() {
-  // start add
+function ProductList() {
   var product = {
     id: 1,
     name: "TV",
@@ -114,7 +114,7 @@ function Product() {
 
   function showProduct(product) {
     return (
-      <div>
+      <div key={product.id}>
         <h5>Name : {product.name}</h5>
         <p>Status: {product.status ? "avaiable" : "out of stock"}</p>
       </div>
@@ -136,7 +136,7 @@ function Product() {
 
   var elements = users.map((user, index) => {
     return (
-      <div key="user.id">
+      <div key={user.id}>
         <p>
           {index}. firstName: {user.firstName}
         </p>
@@ -145,20 +145,14 @@ function Product() {
       </div>
     );
   });
-  // end add
+
   return (
     <div>
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div className="thumbnail">
-          <img
-            src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone8-gold-select-2018?wid=940&hei=1112&fmt=png-alpha&qlt=80&.v=1550795416637"
-            alt="image"
-          />
           <div className="caption">
-            <h3>IPhone</h3>
-            <p>15.000.000</p>
-            <p>{showProduct(product)}</p>
-            <p>{elements}</p>
+            <div>{showProduct(product)}</div>
+            <div>{elements}</div>
           </div>
         </div>
 
@@ -170,7 +164,7 @@ function Product() {
   );
 }
 
-export default Product;
+export default ProductList;
 ```
 
 ## Props
@@ -210,3 +204,46 @@ class Robot extends Component {
 
 export default Robot;
 ```
+
+## Handling event
+
+Robot
+**Cach 1**: Bat su kien k truyen tham so
+Phai co constructor(props) va bind
+
+```js
+// Must add
+ constructor(props) {
+    super(props);
+    this.state = {isToggleOn: true};
+
+    // This binding is necessary to make `this` work in the callback
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.setState(state => ({
+      isToggleOn: !state.isToggleOn
+    }));
+  }
+
+  render() {
+    return (
+      <button onClick={this.handleClick}>
+        {this.state.isToggleOn ? 'ON' : 'OFF'}
+      </button>
+    );
+  }
+```
+
+- Neu ham k co tham so thi chi goi this.handleClick ma k can constructor
+
+- Goi thong qua arrow func co tham so
+
+```js
+<a onclick={() => {this.onHandleClick('abc')}}>
+
+```
+
+**Cach 2**: su dung cu phap
+`ten func = () => {}` roi goi binh thuong `this.onHandleClick` va k can constructor
