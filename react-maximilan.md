@@ -7,12 +7,558 @@ React is a js library for building user interface (include many Components)
 ### 2.1 components-learning-card.pdf.pdf
 ### 3. Real-World SPAs & React Web Apps
 ### 4. Writing our First React Code
+```js
+function Person(props) {
+  return (
+    <div className="person">
+      <h1>{props.name}</h1>
+      <p>Your Age: {props.age}</p>
+    </div>
+  );
+}
+
+var app = (
+  <div>
+     <Person name="Max" age="28" />
+      <Person name="Manu" age="29" />
+  </div>
+);
+
+// allow render js func as a component to a real DOM
+ReactDOM.render(app, document.querySelector('#app'));
+```
 ### 5. Why Should we Choose React
+![](./root/img/2020-01-19-14-56-40.png)
 ### 6. React Alternatives
 ### 7. Understanding Single Page Applications and Multi Page Applications
+![](./root/img/2020-01-19-15-07-15.png)
 ### 8. Course Outline
+![](./root/img/2020-01-19-15-09-27.png)
 ### 9. How to get the Most out of This Course
 ### 10. Useful Resources & Links.html
+You shouldn't need it right now - but in case you ever want to dive in, here's the official React documenation: https://reactjs.org/
+
+Had issues with the Codepen demo? Here's the finished source code: https://codepen.io/anon/pen/MELQaQ
+
+## 2. Refreshing Next Generation JavaScript (Optional)
+### 1. Module Introduction
+### 2. Understanding let and const
+### 3. Arrow Functions
+### 4. Exports and Imports
+![](./root/img/2020-01-19-15-38-40.png)
+![](./root/img/2020-01-19-15-37-23.png)
+### 5. Understanding Classes
+### 6. Classes, Properties and Methods
+![](./root/img/2020-01-19-15-50-03.png)
+### 7. The Spread & Rest Operator
+![](./root/img/2020-01-19-15-53-42.png)
+```js
+const abc = (...args) => {
+    return (args.filter(el => el === 1));
+}
+```
+### 8. Destructuring
+![](./root/img/2020-01-19-16-00-23.png)
+### 9. Reference and Primitive Types Refresher
+Copy object use ...
+### 10. Refreshing Array Functions
+```js
+const num = [1, 2, 3];
+const doubleArr = num.map((x) => { return 2 * x; });
+```
+### 11. Wrap Up
+### 12. Next-Gen JavaScript - Summary.html
+In this module, I provided a brief introduction into some core next-gen JavaScript features, of course focusing on the ones you'll see the most in this course. Here's a quick summary!
+
+let & const
+Read more about let : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let
+
+Read more about const : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const
+
+let  and const  basically replace var . You use let  instead of var  and const  instead of var  if you plan on never re-assigning this "variable" (effectively turning it into a constant therefore).
+
+ES6 Arrow Functions
+Read more: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions
+
+Arrow functions are a different way of creating functions in JavaScript. Besides a shorter syntax, they offer advantages when it comes to keeping the scope of the this  keyword (see here).
+
+Arrow function syntax may look strange but it's actually simple.
+
+```js
+function callMe(name) { 
+    console.log(name);
+}
+which you could also write as:
+
+const callMe = function(name) { 
+    console.log(name);
+}
+becomes: 
+
+const callMe = (name) => { 
+    console.log(name);
+}
+
+```
+Important: 
+
+When having no arguments, you have to use empty parentheses in the function declaration:
+
+```js
+const callMe = () => { 
+    console.log('Max!');
+}
+When having exactly one argument, you may omit the parentheses:
+
+const callMe = name => { 
+    console.log(name);
+}
+
+
+```
+When just returning a value, you can use the following shortcut:
+
+```js
+const returnMe = name => name
+That's equal to:
+
+const returnMe = name => { 
+    return name;
+}
+
+```
+Exports & Imports
+In React projects (and actually in all modern JavaScript projects), you split your code across multiple JavaScript files - so-called modules. You do this, to keep each file/ module focused and manageable.
+
+To still access functionality in another file, you need export  (to make it available) and import  (to get access) statements.
+
+You got two different types of exports: default (unnamed) and named exports:
+
+default => export default ...; 
+
+named => export const someData = ...; 
+
+You can import default exports like this:
+
+import someNameOfYourChoice from './path/to/file.js'; 
+
+Surprisingly, someNameOfYourChoice  is totally up to you.
+
+Named exports have to be imported by their name:
+
+import { someData } from './path/to/file.js'; 
+
+A file can only contain one default and an unlimited amount of named exports. You can also mix the one default with any amount of named exports in one and the same file.
+
+When importing named exports, you can also import all named exports at once with the following syntax:
+
+import * as upToYou from './path/to/file.js'; 
+
+upToYou  is - well - up to you and simply bundles all exported variables/functions in one JavaScript object. For example, if you export const someData = ...  (/path/to/file.js ) you can access it on upToYou  like this: upToYou.someData .
+
+Classes
+Classes are a feature which basically replace constructor functions and prototypes. You can define blueprints for JavaScript objects with them. 
+
+Like this:
+
+```js
+class Person {
+    constructor () {
+        this.name = 'Max';
+    }
+}
+
+const person = new Person();
+console.log(person.name); // prints 'Max'
+
+```
+In the above example, not only the class but also a property of that class (=> name ) is defined. The syntax you see there, is the "old" syntax for defining properties. In modern JavaScript projects (as the one used in this course), you can use the following, more convenient way of defining class properties:
+
+class Person {
+    name = 'Max';
+}
+
+const person = new Person();
+console.log(person.name); // prints 'Max'
+You can also define methods. Either like this:
+
+```js
+class Person {
+    name = 'Max';
+    printMyName () {
+        console.log(this.name); // this is required to refer to the class!
+    }
+}
+
+const person = new Person();
+person.printMyName();
+Or like this:
+
+class Person {
+    name = 'Max';
+    printMyName = () => {
+        console.log(this.name);
+    }
+}
+
+const person = new Person();
+person.printMyName();
+
+```
+The second approach has the same advantage as all arrow functions have: The this  keyword doesn't change its reference.
+
+You can also use inheritance when using classes:
+
+```js
+class Human {
+    species = 'human';
+}
+
+class Person extends Human {
+    name = 'Max';
+    printMyName = () => {
+        console.log(this.name);
+    }
+}
+
+const person = new Person();
+person.printMyName();
+console.log(person.species); // prints 'human'
+
+```
+Spread & Rest Operator
+The spread and rest operators actually use the same syntax: ... 
+
+Yes, that is the operator - just three dots. It's usage determines whether you're using it as the spread or rest operator.
+
+Using the Spread Operator:
+
+The spread operator allows you to pull elements out of an array (=> split the array into a list of its elements) or pull the properties out of an object. Here are two examples:
+
+```js
+const oldArray = [1, 2, 3];
+const newArray = [...oldArray, 4, 5]; // This now is [1, 2, 3, 4, 5];
+Here's the spread operator used on an object:
+
+const oldObject = {
+    name: 'Max'
+};
+const newObject = {
+    ...oldObject,
+    age: 28
+};
+newObject  would then be
+
+{
+    name: 'Max',
+    age: 28
+}
+
+```
+The spread operator is extremely useful for cloning arrays and objects. Since both are reference types (and not primitives), copying them safely (i.e. preventing future mutation of the copied original) can be tricky. With the spread operator you have an easy way of creating a (shallow!) clone of the object or array. 
+
+Destructuring
+Destructuring allows you to easily access the values of arrays or objects and assign them to variables.
+
+Here's an example for an array:
+
+```js
+const array = [1, 2, 3];
+const [a, b] = array;
+console.log(a); // prints 1
+console.log(b); // prints 2
+console.log(array); // prints [1, 2, 3]
+And here for an object:
+
+const myObj = {
+    name: 'Max',
+    age: 28
+}
+const {name} = myObj;
+console.log(name); // prints 'Max'
+console.log(age); // prints undefined
+console.log(myObj); // prints {name: 'Max', age: 28}
+Destructuring is very useful when working with function arguments. Consider this example:
+
+const printName = (personObj) => {
+    console.log(personObj.name);
+}
+printName({name: 'Max', age: 28}); // prints 'Max'
+
+```
+Here, we only want to print the name in the function but we pass a complete person object to the function. Of course this is no issue but it forces us to call personObj.name inside of our function. We can condense this code with destructuring:
+
+const printName = ({name}) => {
+    console.log(name);
+}
+printName({name: 'Max', age: 28}); // prints 'Max')
+We get the same result as above but we save some code. By destructuring, we simply pull out the name  property and store it in a variable/ argument named name  which we then can use in the function body.
+
+### 12.1 next-gen-js-summary.pdf.pdf
+### 13. JS Array Functions.html
+Not really next-gen JavaScript, but also important: JavaScript array functions like map() , filter() , reduce()  etc.
+
+You'll see me use them quite a bit since a lot of React concepts rely on working with arrays (in immutable ways).
+
+The following page gives a good overview over the various methods you can use on the array prototype - feel free to click through them and refresh your knowledge as required: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+Particularly important in this course are:
+
+map()  => https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
+find()  => https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
+findIndex()  => https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex
+filter()  => https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+reduce()  => https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce?v=b
+concat()  => https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat?v=b
+slice()  => https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice
+splice()  => https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
+
+## 3. Understanding the Base Features & Syntax
+### 1. Module Introduction
+### 2. The Build Workflow
+![](./root/img/2020-01-19-16-31-14.png)
+### 3. Using Create React App
+
+```ts
+npm install -g create-react-app
+create-react-app my-app
+cd my-app
+npm start
+```
+
+Doi port tai file package.json
+Default la 3000
+
+```json
+ "scripts": {
+     // Add
+    "start": "set port=4200 && react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+```
+### 4. Understanding the Folder Structure
+### 4.1 ide-setup.pdf.pdf
+**Editor / IDE Setup**
+My Setup
+In this course, I use Microsoﬞ Visual Studio Code which is a great free-to-use Web Development IDE.
+It’s a different IDE than Microsoﬞ Visual Studio - don’t mix them up. The laמּer is NOT free and also not as suited for JavaScript Web Development as Visual
+Studio Code is.
+If you just installed VS Code, it’s going to look different than in my videos. That’s because I’m using a different theme and icons. In general, you can install a lot
+of free extensions for VS Code to customise it to your needs and requirements (both visually as well as from the functionality offered).
+• Theme: Dark+ (default theme, no extension required)
+• Icons: Material Icons (extension: hמּps://marketplace.visualstudio.com/
+items?itemName=PKief.material-icon-theme)
+Feel free to browse the extension marketplace for more useful extensions!
+**Alternatives**
+If you don’t want to use VS Code but also don’t have you favourite IDE/ editor,
+here are the common alternatives:
+• Webstorm: hמּps://www.jetbrains.com/webstorm/ (not free)
+• Sublime Text: hמּps://www.sublimetext.com/ (free unlimited trial)
+• Atom: hמּps://atom.io/ (free)
+### 5. Understanding Component Basics
+### 5.1 components-learning-card.pdf.pdf
+### 6. Understanding JSX
+### 7. JSX Restrictions
+### 8. Creating a Functional Component
+### 9. Components & JSX Cheat Sheet.html
+### 9.1 components.pdf.pdf
+### 10. Working with Components & Re-Using Them
+### 11. Outputting Dynamic Content
+### 12. Working with Props
+### 12.1 props-learning-card.pdf.pdf
+### 13. Understanding the Children Property
+### 14. Understanding & Using State
+### 15. Props & State.html
+### 15.1 props&state.pdf.pdf
+### 16. Handling Events with Methods
+### 17. To Which Events Can You Listen.html
+### 18. Manipulating the State
+### 18.1 state-learning-card.pdf.pdf
+### 19. Function Components Naming.html
+### 20. Using the useState() Hook for State Manipulation
+### 20.3 usestate-learning-card.pdf.pdf
+### 21. Stateless vs Stateful Components
+### 22. Passing Method References Between Components
+### 23. Adding Two Way Binding
+### 24. Adding Styling with Stylesheets
+### 25. Working with Inline Styles
+### 26. Time to Practice - The Base Syntax.html
+### 27. [OPTIONAL] Assignment Solution
+### 28. Useful Resources & Links.html
+
+## 4. Working with Lists and Conditionals
+### 1. Module Introduction
+### 10. Wrap Up
+### 11. Time to Practice - Lists & Conditionals.html
+### 12. [OPTIONAL] Assignment Solution
+### 13. Useful Resources & Links.html
+### 2. Rendering Content Conditionally
+### 2.1 jsx-conditionals-learning-card.pdf.pdf
+### 3. Handling Dynamic Content The JavaScript Way
+### 4. Outputting Lists (Intro)
+### 5. Outputting Lists
+### 5.1 jsx-lists-learning-card.pdf.pdf
+### 6. Lists & State
+### 7. Updating State Immutably
+### 8. Lists & Keys
+### 9. Flexible Lists
+## 5. Styling React Components & Elements
+### 1. Module Introduction
+### 10. Adding Pseudo Selectors
+### 11. Working with Media Queries
+### 12. Useful Resources & Links.html
+### 2. Outlining the Problem Set
+### 3. Setting Styles Dynamically
+### 4. Setting Class Names Dynamically
+### 5. Adding and Using Radium
+### 6. Using Radium for Media Queries
+### 7. MUST READ Enabling CSS Modules.html
+### 8. Enabling & Using CSS Modules
+### 8.1 css-modules-learning-card.pdf.pdf
+### 9. More on CSS Modules.html
+## 6. Debugging React Apps
+### 1. Module Introduction
+### 2. Understanding Error Messages
+### 3. Finding Logical Errors by using Dev Tools & Sourcemaps
+### 4. Working with the React Developer Tools
+### 5. Using Error Boundaries (React 16+)
+### 6. Wrap Up
+### 7. Useful Resources & Links.html
+## 7. Diving Deeper into Components & React Internals
+### 1. Module Introduction
+### 10. Using useEffect() in Functional Components
+### 11. Controlling the useEffect() Behavior
+### 12. Cleaning up with Lifecycle Hooks & useEffect()
+### 13. Cleanup Work with useEffect() - Ex
+### 14. Using shouldComponentUpdate for Optimization
+### 14.1 Reference vs Primitive Types.html
+### 15. Optimizing Functional Components with React.memo()
+### 16. When should you optimize
+### 17. PureComponents instead of shouldComponentUpdate
+### 18. How React Updates the DOM
+### 19. Rendering Adjacent JSX Elements
+### 19.1 react-adjacent-jsx.pdf.pdf
+### 2. A Better Project Structure
+### 20. Windows Users Must Read.html
+### 21. Using React.Fragment
+### 22. Higher Order Components (HOC) - Introduction
+### 23. Another Form of HOCs
+### 24. Passing Unknown Props
+### 25. Setting State Correctly
+### 26. Using PropTypes
+### 27. Using Refs
+### 28. Refs with React Hooks
+### 29. Understanding Prop Chain Problems
+### 3. Splitting an App Into Components
+### 30. Using the Context API
+### 31. contextType & useContext()
+### 32. Wrap Up
+### 33. Useful Resources & Links.html
+### 34. MUST READ Legacy Lectures.html
+### 35. [LEGACY] Splitting an App Into Components
+### 36. [LEGACY] Comparing Stateless and Stateful Components
+### 37. [LEGACY] Understanding the Component Lifecycle
+### 38. [LEGACY] Converting Stateless to Stateful Components
+### 39. [LEGACY] Component Creation Lifecycle in Action
+### 39.1 lifecycle-creation-learning-card.pdf.pdf
+### 4. Comparing Stateless and Stateful Components
+### 40. [LEGACY] componentWillUnmount().html
+### 41. [LEGACY] Component Updating Lifecycle Hooks
+### 42. [LEGACY] Component Updating Lifecycle in Action
+### 42.1 lifecycle-update-external-learning-card.pdf.pdf
+### 43. [LEGACY] Updating Lifecycle Hooks (Triggered by State Changes)
+### 43.1 lifecycle-update-internal-learning-card.pdf.pdf
+### 44. [LEGACY] Performance Gains with PureComponents
+### 45. [LEGACY] How React Updates the App & Component Tree
+### 46. [LEGACY] Understanding React's DOM Updating Strategy
+### 47. [LEGACY] Windows Users Must Read - File Downloads.html
+### 48. [LEGACY] Returning Adjacent Elements (React 16+)
+### 49. [LEGACY] React 16.2 Feature Fragments.html
+### 5. Class-based vs Functional Components
+### 50. [LEGACY] Understanding Higher Order Components (HOCs)
+### 51. [LEGACY] A Different Approach to HOCs
+### 52. [LEGACY] Passing Unknown Props
+### 53. [LEGACY] Using setState Correctly
+### 54. [LEGACY] Validating Props
+### 55. [LEGACY] Available PropTypes.html
+### 56. [LEGACY] Using References (ref)
+### 57. [LEGACY] More on the React ref API (16.3)
+### 58. [LEGACY] The Context API (React 16.3)
+### 59. [LEGACY] More on the Context API (16.6)
+### 6. class Component Lifecycle Overview
+### 60. [LEGACY] Updated Lifecycle Hooks (React 16.3)
+### 61. [LEGACY] The memo Method (16.4)
+### 62. [LEGACY] Wrap Up
+### 63. [LEGACY] Useful Resources & Links.html
+### 7. Component Creation Lifecycle in Action
+### 7.1 lifecycle-creation-learning-card.pdf.pdf
+### 8. Component Update Lifecycle (for props Changes)
+### 8.1 lifecycle-update-external-learning-card.pdf.pdf
+### 9. Component Update Lifecycle (for state Changes)
+## 8. A Real App The Burger Builder (Basic Version)
+### 1. About React Hooks.html
+### 10. Adding Prop Type Validation
+### 11. Starting the Burger Component
+### 12. Outputting Burger Ingredients Dynamically
+### 13. Calculating the Ingredient Sum Dynamically
+### 14. Adding the Build Control Component
+### 15. Outputting Multiple Build Controls
+### 16. Connecting State to Build Controls
+### 17. Removing Ingredients Safely
+### 18. Displaying and Updating the Burger Price
+### 19. Adding the Order Button
+### 2. Module Introduction
+### 20. Creating the Order Summary Modal
+### 21. Showing & Hiding the Modal (with Animation!)
+### 22. Implementing the Backdrop Component
+### 23. Adding a Custom Button Component
+### 24. Implementing the Button Component
+### 25. Adding the Price to the Order Summary
+### 26. Adding a Toolbar
+### 27. Using a Logo in our Application
+### 28. Adding Reusable Navigation Items
+### 29. Creating a Responsive Sidedrawer
+### 3. Planning an App in React - Core Steps
+### 30. Working on Responsive Adjustments
+### 31. More about Responsive Adjustments
+### 32. Reusing the Backdrop
+### 33. Adding a Sidedrawer Toggle Button
+### 34. Adding a Hamburger Icon
+### 35. Improving the App - Introduction
+### 36. Prop Type Validation
+### 37. Improving Performance
+### 38. Using Component Lifecycle Methods
+### 39. Changing the Folder Structure
+### 4. Planning our App - Layout and Component Tree
+### 40. Wrap Up
+### 41. Useful Resources & Links.html
+### 5. Planning the State
+### 6. Setting up the Project
+### 7. Creating a Layout Component
+### 8. Starting Implementation of The Burger Builder Container
+### 9. Adding a Dynamic Ingredient Component
+## 9. Reaching out to the Web (Http  Ajax)
+### 1. Module Introduction
+### 10. Sending a DELETE Request
+### 11. Fixing a Bug
+### 12. Handling Errors Locally
+### 13. Adding Interceptors to Execute Code Globally
+### 14. Removing Interceptors.html
+### 15. Setting a Default Global Configuration for Axios
+### 16. Creating and Using Axios Instances
+### 17. Wrap Up
+### 18. Useful Resources & Links.html
+### 2. Understanding Http Requests in React
+### 3. Understanding our Project and Introducing Axios
+### 4. Creating a Http Request to GET Data
+### 5. Rendering Fetched Data to the Screen
+### 6. Transforming Data
+### 7. Making a Post Selectable
+### 8. Fetching Data on Update (without Creating Infinite Loops)
+### 9. POSTing Data to the Server
+
 ## 10. Burger Builder Project Accessing a Server
 ### 1. Module Introduction
 ### 10. Useful Resources & Links.html
@@ -204,21 +750,7 @@ React is a js library for building user interface (include many Components)
 ### 7. Adding Lazy Loading
 ### 8. Wrap Up
 ### 9. Useful Resources & Links.html
-## 2. Refreshing Next Generation JavaScript (Optional)
-### 1. Module Introduction
-### 10. Refreshing Array Functions
-### 11. Wrap Up
-### 12. Next-Gen JavaScript - Summary.html
-### 12.1 next-gen-js-summary.pdf.pdf
-### 13. JS Array Functions.html
-### 2. Understanding let and const
-### 3. Arrow Functions
-### 4. Exports and Imports
-### 5. Understanding Classes
-### 6. Classes, Properties and Methods
-### 7. The Spread & Rest Operator
-### 8. Destructuring
-### 9. Reference and Primitive Types Refresher
+
 ## 20. Testing
 ### 1. Module Introduction
 ### 10. How to Test Redux
@@ -355,209 +887,4 @@ React is a js library for building user interface (include many Components)
 ### 7. Smaller Apps with Preact
 ### 8. Comparing React with Preact
 ### 9. Congratulations
-## 3. Understanding the Base Features & Syntax
-### 1. Module Introduction
-### 10. Working with Components & Re-Using Them
-### 11. Outputting Dynamic Content
-### 12. Working with Props
-### 12.1 props-learning-card.pdf.pdf
-### 13. Understanding the Children Property
-### 14. Understanding & Using State
-### 15. Props & State.html
-### 15.1 props&state.pdf.pdf
-### 16. Handling Events with Methods
-### 17. To Which Events Can You Listen.html
-### 18. Manipulating the State
-### 18.1 state-learning-card.pdf.pdf
-### 19. Function Components Naming.html
-### 2. The Build Workflow
-### 20. Using the useState() Hook for State Manipulation
-### 20.3 usestate-learning-card.pdf.pdf
-### 21. Stateless vs Stateful Components
-### 22. Passing Method References Between Components
-### 23. Adding Two Way Binding
-### 24. Adding Styling with Stylesheets
-### 25. Working with Inline Styles
-### 26. Time to Practice - The Base Syntax.html
-### 27. [OPTIONAL] Assignment Solution
-### 28. Useful Resources & Links.html
-### 3. Using Create React App
-### 4. Understanding the Folder Structure
-### 4.1 ide-setup.pdf.pdf
-### 5. Understanding Component Basics
-### 5.1 components-learning-card.pdf.pdf
-### 6. Understanding JSX
-### 7. JSX Restrictions
-### 8. Creating a Functional Component
-### 9. Components & JSX Cheat Sheet.html
-### 9.1 components.pdf.pdf
-## 4. Working with Lists and Conditionals
-### 1. Module Introduction
-### 10. Wrap Up
-### 11. Time to Practice - Lists & Conditionals.html
-### 12. [OPTIONAL] Assignment Solution
-### 13. Useful Resources & Links.html
-### 2. Rendering Content Conditionally
-### 2.1 jsx-conditionals-learning-card.pdf.pdf
-### 3. Handling Dynamic Content The JavaScript Way
-### 4. Outputting Lists (Intro)
-### 5. Outputting Lists
-### 5.1 jsx-lists-learning-card.pdf.pdf
-### 6. Lists & State
-### 7. Updating State Immutably
-### 8. Lists & Keys
-### 9. Flexible Lists
-## 5. Styling React Components & Elements
-### 1. Module Introduction
-### 10. Adding Pseudo Selectors
-### 11. Working with Media Queries
-### 12. Useful Resources & Links.html
-### 2. Outlining the Problem Set
-### 3. Setting Styles Dynamically
-### 4. Setting Class Names Dynamically
-### 5. Adding and Using Radium
-### 6. Using Radium for Media Queries
-### 7. MUST READ Enabling CSS Modules.html
-### 8. Enabling & Using CSS Modules
-### 8.1 css-modules-learning-card.pdf.pdf
-### 9. More on CSS Modules.html
-## 6. Debugging React Apps
-### 1. Module Introduction
-### 2. Understanding Error Messages
-### 3. Finding Logical Errors by using Dev Tools & Sourcemaps
-### 4. Working with the React Developer Tools
-### 5. Using Error Boundaries (React 16+)
-### 6. Wrap Up
-### 7. Useful Resources & Links.html
-## 7. Diving Deeper into Components & React Internals
-### 1. Module Introduction
-### 10. Using useEffect() in Functional Components
-### 11. Controlling the useEffect() Behavior
-### 12. Cleaning up with Lifecycle Hooks & useEffect()
-### 13. Cleanup Work with useEffect() - Ex
-### 14. Using shouldComponentUpdate for Optimization
-### 14.1 Reference vs Primitive Types.html
-### 15. Optimizing Functional Components with React.memo()
-### 16. When should you optimize
-### 17. PureComponents instead of shouldComponentUpdate
-### 18. How React Updates the DOM
-### 19. Rendering Adjacent JSX Elements
-### 19.1 react-adjacent-jsx.pdf.pdf
-### 2. A Better Project Structure
-### 20. Windows Users Must Read.html
-### 21. Using React.Fragment
-### 22. Higher Order Components (HOC) - Introduction
-### 23. Another Form of HOCs
-### 24. Passing Unknown Props
-### 25. Setting State Correctly
-### 26. Using PropTypes
-### 27. Using Refs
-### 28. Refs with React Hooks
-### 29. Understanding Prop Chain Problems
-### 3. Splitting an App Into Components
-### 30. Using the Context API
-### 31. contextType & useContext()
-### 32. Wrap Up
-### 33. Useful Resources & Links.html
-### 34. MUST READ Legacy Lectures.html
-### 35. [LEGACY] Splitting an App Into Components
-### 36. [LEGACY] Comparing Stateless and Stateful Components
-### 37. [LEGACY] Understanding the Component Lifecycle
-### 38. [LEGACY] Converting Stateless to Stateful Components
-### 39. [LEGACY] Component Creation Lifecycle in Action
-### 39.1 lifecycle-creation-learning-card.pdf.pdf
-### 4. Comparing Stateless and Stateful Components
-### 40. [LEGACY] componentWillUnmount().html
-### 41. [LEGACY] Component Updating Lifecycle Hooks
-### 42. [LEGACY] Component Updating Lifecycle in Action
-### 42.1 lifecycle-update-external-learning-card.pdf.pdf
-### 43. [LEGACY] Updating Lifecycle Hooks (Triggered by State Changes)
-### 43.1 lifecycle-update-internal-learning-card.pdf.pdf
-### 44. [LEGACY] Performance Gains with PureComponents
-### 45. [LEGACY] How React Updates the App & Component Tree
-### 46. [LEGACY] Understanding React's DOM Updating Strategy
-### 47. [LEGACY] Windows Users Must Read - File Downloads.html
-### 48. [LEGACY] Returning Adjacent Elements (React 16+)
-### 49. [LEGACY] React 16.2 Feature Fragments.html
-### 5. Class-based vs Functional Components
-### 50. [LEGACY] Understanding Higher Order Components (HOCs)
-### 51. [LEGACY] A Different Approach to HOCs
-### 52. [LEGACY] Passing Unknown Props
-### 53. [LEGACY] Using setState Correctly
-### 54. [LEGACY] Validating Props
-### 55. [LEGACY] Available PropTypes.html
-### 56. [LEGACY] Using References (ref)
-### 57. [LEGACY] More on the React ref API (16.3)
-### 58. [LEGACY] The Context API (React 16.3)
-### 59. [LEGACY] More on the Context API (16.6)
-### 6. class Component Lifecycle Overview
-### 60. [LEGACY] Updated Lifecycle Hooks (React 16.3)
-### 61. [LEGACY] The memo Method (16.4)
-### 62. [LEGACY] Wrap Up
-### 63. [LEGACY] Useful Resources & Links.html
-### 7. Component Creation Lifecycle in Action
-### 7.1 lifecycle-creation-learning-card.pdf.pdf
-### 8. Component Update Lifecycle (for props Changes)
-### 8.1 lifecycle-update-external-learning-card.pdf.pdf
-### 9. Component Update Lifecycle (for state Changes)
-## 8. A Real App The Burger Builder (Basic Version)
-### 1. About React Hooks.html
-### 10. Adding Prop Type Validation
-### 11. Starting the Burger Component
-### 12. Outputting Burger Ingredients Dynamically
-### 13. Calculating the Ingredient Sum Dynamically
-### 14. Adding the Build Control Component
-### 15. Outputting Multiple Build Controls
-### 16. Connecting State to Build Controls
-### 17. Removing Ingredients Safely
-### 18. Displaying and Updating the Burger Price
-### 19. Adding the Order Button
-### 2. Module Introduction
-### 20. Creating the Order Summary Modal
-### 21. Showing & Hiding the Modal (with Animation!)
-### 22. Implementing the Backdrop Component
-### 23. Adding a Custom Button Component
-### 24. Implementing the Button Component
-### 25. Adding the Price to the Order Summary
-### 26. Adding a Toolbar
-### 27. Using a Logo in our Application
-### 28. Adding Reusable Navigation Items
-### 29. Creating a Responsive Sidedrawer
-### 3. Planning an App in React - Core Steps
-### 30. Working on Responsive Adjustments
-### 31. More about Responsive Adjustments
-### 32. Reusing the Backdrop
-### 33. Adding a Sidedrawer Toggle Button
-### 34. Adding a Hamburger Icon
-### 35. Improving the App - Introduction
-### 36. Prop Type Validation
-### 37. Improving Performance
-### 38. Using Component Lifecycle Methods
-### 39. Changing the Folder Structure
-### 4. Planning our App - Layout and Component Tree
-### 40. Wrap Up
-### 41. Useful Resources & Links.html
-### 5. Planning the State
-### 6. Setting up the Project
-### 7. Creating a Layout Component
-### 8. Starting Implementation of The Burger Builder Container
-### 9. Adding a Dynamic Ingredient Component
-## 9. Reaching out to the Web (Http  Ajax)
-### 1. Module Introduction
-### 10. Sending a DELETE Request
-### 11. Fixing a Bug
-### 12. Handling Errors Locally
-### 13. Adding Interceptors to Execute Code Globally
-### 14. Removing Interceptors.html
-### 15. Setting a Default Global Configuration for Axios
-### 16. Creating and Using Axios Instances
-### 17. Wrap Up
-### 18. Useful Resources & Links.html
-### 2. Understanding Http Requests in React
-### 3. Understanding our Project and Introducing Axios
-### 4. Creating a Http Request to GET Data
-### 5. Rendering Fetched Data to the Screen
-### 6. Transforming Data
-### 7. Making a Post Selectable
-### 8. Fetching Data on Update (without Creating Infinite Loops)
-### 9. POSTing Data to the Server
+
