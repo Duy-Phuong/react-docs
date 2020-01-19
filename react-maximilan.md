@@ -636,6 +636,7 @@ import "./App.css";
 import Person from "./Person/Person";
 
 const app = props => {
+  // use State always return two elements
   const [personsState, setPersonsState] = useState({
     persons: [
       { name: "Max", age: 28 },
@@ -693,13 +694,131 @@ export default app;
 
 ### 21. Stateless vs Stateful Components
 
+Stateful is a component that manage state
+Stateless is a component that doesn’t manage state
+
 ### 22. Passing Method References Between Components
+
+Click on paragraph => have two way to call func with params(use arrow func is not recommend)
+App.js
+
+```js
+
+  switchNameHandler = (newName) => {
+    // console.log('Was clicked!');
+    // DON'T DO THIS: this.state.persons[0].name = 'Maximilian';
+    this.setState( {
+      persons: [
+        { name: newName, age: 28 },
+        { name: 'Manu', age: 29 },
+        { name: 'Stephanie', age: 27 }
+      ]
+    } )
+  }
+
+  nameChangedHandler = (event) => {
+    this.setState( {
+      persons: [
+        { name: 'Max', age: 28 },
+        { name: event.target.value, age: 29 },
+        { name: 'Stephanie', age: 26 }
+      ]
+    } )
+  }
+
+  render () {
+    return (
+      <div className="App">
+        <h1>Hi, I'm a React App</h1>
+        <p>This is really working!</p>
+        <button onClick={() => this.switchNameHandler('Maximilian!!')}>Switch Name</button>
+        <Person
+          name={this.state.persons[0].name}
+          age={this.state.persons[0].age} />
+        <Person
+          name={this.state.persons[1].name}
+          age={this.state.persons[1].age}
+          click={this.switchNameHandler.bind(this, 'Max!')}
+          changed={this.nameChangedHandler} >My Hobbies: Racing</Person>
+        <Person
+          name={this.state.persons[2].name}
+          age={this.state.persons[2].age} />
+      </div>
+    );
+    // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
+  }
+}
+```
+
+Person.js
+
+```js
+import React from "react";
+
+const person = props => {
+  return (
+    <div>
+      <p onClick={props.click}>
+        I'm {props.name} and I am {props.age} years old!
+      </p>
+      <p>{props.children}</p>
+      <input type="text" onChange={props.changed} value={props.name} />
+    </div>
+  );
+};
+
+export default person;
+```
 
 ### 23. Adding Two Way Binding
 
+person.js
+
+```js
+<input type="text" onChange={props.changed} value={props.name} />
+```
+
+Them value={props.name} moi bi error
+
 ### 24. Adding Styling with Stylesheets
 
+28.3 base-syntax--03-finished.zip
+add person.css
+
+```css
+.Person {
+  width: 60%;
+  margin: 16px auto;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 3px #ccc;
+  padding: 16px;
+  text-align: center;
+}
+```
+
+thanks to webpack you can import css file in js file
+class => className
+
 ### 25. Working with Inline Styles
+
+```js
+render () {
+    const style = {
+      backgroundColor: 'white',
+      font: 'inherit',
+      border: '1px solid blue',
+      padding: '8px',
+      cursor: 'pointer'
+    };
+
+    return (
+      <div className="App">
+        <h1>Hi, I'm a React App</h1>
+        <p>This is really working!</p>
+        <button
+          style={style}
+          onClick={() => this.switchNameHandler('Maximilian!!')}>Switch Name</button>
+```
 
 ### 26. Time to Practice - The Base Syntax.html
 
