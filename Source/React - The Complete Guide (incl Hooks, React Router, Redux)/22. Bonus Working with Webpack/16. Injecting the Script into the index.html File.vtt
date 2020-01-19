@@ -1,0 +1,166 @@
+WEBVTT
+
+00:02.330 --> 00:10.850
+To make our project work and servable by the dev server or later in production, we need to connect
+
+00:10.850 --> 00:16.880
+our index.html file to the output files which are generated, when using the dev server they are only stored
+
+00:16.880 --> 00:22.100
+in memory but they're still generated. We need to install a webpack plugin for that,
+
+00:22.220 --> 00:28.610
+with npm install --save-, save dev, excuse me a lot of dashes, with save-dev, we can
+
+00:28.610 --> 00:33.390
+install the html-webpack-plugin,
+
+00:33.830 --> 00:40.940
+this is a special plugin which allows to connect our html file with our output and webpack will do that
+
+00:41.000 --> 00:47.440
+automatically and inject our bundled script and so on into that html file. In the webpack
+
+00:47.450 --> 00:49.920
+config, we now add plugins,
+
+00:49.920 --> 00:56.720
+it's a new node on the root config level, plugins and it takes an array as an argument or as a value, I should
+
+00:56.720 --> 00:57.340
+say.
+
+00:57.690 --> 01:00.420
+And now first of all we need to install or import
+
+01:00.440 --> 01:04.900
+I should say the html webpack plugin, so I'll create a constant which I'll name
+
+01:04.910 --> 01:08.860
+htmlWebpackPlugin but the name is up to you
+
+01:08.990 --> 01:15.290
+and here I will require html-webpack-plugin, the package we just installed.
+
+01:15.290 --> 01:17.100
+Now in the plugins array,
+
+01:17.180 --> 01:25.190
+I create a new instance of it, new HtmlWebpackPlugin and we pass an object to the constructor where
+
+01:25.190 --> 01:27.280
+we configure this plugin. Here,
+
+01:27.290 --> 01:32.930
+I'll setup a template, so the html file I want to use as a basis and there of course, I want to use
+
+01:32.930 --> 01:43.040
+my html file in the source folder. So I will point to it with dirname and then I'll simply add
+
+01:43.040 --> 01:45.370
+/source/index.html,
+
+01:45.410 --> 01:47.550
+constructing a path to it.
+
+01:47.550 --> 01:50.960
+So now we're pointing to the file we want to use as a template,
+
+01:50.990 --> 01:58.400
+I want to inject my stuff into the body that's extra configuration we can pass to the plugin here and
+
+01:58.430 --> 02:02.890
+the output file, filename should also be index.html,
+
+02:02.930 --> 02:06.780
+that's the file it will eventually generate, again for the server
+
+02:06.890 --> 02:08.150
+only in memory,
+
+02:08.150 --> 02:14.330
+later when we use a different workflow for building this, for production, it will give us the real files we
+
+02:14.330 --> 02:16.310
+could upload to a server.
+
+02:16.340 --> 02:20.040
+So with that added, let's now restart npm start,
+
+02:20.090 --> 02:25.040
+now we should get the connection from webpack to the html file,
+
+02:25.050 --> 02:32.660
+so let's see if that then works. Let's revisit localhost8080 and we do see an empty page
+
+02:32.660 --> 02:35.630
+now at least, we get some errors there though.
+
+02:35.720 --> 02:38.900
+Now these are react errors which is a good sign,
+
+02:38.900 --> 02:46.010
+our application seems to run, it's informing us that we likely forgot to export our component from the
+
+02:46.010 --> 02:48.620
+file it's defined in. Let's check,
+
+02:48.620 --> 02:56.240
+we're exporting the pizzaImage, the pizza class based component and the user component but we never exported
+
+02:56.290 --> 02:56.960
+the app,
+
+02:57.050 --> 03:01.130
+so let's add a default export to the app component,
+
+03:01.130 --> 03:03.620
+that's always the danger in building something
+
+03:03.890 --> 03:05.300
+and now this looks much better,
+
+03:05.300 --> 03:12.920
+we see the users and now it becomes interesting, that's the pizza. We see the pizza and awesome is if we inspect
+
+03:12.920 --> 03:19.730
+the network tab and I go back to users and reload the app, watch the network requests,
+
+03:19.730 --> 03:21.730
+you see that 0.js file?
+
+03:21.740 --> 03:28.100
+That's our lazy loaded javascript file we downloaded, so lazy loading is working here and our react
+
+03:28.100 --> 03:29.740
+application is working,
+
+03:29.840 --> 03:33.450
+the styling also seems to kick in, if we inspect the pizza image
+
+03:33.470 --> 03:40.520
+we see we're using css modules here and we get the styles we setup in our css files.
+
+03:40.520 --> 03:44.330
+Now all I'll do here is a quick and easy fix here on the links,
+
+03:44.330 --> 03:49.800
+I don't like the fact that we don't have a whitespace in front of the second link, let's fix it like that
+
+03:49.820 --> 03:51.080
+but that's purely cosmetic.
+
+03:51.080 --> 03:57.920
+What's important to us is we have a working workflow, a working project setup where we can create
+
+03:57.950 --> 04:02.450
+a react app with the features you learned about in this course.
+
+04:02.450 --> 04:05.900
+Now that's only the development workflow, the development server,
+
+04:06.050 --> 04:11.510
+if we now want to ship this app to a real server, we'll have to do some adjustments to the setup to
+
+04:11.510 --> 04:15.050
+have it prepared and to have it be optimized for production.

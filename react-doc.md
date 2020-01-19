@@ -47,11 +47,11 @@ Default la 3000
 ### Su dung resource template
 
 Bootstrap 3.3.7
-![](../root/img/2019-12-25-23-51-09.png)
+![](./root/img/2019-12-25-23-51-09.png)
 
 downloadva copy 3 folder css, font, js dua vao public
 
-![](../root/img/2019-12-25-23-53-09.png)
+![](./root/img/2019-12-25-23-53-09.png)
 
 https://getbootstrap.com/docs/3.3/getting-started/#download
 
