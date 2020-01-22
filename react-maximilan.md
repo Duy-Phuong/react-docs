@@ -1032,6 +1032,82 @@ changed={(event) => this.nameChangedHandler(event, person.id)}
 
 ### 12. [OPTIONAL] Assignment Solution
 
+App.js
+
+```ts
+<input
+          type="text"
+          onChange={this.inputChangedHandler}
+          value={this.state.userInput} />
+        <p>{this.state.userInput}</p>
+        <Validation inputLength={this.state.userInput.length} />
+```
+
+Validation
+
+```ts
+import React from "react";
+
+const validation = props => {
+  let validationMessage = "Text long enough";
+
+  if (props.inputLength <= 5) {
+    validationMessage = "Text too short";
+  }
+
+  return (
+    <div>
+      <p>{validationMessage}</p>
+    </div>
+  );
+};
+
+export default validation;
+```
+
+Char.js
+
+```js
+import React from "react";
+
+const char = props => {
+  const style = {
+    display: "inline-block",
+    padding: "16px",
+    margin: "16px",
+    border: "1px solid black",
+    textAlign: "center"
+  };
+
+  return (
+    <div style={style} onClick={props.clicked}>
+      {props.character}
+    </div>
+  );
+};
+
+export default char;
+```
+
+App.js
+
+```js
+  deleteCharHandler = ( index ) => {
+    const text = this.state.userInput.split('');
+    text.splice(index, 1);
+    const updatedText = text.join('');
+    this.setState({userInput: updatedText});
+  }
+
+render () {
+    const charList = this.state.userInput.split('').map((ch, index) => {
+      return <Char
+        character={ch}
+        key={index}
+        clicked={() => this.deleteCharHandler(index)} />;
+    });
+```
+
 ### 13. Useful Resources & Links.html
 
 Conditional Rendering: https://reactjs.org/docs/conditional-rendering.html
