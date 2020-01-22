@@ -1223,6 +1223,32 @@ export default Radium(person);
 
 ### 6. Using Radium for Media Queries
 
+Peson
+
+```ts
+
+const person = ( props ) => {
+    const style = {
+        '@media (min-width: 500px)': {
+            width: '450px'
+        }
+    };
+    return (
+        <div className="Person" style={style}>
+```
+
+Person.css
+
+```css
+/* @media (min-width: 500px) {
+    .Person {
+        width: 450px;
+    }
+} */
+```
+
+wrap by StyleRoot
+
 ### 7. MUST READ Enabling CSS Modules.html
 
 Don't skip this lecture - and keep it open in a separate browser tab when you go through the next lecture - sorry for the small inconvenience at this point!
@@ -1270,6 +1296,116 @@ You can ignore me editing the webpack.config.prod.js file - with the latest vers
 Alternatively, you can now also use CSS modules without ejecting (you still can though, it won't be a problem). In a non-ejected project created with create-react-app, you can use CSS modules as described here: https://facebook.github.io/create-react-app/docs/adding-a-css-modules-stylesheet
 
 ### 8. Enabling & Using CSS Modules
+
+Remove Radium in Person
+
+```js
+import React from "react";
+
+import classes from "./Person.css";
+
+const person = props => {
+  return (
+    <div className={classes.Person}>
+      <p onClick={props.click}>
+        I'm {props.name} and I am {props.age} years old!
+      </p>
+      <p>{props.children}</p>
+      <input type="text" onChange={props.changed} value={props.name} />
+    </div>
+  );
+};
+
+export default person;
+```
+
+Person.css
+
+```css
+@media (min-width: 500px) {
+  .Person {
+    width: 450px;
+  }
+}
+```
+
+Xoa Radium in App.js
+
+- Remove Radium and style
+- `npm eject` => sinh ra 2 folder scripts and config
+
+In the video, I'll look for an entry that starts like this (in the webpack.config.js file):
+{
+test: /\.css\$/,
+...
+}
+and I then edit this entry.
+
+O duoi phan options:
+File webpack.config.dev.js
+
+```js
+      importLoaders: 1,
+      modules: true,
+      localIdentName: '[name]__[local]__[hash:base64:5]'
+
+```
+
+File webpack.config.prod.js
+
+```js
+      importLoaders: 1,
+      modules: true,
+      localIdentName: '[name]__[local]__[hash:base64:5]',
+      minimize: true,
+      sourceMap: shouldUseShouldMap
+```
+
+App.css
+
+```css
+.App {
+  text-align: center;
+}
+
+.red {
+  color: red;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.App button {
+  border: 1px solid blue;
+  padding: 16px;
+  background-color: green;
+  font: inherit;
+  color: white;
+  cursor: pointer;
+}
+
+.App button:hover {
+  background-color: lightgreen;
+  color: black;
+}
+
+.App button.Red {
+  background-color: red;
+}
+
+.App button.Red:hover {
+  background-color: salmon;
+  color: black;
+}
+```
+
+App.js
+
+```js
+// add
+import classes from "./App.css";
+```
 
 ### 8.1 css-modules-learning-card.pdf.pdf
 
