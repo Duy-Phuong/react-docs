@@ -830,14 +830,6 @@ render () {
 
 ### 1. Module Introduction
 
-### 10. Wrap Up
-
-### 11. Time to Practice - Lists & Conditionals.html
-
-### 12. [OPTIONAL] Assignment Solution
-
-### 13. Useful Resources & Links.html
-
 ### 2. Rendering Content Conditionally
 
 Them thuoc tinh showPersons: false
@@ -896,6 +888,7 @@ class App extends Component {
       cursor: "pointer"
     };
 
+    //  ### 3. Handling Dynamic Content The JavaScript Way
     let persons = null;
 
     if (this.state.showPersons) {
@@ -951,15 +944,98 @@ this.state.showPersons === true ? html code : null
 
 ### 5. Outputting Lists
 
+```js
+if (this.state.showPersons) {
+  persons = (
+    <div>
+      {this.state.persons.map((person, index) => {
+        return (
+          <Person
+            click={() => this.deletePersonHandler(index)}
+            name={person.name}
+            age={person.age}
+            key={person.id}
+            changed={event => this.nameChangedHandler(event, person.id)}
+          />
+        );
+      })}
+    </div>
+  );
+}
+```
+
 ### 5.1 jsx-lists-learning-card.pdf.pdf
+
+![](./root/img/2020-01-20-09-37-08.png)
 
 ### 6. Lists & State
 
+```js
+deletePersonHandler = personIndex => {
+  // const persons = this.state.persons.slice();
+  const persons = [...this.state.persons];
+  persons.splice(personIndex, 1);
+  this.setState({ persons: persons });
+};
+```
+
+const persons = this.state.persons => Xoa k chinh xac
+person is an reference object so you can change value of it when using const
+
 ### 7. Updating State Immutably
+
+use `this.state.persons.slice();` to copy
 
 ### 8. Lists & Keys
 
+```js
+state = {
+  persons: [
+    { id: "asfa1", name: "Max", age: 28 },
+    { id: "vasdf1", name: "Manu", age: 29 },
+    { id: "asdf11", name: "Stephanie", age: 26 }
+  ],
+  otherState: "some other value",
+  showPersons: false
+};
+```
+
 ### 9. Flexible Lists
+
+```js
+nameChangedHandler = (event, id) => {
+  const personIndex = this.state.persons.findIndex(p => {
+    return p.id === id;
+  });
+
+  const person = {
+    ...this.state.persons[personIndex]
+  };
+
+  // const person = Object.assign({}, this.state.persons[personIndex]);
+
+  person.name = event.target.value;
+
+  const persons = [...this.state.persons];
+  persons[personIndex] = person;
+
+  this.setState({ persons: persons });
+};
+```
+
+Call
+changed={(event) => this.nameChangedHandler(event, person.id)}
+
+### 10. Wrap Up
+
+### 11. Time to Practice - Lists & Conditionals.html
+
+### 12. [OPTIONAL] Assignment Solution
+
+### 13. Useful Resources & Links.html
+
+Conditional Rendering: https://reactjs.org/docs/conditional-rendering.html
+Lists & Keys: https://reactjs.org/docs/lists-and-keys.html
 
 ## 5. Styling React Components & Elements
 
