@@ -1405,6 +1405,26 @@ App.js
 ```js
 // add
 import classes from "./App.css";
+
+const assignedClasses = [];
+if (this.state.persons.length <= 2) {
+  assignedClasses.push(classes.red); // classes = ['red']
+}
+if (this.state.persons.length <= 1) {
+  assignedClasses.push(classes.bold); // classes = ['red', 'bold']
+}
+
+return (
+  <div className={classes.App}>
+    <h1>Hi, I'm a React App</h1>
+    <p className={assignedClasses.join(" ")}>This is really working!</p>
+    <button className={btnClass} onClick={this.togglePersonsHandler}>
+      Toggle Persons
+    </button>
+    {persons}
+  </div>
+);
+// return        <div className={classes.App}>
 ```
 
 ### 8.1 css-modules-learning-card.pdf.pdf
@@ -1413,11 +1433,49 @@ import classes from "./App.css";
 
 ### 9. More on CSS Modules.html
 
+CSS Modules are a relatively new concept (you can dive super-deep into them here: https://github.com/css-modules/css-modules). With CSS modules, you can write normal CSS code and make sure, that it only applies to a given component.
+
+It's not using magic for that, instead it'll simply automatically generate unique CSS class names for you. And by importing a JS object and assigning classes from there, you use these dynamically generated, unique names. So the imported JS object simply exposes some properties which hold the generated CSS class names as values.
+
+Example:
+
+In Post.css File
+
+.Post {
+color: red;
+}
+In Post Component File
+
+```js
+import classes from "./Post.css";
+
+const post = () => <div className={classes.Post}>...</div>;
+```
+
+Here, classes.Post refers to an automatically generated Post property on the imported classes object. That property will in the end simply hold a value like `Post__Post__ah5_1` .
+
+So your .Post class was automatically transformed to a different class (`Post__Post__ah5_1` ) which is unique across the application. You also can't use it accidentally in other components because you don't know the generated string! You can only access it through the classes object. And if you import the CSS file (in the same way) in another component, the classes object there will hold a Post property which yields a different (!) CSS class name. Hence it's scoped to a given component.
+
+By the way, if you somehow also want to define a global (i.e. un-transformed) CSS class in such a .css file, you can prefix the selector with :global .
+
+Example:
+
+:global .Post { ... }
+
+Now you can use className="Post" anywhere in your app and receive that styling.
+
 ### 10. Adding Pseudo Selectors
+
+className={btnClass}
 
 ### 11. Working with Media Queries
 
+Sua file Person.css
+
 ### 12. Useful Resources & Links.html
+
+Using CSS Modules in create-react-app Projects: https://medium.com/nulogy/how-to-use-css-modules-with-create-react-app-9e44bec2b5c2
+More information about CSS Modules: https://github.com/css-modules/css-modules
 
 ## 6. Debugging React Apps
 
@@ -1431,6 +1489,53 @@ import classes from "./App.css";
 
 ### 5. Using Error Boundaries (React 16+)
 
+Person.js
+
+```js
+const person = ( props ) => {
+    const rnd = Math.random();
+
+    if ( rnd > 0.7 ) {
+        throw new Error( 'Something went wrong' );
+    }
+```
+
+ErrorBoundary
+
+```js
+import React, { Component } from "react";
+
+class ErrorBoundary extends Component {
+  state = {
+    hasError: false,
+    errorMessage: ""
+  };
+
+  componentDidCatch = (error, info) => {
+    this.setState({ hasError: true, errorMessage: error });
+  };
+
+  render() {
+    if (this.state.hasError) {
+      return <h1>{this.state.errorMessage}</h1>;
+    } else {
+      return this.props.children;
+    }
+  }
+}
+
+export default ErrorBoundary;
+```
+App.js
+```js
+ return <ErrorBoundary key={person.id}>
+              <Person
+                click={() => this.deletePersonHandler( index )}
+                name={person.name}
+                age={person.age}
+                changed={( event ) => this.nameChangedHandler( event, person.id )} />
+            </ ErrorBoundary>
+```
 ### 6. Wrap Up
 
 ### 7. Useful Resources & Links.html
