@@ -1117,29 +1117,171 @@ Lists & Keys: https://reactjs.org/docs/lists-and-keys.html
 
 ### 1. Module Introduction
 
-### 10. Adding Pseudo Selectors
-
-### 11. Working with Media Queries
-
-### 12. Useful Resources & Links.html
-
 ### 2. Outlining the Problem Set
 
 ### 3. Setting Styles Dynamically
 
+```ts
+
+  render () {
+    const style = {
+      backgroundColor: 'green',
+      color: 'white', // ADD
+      font: 'inherit',
+      border: '1px solid blue',
+      padding: '8px',
+      cursor: 'pointer',
+      ':hover': {
+        backgroundColor: 'lightgreen',
+        color: 'black'
+      }
+    };
+
+    let persons = null;
+
+    if ( this.state.showPersons ) {
+      persons = (
+        <div>
+          {this.state.persons.map( ( person, index ) => {
+            return <Person
+              click={() => this.deletePersonHandler( index )}
+              name={person.name}
+              age={person.age}
+              key={person.id}
+              changed={( event ) => this.nameChangedHandler( event, person.id )} />
+          } )}
+        </div>
+      );
+
+// Add
+      style.backgroundColor = 'red';
+      style[':hover'] = {
+        backgroundColor: 'salmon',
+        color: 'black'
+      };
+    }
+
+```
+
 ### 4. Setting Class Names Dynamically
 
+```ts
+const classes = [];
+if (this.state.persons.length <= 2) {
+  classes.push("red"); // classes = ['red']
+}
+if (this.state.persons.length <= 1) {
+  classes.push("bold"); // classes = ['red', 'bold']
+}
+
+// html
+<p className={classes.join(" ")}>This is really working!</p>;
+```
+
 ### 5. Adding and Using Radium
+
+```ts
+// allow inline style and pseudo selector
+npm install --save radium
+```
+
+App.js
+
+```ts
+import Radium, { StyleRoot } from "radium";
+
+export default Radium(App);
+```
+
+Person.js
+
+```js
+import React from "react";
+import Radium from "radium";
+
+import "./Person.css";
+
+const person = props => {
+  const style = {
+    "@media (min-width: 500px)": {
+      width: "450px"
+    }
+  };
+  return (
+    <div className="Person" style={style}>
+      <p onClick={props.click}>
+        I'm {props.name} and I am {props.age} years old!
+      </p>
+      <p>{props.children}</p>
+      <input type="text" onChange={props.changed} value={props.name} />
+    </div>
+  );
+};
+
+export default Radium(person);
+```
 
 ### 6. Using Radium for Media Queries
 
 ### 7. MUST READ Enabling CSS Modules.html
 
+Don't skip this lecture - and keep it open in a separate browser tab when you go through the next lecture - sorry for the small inconvenience at this point!
+
+In the next lecture, we'll use a styling solution named "CSS modules". I'll explain what it is and how it works over the next lectures.
+
+The way we unlock it changed a little bit though.
+
+In the next lecture, we'll eject from the project created with create-react-app (I'll show how that is done in the next lecture and that process will be exactly the same).
+
+We'll then replace some code in a newly added webpack config file (it'll be available after ejecting).
+
+In the video, I'll look for an entry that starts like this (in the webpack.config.js file):
+
+{
+test: /\.css\$/,
+...
+}
+and I then edit this entry.
+
+This entry now looks slightly different. You'll have to find the following part in your webpack.config.js file:
+
+{
+test: cssRegex,
+exclude: cssModuleRegex,
+...
+}
+and then edit that entry.
+
+Finally, it should look like this:
+
+{
+test: cssRegex,
+exclude: cssModuleRegex,
+use: getStyleLoaders({
+importLoaders: 1,
+modules: true,
+localIdentName: '[name]**[local]**[hash:base64:5]'
+}),
+}
+You can ignore me editing the webpack.config.prod.js file - with the latest version of create-react-app, ejecting only gives you ONE webpack config file (which you edit as described above).
+
+---
+
+Alternatively, you can now also use CSS modules without ejecting (you still can though, it won't be a problem). In a non-ejected project created with create-react-app, you can use CSS modules as described here: https://facebook.github.io/create-react-app/docs/adding-a-css-modules-stylesheet
+
 ### 8. Enabling & Using CSS Modules
 
 ### 8.1 css-modules-learning-card.pdf.pdf
 
+![](./root/img/2020-01-22-10-10-01.png)
+
 ### 9. More on CSS Modules.html
+
+### 10. Adding Pseudo Selectors
+
+### 11. Working with Media Queries
+
+### 12. Useful Resources & Links.html
 
 ## 6. Debugging React Apps
 
