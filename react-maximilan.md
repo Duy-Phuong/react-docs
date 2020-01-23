@@ -1526,16 +1526,22 @@ class ErrorBoundary extends Component {
 
 export default ErrorBoundary;
 ```
+
 App.js
+
 ```js
- return <ErrorBoundary key={person.id}>
-              <Person
-                click={() => this.deletePersonHandler( index )}
-                name={person.name}
-                age={person.age}
-                changed={( event ) => this.nameChangedHandler( event, person.id )} />
-            </ ErrorBoundary>
+return (
+  <ErrorBoundary key={person.id}>
+    <Person
+      click={() => this.deletePersonHandler(index)}
+      name={person.name}
+      age={person.age}
+      changed={event => this.nameChangedHandler(event, person.id)}
+    />
+  </ErrorBoundary>
+);
 ```
+
 ### 6. Wrap Up
 
 ### 7. Useful Resources & Links.html
@@ -1543,6 +1549,27 @@ App.js
 ## 7. Diving Deeper into Components & React Internals
 
 ### 1. Module Introduction
+
+### 2. A Better Project Structure
+
+Create folder components, assets, container
+Modify import
+
+### 3. Splitting an App Into Components
+
+### 4. Comparing Stateless and Stateful Components
+
+### 5. Class-based vs Functional Components
+
+### 6. class Component Lifecycle Overview
+
+### 7. Component Creation Lifecycle in Action
+
+### 8. Component Update Lifecycle (for props Changes)
+
+### 8.1 lifecycle-update-external-learning-card.pdf.pdf
+
+### 9. Component Update Lifecycle (for state Changes)
 
 ### 10. Using useEffect() in Functional Components
 
@@ -1568,8 +1595,6 @@ App.js
 
 ### 19.1 react-adjacent-jsx.pdf.pdf
 
-### 2. A Better Project Structure
-
 ### 20. Windows Users Must Read.html
 
 ### 21. Using React.Fragment
@@ -1589,8 +1614,6 @@ App.js
 ### 28. Refs with React Hooks
 
 ### 29. Understanding Prop Chain Problems
-
-### 3. Splitting an App Into Components
 
 ### 30. Using the Context API
 
@@ -1613,8 +1636,6 @@ App.js
 ### 39. [LEGACY] Component Creation Lifecycle in Action
 
 ### 39.1 lifecycle-creation-learning-card.pdf.pdf
-
-### 4. Comparing Stateless and Stateful Components
 
 ### 40. [LEGACY] componentWillUnmount().html
 
@@ -1640,8 +1661,6 @@ App.js
 
 ### 49. [LEGACY] React 16.2 Feature Fragments.html
 
-### 5. Class-based vs Functional Components
-
 ### 50. [LEGACY] Understanding Higher Order Components (HOCs)
 
 ### 51. [LEGACY] A Different Approach to HOCs
@@ -1662,8 +1681,6 @@ App.js
 
 ### 59. [LEGACY] More on the Context API (16.6)
 
-### 6. class Component Lifecycle Overview
-
 ### 60. [LEGACY] Updated Lifecycle Hooks (React 16.3)
 
 ### 61. [LEGACY] The memo Method (16.4)
@@ -1672,15 +1689,7 @@ App.js
 
 ### 63. [LEGACY] Useful Resources & Links.html
 
-### 7. Component Creation Lifecycle in Action
-
 ### 7.1 lifecycle-creation-learning-card.pdf.pdf
-
-### 8. Component Update Lifecycle (for props Changes)
-
-### 8.1 lifecycle-update-external-learning-card.pdf.pdf
-
-### 9. Component Update Lifecycle (for state Changes)
 
 ## 8. A Real App The Burger Builder (Basic Version)
 
