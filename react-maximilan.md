@@ -1557,17 +1557,161 @@ Modify import
 
 ### 3. Splitting an App Into Components
 
+Persons.js
+
+```js
+import React from "react";
+
+import Person from "./Person/Person";
+
+const persons = props => {
+  console.log("[Persons.js] rendering...");
+  return props.persons.map((person, index) => {
+    return (
+      <Person
+        click={() => props.clicked(index)}
+        name={person.name}
+        age={person.age}
+        key={person.id}
+        changed={event => props.changed(event, person.id)}
+      />
+    );
+  });
+};
+
+export default persons;
+```
+
+App.js
+
+```js
+if (this.state.showPersons) {
+  persons = (
+    <Persons
+      persons={this.state.persons}
+      clicked={this.deletePersonHandler}
+      changed={this.nameChangedHandler}
+    />
+  );
+}
+```
+
+Cockpit
+
+```js
+import React from "react";
+
+import classes from "./Cockpit.css";
+
+const cockpit = props => {
+  const assignedClasses = [];
+  let btnClass = "";
+  if (props.showPersons) {
+    btnClass = classes.Red;
+  }
+
+  if (props.persons.length <= 2) {
+    assignedClasses.push(classes.red); // classes = ['red']
+  }
+  if (props.persons.length <= 1) {
+    assignedClasses.push(classes.bold); // classes = ['red', 'bold']
+  }
+
+  return (
+    <div className={classes.Cockpit}>
+      <h1>{props.title}</h1>
+      <p className={assignedClasses.join(" ")}>This is really working!</p>
+      <button className={btnClass} onClick={props.clicked}>
+        Toggle Persons
+      </button>
+    </div>
+  );
+};
+
+export default cockpit;
+```
+
+Cockpit.css
+
+```css
+.red {
+  color: red;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.Cockpit button {
+  border: 1px solid blue;
+  padding: 16px;
+  background-color: green;
+  font: inherit;
+  color: white;
+  cursor: pointer;
+}
+
+.Cockpit button:hover {
+  background-color: lightgreen;
+  color: black;
+}
+
+.Cockpit button.Red {
+  background-color: red;
+}
+
+.Cockpit button.Red:hover {
+  background-color: salmon;
+  color: black;
+}
+```
+
+App
+
+```js
+return (
+  <div className={classes.App}>
+    <Cockpit
+      title={this.props.appTitle}
+      showPersons={this.state.showPersons}
+      persons={this.state.persons}
+      clicked={this.togglePersonsHandler}
+    />
+    {persons}
+  </div>
+);
+```
+
 ### 4. Comparing Stateless and Stateful Components
 
 ### 5. Class-based vs Functional Components
 
+![](./root/img/2020-01-23-10-26-42.png)
+index
+
+```js
+ReactDOM.render(
+  <App appTitle="Person Manager" />,
+  document.getElementById("root")
+);
+```
+
 ### 6. class Component Lifecycle Overview
+
+![](./root/img/2020-01-24-15-56-35.png)
+
+Side effect: mean call something like https or store somethings in local storage of the browser or sending something to gg analysic => affect performance
+
+getDiverStateFromProps that is lifecycle hook from react 16.3, the idea is whenever props change
+![](./root/img/2020-01-24-16-10-26.png)
 
 ### 7. Component Creation Lifecycle in Action
 
 ### 8. Component Update Lifecycle (for props Changes)
 
 ### 8.1 lifecycle-update-external-learning-card.pdf.pdf
+
+![](./root/img/2020-01-24-16-10-19.png)
 
 ### 9. Component Update Lifecycle (for state Changes)
 
