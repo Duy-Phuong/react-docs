@@ -1707,11 +1707,156 @@ getDiverStateFromProps that is lifecycle hook from react 16.3, the idea is whene
 
 ### 7. Component Creation Lifecycle in Action
 
+App.js
+
+```js
+  constructor(props) {
+    super(props);
+    console.log('[App.js] constructor');
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    console.log('[App.js] getDerivedStateFromProps', props);
+    return state;
+  }
+// rare
+componentWillMount() {
+    console.log('[App.js] componentWillMount');
+  }
+
+  componentDidMount() {
+    console.log('[App.js] componentDidMount');
+  }
+```
+
+If you want to set initial state based on props => use constructor
+
+### 7.1 lifecycle-creation-learning-card.pdf.pdf
+
+![](./root/img/2020-01-24-16-10-19.png)
+
 ### 8. Component Update Lifecycle (for props Changes)
+
+rarely use react hook to update your state
+there is a more elegant way of updating your state or managing your component based on external properties
+
+Get snapshot of use state, restore the scrolling position before update happen
+ComponentDidMount => cause re-render when update state
+
+**Practice**
+Person.js
+
+```js
+// convert func to class-based component
+// import React from 'react';
+
+// import classes from './Person.css';
+
+// const person = props => {
+//   console.log('[Person.js] rendering...');
+//   return (
+//     <div className={classes.Person}>
+//       <p onClick={props.click}>
+//         I'm {props.name} and I am {props.age} years old!
+//       </p>
+//       <p>{props.children}</p>
+//       <input type="text" onChange={props.changed} value={props.name} />
+//     </div>
+//   );
+// };
+
+// export default person;
+
+// ------------------------------
+import React, { Component } from "react";
+
+import classes from "./Person.css";
+
+class Person extends Component {
+  render() {
+    console.log("[Person.js] rendering...");
+    return (
+      <div className={classes.Person}>
+        <p onClick={this.props.click}>
+          I'm {this.props.name} and I am {this.props.age} years old!
+        </p>
+        <p>{this.props.children}</p>
+        <input
+          type="text"
+          onChange={this.props.changed}
+          value={this.props.name}
+        />
+      </div>
+    );
+  }
+}
+
+export default Person;
+```
+
+convert Persons.js
+
+```js
+import React, { Component } from "react";
+
+import Person from "./Person/Person";
+
+class Persons extends Component {
+  // since you have an uninitilized state => is not use lifecycle hook
+  // static getDerivedStateFromProps(props, state) {
+  //   console.log('[Persons.js] getDerivedStateFromProps');
+  //   return state;
+  // }
+
+  // componentWillReceiveProps(props) {
+  //   console.log('[Persons.js] componentWillReceiveProps', props);
+  // }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log("[Persons.js] shouldComponentUpdate");
+    // continue update if true
+    return true;
+  }
+
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    console.log("[Persons.js] getSnapshotBeforeUpdate");
+    return { message: "Snapshot!" };
+  }
+
+  // componentWillUpdate() {
+
+  // }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log("[Persons.js] componentDidUpdate");
+    console.log(snapshot);
+  }
+
+  render() {
+    console.log("[Persons.js] rendering...");
+    return this.props.persons.map((person, index) => {
+      return (
+        <Person
+          click={() => this.props.clicked(index)}
+          name={person.name}
+          age={person.age}
+          key={person.id}
+          changed={event => this.props.changed(event, person.id)}
+        />
+      );
+    });
+  }
+}
+
+export default Persons;
+```
+
+Them tham so snapshot trong componentDidUpdate(prevProps, prevState, snapshot) no nhan tu getSnapshotBeforeUpdate.  
+componentWillReceiveProps don't support any more
 
 ### 8.1 lifecycle-update-external-learning-card.pdf.pdf
 
-![](./root/img/2020-01-24-16-10-19.png)
+![](./root/img/2020-01-25-18-06-36.png)
 
 ### 9. Component Update Lifecycle (for state Changes)
 
@@ -1832,8 +1977,6 @@ getDiverStateFromProps that is lifecycle hook from react 16.3, the idea is whene
 ### 62. [LEGACY] Wrap Up
 
 ### 63. [LEGACY] Useful Resources & Links.html
-
-### 7.1 lifecycle-creation-learning-card.pdf.pdf
 
 ## 8. A Real App The Burger Builder (Basic Version)
 
