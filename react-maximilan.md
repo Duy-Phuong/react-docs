@@ -1,7 +1,13 @@
+[TOC]
+
 C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Source_All/python/Test/readfile.py
 ======== name dir ========
 
+# React - The Complete Guide (incl Hooks, React Router, Redux)
+
 ## 1. Getting Started
+
+https://www.udemy.com/course/react-the-complete-guide-incl-redux/
 
 ### 1. Introduction
 
@@ -9,11 +15,31 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
 
 React is a js library for building user interface (include many Components)
 
+Run on browser => ngay lập tức xảy ra trên browser mà không phải đợi server return 
+
+Chia thành nhiều components => dễ bảo trì, tái SD, quản lí
+
 ### 2.1 components-learning-card.pdf.pdf
 
 ### 3. Real-World SPAs & React Web Apps
 
 ### 4. Writing our First React Code
+
+You shouldn't need it right now - but in case you ever want to dive in, here's the official React documenation: https://reactjs.org/
+
+Had issues with the Codepen demo? Here's the finished source code: https://codepen.io/anon/pen/MELQaQ
+
+Xem link codepen ở trên:
+
+Vào tab js: ấn setting và search react, react-dom
+
+![image-20200214212259617](react-maximilan.assets/image-20200214212259617.png)
+
+JavaScript Preprocessor: chọn babel
+
+Babel là một công cụ chuyển đổi mã lệnh JavaScript hay JavaScript transpiler, được dùng với mục đích chuyển đổi mã lệnh JavaScript được viết dựa trên tiêu chuẩn ECMAScript phiên bản mới về phiên bản cũ hơn trước đó chạy trên broswer.
+
+![image-20200214212557967](react-maximilan.assets/image-20200214212557967.png)
 
 ```js
 function Person(props) {
@@ -64,6 +90,17 @@ Had issues with the Codepen demo? Here's the finished source code: https://codep
 
 ### 2. Understanding let and const
 
+**`let`** allows you to declare variables that are limited to a scope of a [`block`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/statements/block) statement, or expression on which it is used, unlike the [`var`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/statements/var) keyword, which defines a variable globally, or locally to an entire function regardless of block scope. The other difference between [`var`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/statements/var) and `let` is that the latter is initialized to a value only when a [parser evaluates it (see below)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let#Temporal_dead_zone).
+
+At the top level of programs and functions, **`let`**, unlike **`var`**, does not create a property on the global object. For example:
+
+```js
+var x = 'global';
+let y = 'global';
+console.log(this.x); // "global"
+console.log(this.y); // undefined
+```
+
 ### 3. Arrow Functions
 
 ### 4. Exports and Imports
@@ -75,11 +112,23 @@ Had issues with the Codepen demo? Here's the finished source code: https://codep
 
 ### 6. Classes, Properties and Methods
 
-![](./root/img/2020-01-19-15-50-03.png)
+![image-20200214220115303](react-maximilan.assets/image-20200214220115303.png)
+
+![image-20200214220350341](react-maximilan.assets/image-20200214220350341.png)  
+
+Class kế thừa trong constructor phải có super(); nếu không sẽ báo lỗi
+
+![](./root/img/2020-01-19-15-50-03.png)  
+
+Cú pháp mới:
+
+![image-20200214220558354](react-maximilan.assets/image-20200214220558354.png)
 
 ### 7. The Spread & Rest Operator
 
-![](./root/img/2020-01-19-15-53-42.png)
+![](./root/img/2020-01-19-15-53-42.png)  
+
+![image-20200214220834325](react-maximilan.assets/image-20200214220834325.png)
 
 ```js
 const abc = (...args) => {
@@ -89,17 +138,23 @@ const abc = (...args) => {
 
 ### 8. Destructuring
 
-![](./root/img/2020-01-19-16-00-23.png)
+![](./root/img/2020-01-19-16-00-23.png)  
+
+![image-20200214221128199](react-maximilan.assets/image-20200214221128199.png)
 
 ### 9. Reference and Primitive Types Refresher
 
-Copy object use ...
+Copy object use rest operator.
+
+Nếu sử dụng copy con trỏ khi thay đổi giá trị của person nó sẽ thay đổi theo
+
+![image-20200214221319851](react-maximilan.assets/image-20200214221319851.png)
 
 ### 10. Refreshing Array Functions
 
 ```js
 const num = [1, 2, 3];
-const doubleArr = num.map(x => {
+const doubleArr = num.map((x) => {
   return 2 * x;
 });
 ```
@@ -110,122 +165,143 @@ const doubleArr = num.map(x => {
 
 In this module, I provided a brief introduction into some core next-gen JavaScript features, of course focusing on the ones you'll see the most in this course. Here's a quick summary!
 
-let & const
-Read more about let : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let
+#### **let & const**
 
-Read more about const : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const
+Read more about `let` : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let
 
-let and const basically replace var . You use let instead of var and const instead of var if you plan on never re-assigning this "variable" (effectively turning it into a constant therefore).
+Read more about `const` : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const
 
-ES6 Arrow Functions
+`let` and `const` basically replace `var` . You use `let` instead of `var` and `const` instead of `var` if you plan on never re-assigning this "variable" (effectively turning it into a constant therefore).
+
+#### **ES6 Arrow Functions**
+
 Read more: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions
 
-Arrow functions are a different way of creating functions in JavaScript. Besides a shorter syntax, they offer advantages when it comes to keeping the scope of the this keyword (see here).
+Arrow functions are a different way of creating functions in JavaScript. Besides a shorter syntax, they offer advantages when it comes to keeping the scope of the `this` keyword (see [here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions#No_binding_of_this)).
 
 Arrow function syntax may look strange but it's actually simple.
 
-```js
-function callMe(name) {
+```
+function callMe(name) { 
     console.log(name);
 }
+```
+
 which you could also write as:
 
-const callMe = function(name) {
+```
+const callMe = function(name) { 
     console.log(name);
 }
-becomes:
-
-const callMe = (name) => {
-    console.log(name);
-}
-
 ```
 
-Important:
+becomes: 
 
-When having no arguments, you have to use empty parentheses in the function declaration:
+```
+const callMe = (name) => { 
+    console.log(name);
+}
+```
 
-```js
-const callMe = () => {
+**Important:** 
+
+When having **no arguments**, you have to use empty parentheses in the function declaration:
+
+```
+const callMe = () => { 
     console.log('Max!');
 }
-When having exactly one argument, you may omit the parentheses:
+```
 
-const callMe = name => {
+When having **exactly one argument**, you may omit the parentheses:
+
+```
+const callMe = name => { 
     console.log(name);
 }
-
-
 ```
 
-When just returning a value, you can use the following shortcut:
+When **just returning a value**, you can use the following shortcut:
 
-```js
+```
 const returnMe = name => name
+```
+
 That's equal to:
 
-const returnMe = name => {
+```
+const returnMe = name => { 
     return name;
 }
-
 ```
 
-Exports & Imports
+#### **Exports & Imports**
+
 In React projects (and actually in all modern JavaScript projects), you split your code across multiple JavaScript files - so-called modules. You do this, to keep each file/ module focused and manageable.
 
-To still access functionality in another file, you need export (to make it available) and import (to get access) statements.
+To still access functionality in another file, you need `export` (to make it available) and `import` (to get access) statements.
 
-You got two different types of exports: default (unnamed) and named exports:
+You got two different types of exports: **default** (unnamed) and **named** exports:
 
-default => export default ...;
+**default** => `export default ...;` 
 
-named => export const someData = ...;
+**named** => `export const someData = ...;` 
 
-You can import default exports like this:
+You can import **default exports** like this:
 
+```
 import someNameOfYourChoice from './path/to/file.js';
+```
 
-Surprisingly, someNameOfYourChoice is totally up to you.
+Surprisingly, `someNameOfYourChoice` is totally up to you.
 
-Named exports have to be imported by their name:
+**Named exports** have to be imported by their name:
 
+```
 import { someData } from './path/to/file.js';
+```
 
 A file can only contain one default and an unlimited amount of named exports. You can also mix the one default with any amount of named exports in one and the same file.
 
-When importing named exports, you can also import all named exports at once with the following syntax:
+When importing **named exports**, you can also import all named exports at once with the following syntax:
 
-import \* as upToYou from './path/to/file.js';
+```
+import * as upToYou from './path/to/file.js';
+```
 
-upToYou is - well - up to you and simply bundles all exported variables/functions in one JavaScript object. For example, if you export const someData = ... (/path/to/file.js ) you can access it on upToYou like this: upToYou.someData .
+`upToYou` is - well - up to you and simply bundles all exported variables/functions in one JavaScript object. For example, if you `export const someData = ...` (`/path/to/file.js` ) you can access it on `upToYou` like this: `upToYou.someData` .
 
-Classes
-Classes are a feature which basically replace constructor functions and prototypes. You can define blueprints for JavaScript objects with them.
+#### **Classes**
+
+Classes are a feature which basically replace constructor functions and prototypes. You can define blueprints for JavaScript objects with them. 
 
 Like this:
 
-```js
+```
 class Person {
-  constructor() {
-    this.name = "Max";
-  }
+    constructor () {
+        this.name = 'Max';
+    }
 }
 
 const person = new Person();
 console.log(person.name); // prints 'Max'
 ```
 
-In the above example, not only the class but also a property of that class (=> name ) is defined. The syntax you see there, is the "old" syntax for defining properties. In modern JavaScript projects (as the one used in this course), you can use the following, more convenient way of defining class properties:
+In the above example, not only the class but also a property of that class (=> `name` ) is defined. The syntax you see there, is the "old" syntax for defining properties. In modern JavaScript projects (as the one used in this course), you can use the following, more convenient way of defining class properties:
 
+```
 class Person {
-name = 'Max';
+    name = 'Max';
 }
 
 const person = new Person();
 console.log(person.name); // prints 'Max'
+```
+
 You can also define methods. Either like this:
 
-```js
+```
 class Person {
     name = 'Max';
     printMyName () {
@@ -235,8 +311,11 @@ class Person {
 
 const person = new Person();
 person.printMyName();
+```
+
 Or like this:
 
+```
 class Person {
     name = 'Max';
     printMyName = () => {
@@ -246,23 +325,22 @@ class Person {
 
 const person = new Person();
 person.printMyName();
-
 ```
 
-The second approach has the same advantage as all arrow functions have: The this keyword doesn't change its reference.
+The second approach has the same advantage as all arrow functions have: The `this` keyword doesn't change its reference.
 
-You can also use inheritance when using classes:
+You can also use **inheritance** when using classes:
 
-```js
+```
 class Human {
-  species = "human";
+    species = 'human';
 }
 
 class Person extends Human {
-  name = "Max";
-  printMyName = () => {
-    console.log(this.name);
-  };
+    name = 'Max';
+    printMyName = () => {
+        console.log(this.name);
+    }
 }
 
 const person = new Person();
@@ -270,20 +348,24 @@ person.printMyName();
 console.log(person.species); // prints 'human'
 ```
 
-Spread & Rest Operator
-The spread and rest operators actually use the same syntax: ...
+#### **Spread & Rest Operator**
+
+The spread and rest operators actually use the same syntax: `...` 
 
 Yes, that is the operator - just three dots. It's usage determines whether you're using it as the spread or rest operator.
 
-Using the Spread Operator:
+**Using the Spread Operator:**
 
 The spread operator allows you to pull elements out of an array (=> split the array into a list of its elements) or pull the properties out of an object. Here are two examples:
 
-```js
+```
 const oldArray = [1, 2, 3];
 const newArray = [...oldArray, 4, 5]; // This now is [1, 2, 3, 4, 5];
+```
+
 Here's the spread operator used on an object:
 
+```
 const oldObject = {
     name: 'Max'
 };
@@ -291,30 +373,36 @@ const newObject = {
     ...oldObject,
     age: 28
 };
-newObject  would then be
+```
 
+`newObject` would then be
+
+```
 {
     name: 'Max',
     age: 28
 }
-
 ```
 
-The spread operator is extremely useful for cloning arrays and objects. Since both are reference types (and not primitives), copying them safely (i.e. preventing future mutation of the copied original) can be tricky. With the spread operator you have an easy way of creating a (shallow!) clone of the object or array.
+The spread operator is extremely useful for cloning arrays and objects. Since both are [reference types (and not primitives)](https://youtu.be/9ooYYRLdg_g), copying them safely (i.e. preventing future mutation of the copied original) can be tricky. With the spread operator you have an easy way of creating a (shallow!) clone of the object or array. 
 
-Destructuring
+#### **Destructuring**
+
 Destructuring allows you to easily access the values of arrays or objects and assign them to variables.
 
 Here's an example for an array:
 
-```js
+```
 const array = [1, 2, 3];
 const [a, b] = array;
 console.log(a); // prints 1
 console.log(b); // prints 2
 console.log(array); // prints [1, 2, 3]
+```
+
 And here for an object:
 
+```
 const myObj = {
     name: 'Max',
     age: 28
@@ -323,22 +411,27 @@ const {name} = myObj;
 console.log(name); // prints 'Max'
 console.log(age); // prints undefined
 console.log(myObj); // prints {name: 'Max', age: 28}
+```
+
 Destructuring is very useful when working with function arguments. Consider this example:
 
+```
 const printName = (personObj) => {
     console.log(personObj.name);
 }
 printName({name: 'Max', age: 28}); // prints 'Max'
-
 ```
 
 Here, we only want to print the name in the function but we pass a complete person object to the function. Of course this is no issue but it forces us to call personObj.name inside of our function. We can condense this code with destructuring:
 
+```
 const printName = ({name}) => {
-console.log(name);
+    console.log(name);
 }
 printName({name: 'Max', age: 28}); // prints 'Max')
-We get the same result as above but we save some code. By destructuring, we simply pull out the name property and store it in a variable/ argument named name which we then can use in the function body.
+```
+
+We get the same result as above but we save some code. By destructuring, we simply pull out the `name` property and store it in a variable/ argument named `name` which we then can use in the function body.
 
 ### 12.1 next-gen-js-summary.pdf.pdf
 
@@ -372,13 +465,17 @@ splice() => https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Gl
 ### 3. Using Create React App
 
 ```ts
-npm install -g create-react-app --scripts-version 1.1.5
-create-react-app my-app
+npm install -g create-react-app
+create-react-app my-app --scripts-version 1.1.5 // impact structure of project
+// create-react-app my-app
 cd my-app
 npm start
 ```
 
 Doi port tai file package.json
+
+http://localhost:3000/
+
 Default la 3000
 
 ```json
@@ -394,6 +491,8 @@ Default la 3000
 ### 4. Understanding the Folder Structure
 
 https://quoctuan.info/bai-02-cau-truc-ung-dung-co-trong-reactjs.1.2.html
+
+![image-20200214225133840](react-maximilan.assets/image-20200214225133840.png)
 
 ### 4.1 ide-setup.pdf.pdf
 
@@ -421,7 +520,39 @@ here are the common alternatives:
 
 ### 6. Understanding JSX
 
-SD thay phan return trong ham render de test
+Comment đoạn trên và thêm React.createElement để test
+
+App.js
+
+```js
+import React, { Component } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+
+class App extends Component {
+  render() {
+    // return (
+    // <div className="App">
+    //   <h1 className="App-title">Welcome to React</h1>
+    // </div>
+    // );
+
+    // work behind the sence
+    return React.createElement(
+      "div",
+      { className: "App" },
+      React.createElement("h3", null, "Welcome to React")
+    );
+  }
+}
+
+export default App;
+
+```
+
+
+
+Ex: SD thay phần return html trong ham render de test
 
 ```js
 import React from "react";
@@ -445,12 +576,12 @@ ReactDOM.render(list, document.getElementById("global"));
 
 You can use JSX to write code html in .js file
 
-- cannot use class to set css in file .js so you should replece it with "className"
+- cannot use class to set css in file .js so you should replace it with "className"
 - Wrap everything in a root tag: div
 
 ### 8. Creating a Functional Component
 
-Create class Person
+Create class Person in folder Person 
 
 ```js
 import React from "react";
@@ -498,20 +629,20 @@ export default App;
 
 ### 9. Components & JSX Cheat Sheet.html
 
-Components are the core building block of React apps. Actually, React really is just a library for creating components in its core.
+Components are the **core building block of React apps**. Actually, React really is just a library for creating components in its core.
 
-A typical React app therefore could be depicted as a component tree - having one root component ("App") and then an potentially infinite amount of nested child components.
+A typical React app therefore could be depicted as a **component tree** - having one root component ("App") and then an potentially infinite amount of nested child components.
 
-Each component needs to return/ render some JSX code - it defines which HTML code React should render to the real DOM in the end.
+Each component needs to return/ render some **JSX** code - it defines which HTML code React should render to the real DOM in the end.
 
-JSX is NOT HTML but it looks a lot like it. Differences can be seen when looking closely though (for example className in JSX vs class in "normal HTML"). JSX is just syntactic sugar for JavaScript, allowing you to write HTMLish code instead of nested React.createElement(...) calls.
+**JSX is NOT HTML** but it looks a lot like it. Differences can be seen when looking closely though (for example className in JSX vs class in "normal HTML"). JSX is just syntactic sugar for JavaScript, allowing you to write HTMLish code instead of nested React.createElement(...) calls.
 
-When creating components, you have the choice between two different ways:
+When creating components, you have the choice between **two different ways:**
 
-1. Functional components (also referred to as "presentational", "dumb" or "stateless" components - more about this later in the course) => const cmp = () => { return <div>some JSX</div> } (using ES6 arrow functions as shown here is recommended but optional)
-   class-based components (also referred to as "containers", "smart" or "stateful" components) => class Cmp extends
-2. Component { render () { return <div>some JSX</div> } }
-   We'll of course dive into the difference throughout this course, you can already note that you should use 1) as often as possible though. It's the best-practice.
+1. **Functional components** (also referred to as "presentational", "dumb" or "stateless" components - more about this later in the course) => `const cmp = () => { return some JSX }` (using ES6 arrow functions as shown here is recommended but optional)
+2. **class-based components** (also referred to as "containers", "smart" or "stateful" components) => `class Cmp extends Component { render () { return some JSX } }` 
+
+We'll of course dive into the difference throughout this course, you can already note that you should use 1) as often as possible though. It's the best-practice.
 
 ### 9.1 components.pdf.pdf
 
@@ -522,6 +653,10 @@ When creating components, you have the choice between two different ways:
 Write js code in {} in person.js file
 
 ### 12. Working with Props
+
+Khi có code js cần xử lý thì đặt trong dấu {}; đây là cú pháp của JSX
+
+Đối với class thì truy cập từ khóa props thông qua this.props
 
 ![](./root/img/2020-01-19-18-09-16.png)
 
@@ -1860,13 +1995,111 @@ componentWillReceiveProps don't support any more
 
 ### 9. Component Update Lifecycle (for state Changes)
 
+App.js
+
+```js
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('[App.js] shouldComponentUpdate');
+    return true;
+  }
+
+  componentDidUpdate() {
+    console.log('[App.js] componentDidUpdate');
+  }
+```
+
 ### 10. Using useEffect() in Functional Components
+
+useEffect is not a lifecycle hook, this is a react hook
+It will run for every cycle
+
+Cockpit.js
+
+```js
+useEffect(() => {
+  console.log("[Cockpit.js] useEffect");
+  // Http request...
+});
+```
 
 ### 11. Controlling the useEffect() Behavior
 
+Khi chi muon goi http request khi lan dau render
+
+```js
+useEffect(() => {
+  console.log("[Cockpit.js] useEffect");
+  // Http request...
+  setTimeout(() => {
+    alert("Saved data to cloud!");
+  }, 1000);
+}, []);
+```
+
+[props.persons] : second arguments is point to all variable or all data use in that actually are used in your effect
+
 ### 12. Cleaning up with Lifecycle Hooks & useEffect()
 
+persons.js
+
+```js
+  componentWillUnmount() {
+    console.log('[Persons.js] componentWillUnmount');
+  }
+```
+
+Cockpit
+
+```js
+useEffect(() => {
+  console.log("[Cockpit.js] useEffect");
+  // Http request...
+  setTimeout(() => {
+    alert("Saved data to cloud!");
+  }, 1000);
+  return () => {
+    console.log("[Cockpit.js] cleanup work in useEffect");
+  };
+}, []);
+
+useEffect(() => {
+  console.log("[Cockpit.js] 2nd useEffect");
+  return () => {
+    console.log("[Cockpit.js] cleanup work in 2nd useEffect");
+  };
+});
+```
+
+App.js
+
+Them state showCockpit
+
+```js
+<button
+  onClick={() => {
+    this.setState({ showCockpit: false });
+  }}
+>
+  Remove Cockpit
+</button>;
+{
+  this.state.showCockpit ? (
+    <Cockpit
+      title={this.props.appTitle}
+      showPersons={this.state.showPersons}
+      persons={this.state.persons}
+      clicked={this.togglePersonsHandler}
+    />
+  ) : null;
+}
+```
+
+> It will run BEFORE main useEffect function run and AFTER the (first) render cycle run
+
 ### 13. Cleanup Work with useEffect() - Ex
+
+Clear timer neu k se nhin thay alert
+clearTimeout(timer)
 
 ### 14. Using shouldComponentUpdate for Optimization
 
