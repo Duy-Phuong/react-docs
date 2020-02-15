@@ -2991,6 +2991,24 @@ React.createElement()) as we want.
 
 ### 20. Windows Users Must Read.html
 
+**On Windows**, the `Aux.js` filename is not allowed in ZIP archives. Hence when extracting the attached source code, you might get prompted to rename the `Aux.js` file. You might also **face difficulties creating an Aux folder** and Aux.js file.
+
+I really apologize for that inconvenience, Windows is really doing an amazing job here ;-).
+
+Follow these fixes:
+
+#### **1) Problems when unzipping the attached file:**
+
+Simply **skip this step** (e.g. by pressing **"No"**) and **ignore** the upcoming error message.
+
+In the extracted folder, you'll then find **all source files** EXCEPT for the `Aux.js` file. In later course modules (where we work on the course project), the `Aux.js` file can be found in an `Aux/` subfolder inside `hoc/` .
+
+Make sure to take the `Aux.js` file **attached to this lecture** and place it inside the `hoc/` or `hoc/Aux/` folder (which ever of the two you got).
+
+#### **2) Problems with the creation of an Aux folder and/ or file:**
+
+Simply name both differently. For example, you may create an `Auxiliary` folder and name the file inside of it `Auxiliary.js` . Make sure to then adjust your imports (`import Aux from './path/to/Auxiliary/Auxiliary'` ) and you should be fine.
+
 ### 21. Using React.Fragment
 
 Thực hiện giống như Aux
@@ -3060,27 +3078,554 @@ return (
 
 ### 23. Another Form of HOCs
 
+withClass.js
+
+```js
+import React from 'react';
+
+const withClass = (WrappedComponent, className) => {
+    // return a functional component
+  return props => (
+    <div className={className}>
+      <WrappedComponent />
+    </div>
+  );
+};
+
+export default withClass;
+// Tham số đầu WrappedComponent là 1 Components
+
+```
+
+App.js
+
+```js
+return (
+    // return Aux
+      <Aux>
+        <button
+          onClick={() => {
+            this.setState({ showCockpit: false });
+          }}
+        >
+          Remove Cockpit
+        </button>
+        {this.state.showCockpit ? (
+          <Cockpit
+            title={this.props.appTitle}
+            showPersons={this.state.showPersons}
+            personsLength={this.state.persons.length}
+            clicked={this.togglePersonsHandler}
+          />
+        ) : null}
+        {persons}
+      </Aux>
+    );
+    // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
+  }
+}
+
+// wrap App
+export default withClass(App, classes.App);
+```
+
+
+
 ### 24. Passing Unknown Props
+
+Thực hiện tương tự với class Person
+
+Ban đầu sẽ không hiển thị data tương ứng vì withClass không có props
+
+withClass.js
+
+```js
+import React from 'react';
+
+const withClass = (WrappedComponent, className) => {
+  return props => (
+    <div className={className}>
+      <WrappedComponent {...props}/>
+    </div>
+  );
+};
+
+export default withClass;
+
+```
+
+
+
+```js
+import React, { Component } from 'react';
+
+import Aux from '../../../hoc/Aux';
+import withClass from '../../../hoc/withClass';
+import classes from './Person.css';
+
+class Person extends Component {
+  render() {
+    console.log('[Person.js] rendering...');
+    return (
+      <Aux>
+        <p onClick={this.props.click}>
+          I'm {this.props.name} and I am {this.props.age} years old!
+        </p>
+        <p key="i2">{this.props.children}</p>
+        <input
+          key="i3"
+          type="text"
+          onChange={this.props.changed}
+          value={this.props.name}
+        />
+      </Aux>
+    );
+  }
+}
+
+export default withClass(Person, classes.Person);
+
+```
+
+
 
 ### 25. Setting State Correctly
 
+thêm state: changeCounter
+
+trong hàm nameChangeHandler file App.js
+
+```js
+this.setState({
+        persons: persons,
+        changeCounter: this.state.changeCounter + 1
+      };
+    );
+// wrong bởi vì nó cannot be previous state
+```
+Sửa thành
+```js
+this.setState((prevState, props) => {
+      return {
+        persons: persons,
+        changeCounter: prevState.changeCounter + 1
+      };
+    });
+// wrong bởi vì nó cannot be previous state
+```
+
 ### 26. Using PropTypes
+
+`npm install --save prop-types`
+
+Person.js
+
+```js
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+import Aux from '../../../hoc/Aux';
+import withClass from '../../../hoc/withClass';
+import classes from './Person.css';
+
+class Person extends Component {
+  render() {
+    console.log('[Person.js] rendering...');
+    return (
+      <Aux>
+        <p onClick={this.props.click}>
+          I'm {this.props.name} and I am {this.props.age} years old!
+        </p>
+        <p key="i2">{this.props.children}</p>
+        <input
+          key="i3"
+          type="text"
+          onChange={this.props.changed}
+          value={this.props.name}
+        />
+      </Aux>
+    );
+  }
+}
+
+// add
+Person.propTypes = {
+  click: PropTypes.func,
+  name: PropTypes.string,
+  age: PropTypes.number,
+  changed: PropTypes.func
+};
+
+export default withClass(Person, classes.Person);
+
+```
+
+Xuất hiên warning nếu truyền sai kiểu data
 
 ### 27. Using Refs
 
+Person.js sử dụng từ khóa ref và chuẩn bị làm để focus vào thẻ input cuối
+
+```js
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+import Aux from '../../../hoc/Aux';
+import withClass from '../../../hoc/withClass';
+import classes from './Person.css';
+
+class Person extends Component {
+  // react 16.3 cách 2 to access element
+  constructor(props) {
+    super(props);
+    this.inputElementRef = React.createRef();
+  }
+
+    // add
+  componentDidMount() {
+    // inputElement là thuộc tính của class
+    // Cách 1
+    // this.inputElement.focus();
+    this.inputElementRef.current.focus();
+  }
+
+  render() {
+    console.log('[Person.js] rendering...');
+    return (
+      <Aux>
+        <p onClick={this.props.click}>
+          I'm {this.props.name} and I am {this.props.age} years old!
+        </p>
+        <p key="i2">{this.props.children}</p>
+        <input
+          key="i3"
+          // ref={(inputEl) => {this.inputElement = inputEl}}
+          ref={this.inputElementRef}
+          type="text"
+          onChange={this.props.changed}
+          value={this.props.name}
+        />
+      </Aux>
+    );
+  }
+}
+
+Person.propTypes = {
+  click: PropTypes.func,
+  name: PropTypes.string,
+  age: PropTypes.number,
+  changed: PropTypes.func
+};
+
+export default withClass(Person, classes.Person);
+
+```
+
+
+
 ### 28. Refs with React Hooks
+
+Cockpit.js
+
+```js
+import React, { useEffect, useRef } from 'react';
+
+import classes from './Cockpit.css';
+
+const cockpit = props => {
+    // add
+  const toggleBtnRef = useRef(null);
+
+  useEffect(() => {
+    console.log('[Cockpit.js] useEffect');
+    // Http request...
+    // setTimeout(() => {
+    //   alert('Saved data to cloud!');
+    // }, 1000);
+    toggleBtnRef.current.click();
+    return () => {
+      console.log('[Cockpit.js] cleanup work in useEffect');
+    };
+  }, []);
+  ....
+
+  return (
+    <div className={classes.Cockpit}>
+      <h1>{props.title}</h1>
+      <p className={assignedClasses.join(' ')}>This is really working!</p>
+      <button ref={toggleBtnRef} className={btnClass} onClick={props.clicked}>
+        Toggle Persons
+      </button>
+    </div>
+  );
+};
+
+export default React.memo(cockpit);
+
+```
+
+Làm cho nút tự bấm sau khi load page
+
+Thêm trong hàm useEffect vì nó sẽ chạy sau khi JSX code render xong
 
 ### 29. Understanding Prop Chain Problems
 
+Thêm chức năng login
+
+App.js thêm state authenticated
+
+```js
+loginHandler = () => {
+    this.setState({ authenticated: true });
+  };
+
+  render() {
+    console.log('[App.js] render');
+    let persons = null;
+
+    if (this.state.showPersons) {
+      persons = (
+        <Persons
+          persons={this.state.persons}
+          clicked={this.deletePersonHandler}
+          changed={this.nameChangedHandler}
+      // add new
+          isAuthenticated={this.state.authenticated}
+        />
+      );
+    }
+
+    return (
+      <Aux>
+        <button
+          onClick={() => {
+            this.setState({ showCockpit: false });
+          }}
+        >
+          Remove Cockpit
+        </button>
+        <AuthContext.Provider
+          value={{
+            authenticated: this.state.authenticated,
+            login: this.loginHandler
+          }}
+        >
+          {this.state.showCockpit ? (
+            <Cockpit
+              title={this.props.appTitle}
+              showPersons={this.state.showPersons}
+              personsLength={this.state.persons.length}
+              clicked={this.togglePersonsHandler}
+		// add
+			  login={this.loginHandler}
+            />
+          ) : null}
+          {persons}
+        </AuthContext.Provider>
+      </Aux>
+    );
+    // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
+  }
+```
+
+Cockpit.js
+
+```js
+// add
+<button onClick={props.login}></button>
+```
+
+Persons.js
+
+```js
+// Truyền data vào trong vào hiển thị ở Person.js khi ấn btn login
+return (
+        <Person
+          click={() => this.props.clicked(index)}
+          name={person.name}
+          age={person.age}
+          key={person.id}
+          changed={event => this.props.changed(event, person.id)}
+          // add
+          isAuth={this.props.isAuthenticated}
+        />
+      );
+      
+--------------------- Person
+return (
+      <Aux>
+        {this.props.isAuth ? 
+         <p>Authenticated!</p>
+         : 
+          <p>Please log in</p>
+        }
+```
+
+Khi pass data to multiple component => use context
+
 ### 30. Using the Context API
 
+create folder context/
+
+create file auth-context
+
+```js
+import React from 'react';
+
+const authContext = React.createContext({
+  authenticated: false,
+  login: () => {}
+});
+
+export default authContext;
+
+```
+
+Note: it can be an arr or string, object,...
+
+App.js thêm wrap by AuthContext.Provider
+
+```js
+import AuthContext from '../context/auth-context';
+
+return (
+      <Aux>
+        <button
+          onClick={() => {
+            this.setState({ showCockpit: false });
+          }}
+        >
+          Remove Cockpit
+        </button>
+        <AuthContext.Provider
+          value={{
+            authenticated: this.state.authenticated,
+            login: this.loginHandler
+          }}
+        >
+          {this.state.showCockpit ? (
+            <Cockpit
+              title={this.props.appTitle}
+              showPersons={this.state.showPersons}
+              personsLength={this.state.persons.length}
+              clicked={this.togglePersonsHandler}
+            />
+          ) : null}
+          {persons}
+        </AuthContext.Provider>
+      </Aux>
+    );
+```
+
+Person.js
+
+```js
+componentDidMount() {
+    // this.inputElement.focus();
+    this.inputElementRef.current.focus();
+  }
+
+render() {
+return (
+      <Aux>
+       <AuthContext.Consumer> { context => context.authenticated ? 
+          <p>Authenticated!</p>
+         : 
+          <p>Please log in</p>
+        }
+       </AuthContext.Consumer>
+```
+
+
+Cockpit.js
+
+```js
+
+render() {
+return (
+      <Aux>
+       <AuthContext.Consumer> { context =>  
+          <button onClick={context.login}></button>
+        }
+        </AuthContext.Consumer>
+```
+
+
 ### 31. contextType & useContext()
+
+Person.js
+
+```js
+static contextType = AuthContext;
+
+componentDidMount() {
+    // this.inputElement.focus();
+    this.inputElementRef.current.focus();
+    console.log(this.context.authenticated);
+  }
+
+render() {
+return (
+      <Aux>
+        {this.context.authenticated ? (
+          <p>Authenticated!</p>
+        ) : (
+          <p>Please log in</p>
+        )}
+```
+
+Cockpit.js
+
+```js
+import React, { useEffect, useRef, useContext } from 'react';
+
+
+const cockpit = props => {
+  const toggleBtnRef = useRef(null);
+  const authContext = useContext(AuthContext);
+  console.log(authContext.authenticated);
+
+  ....
+  return (
+    <div className={classes.Cockpit}>
+      <h1>{props.title}</h1>
+      <p className={assignedClasses.join(' ')}>This is really working!</p>
+      <button ref={toggleBtnRef} className={btnClass} onClick={props.clicked}>
+        Toggle Persons
+      </button>
+// add
+      <button onClick={authContext.login}>Log in</button>
+    </div>
+  );
+    
+    
+```
+
+
 
 ### 32. Wrap Up
 
 ### 33. Useful Resources & Links.html
 
+Useful Resources:
+
+- More on useEffect(): https://reactjs.org/docs/hooks-effect.html
+- State & Lifecycle: https://reactjs.org/docs/state-and-lifecycle.html
+- PropTypes: https://reactjs.org/docs/typechecking-with-proptypes.html
+- Higher Order Components: https://reactjs.org/docs/higher-order-components.html
+- Refs: https://reactjs.org/docs/refs-and-the-dom.html
+
 ### 34. MUST READ Legacy Lectures.html
+
+**DON'T SKIP THIS!**
+
+\---
+
+With React 16.8, a new feature called "**React Hooks**" was introduced. This course already covers this feature and this module, up to this point, is 100% up-to-date with that feature (e.g. you learned about `useEffect()`).
+
+The upcoming lectures marked as **"[LEGACY]"** are only there to allow existing students who started this module before the update (on February 6th) to continue smoothly.
+
+You can skip all remaining lectures in this module (i.e. the lectures with **"[LEGACY]"**) if you watched all the other lectures prior to this one.
 
 ### 35. [LEGACY] Splitting an App Into Components
 
