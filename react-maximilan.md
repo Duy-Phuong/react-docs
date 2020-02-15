@@ -3629,6 +3629,89 @@ You can skip all remaining lectures in this module (i.e. the lectures with **"[L
 
 ### 35. [LEGACY] Splitting an App Into Components
 
+Person.js
+
+```js
+import React from 'react';
+
+import Person from './Person/Person';
+
+const persons = (props) => props.persons.map( ( person, index ) => {
+        return <Person
+          click={() => props.clicked( index )}
+          name={person.name}
+          age={person.age}
+          key={person.id}
+          changed={( event ) => props.changed( event, person.id )} />
+      } );
+
+export default persons;
+```
+
+App.js
+
+```js
+ render () {
+    let persons = null;
+
+    if ( this.state.showPersons ) {
+      persons = <Persons
+        persons={this.state.persons}
+        clicked={this.deletePersonHandler}
+        changed={this.nameChangedHandler} />;
+    }
+
+    return (
+      <div className={classes.App}>
+        <Cockpit
+          appTitle={this.props.title}
+          showPersons={this.state.showPersons}
+          persons={this.state.persons}
+          clicked={this.togglePersonsHandler} />
+        {persons}
+      </div>
+    );
+    // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
+  }
+```
+
+Cockpit.ts
+
+```js
+import React from 'react';
+
+import classes from './Cockpit.css';
+
+const cockpit = ( props ) => {
+    const assignedClasses = [];
+    let btnClass = '';
+    if (props.showPersons) {
+        btnClass = classes.Red;
+    }
+
+    if ( props.persons.length <= 2 ) {
+      assignedClasses.push( classes.red ); // classes = ['red']
+    }
+    if ( props.persons.length <= 1 ) {
+      assignedClasses.push( classes.bold ); // classes = ['red', 'bold']
+    }
+
+    return (
+        <div className={classes.Cockpit}>
+            <h1>{ props.appTitle }</h1>
+            <p className={assignedClasses.join( ' ' )}>This is really working!</p>
+            <button
+                className={btnClass}
+                onClick={props.clicked}>Toggle Persons</button>
+        </div>
+    );
+};
+
+export default cockpit;
+```
+
+
+
 ### 36. [LEGACY] Comparing Stateless and Stateful Components
 
 ### 37. [LEGACY] Understanding the Component Lifecycle
