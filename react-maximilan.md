@@ -11,6 +11,8 @@ https://www.udemy.com/course/react-the-complete-guide-incl-redux/
 
 ### 1. Introduction
 
+https://academind.com/learn/javascript/reference-vs-primitive-values/
+
 ### 2. What is React
 
 React is a js library for building user interface (include many Components)
@@ -33,13 +35,13 @@ Xem link codepen ở trên:
 
 Vào tab js: ấn setting và search react, react-dom
 
-![image-20200214212259617](react-maximilan.assets/image-20200214212259617.png)
+![image-20200214212259617](./react-maximilan.assets/image-20200214212259617.png)
 
 JavaScript Preprocessor: chọn babel
 
 Babel là một công cụ chuyển đổi mã lệnh JavaScript hay JavaScript transpiler, được dùng với mục đích chuyển đổi mã lệnh JavaScript được viết dựa trên tiêu chuẩn ECMAScript phiên bản mới về phiên bản cũ hơn trước đó chạy trên broswer.
 
-![image-20200214212557967](react-maximilan.assets/image-20200214212557967.png)
+![image-20200214212557967](./react-maximilan.assets/image-20200214212557967.png)
 
 ```js
 function Person(props) {
@@ -112,9 +114,9 @@ console.log(this.y); // undefined
 
 ### 6. Classes, Properties and Methods
 
-![image-20200214220115303](react-maximilan.assets/image-20200214220115303.png)
+![image-20200214220115303](./react-maximilan.assets/image-20200214220115303.png)
 
-![image-20200214220350341](react-maximilan.assets/image-20200214220350341.png)  
+![image-20200214220350341](./react-maximilan.assets/image-20200214220350341.png)  
 
 Class kế thừa trong constructor phải có super(); nếu không sẽ báo lỗi
 
@@ -122,13 +124,13 @@ Class kế thừa trong constructor phải có super(); nếu không sẽ báo l
 
 Cú pháp mới:
 
-![image-20200214220558354](react-maximilan.assets/image-20200214220558354.png)
+![image-20200214220558354](./react-maximilan.assets/image-20200214220558354.png)
 
 ### 7. The Spread & Rest Operator
 
 ![](./root/img/2020-01-19-15-53-42.png)  
 
-![image-20200214220834325](react-maximilan.assets/image-20200214220834325.png)
+![image-20200214220834325](./react-maximilan.assets/image-20200214220834325.png)
 
 ```js
 const abc = (...args) => {
@@ -140,7 +142,7 @@ const abc = (...args) => {
 
 ![](./root/img/2020-01-19-16-00-23.png)  
 
-![image-20200214221128199](react-maximilan.assets/image-20200214221128199.png)
+![image-20200214221128199](./react-maximilan.assets/image-20200214221128199.png)
 
 ### 9. Reference and Primitive Types Refresher
 
@@ -148,7 +150,7 @@ Copy object use rest operator.
 
 Nếu sử dụng copy con trỏ khi thay đổi giá trị của person nó sẽ thay đổi theo
 
-![image-20200214221319851](react-maximilan.assets/image-20200214221319851.png)
+![image-20200214221319851](./react-maximilan.assets/image-20200214221319851.png)
 
 ### 10. Refreshing Array Functions
 
@@ -492,7 +494,7 @@ Default la 3000
 
 https://quoctuan.info/bai-02-cau-truc-ung-dung-co-trong-reactjs.1.2.html
 
-![image-20200214225133840](react-maximilan.assets/image-20200214225133840.png)
+![image-20200214225133840](./react-maximilan.assets/image-20200214225133840.png)
 
 ### 4.1 ide-setup.pdf.pdf
 
@@ -662,13 +664,23 @@ Khi có code js cần xử lý thì đặt trong dấu {}; đây là cú pháp c
 
 ### 12.1 props-learning-card.pdf.pdf
 
+![image-20200214233020027](./react-maximilan.assets/image-20200214233020027.png)
+
 ### 13. Understanding the Children Property
 
-props.children print value in the middle of tag
+props.children print value in the middle of tag: 
+
+- ví dụ như My Hobbies: Racing
+
+Ex: ` <Person name="Manu" age="29" >My Hobbies: Racing</Person>`
 
 ### 14. Understanding & Using State
 
-State is managed inside the Component
+State is managed inside the Component,  
+
+Từ react 16.8 có react-hook
+
+Thêm button tag và state
 
 ```js
 import React, { Component } from "react";
@@ -724,10 +736,80 @@ class App extends Component {
   }
 }
 
-export default App;
+export default App;  
 ```
 
+Đối với function không thể define properties trong func components: person
+
 ### 15. Props & State.html
+
+`props` and `state` are **CORE concepts** of React. Actually, only changes in `props` and/ or `state` trigger React to re-render your components and potentially update the DOM in the browser (a detailed look at how React checks whether to really touch the real DOM is provided in section 6).
+
+**Props**
+
+`props` allow you to pass data from a parent (wrapping) component to a child (embedded) component.
+
+**Example:**
+
+**AllPosts Component:**
+
+```js
+const posts = () => {
+    return (
+        <div>
+            <Post title="My first Post" />
+        </div>
+    );
+}
+```
+
+Here, `title` is the custom property (`prop` ) set up on the custom `Post` component. We basically replicate the default HTML attribute behavior we already know (e.g. `` informs the browser about how to handle that input).
+
+**Post Component:**
+
+```js
+const post = (props) => {
+    return (
+        <div>
+            <h1>{props.title}</h1>
+        </div>
+    );
+}
+```
+
+The `Post` component receives the `props` argument. You can of course name this argument whatever you want - it's your function definition, React doesn't care! But React will pass one argument to your component function => An object, which contains all properties you set up on `` .
+
+`{props.title}` then dynamically outputs the `title` property of the `props` object - which is available since we set the `title` property inside `AllPosts` component (see above).
+
+
+
+**State**
+
+Whilst props allow you to pass data down the component tree (and hence trigger an UI update), state is used to change the component, well, state from within. Changes to state also trigger an UI update.
+
+**Example:**
+
+**NewPost Component:**
+
+```js
+class NewPost extends Component { // state can only be accessed in class-based components!
+    state = {
+        counter: 1
+    };  
+
+    render () { // Needs to be implemented in class-based components! Needs to return some JSX!
+        return (
+            <div>{this.state.counter}</div>
+        );
+    }
+}
+```
+
+Here, the `NewPost` component contains `state` . Only class-based components can define and use `state` . You can of course pass the `state` down to functional components, but these then can't directly edit it.
+
+`state` simply is a property of the component class, you have to call it `state` though - the name is not optional. You can then access it via `this.state` in your class JSX code (which you return in the required `render()` method).
+
+Whenever `state` changes (taught over the next lectures), the component will re-render and reflect the new state. The difference to `props` is, that this happens within one and the same component - you don't receive new data (`props` ) from outside!
 
 ### 15.1 props&state.pdf.pdf
 
@@ -737,33 +819,277 @@ export default App;
 
 ### 17. To Which Events Can You Listen.html
 
+In the last lecture, we saw that you can react to the onClick event - but to which other events can you listen? You can find a list of supported events here: https://reactjs.org/docs/events.html#supported-events
+
+### Clipboard Events
+
+Event names:
+
+```
+onCopy onCut onPaste
+```
+
+Properties:
+
+```
+DOMDataTransfer clipboardData
+```
+
+### Composition Events
+
+Event names:
+
+```
+onCompositionEnd onCompositionStart onCompositionUpdate
+```
+
+Properties:
+
+```
+string data
+```
+
+### Keyboard Events
+
+Event names:
+
+```
+onKeyDown onKeyPress onKeyUp
+```
+
+Properties:
+
+```
+boolean altKey
+number charCode
+boolean ctrlKey
+boolean getModifierState(key)
+string key
+number keyCode
+string locale
+number location
+boolean metaKey
+boolean repeat
+boolean shiftKey
+number which
+```
+
+### Focus Events
+
+Event names:
+
+```
+onFocus onBlur
+```
+
+These focus events work on all elements in the React DOM, not just form elements.
+
+Properties:
+
+```
+DOMEventTarget relatedTarget
+```
+
+### Form Events
+
+Event names:
+
+```
+onChange onInput onInvalid onSubmit
+```
+
+For more information about the onChange event, see [Forms](https://reactjs.org/docs/forms.html).
+
+### Mouse Events
+
+Event names:
+
+```
+onClick onContextMenu onDoubleClick onDrag onDragEnd onDragEnter onDragExit
+onDragLeave onDragOver onDragStart onDrop onMouseDown onMouseEnter onMouseLeave
+onMouseMove onMouseOut onMouseOver onMouseUp
+```
+
+The `onMouseEnter` and `onMouseLeave` events propagate from the element being left to the one being entered instead of ordinary bubbling and do not have a capture phase.
+
+Properties:
+
+```
+boolean altKey
+number button
+number buttons
+number clientX
+number clientY
+boolean ctrlKey
+boolean getModifierState(key)
+boolean metaKey
+number pageX
+number pageY
+DOMEventTarget relatedTarget
+number screenX
+number screenY
+boolean shiftKey
+```
+
+### Selection Events
+
+Event names:
+
+```
+onSelect
+```
+
+### Touch Events
+
+Event names:
+
+```
+onTouchCancel onTouchEnd onTouchMove onTouchStart
+```
+
+Properties:
+
+```
+boolean altKey
+DOMTouchList changedTouches
+boolean ctrlKey
+boolean getModifierState(key)
+boolean metaKey
+boolean shiftKey
+DOMTouchList targetTouches
+DOMTouchList touches
+```
+
+### UI Events
+
+Event names:
+
+```
+onScroll
+```
+
+Properties:
+
+```
+number detail
+DOMAbstractView view
+```
+
+### Wheel Events
+
+Event names:
+
+```
+onWheel
+```
+
+Properties:
+
+```
+number deltaMode
+number deltaX
+number deltaY
+number deltaZ
+```
+
+### Media Events
+
+Event names:
+
+```
+onAbort onCanPlay onCanPlayThrough onDurationChange onEmptied onEncrypted
+onEnded onError onLoadedData onLoadedMetadata onLoadStart onPause onPlay
+onPlaying onProgress onRateChange onSeeked onSeeking onStalled onSuspend
+onTimeUpdate onVolumeChange onWaiting
+```
+
+### Image Events
+
+Event names:
+
+```
+onLoad onError
+```
+
+### Animation Events
+
+Event names:
+
+```
+onAnimationStart onAnimationEnd onAnimationIteration
+```
+
+Properties:
+
+```
+string animationName
+string pseudoElement
+float elapsedTime
+```
+
+### Transition Events
+
+Event names:
+
+```
+onTransitionEnd
+```
+
+Properties:
+
+```
+string propertyName
+string pseudoElement
+float elapsedTime
+```
+
+### Other Events
+
+Event names:
+
+```
+onToggle
+```
+
 ### 18. Manipulating the State
+
+Sẽ overwrite old state to new state
 
 ### 18.1 state-learning-card.pdf.pdf
 
 ### 19. Function Components Naming.html
 
-In the next lecture, we'll learn how to manage state in functional components (instead of class-based components).
+In the **next lecture**, we'll learn how to manage state in functional components (instead of class-based components).
 
 In case you're getting an error with the code shown in the next lecture, simply assign a capitalized variable name to the variable that holds your functional component.
 
-Example:
+**Example:**
 
 Use
 
+```
 const App = () => { ... }
+```
+
 instead of
 
+```
 const app = () => { ... }
+```
+
 Technically, that's not required but depending on your project setup, the built-in linter (a code quality checking tool) that comes with create-react-app might not like the lowercase variable name.
 
-You can also avoid this by creating projects with the right react-scripts version, which I would recommend for this course anyways (see the setup video, lecture 26)
+You can also avoid this by creating projects with the **right react-scripts version**, which I would **recommend for this course** anyways (see the [setup video, lecture 26](https://www.udemy.com/react-the-complete-guide-incl-redux/learn/lecture/14320208))
 
+```shell
 create-react-app my-app --scripts-version 1.1.5
-
-> React 16.8
+```
 
 ### 20. Using the useState() Hook for State Manipulation
+
+react-hook cơ bản là tập hợp các hàm exposed to you by react which you can use in func components
+
+useState always return two elements, tham số thứ nhất là current state tham số thứ 2 là func to update state
 
 ```js
 import React, { useState } from "react";
@@ -832,9 +1158,14 @@ export default app;
 Stateful is a component that manage state
 Stateless is a component that doesn’t manage state
 
+=> func presentation component than statefull component => easy to maintain and manage 
+
 ### 22. Passing Method References Between Components
 
-Click on paragraph => have two way to call func with params(use arrow func is not recommend)
+Click on paragraph => have two way to call func with params(use arrow func is not recommend). You can pass method like a props `click={this.switchNameHandler.bind(this, 'Max!')`
+
+`() => this.switchNameHandler('Maximilian!!')` mean `() => return this.switchNameHandler('Maximilian!!')`
+
 App.js
 
 ```js
@@ -851,6 +1182,7 @@ App.js
     } )
   }
 
+  // 23 add
   nameChangedHandler = (event) => {
     this.setState( {
       persons: [
@@ -907,6 +1239,10 @@ export default person;
 
 ### 23. Adding Two Way Binding
 
+Để xem name hiển thị ở input khi init thì thêm `{props.name}`, nhưng khi thêm sẽ xuất hiện warning bởi vì bạn đang binding value with properties without allowing react to change
+
+![image-20200215082007322](./react-maximilan.assets/image-20200215082007322.png)
+
 person.js
 
 ```js
@@ -932,9 +1268,12 @@ add person.css
 ```
 
 thanks to webpack you can import css file in js file
-class => className
+
+> class => className 
 
 ### 25. Working with Inline Styles
+
+App.js
 
 ```js
 render () {
@@ -960,6 +1299,12 @@ render () {
 ### 27. [OPTIONAL] Assignment Solution
 
 ### 28. Useful Resources & Links.html
+
+- create-react-app: https://github.com/facebookincubator/create-react-app
+- Introducing JSX: https://reactjs.org/docs/introducing-jsx.html
+- Rendering Elements: https://reactjs.org/docs/rendering-elements.html
+- Components & Props: https://reactjs.org/docs/components-and-props.html
+- Listenable Events: https://reactjs.org/docs/events.html
 
 ## 4. Working with Lists and Conditionals
 
@@ -1066,18 +1411,67 @@ class App extends Component {
 export default App;
 ```
 
-// Cach 2
+// Cach 2: dùng code js trong dấu  {}
+
+```js
 {
-this.state.showPersons === true ? html code : null
+this.state.showPersons === true ? <div>
+          <Person
+            name={this.state.persons[0].name}
+            age={this.state.persons[0].age}
+          />
+          <Person
+            name={this.state.persons[1].name}
+            age={this.state.persons[1].age}
+            click={this.switchNameHandler.bind(this, "Max!")}
+            changed={this.nameChangedHandler}
+          >
+            My Hobbies: Racing
+          </Person>
+          <Person
+            name={this.state.persons[2].name}
+            age={this.state.persons[2].age}
+          />
+        </div> : null
 }
+```
+
+Nó sẽ tự động merge state
 
 ### 2.1 jsx-conditionals-learning-card.pdf.pdf
 
 ### 3. Handling Dynamic Content The JavaScript Way
 
+```js
+ let persons = null;
+
+    if ( this.state.showPersons ) {
+      persons = (
+        <div>
+          <Person
+            name={this.state.persons[0].name}
+            age={this.state.persons[0].age} />
+          <Person
+            name={this.state.persons[1].name}
+            age={this.state.persons[1].age}
+            click={this.switchNameHandler.bind( this, 'Max!' )}
+            changed={this.nameChangedHandler} >My Hobbies: Racing</Person>
+          <Person
+            name={this.state.persons[2].name}
+            age={this.state.persons[2].age} />
+        </div>
+      );
+    }
+
+```
+
+Refactor 
+
 ### 4. Outputting Lists (Intro)
 
 ### 5. Outputting Lists
+
+Không như angular hay vue có ngFor hay v-for, react xử lý all bằng js
 
 ```js
 if (this.state.showPersons) {
@@ -1159,7 +1553,7 @@ nameChangedHandler = (event, id) => {
 ```
 
 Call
-changed={(event) => this.nameChangedHandler(event, person.id)}
+`changed={(event) => this.nameChangedHandler(event, person.id)}`
 
 ### 10. Wrap Up
 
@@ -1170,12 +1564,54 @@ changed={(event) => this.nameChangedHandler(event, person.id)}
 App.js
 
 ```ts
-<input
+import React, { Component } from 'react';
+import './App.css';
+import Validation from './Validation/Validation';
+import Char from './Char/Char';
+
+class App extends Component {
+  state = {
+    userInput: ''
+  }
+
+  inputChangedHandler = ( event ) => {
+    this.setState( { userInput: event.target.value } );
+  }
+
+  deleteCharHandler = ( index ) => {
+    const text = this.state.userInput.split('');
+    text.splice(index, 1);
+    const updatedText = text.join('');
+    this.setState({userInput: updatedText});
+  }
+
+  render () {
+    const charList = this.state.userInput.split('').map((ch, index) => {
+      return <Char 
+        character={ch} 
+        key={index}
+        clicked={() => this.deleteCharHandler(index)} />;
+    });
+
+    return (
+      <div className="App">
+        
+        <p>Hint: Keep in mind that JavaScript strings are basically arrays!</p>
+        <hr />
+        <input
           type="text"
           onChange={this.inputChangedHandler}
           value={this.state.userInput} />
         <p>{this.state.userInput}</p>
         <Validation inputLength={this.state.userInput.length} />
+        {charList}
+      </div>
+    );
+  }
+}
+
+export default App;
+
 ```
 
 Validation
@@ -1224,24 +1660,6 @@ const char = props => {
 export default char;
 ```
 
-App.js
-
-```js
-  deleteCharHandler = ( index ) => {
-    const text = this.state.userInput.split('');
-    text.splice(index, 1);
-    const updatedText = text.join('');
-    this.setState({userInput: updatedText});
-  }
-
-render () {
-    const charList = this.state.userInput.split('').map((ch, index) => {
-      return <Char
-        character={ch}
-        key={index}
-        clicked={() => this.deleteCharHandler(index)} />;
-    });
-```
 
 ### 13. Useful Resources & Links.html
 
@@ -1256,6 +1674,8 @@ Lists & Keys: https://reactjs.org/docs/lists-and-keys.html
 
 ### 3. Setting Styles Dynamically
 
+Change backgroundColor to green
+
 ```ts
 
   render () {
@@ -1265,7 +1685,108 @@ Lists & Keys: https://reactjs.org/docs/lists-and-keys.html
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
+      cursor: 'pointer'
+    };
+
+    let persons = null;
+
+    if ( this.state.showPersons ) {
+      persons = (
+        <div>
+          {this.state.persons.map( ( person, index ) => {
+            return <Person
+              click={() => this.deletePersonHandler( index )}
+              name={person.name}
+              age={person.age}
+              key={person.id}
+              changed={( event ) => this.nameChangedHandler( event, person.id )} />
+          } )}
+        </div>
+      );
+
+// Add if show person => color is red
+      style.backgroundColor = 'red';
+    }
+
+```
+
+### 4. Setting Class Names Dynamically
+
+App.css
+
+```css
+.App {
+  text-align: center;
+}
+
+.red {
+  color: red;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.App button {
+  border: 1px solid blue;
+  padding: 16px;
+  background-color: green;
+  font: inherit;
+  color: white;
+  cursor: pointer;
+}
+
+.App button:hover {
+  background-color: lightgreen;
+  color: black;
+}
+
+.App button.Red {
+  background-color: red;
+}
+
+.App button.Red:hover {
+  background-color: salmon;
+  color: black;
+}
+```
+
+App.js
+
+```ts
+const classes = [];
+if (this.state.persons.length <= 2) {
+  classes.push("red"); // classes = ['red']
+}
+if (this.state.persons.length <= 1) {
+  classes.push("bold"); // classes = ['red', 'bold']
+}
+
+// html trong hàm render
+<p className={classes.(" ")}>This is really working!</p>;
+```
+
+### 5. Adding and Using Radium
+
+```ts
+// allow use inline style with pseudo selector @media
+npm install --save radium
+```
+
+App.js
+
+```ts
+import Radium, { StyleRoot } from "radium";
+
+render () {
+    const style = {
+      backgroundColor: 'green',
+      color: 'white', // ADD
+      font: 'inherit',
+      border: '1px solid blue',
+      padding: '8px',
       cursor: 'pointer',
+        // add
       ':hover': {
         backgroundColor: 'lightgreen',
         color: 'black'
@@ -1288,43 +1809,16 @@ Lists & Keys: https://reactjs.org/docs/lists-and-keys.html
         </div>
       );
 
-// Add
+// Add if show person => color is red
       style.backgroundColor = 'red';
+// Add
       style[':hover'] = {
         backgroundColor: 'salmon',
         color: 'black'
       };
     }
 
-```
-
-### 4. Setting Class Names Dynamically
-
-```ts
-const classes = [];
-if (this.state.persons.length <= 2) {
-  classes.push("red"); // classes = ['red']
-}
-if (this.state.persons.length <= 1) {
-  classes.push("bold"); // classes = ['red', 'bold']
-}
-
-// html
-<p className={classes.join(" ")}>This is really working!</p>;
-```
-
-### 5. Adding and Using Radium
-
-```ts
-// allow inline style and pseudo selector
-npm install --save radium
-```
-
-App.js
-
-```ts
-import Radium, { StyleRoot } from "radium";
-
+// ở cuối file wrap App bằng Radium
 export default Radium(App);
 ```
 
@@ -1337,6 +1831,7 @@ import Radium from "radium";
 import "./Person.css";
 
 const person = props => {
+    // add
   const style = {
     "@media (min-width: 500px)": {
       width: "450px"
@@ -1353,6 +1848,7 @@ const person = props => {
   );
 };
 
+// add
 export default Radium(person);
 ```
 
@@ -1382,11 +1878,30 @@ Person.css
 } */
 ```
 
-wrap by StyleRoot
+Tại file app.js wrap by StyleRoot
+
+```js
+return (
+      <StyleRoot>
+        <div className="App">
+          <h1>Hi, I'm a React App</h1>
+          <p className={classes.join( ' ' )}>This is really working!</p>
+          <button
+            style={style}
+            onClick={this.togglePersonsHandler}>Toggle Persons</button>
+          {persons}
+        </div>
+      </StyleRoot>
+    );
+    // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
+  }
+```
+
+
 
 ### 7. MUST READ Enabling CSS Modules.html
 
-Don't skip this lecture - and keep it open in a separate browser tab when you go through the next lecture - sorry for the small inconvenience at this point!
+**Don't skip this lecture - and keep it open in a separate browser tab when you go through the next lecture - sorry for the small inconvenience at this point!**
 
 In the next lecture, we'll use a styling solution named "CSS modules". I'll explain what it is and how it works over the next lectures.
 
@@ -1396,39 +1911,50 @@ In the next lecture, we'll eject from the project created with create-react-app 
 
 We'll then replace some code in a newly added webpack config file (it'll be available after ejecting).
 
-In the video, I'll look for an entry that starts like this (in the webpack.config.js file):
+In the video, I'll look for an entry that starts like this (in the `webpack.config.js` file):
 
+```
 {
-test: /\.css\$/,
-...
+  test: /\.css$/,
+  ...
 }
+```
+
 and I then edit this entry.
 
-This entry now looks slightly different. You'll have to find the following part in your webpack.config.js file:
+This entry now looks slightly different. You'll have to find the following part in your `webpack.config.js` file:
 
+```
 {
-test: cssRegex,
-exclude: cssModuleRegex,
-...
+  test: cssRegex,
+  exclude: cssModuleRegex,
+  ...
 }
+```
+
 and then edit that entry.
 
 Finally, it should look like this:
 
+```
 {
-test: cssRegex,
-exclude: cssModuleRegex,
-use: getStyleLoaders({
-importLoaders: 1,
-modules: true,
-localIdentName: '[name]**[local]**[hash:base64:5]'
-}),
+  test: cssRegex,
+  exclude: cssModuleRegex,
+  use: getStyleLoaders({
+      importLoaders: 1,
+      modules: true,
+      localIdentName: '[name]__[local]__[hash:base64:5]'
+  }),
 }
-You can ignore me editing the webpack.config.prod.js file - with the latest version of create-react-app, ejecting only gives you ONE webpack config file (which you edit as described above).
+```
 
----
+You can ignore me editing the `webpack.config.prod.js` file - with the latest version of create-react-app, ejecting only gives you **ONE** webpack config file (which you edit as described above).
+
+**---**
 
 Alternatively, you can now also use CSS modules without ejecting (you still can though, it won't be a problem). In a non-ejected project created with create-react-app, you can use CSS modules as described here: https://facebook.github.io/create-react-app/docs/adding-a-css-modules-stylesheet
+
+https://create-react-app.dev/docs/adding-a-css-modules-stylesheet/
 
 ### 8. Enabling & Using CSS Modules
 
@@ -1454,20 +1980,12 @@ const person = props => {
 export default person;
 ```
 
-Person.css
 
-```css
-@media (min-width: 500px) {
-  .Person {
-    width: 450px;
-  }
-}
-```
 
 Xoa Radium in App.js
 
 - Remove Radium and style
-- `npm eject` => sinh ra 2 folder scripts and config
+- `npm run eject` => sinh ra 2 folder scripts and config : tự chỉnh sửa config(xem lại)
 
 In the video, I'll look for an entry that starts like this (in the webpack.config.js file):
 {
@@ -1477,12 +1995,20 @@ test: /\.css\$/,
 and I then edit this entry.
 
 O duoi phan options:
-File webpack.config.dev.js
+File configs/webpack.config.dev.js
 
 ```js
-      importLoaders: 1,
-      modules: true,
-      localIdentName: '[name]__[local]__[hash:base64:5]'
+test: /\.css$/,
+            use: [
+              require.resolve('style-loader'),
+              {
+                loader: require.resolve('css-loader'),
+                options: {
+                  importLoaders: 1,
+                   modules: true,
+      				localIdentName: 	         '[name]__[local]__[hash:base64:5]'
+                },
+              },      
 
 ```
 
@@ -1535,7 +2061,7 @@ App.css
 }
 ```
 
-App.js
+App.js(Sau khi sửa phải run lại app)
 
 ```js
 // add
@@ -1562,51 +2088,109 @@ return (
 // return        <div className={classes.App}>
 ```
 
+Person.js sửa thành
+
+`<div className={classes.Person}>`
+
 ### 8.1 css-modules-learning-card.pdf.pdf
 
 ![](./root/img/2020-01-22-10-10-01.png)
 
 ### 9. More on CSS Modules.html
 
-CSS Modules are a relatively new concept (you can dive super-deep into them here: https://github.com/css-modules/css-modules). With CSS modules, you can write normal CSS code and make sure, that it only applies to a given component.
+**CSS Modules** are a relatively new concept (you can dive super-deep into them here: https://github.com/css-modules/css-modules). With CSS modules, you can write normal CSS code and make sure, that it only applies to a given component.
 
-It's not using magic for that, instead it'll simply automatically generate unique CSS class names for you. And by importing a JS object and assigning classes from there, you use these dynamically generated, unique names. So the imported JS object simply exposes some properties which hold the generated CSS class names as values.
+It's not using magic for that, instead it'll simply **automatically generate unique CSS class names** for you. And by importing a JS object and assigning classes from there, you use these dynamically generated, unique names. So the imported JS object simply exposes some properties which hold the generated CSS class names as values.
 
-Example:
+**Example:**
 
-In Post.css File
+**In Post.css File**
 
+```
 .Post {
-color: red;
+    color: red;
 }
-In Post Component File
-
-```js
-import classes from "./Post.css";
-
-const post = () => <div className={classes.Post}>...</div>;
 ```
 
-Here, classes.Post refers to an automatically generated Post property on the imported classes object. That property will in the end simply hold a value like `Post__Post__ah5_1` .
+**In Post Component File**
 
-So your .Post class was automatically transformed to a different class (`Post__Post__ah5_1` ) which is unique across the application. You also can't use it accidentally in other components because you don't know the generated string! You can only access it through the classes object. And if you import the CSS file (in the same way) in another component, the classes object there will hold a Post property which yields a different (!) CSS class name. Hence it's scoped to a given component.
+```
+import classes from './Post.css';
 
-By the way, if you somehow also want to define a global (i.e. un-transformed) CSS class in such a .css file, you can prefix the selector with :global .
+const post = () => (
+    <div className={classes.Post}>...</div>
+);
+```
 
-Example:
+Here, `classes.Post` refers to an automatically generated `Post` property on the imported `classes` object. That property will in the end simply hold a value like `Post__Post__ah5_1` .
 
+So your `.Post` class was automatically transformed to a different class (`Post__Post__ah5_1` ) which is unique across the application. You also can't use it accidentally in other components because you don't know the generated string! You can only access it through the `classes` object. And if you import the CSS file (in the same way) in another component, the `classes` object there will hold a `Post` property which yields a **different** (!) CSS class name. Hence it's scoped to a given component.
+
+By the way, if you somehow also want to define a global (i.e. un-transformed) CSS class in such a `.css` file, you can prefix the selector with `:global` .
+
+**Example:**
+
+```
 :global .Post { ... }
+```
 
-Now you can use className="Post" anywhere in your app and receive that styling.
+Now you can use `className="Post"` anywhere in your app and receive that styling.
 
 ### 10. Adding Pseudo Selectors
 
 className={btnClass}
 
+App.css add
+
+```css
+
+.App button {
+  border: 1px solid blue;
+  padding: 16px;
+  background-color: green;
+  font: inherit;
+  color: white;
+  cursor: pointer;
+}
+
+.App button:hover {
+  background-color: lightgreen;
+  color: black;
+}
+
+.App button.Red {
+  background-color: red;
+}
+
+.App button.Red:hover {
+  background-color: salmon;
+  color: black;
+}
+```
+
+App.js
+
+```js
+<button
+            className={btnClass}
+            onClick={this.togglePersonsHandler}>Toggle Persons</button>
+          {persons}
+```
+
+
+
 ### 11. Working with Media Queries
 
 Sua file Person.css
+Person.css
 
+```css
+@media (min-width: 500px) {
+  .Person {
+    width: 450px;
+  }
+}
+```
 ### 12. Useful Resources & Links.html
 
 Using CSS Modules in create-react-app Projects: https://medium.com/nulogy/how-to-use-css-modules-with-create-react-app-9e44bec2b5c2
@@ -1617,6 +2201,8 @@ More information about CSS Modules: https://github.com/css-modules/css-modules
 ### 1. Module Introduction
 
 ### 2. Understanding Error Messages
+
+F12 tab console and source
 
 ### 3. Finding Logical Errors by using Dev Tools & Sourcemaps
 
@@ -1681,6 +2267,9 @@ return (
 
 ### 7. Useful Resources & Links.html
 
+- Error Boundaries: https://reactjs.org/docs/error-boundaries.html
+- Chrome Devtool Debugging: https://developers.google.com/web/tools/chrome-devtools/javascript/
+
 ## 7. Diving Deeper into Components & React Internals
 
 ### 1. Module Introduction
@@ -1692,7 +2281,7 @@ Modify import
 
 ### 3. Splitting an App Into Components
 
-Persons.js
+Persons.js add new file
 
 ```js
 import React from "react";
@@ -1720,6 +2309,24 @@ export default persons;
 App.js
 
 ```js
+/* if ( this.state.showPersons ) {
+      persons = (
+        <div>
+          {this.state.persons.map( ( person, index ) => {
+            return <Person
+              click={() => this.deletePersonHandler( index )}
+              name={person.name}
+              age={person.age}
+              key={person.id}
+              changed={( event ) => this.nameChangedHandler( event, person.id )} />
+          } )}
+        </div>
+      );
+
+      btnClass = classes.Red;
+    }
+ */   
+    
 if (this.state.showPersons) {
   persons = (
     <Persons
@@ -1766,7 +2373,7 @@ const cockpit = props => {
 export default cockpit;
 ```
 
-Cockpit.css
+Cockpit.css thay đổi tên App thành Cockpit
 
 ```css
 .red {
@@ -1801,7 +2408,7 @@ Cockpit.css
 }
 ```
 
-App
+App.js
 
 ```js
 return (
@@ -1818,6 +2425,8 @@ return (
 ```
 
 ### 4. Comparing Stateless and Stateful Components
+
+presentational component is func component does not manage state
 
 ### 5. Class-based vs Functional Components
 
@@ -1866,6 +2475,10 @@ componentWillMount() {
 
 If you want to set initial state based on props => use constructor
 
+Cách init state ở ngoài là cách hiện đại trong js, behind the sence
+
+![image-20200215144237690](./react-maximilan.assets/image-20200215144237690.png)
+
 ### 7.1 lifecycle-creation-learning-card.pdf.pdf
 
 ![](./root/img/2020-01-24-16-10-19.png)
@@ -1875,8 +2488,10 @@ If you want to set initial state based on props => use constructor
 rarely use react hook to update your state
 there is a more elegant way of updating your state or managing your component based on external properties
 
-Get snapshot of use state, restore the scrolling position before update happen
-ComponentDidMount => cause re-render when update state
+getSnapshotBeforeUpdate => Get snapshot of use state, restore the scrolling position before update happen
+ComponentDidMount => không nên use sync: cause re-render when update state
+
+shouldComponentUpdate => có update hay không?
 
 **Practice**
 Person.js
@@ -1953,6 +2568,7 @@ class Persons extends Component {
     return true;
   }
 
+    // send snapshot to componentDidUpdate
   getSnapshotBeforeUpdate(prevProps, prevState) {
     console.log("[Persons.js] getSnapshotBeforeUpdate");
     return { message: "Snapshot!" };
@@ -1962,6 +2578,10 @@ class Persons extends Component {
 
   // }
 
+//   componentDidUpdate() {
+//    console.log("[Persons.js] componentDidUpdate");
+//  }
+    
   componentDidUpdate(prevProps, prevState, snapshot) {
     console.log("[Persons.js] componentDidUpdate");
     console.log(snapshot);
@@ -1989,6 +2609,8 @@ export default Persons;
 Them tham so snapshot trong componentDidUpdate(prevProps, prevState, snapshot) no nhan tu getSnapshotBeforeUpdate.  
 componentWillReceiveProps don't support any more
 
+![image-20200215150401694](react-maximilan.assets/image-20200215150401694.png)
+
 ### 8.1 lifecycle-update-external-learning-card.pdf.pdf
 
 ![](./root/img/2020-01-25-18-06-36.png)
@@ -2008,10 +2630,12 @@ App.js
   }
 ```
 
+![image-20200215150718935](react-maximilan.assets/image-20200215150718935.png)
+
 ### 10. Using useEffect() in Functional Components
 
 useEffect is not a lifecycle hook, this is a react hook
-It will run for every cycle
+It will run for every render cycle(khi thay đổi name trong input nó cũng thay đổi state => re-render so useEffect was called)
 
 Cockpit.js
 
@@ -2033,7 +2657,9 @@ useEffect(() => {
   setTimeout(() => {
     alert("Saved data to cloud!");
   }, 1000);
-}, []);
+}, [props.person]);
+// khi delete person nó mới call còn ấn vào button nó sẽ không call
+// Nếu để là [] nó sẽ chạy lần đầu khi ấn button còn các lần sau sẽ không hiển thị nữa
 ```
 
 [props.persons] : second arguments is point to all variable or all data use in that actually are used in your effect
@@ -2062,6 +2688,7 @@ useEffect(() => {
   };
 }, []);
 
+// every re-render will clean
 useEffect(() => {
   console.log("[Cockpit.js] 2nd useEffect");
   return () => {
@@ -2072,7 +2699,7 @@ useEffect(() => {
 
 App.js
 
-Them state showCockpit
+Add state showCockpit and add button to remove the cockpit
 
 ```js
 <button
@@ -2094,34 +2721,342 @@ Them state showCockpit
 }
 ```
 
-> It will run BEFORE main useEffect function run and AFTER the (first) render cycle run
+> It will run BEFORE main useEffect function run and AFTER the (first) render cycle run(hàm return được gọi ở cockpit)
 
 ### 13. Cleanup Work with useEffect() - Ex
 
 Clear timer neu k se nhin thay alert
 clearTimeout(timer)
 
+```js
+useEffect(() => {
+  console.log("[Cockpit.js] useEffect");
+  // Http request...
+  timer = setTimeout(() => {
+    alert("Saved data to cloud!");
+  }, 1000);
+  return () => {
+      clearTimeout(timer);
+    console.log("[Cockpit.js] cleanup work in useEffect");
+  };
+}, []);
+```
+
 ### 14. Using shouldComponentUpdate for Optimization
+
+Bấm vào button toggle và sau đó xóa Cockpit sẽ không render lại Persons
+
+Person.js
+
+```js
+shouldComponentUpdate(nextProps, nextState) {
+    console.log('[Persons.js] shouldComponentUpdate');
+    if (nextProps.persons !== this.props.persons) {
+      return true;
+    } else {
+      return false;
+    }
+    // return true;
+  }
+```
+
+Xem lại có sử dụng tool
+
+![image-20200215155543924](react-maximilan.assets/image-20200215155543924.png)  
+
+enable paint flashing
+
+Update in a virtual DOM but not update in real DOM when you see
+
+https://viblo.asia/p/tim-hieu-ve-hooks-trong-react-Ljy5VzGG5ra
+
+https://viblo.asia/p/tim-hieu-ve-hooks-trong-react-p2-GrLZDkyEKk0
+
+https://viblo.asia/p/tim-hieu-ve-hooks-trong-react-p3-m68Z07g2KkG?fbclid=IwAR2zq7MEfttB7VsFS0LBY-gHG2JKPUYTm78mPzzGVDb3uIS0ZNg_EPxHad4
+
+
 
 ### 14.1 Reference vs Primitive Types.html
 
+https://academind.com/learn/javascript/reference-vs-primitive-values/
+
 ### 15. Optimizing Functional Components with React.memo()
+
+Khi thay đổi name trong input useEffect trong Cockpit được gọi => prevent
+
+```js
+export default React.memo(cockpit);
+// will store a snapshot of this component, only input change => re-render. If parent doesnot change React will back in store components
+```
+
+App.js add personsLength
+
+```js
+{this.state.showCockpit ? (
+          <Cockpit
+            title={this.props.appTitle}
+            showPersons={this.state.showPersons}
+            personsLength={this.state.persons.length}
+            clicked={this.togglePersonsHandler}
+          />
+        ) : null}
+```
+
+nếu không thêm thì nó sẽ phụ thuộc vào person nếu truyền person vào như cũ  => re-render khi bấm vào button sẽ gọi useEffect
+
+Kết quả là khi thay đổi input nó sẽ không gọi lại hàm useEffect
 
 ### 16. When should you optimize
 
+Khi có khoảng 60% component cần update mà wrap bằng memo hay shouldComponentUpdate thì sẽ ảnh hưởng tốc độ app
+
 ### 17. PureComponents instead of shouldComponentUpdate
+
+Person.js
+
+```js
+// shouldComponentUpdate(nextProps, nextState) {
+  //   console.log('[Persons.js] shouldComponentUpdate');
+  //   if (
+  //     nextProps.persons !== this.props.persons ||
+  //     nextProps.changed !== this.props.changed ||
+  //     nextProps.clicked !== this.props.clicked
+  //   ) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  //   // return true;
+  // }
+```
+
+Cách 2: extends PureComponent
+
+Khi edit input mới update còn remove cockpit sẽ không render lại Persons
+
+```js
+import React, { PureComponent } from 'react';
+
+import Person from './Person/Person';
+
+class Persons extends PureComponent {
+```
+
+
 
 ### 18. How React Updates the DOM
 
+render rất dễ bị gọi dẫn đến hiển thị the same => nên mới có shouldComponentUpdate
+
+![image-20200215172628432](react-maximilan.assets/image-20200215172628432.png)
+
+
+
 ### 19. Rendering Adjacent JSX Elements
+Cách 1: warp all elements in a div
+
+Cách 2: return an array with id 
+
+```js
+class Person extends Component {
+  render() {
+    console.log('[Person.js] rendering...');
+    return 
+      [
+        <p onClick={this.props.click}>
+          I'm {this.props.name} and I am {this.props.age} years old!
+        </p>,
+        <p key="i2">{this.props.children}</p>,
+        <input
+          key="i3"
+          type="text"
+          onChange={this.props.changed}
+          value={this.props.name}
+        />
+     ];
+  }
+}
+
+------------------------------------------
+// React có cách để replace như trên
+import React, { Component } from 'react';
+
+import Aux from '../../../hoc/Aux';
+import classes from './Person.css';
+
+class Person extends Component {
+  render() {
+    console.log('[Person.js] rendering...');
+    return (
+      <Aux>
+        <p onClick={this.props.click}>
+          I'm {this.props.name} and I am {this.props.age} years old!
+        </p>
+        <p key="i2">{this.props.children}</p>
+        <input
+          key="i3"
+          type="text"
+          onChange={this.props.changed}
+          value={this.props.name}
+        />
+      </Aux>
+    );
+  }
+}
+
+export default Person;
+
+```
+
+Create two file in folder hoc/
+
+```js
+Aux.js
+const aux = props => props.children;
+
+export default aux;
+
+---------------
+Auxiliary.js
+const aux = props => props.children;
+
+export default aux;
+```
 
 ### 19.1 react-adjacent-jsx.pdf.pdf
+
+Xem lại
+
+**Why can’t you return adjacent, top-level JSX elements?**
+It becomes clear, once you translate the JSX code to the
+React.createElement() calls React actually executes (don’t forget: The React
+project build workflow performs this transformation for you!)
+JSX:
+
+```js
+import React from 'react';
+const heading = props => (
+<h1>{props.title}</h1>
+<h2>{props.subtitle}</h2>
+);
+export default heading;
+```
+This is NOT allowed because it would be translated to:
+
+```js
+import React from 'react';
+const heading = props => React.createElement('h1', {},
+props.title) React.createElement('h2', {}, props.subtitle);
+export default heading;
+```
+
+This is invalid JavaScript syntax, you’re trying to return two expressions (two
+React.createElement() calls).
+You are allowed to do that if you
+a) return an array of `React.createElement()` calls OR
+b) return a single `React.createElement()` call that wraps the other two
+a)
+
+```js
+import React from 'react';
+const heading = props => [
+React.createElement('h1', {key: 'i1'}, props.title),
+React.createElement('h2', {key: 'i2'}, props.subtitle)
+];
+export default heading;
+```
+
+
+
+This is equivalent to returning an array of keyed JSX elements.
+b)
+
+```js
+import React from 'react';
+import Aux from '../hoc/Aux';
+const heading = props => React.createElement(
+Aux,
+{},
+React.createElement('h1', {key: 'i1'}, props.title),
+React.createElement('h2', {key: 'i2'}, props.subtitle)
+);
+export default heading;
+This is equivalent to using <Aux>.
+```
+
+
+
+b) works because we can pass as many children (third argument to
+React.createElement()) as we want.  
 
 ### 20. Windows Users Must Read.html
 
 ### 21. Using React.Fragment
 
+Thực hiện giống như Aux
+
+```js
+<React.Fragment>
+        <p onClick={this.props.click}>
+          I'm {this.props.name} and I am {this.props.age} years old!
+        </p>
+        <p key="i2">{this.props.children}</p>
+        <input
+          key="i3"
+          type="text"
+          onChange={this.props.changed}
+          value={this.props.name}
+        />
+      </React.Fragment>
+```
+
+
+
 ### 22. Higher Order Components (HOC) - Introduction
+
+Create file WithClass.js
+
+```js
+import React from 'react';
+
+const withClass = props => (
+  <div className={props.classes}>{props.children}</div>
+);
+
+export default withClass;
+
+```
+
+App.js wrap WithClass
+
+```js
+return (
+      <WithClass classes={classes.App}>
+        <button
+          onClick={() => {
+            this.setState({ showCockpit: false });
+          }}
+        >
+          Remove Cockpit
+        </button>
+        {this.state.showCockpit ? (
+          <Cockpit
+            title={this.props.appTitle}
+            showPersons={this.state.showPersons}
+            personsLength={this.state.persons.length}
+            clicked={this.togglePersonsHandler}
+          />
+        ) : null}
+        {persons}
+      </WithClass>
+    );
+```
+
+
+
+
+
+
 
 ### 23. Another Form of HOCs
 
@@ -2986,3 +3921,232 @@ clearTimeout(timer)
 ### 8. Comparing React with Preact
 
 ### 9. Congratulations
+
+
+
+Hook
+
+https://viblo.asia/p/tim-hieu-ve-hooks-trong-react-Ljy5VzGG5ra
+
+https://viblo.asia/p/tim-hieu-ve-hooks-trong-react-p2-GrLZDkyEKk0
+
+https://viblo.asia/p/tim-hieu-ve-hooks-trong-react-p3-m68Z07g2KkG?fbclid=IwAR2zq7MEfttB7VsFS0LBY-gHG2JKPUYTm78mPzzGVDb3uIS0ZNg_EPxHad4
+
+# Tìm hiểu về Hooks trong React
+
+[ReactJS](https://viblo.asia/tags/reactjs)
+
+## 1. Mở đầu
+
+------
+
+Xin chào tất cả các bạn mặc dù `Hooks` của `React` đã ra mắt được một thời gian rồi tuy nhiên gần đây mình mới có cơ hội sử dụng thử nó nhiều hơn trong project nên bài viết này mình xin chia sẻ lại với các bạn về một số điều mà mình tìm hiểu được về một số hàm `Hooks` mà mình tìm hiểu được
+
+## 2. React Hook
+
+------
+
+### a. useState
+
+Có lẽ đối với các bạn đã đọc qua về `Hook` trong `React` thì đây là 1 trong 2 `Hook` cơ bản nhất được giới thiệu trong số các `Hook`. `useState` như trong document của `React` giới thiệu thì nó có tính năng tương tự giống như `state` trong `class Component`. Đối với mình thì `Hook` này khá là hữu dụng vì từ khi dùng nó thì mình hầu như không còn cần tạo `class Component` nữa. Nếu trước kia bạn có một component sidebar như sau:
+
+```js
+const Sidebar = () => (
+    <div>
+        <ul>
+            <li>Menu 1</li>
+            <li>Menu 2</li>
+        </ul>    
+    </div>
+)
+```
+
+Với mục đích bạn đầu là phần `Sidebar` này sẽ luôn hiển thị thì bạn chỉ cần viết như trên và import nó vào sử dụng. Tuy nhiên về sau bạn lại muốn có thể thu gọn `Sidebar` này lại để có nhiều diện tích màn hình hơn cho phần nội dung chính thì chúng ta sẽ cần cập nhật lại. Trước thời kì của `Hooks` thì chúng ta sẽ phải refactor lại component này về `class Component` như sau:
+
+```js
+class Sidebar extends Components {
+    state = {
+        isCollapsed: false
+    }
+    
+    const handleToggleSidebar = () => {
+        this.setState(prevState => ({
+            isCollapsed: !prevState.isCollapsed
+        }));
+    }
+
+    render() {
+        const { isCollapsed } = this.state; 
+
+        return (
+            <div className={`${isCollapsed ? 'hide' : 'display'}`}>
+                <button onClick={this.handleToggleSidebar}>Collapse</button>
+                <ul>
+                    <li>Menu 1</li>
+                    <li>Menu 2</li>
+                </ul>    
+            </div>
+        )
+    }
+}
+```
+
+Trước thời kì có `Hook` thì mình rất hay phải làm việc này vì mỗi khi code mình vẫn đi theo "lý tưởng" mà mình đọc được đâu đó trên mạng là luôn ưu tiên `function component` ![😂](react-maximilan.assets/1f602-1581757434118.png)![😂](react-maximilan.assets/1f602-1581757434118.png)![😂](react-maximilan.assets/1f602-1581757434118.png) . Tuy nhiên từ khi có `Hooks` thì thay vì phải sửa lại nhiều như trên thì mình chỉ cần đơn giản làm như sau:
+
+```js
+const Sidebar = () => {
+    const [isCollapsed, setCollapse] = useState(false);
+
+    function handleToggleSidebar() {
+        handleToggleSidebar(!isCollapsed);
+    }
+
+    return (
+        <div className={`${isCollapsed ? 'hide' : 'display'}`}>
+            <button onClick={handleToggleSidebar}>Collapse</button>
+            <ul>
+                <li>Menu 1</li>
+                <li>Menu 2</li>
+            </ul>    
+        </div>
+    )
+}
+```
+
+Như bạn có thể thấy nó ngắng gọn hơn rất nhiều so với phiên bản trước đó mà vẫn đạt được mục đích chúng ta mong muốn.
+
+### b. useReducer
+
+------
+
+Nếu bạn đã từng sử dụng `Redux` thì cũng không còn lạ với khái niệm này. Một trong những người phát triển ra `Redux` là `Dan Abramov` hiện tại cùng là thành viên trong team phát triển `React` cho nên có thể `Dan` đã mang cái tên này vào trong `Hook` của `React`. `useReducer` hoạt động tương tự như `Reducer` mà bạn thấy trong `Redux`. `useReducer` cũng nhận vào 2 tham số đó là `state` hiện tại của chúng ta và một `action` để có thể quyết định state của chúng ta sẽ thay đổi ra sao. Để hiểu rõ hơn chúng ta sẽ xét ví dụ sau:
+
+```js
+const PostList = () => {
+    const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+
+    function loadUser() {
+        setLoading(true)
+        axios.get('some-post-url')
+            .then(response => {
+                const { data } = response;
+                setPosts(data);
+                setError(false);
+                setLoading(false);
+            })
+            .catch(error => {
+                setLoading(false);
+                setError(true);
+            })
+    }
+
+    return (
+        // Some UI
+    )
+}
+```
+
+Nói qua về kịch bản phía trên ta sẽ có một function mà khi gọi vào nó sẽ thự hiện việc gọi lên API lấy danh sách bài viết và hiển thị ra cho chúng ta. Và để có trải nghiệm tốt nhất thì trong khi đợi kết quả từ API chúng ta sẽ hiển thị một cái UI là đang loading được quyết định bằng `state loading` như bạn thấy ở trên. Trong trường hợp lấy được dữ liệu thành công thì `loading` sẽ trở lại `false` và ẩn cái UI loading đó đi để hiển thị danh sách bài viết cho bạn. Còn trong trường hợp có lỗi thì `error` sẽ thành `true` và bạn có thể hiển thị ra thông báo lỗi nào đó. Với kịch bạn như trên khi mà `state` của bạn có nhiều các thuộc tính và các thuộc tính sẽ cùng thay đổi theo một nhóm hành động như trên thì ta có thể dùng `useReducer` như sau:
+
+```js
+const postReducer = (state, action) => {
+    switch (action.type) {
+        case 'LOADING':
+            return {posts: [], loading: true, error: false};
+        case 'LOAD_SUCCESS':
+            return {posts: action.posts, loading: false, error: false};
+        case 'LOAD_ERROR':
+            return {posts: [], loading: false, error: action.error};
+    }
+}
+
+const PostList = () => {
+    const [state, dispatch] = useReducer({
+        posts: [],
+        loading: false,
+        error: false,
+    });
+
+    function loadUser() {
+        dispatch({ type: "LOADING" });
+        axios.get('some-post-url')
+            .then(response => {
+                const { data } = response;
+                 dispatch({ type: "LOAD_SUCCESS", users: data });
+            })
+            .catch(error => {
+                dispatch({ type: "LOAD_ERROR", error });
+            })
+    }
+
+    return (
+        // Some UI
+    )
+}
+```
+
+Với ví dụ trên thì bạn có thể thây tại sao nó có tên gọi là `useReducer` vì nó theo mình giống như là anh em họ với `Reducer` của `Redux`. Với ví dụ trên bạn có thể nghĩ là việc sử dụng `useReducer` có vẻ sẽ mất nhiều công code hơn so với `useState` như ban đầu. Tuy nhiên trong trường hợp `state` của bạn là một object phức tạp chứa nhiều tầng lớp và các action của bạn chỉ thay đổi một phần trong đó thì lúc ấy `useReducer` chính là thứ bạn cần thay cho việc tạo ra cả chục cái `useState`. Điều này cũng dễ hiểu vì đến `Redux` cũng sử dụng nó để thực hiện việc thay đổi `store` mà ![😄](react-maximilan.assets/1f604-1581757434143.png) ![😄](react-maximilan.assets/1f604-1581757434143.png) ![😄](react-maximilan.assets/1f604-1581757434143.png)
+
+### c. useEffect
+
+------
+
+Khi mới đọc về những dùng mà `Hook` này có thể làm được thì mình thấy nó khá là "ma mị" vì nghe nói nó sẽ thay thế cho cả `componentDidMount`, `componentDidUpdate` lẫn `componentWillUnmount`. Nhưng trên thực tế khi làm việc bạn không nên nghĩ đến nó sẽ thay thế cho các hàm trên mà hãy hiểu đơn giản là hàm là "useEffect sẽ chạy sau mỗi lần component của bạn re-render nếu thỏa mãn điều kiện bạn đặt ra hoắc khi component bị unmount". Đó là tất cả những gì bạn cần nhớ đến chứ không phải việc thay thế cho các lifecycle nói trên. Xét ví dụ sau:
+
+```js
+const UserInfo = () => {
+    const [user, setUser] = useState(null);
+    
+    useEffect(() => {
+        axios.get(`user-info-${someUserId}`)
+            .then(response => setUser(response.data));
+    }, [someUserId]);
+    
+    return (
+        // User info UI
+    )
+}
+```
+
+Với ví dụ trên ta thây bên trong `useEffect` sẽ có một function dùng để gọi lên API để lấy thông tin của user có id là `someUserId`. Ngoài ra `useEffect` còn nhận vào một mảng khác dưới tên gọi là `dependancy` hay bạn có nhiều bài viết gọi tắt là `deps`. Về cơ bản đúng như tên gọi của nó là cái function mà bạn truyền vào trong `useEffect` sẽ được gọi là nếu 1 trong các thành phần trong `deps` của bạn thay đổi. Đó chỉ đơn giản như vậy thôi. Tuy nhiên bạn cần chú ý nếu `deps` của bạn là một object thì rất có thể dẫn đến việc `useEffect` của bạn bị gọi liên tục vì với object nó sẽ so sánh tham chiếu chứ không phải giá trị. Thêm một tips nữa cho bạn khi sử dụng `useEffect` như sau. Giả sử ta sửa lại code trên thành:
+
+```js
+const SomeRemoteList = () => {
+    const [data, setData] = useState(null);
+    function fetchData() {
+        // So something to fetch data
+    }
+    
+    useEffect(() => {
+           fetchData();
+    });
+    
+    return (
+        // User info UI
+    )
+}
+```
+
+Nếu bạn có ý định viết tách hẳn hàm gọi API ra khỏi `useEffect` và gọi lại nó trong `useEffect` thì mình khuyên là không nên. Những hàm bạn sử dụng trong `useEffect` thì bạn nên định nghĩa nó luôn trong đó như này:
+
+```js
+const SomeRemoteList = () => {
+    const [data, setData] = useState(null);
+    
+    useEffect(() => {
+            function fetchData() {
+                // So something to fetch data
+            }
+           fetchData();
+    });
+    
+    return (
+        // User info UI
+    )
+}
+```
+
+Tại sao nên làm như trên vì thứ nhất trong trường hợp hàm của bạn có sử dụng hay phụ thuộc vào một tham số nào đó khác thì rất có thể bạn sẽ bị miss mất việc khai báo nó trong `deps` dẫn đến các bug khó hiểu. Thêm nữa việc di chuyển hàm vào trong `useEffect` như nói trên còn giúp cho bạn sau này khi nhìn vào `effect` này sẽ nhanh chóng nắm được toàn bộ những gì nó làm vì nó như viết được đóng gói toàn bộ thành một module nhỏ trong component của bạn vậy
+
