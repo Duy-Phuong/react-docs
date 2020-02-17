@@ -1763,7 +1763,7 @@ if (this.state.persons.length <= 1) {
 }
 
 // html trong hàm render
-<p className={classes.(" ")}>This is really working!</p>;
+<p className={classes.join(" ")}>This is really working!</p>;
 ```
 
 ### 5. Adding and Using Radium
@@ -1854,7 +1854,7 @@ export default Radium(person);
 
 ### 6. Using Radium for Media Queries
 
-Peson
+Person
 
 ```ts
 
@@ -3714,27 +3714,339 @@ export default cockpit;
 
 ### 36. [LEGACY] Comparing Stateless and Stateful Components
 
+Cố gắng create nhiều functional component càng  nhiều càng tốt bởi vì these component have a narow focus and clear responsibility => present something
+
+Khi ứng dụng lớn => vấn đề về manage state, quản lý state từng component khó track 
+
+![image-20200217230951177](./react-maximilan.assets/image-20200217230951177.png)  
+
+index.js
+
+```js
+ReactDOM.render(<App title="Relevant Persons" />, document.getElementById('root'));
+// add title
+```
+
+
+
 ### 37. [LEGACY] Understanding the Component Lifecycle
+
+Chỉ có những method này được chạy khi create
+
+![image-20200217231629913](./react-maximilan.assets/image-20200217231629913.png)  
+
+Creation call super constructor of parent in constructor 
+
+render => how component look like, chỉ update những gì thay đổi vào real DOM
+
+
 
 ### 38. [LEGACY] Converting Stateless to Stateful Components
 
+Person.js convert to class-base component
+
+```js
+import React, { Component } from 'react';
+
+import classes from './Person.css';
+
+class Person extends Component {
+    render () {
+        console.log( '[Person.js] Inside render()' );
+        return (
+            <div className={classes.Person}>
+                <p onClick={this.props.click}>I'm {this.props.name} and I am {this.props.age} years old!</p>
+                <p>{this.props.children}</p>
+                <input type="text" onChange={this.props.changed} value={this.props.name} />
+            </div>
+        )
+    }
+}
+
+export default Person;
+```
+
+
+
 ### 39. [LEGACY] Component Creation Lifecycle in Action
+
+App.js
+
+```js
+import React, { Component } from 'react';
+
+import classes from './App.css';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
+
+class App extends Component {
+    // Add
+  constructor( props ) {
+    super( props );
+    console.log( '[App.js] Inside Constructor', props );
+      // cách cũ
+    this.state = {
+      persons: [
+        { id: 'asfa1', name: 'Max', age: 28 },
+        { id: 'vasdf1', name: 'Manu', age: 29 },
+        { id: 'asdf11', name: 'Stephanie', age: 26 }
+      ],
+      otherState: 'some other value',
+      showPersons: false
+    };
+  }
+
+  componentWillMount () {
+    console.log( '[App.js] Inside componentWillMount()' );
+  }
+
+  componentDidMount () {
+    console.log( '[App.js] Inside componentDidMount()' );
+  }
+
+  shouldComponentUpdate ( nextProps, nextState ) {
+    console.log( '[UPDATE App.js] Inside shouldComponentUpdate', nextProps, nextState );
+    return true;
+  }
+
+  componentWillUpdate ( nextProps, nextState ) {
+    console.log( '[UPDATE App.js] Inside componentWillUpdate', nextProps, nextState );
+  }
+
+  componentDidUpdate () {
+    console.log( '[UPDATE App.js] Inside componentDidUpdate' );
+  }
+
+  // state = {
+  //   persons: [
+  //     { id: 'asfa1', name: 'Max', age: 28 },
+  //     { id: 'vasdf1', name: 'Manu', age: 29 },
+  //     { id: 'asdf11', name: 'Stephanie', age: 26 }
+  //   ],
+  //   otherState: 'some other value',
+  //   showPersons: false
+  // }
+
+  nameChangedHandler = ( event, id ) => {
+    const personIndex = this.state.persons.findIndex( p => {
+      return p.id === id;
+    } );
+
+    const person = {
+      ...this.state.persons[personIndex]
+    };
+
+    // const person = Object.assign({}, this.state.persons[personIndex]);
+
+    person.name = event.target.value;
+
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+
+    this.setState( { persons: persons } );
+  }
+
+  deletePersonHandler = ( personIndex ) => {
+    // const persons = this.state.persons.slice();
+    const persons = [...this.state.persons];
+    persons.splice( personIndex, 1 );
+    this.setState( { persons: persons } );
+  }
+
+  togglePersonsHandler = () => {
+    const doesShow = this.state.showPersons;
+    this.setState( { showPersons: !doesShow } );
+  }
+
+  render () {
+    console.log( '[App.js] Inside render()' );
+    let persons = null;
+
+    if ( this.state.showPersons ) {
+      persons = <Persons
+        persons={this.state.persons}
+        clicked={this.deletePersonHandler}
+        changed={this.nameChangedHandler} />;
+    }
+
+    return (
+      <div className={classes.App}>
+        <Cockpit
+          appTitle={this.props.title}
+          showPersons={this.state.showPersons}
+          persons={this.state.persons}
+          clicked={this.togglePersonsHandler} />
+        {persons}
+      </div>
+    );
+    // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
+  }
+}
+
+export default App;
+
+```
+
+![image-20200217233410546](./react-maximilan.assets/image-20200217233410546.png)  
+
+thêm các hàm ở Person.js
+
+![image-20200217233546090](./react-maximilan.assets/image-20200217233546090.png)    
 
 ### 39.1 lifecycle-creation-learning-card.pdf.pdf
 
+![image-20200217231951961](./react-maximilan.assets/image-20200217231951961.png)
+
 ### 40. [LEGACY] componentWillUnmount().html
+
+We saw the Component Lifecycle during Component Creation in Action. 
+
+There also is one Lifecycle method which gets executed (when implemented) **right before** a Component is **removed** from the DOM: `componentWillUnmount()` .
+
+*Here's an Example:*
+
+**App.js** (using `class App extends Component` )
+
+```js
+state = {
+    showUserComponent: true
+};
+
+removeUserHandler = () => {
+    this.setState({showUserComponent: false});
+}
+
+render() {
+    return (
+        <div>
+            {this.state.showUserComponent ? <User /> : null}
+            <button onClick={this.removeUserHandler}>Remove User Component</button>
+        </div>
+    );
+}
+```
+
+**User.js** (using `class User extends Component` )
+
+```js
+componentWillUnmount() {
+    // Component is about to get removed => Perform any cleanup work here!
+    console.log('I\'m about to be removed!');
+}
+```
+
+In the above example, the User component is removed upon a button click (due to it being rendered conditionally and the condition result being changed to `false` ). This triggers `componentWillUnmount()` to run in the User component right before the component is destroyed and removed from the DOM.
 
 ### 41. [LEGACY] Component Updating Lifecycle Hooks
 
+![image-20200217234533194](./react-maximilan.assets/image-20200217234533194.png)  
+
+
+
+
+
+
+
 ### 42. [LEGACY] Component Updating Lifecycle in Action
+
+Persons.js (khi delete person)
+
+```js
+
+// Add 
+componentWillReceiveProps ( nextProps ) {
+        console.log( '[UPDATE Persons.js] Inside componentWillReceiveProps', nextProps );
+    }
+
+    shouldComponentUpdate ( nextProps, nextState ) {
+        console.log( '[UPDATE Persons.js] Inside shouldComponentUpdate', nextProps, nextState );
+        return nextProps.persons !== this.props.persons;
+        // Neu delete return false => wil not update real DOM
+    }
+
+    componentWillUpdate ( nextProps, nextState ) {
+        console.log( '[UPDATE Persons.js] Inside componentWillUpdate', nextProps, nextState );
+    }
+
+    componentDidUpdate () {
+        console.log( '[UPDATE Persons.js] Inside componentDidUpdate' );
+    }
+```
+
+![image-20200217235954666](./react-maximilan.assets/image-20200217235954666.png)
 
 ### 42.1 lifecycle-update-external-learning-card.pdf.pdf
 
+![image-20200218000619489](./react-maximilan.assets/image-20200218000619489.png)
+
 ### 43. [LEGACY] Updating Lifecycle Hooks (Triggered by State Changes)
+
+App.js khi ấn button thì state change => update
+
+```js
+ shouldComponentUpdate ( nextProps, nextState ) {
+    console.log( '[UPDATE App.js] Inside shouldComponentUpdate', nextProps, nextState );
+    return true;
+  }
+
+  componentWillUpdate ( nextProps, nextState ) {
+    console.log( '[UPDATE App.js] Inside componentWillUpdate', nextProps, nextState );
+  }
+
+  componentDidUpdate () {
+    console.log( '[UPDATE App.js] Inside componentDidUpdate' );
+  }
+```
+
+![image-20200218001120621](./react-maximilan.assets/image-20200218001120621.png)
 
 ### 43.1 lifecycle-update-internal-learning-card.pdf.pdf
 
+![image-20200218000554445](./react-maximilan.assets/image-20200218000554445.png)  
+
+
+
 ### 44. [LEGACY] Performance Gains with PureComponents
+
+App.js add button show
+
+```js
+        <button onClick={() => { this.setState( { showPersons: true } ) }}>Show Persons</button>
+
+```
+
+Khi click show liên tiếp 2 lần mặc dù k thay đổi gì nó vẫn render full lại 
+
+![image-20200218002212440](./react-maximilan.assets/image-20200218002212440.png)  
+
+![image-20200218002244856](./react-maximilan.assets/image-20200218002244856.png)  
+
+Khi test thấy không render real DOM nhưng k có gì thay đổi mà gọi method render => performance issue
+
+Nên mới có shouldComponentUpdate để check nếu có thay đổi mới update chứ để return true nó sẽ auto render
+
+Persons.js bỏ // để test
+
+```js
+// shouldComponentUpdate ( nextProps, nextState ) {
+    //     console.log( '[UPDATE Persons.js] Inside shouldComponentUpdate', nextProps, nextState );
+    //     return nextProps.persons !== this.props.persons ||
+    //         nextProps.changed !== this.props.changed ||
+    //         nextProps.clicked !== this.props.clicked;
+    //     // return true;
+    // }
+
+========== App.js ======
+    // shouldComponentUpdate ( nextProps, nextState ) {
+  //   console.log( '[UPDATE App.js] Inside shouldComponentUpdate', nextProps, nextState );
+  //   return nextState.persons !== this.state.persons ||
+  //     nextState.showPersons !== this.state.showPersons;
+  // }
+```
+
+Cách 2: SD Shalow check thì comment đoạn trên lại và tiến hành như bên dưới:
+
+`class App extends PureComponent {` và `class Persons extends PureComponent {`
 
 ### 45. [LEGACY] How React Updates the App & Component Tree
 
