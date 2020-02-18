@@ -4699,22 +4699,338 @@ Xác định ở bước 3 cái nào là stateless stateful
 ### 4. Planning our App - Layout and Component Tree
 
 Xem lại
+### 5. Planning the State
+![image-20200218231727724](./react-maximilan.assets/image-20200218231727724.png)
+
+### 6. Setting up the Project
+
+enable css modules: npm run eject 
+
+Vào google font, Vào tab CUSTOMIZE chọn bold 
+
+![image-20200218232741079](./react-maximilan.assets/image-20200218232741079.png)  
+
+index.html
+
+```html
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+    <title>MyBurger</title>
+<!-- add new -->
+```
+
+index.css
+
+```css
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Open Sans", sans-serif;
+}
+
+```
+### 7. Creating a Layout Component
+
+Create folder Layout
+
+Aux.js
+
+```js
+const aux = (props) => props.children;
+
+export default aux;
+```
+
+Layout.js, css
+
+```js
+import React from 'react';
+
+import Aux from '../../hoc/Aux';
+import classes from './Layout.css';
+
+const layout = ( props ) => (
+    <Aux>
+        <div>Toolbar, SideDrawer, Backdrop</div>
+        <main className={classes.Content}>
+            {props.children}
+        </main>
+    </Aux>
+);
+
+export default layout;
+```
+
+App.js
+
+```js
+import React, { Component } from 'react';
+
+import Layout from './components/Layout/Layout';
+import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
+
+class App extends Component {
+  render () {
+    return (
+      <div>
+        <Layout>
+          <BurgerBuilder />
+        </Layout>
+      </div>
+    );
+  }
+}
+
+export default App;
+
+```
+
+### 8. Starting Implementation of The Burger Builder Container
+
+BurgerBuilder
+
+```js
+import React, { Component } from 'react';
+
+import Aux from '../../hoc/Aux';
+import Burger from '../../components/Burger/Burger';
+
+class BurgerBuilder extends Component {
+    
+
+    render () {
+        return (
+            <Aux>
+                <div>Burger</div>
+                <div>Build Controls</div>
+
+            </Aux>
+        );
+    }
+}
+
+export default BurgerBuilder;
+```
+### 9. Adding a Dynamic Ingredient Component
+BurgerIngredient.js , .css
+
+```js
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+import classes from './BurgerIngredient.css';
+
+class BurgerIngredient extends Component {
+    render () {
+        let ingredient = null;
+
+        switch ( this.props.type ) {
+            case ( 'bread-bottom' ):
+                ingredient = <div className={classes.BreadBottom}></div>;
+                break;
+            case ( 'bread-top' ):
+                ingredient = (
+                    <div className={classes.BreadTop}>
+                        <div className={classes.Seeds1}></div>
+                        <div className={classes.Seeds2}></div>
+                    </div>
+                );
+                break;
+            case ( 'meat' ):
+                ingredient = <div className={classes.Meat}></div>;
+                break;
+            case ( 'cheese' ):
+                ingredient = <div className={classes.Cheese}></div>;
+                break;
+            case ( 'bacon' ):
+                ingredient = <div className={classes.Bacon}></div>;
+                break;
+            case ( 'salad' ):
+                ingredient = <div className={classes.Salad}></div>;
+                break;
+            default:
+                ingredient = null;
+        }
+
+        return ingredient;
+    }
+}
+
+## 10. Adding Prop Type Validation
+BurgerIngredient.propTypes = {
+    type: PropTypes.string.isRequired
+};
+
+export default BurgerIngredient;
+```
+
+
 
 ### 10. Adding Prop Type Validation
 
-![image-20200218231727724](./react-maximilan.assets/image-20200218231727724.png)
 
 ### 11. Starting the Burger Component
 
-enable css modules: npm run eject 
+Add Burger.js ,.css
+
+```js
+import React from 'react';
+
+import classes from './Burger.css';
+import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
+
+const burger = ( props ) => {
+    
+    return (
+        <div className={classes.Burger}>
+            <BurgerIngredient type="bread-top" />
+            <BurgerIngredient type="cheese" />
+            <BurgerIngredient type="meat" />
+            <BurgerIngredient type="bread-bottom" />
+        </div>
+    );
+};
+
+export default burger;
+```
+
+Burger.css
+
+```css
+.Burger {
+    width: 100%;
+    margin: auto;
+    height: 250px;
+    overflow: scroll;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+@media (min-width: 500px) and (min-height: 400px) {
+    .Burger {
+        width: 350px;
+        height: 300px;
+    }
+}
+
+@media (min-width: 500px) and (min-height: 401px) {
+    .Burger {
+        width: 450px;
+        height: 400px;
+    }
+}
+
+@media (min-width: 1000px) and (min-height: 700px) {
+    .Burger {
+        width: 700px;
+        height: 600px;
+    }
+}
+```
+
+BurgerBuilder.js sửa thành
+
+```js
+class BurgerBuilder extends Component {
+    
+
+    render () {
+        return (
+            <Aux>
+                <Burger />
+                <div>Build Controls</div>
+
+            </Aux>
+        );
+    }
+}
+
+export default BurgerBuilder;
+```
+
 
 
 
 ### 12. Outputting Burger Ingredients Dynamically
 
+BurgerBuilder.js
+
+```js
+import React, { Component } from 'react';
+
+import Aux from '../../hoc/Aux';
+import Burger from '../../components/Burger/Burger';
+
+class BurgerBuilder extends Component {
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {...}
+    // }
+    state = {
+        ingredients: {
+            salad: 0,
+            bacon: 0,
+            cheese: 0,
+            meat: 0
+        }
+    }
+
+    render () {
+        return (
+            <Aux>
+                <Burger ingredients={this.state.ingredients} />
+                <div>Build Controls</div>
+            </Aux>
+        );
+    }
+}
+
+export default BurgerBuilder;
+```
+
+Burger.js
+
+```js
+import React from 'react';
+
+import classes from './Burger.css';
+import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
+
+const burger = ( props ) => {
+    let transformedIngredients = Object.keys( props.ingredients )
+        .map( igKey => {
+            return [...Array( props.ingredients[igKey] )].map( ( _, i ) => {
+                return <BurgerIngredient key={igKey + i} type={igKey} />;
+            } );
+        } )
+        .reduce((arr, el) => {
+            return arr.concat(el)
+        }, []);
+    if (transformedIngredients.length === 0) {
+        transformedIngredients = <p>Please start adding ingredients!</p>;
+    }
+    return (
+        <div className={classes.Burger}>
+            <BurgerIngredient type="bread-top" />
+            {transformedIngredients}
+            <BurgerIngredient type="bread-bottom" />
+        </div>
+    );
+};
+
+export default burger;
+```
+
+_ : không care about inself
+
 ### 13. Calculating the Ingredient Sum Dynamically
 
+
+
+
 ### 14. Adding the Build Control Component
+
+
 
 ### 15. Outputting Multiple Build Controls
 
@@ -4772,15 +5088,6 @@ enable css modules: npm run eject
 
 ### 41. Useful Resources & Links.html
 
-### 5. Planning the State
-
-### 6. Setting up the Project
-
-### 7. Creating a Layout Component
-
-### 8. Starting Implementation of The Burger Builder Container
-
-### 9. Adding a Dynamic Ingredient Component
 
 ## 9. Reaching out to the Web (Http Ajax)
 
