@@ -122,7 +122,7 @@ Class kế thừa trong constructor phải có super(); nếu không sẽ báo l
 
 ![](./root/img/2020-01-19-15-50-03.png)  
 
-Cú pháp mới:
+Cú pháp mới không cần constructor:
 
 ![image-20200214220558354](./react-maximilan.assets/image-20200214220558354.png)
 
@@ -652,7 +652,7 @@ We'll of course dive into the difference throughout this course, you can already
 
 ### 11. Outputting Dynamic Content
 
-Write js code in {} in person.js file
+Write js code in `{}` in person.js file
 
 ### 12. Working with Props
 
@@ -816,6 +816,10 @@ Whenever `state` changes (taught over the next lectures), the component will re-
 ![](./root/img/2020-01-19-18-51-39.png)
 
 ### 16. Handling Events with Methods
+
+ `<button onClick={this.switchNameHandler}>Switch Name</button>`
+
+Đối với hàm không có tham số không được gọi this.switchNameHandler() mà nên sử dụng như trên
 
 ### 17. To Which Events Can You Listen.html
 
@@ -1053,7 +1057,7 @@ onToggle
 
 ### 18. Manipulating the State
 
-Sẽ overwrite old state to new state
+Sẽ overwrite old state to new state, merge
 
 ### 18.1 state-learning-card.pdf.pdf
 
@@ -1165,6 +1169,8 @@ Stateless is a component that doesn’t manage state
 Click on paragraph => have two way to call func with params(use arrow func is not recommend). You can pass method like a props `click={this.switchNameHandler.bind(this, 'Max!')`
 
 `() => this.switchNameHandler('Maximilian!!')` mean `() => return this.switchNameHandler('Maximilian!!')`
+
+arrow func khuyên k nên SD
 
 App.js
 
@@ -1472,6 +1478,8 @@ Refactor
 ### 5. Outputting Lists
 
 Không như angular hay vue có ngFor hay v-for, react xử lý all bằng js
+
+App.js
 
 ```js
 if (this.state.showPersons) {
@@ -3375,6 +3383,7 @@ Thêm chức năng login
 App.js thêm state authenticated
 
 ```js
+// add
 loginHandler = () => {
     this.setState({ authenticated: true });
   };
@@ -4048,31 +4057,609 @@ Cách 2: SD Shalow check thì comment đoạn trên lại và tiến hành như 
 
 `class App extends PureComponent {` và `class Persons extends PureComponent {`
 
+Nên hạn chế SD vì prevent update child component and performance
+
 ### 45. [LEGACY] How React Updates the App & Component Tree
+
+![image-20200218003926467](./react-maximilan.assets/image-20200218003926467.png)
 
 ### 46. [LEGACY] Understanding React's DOM Updating Strategy
 
+Nếu không thay đổi sẽ không render
+
+![image-20200218004804987](./react-maximilan.assets/image-20200218004804987.png)
+
 ### 47. [LEGACY] Windows Users Must Read - File Downloads.html
+
+**On Windows**, the `Aux.js` filename (will be used in next lectures) is not allowed in ZIP archives. Hence when extracting the attached source code, you might get prompted to rename the `Aux.js` file. You might also **face difficulties creating an Aux folder** and Aux.js file.
+
+I really apologize for that inconvenience, Windows is really doing an amazing job here ;-).
+
+Follow these fixes:
+
+#### **1) Problems when unzipping the attached file:**
+
+Simply **skip this step** (e.g. by pressing **"No"**) and **ignore** the upcoming error message.
+
+In the extracted folder, you'll then find **all source files** EXCEPT for the `Aux.js` file. In later course modules (where we work on the course project), the `Aux.js` file can be found in an `Aux/` subfolder inside `hoc/` .
+
+Make sure to take the `Aux.js` file **attached to this lecture** and place it inside the `hoc/` or `hoc/Aux/` folder (which ever of the two you got).
+
+#### **2) Problems with the creation of an Aux folder and/ or file:**
+
+Simply name both differently. For example, you may create an `Auxiliary` folder and name the file inside of it `Auxiliary.js` . Make sure to then adjust your imports (`import Aux from './path/to/Auxiliary/Auxiliary'` ) and you should be fine.
 
 ### 48. [LEGACY] Returning Adjacent Elements (React 16+)
 
+WithClass.js
+
+```js
+import React from 'react';
+
+const withClass = (props) => (
+    <div className={props.classes}>
+        {props.children}
+    </div>
+);
+
+export default withClass;
+```
+
+Person.js
+
+```js
+render () {
+        console.log( '[Person.js] Inside render()' );
+        return (
+            <WithClass classes={classes.Person}>
+                <p onClick={this.props.click}>I'm {this.props.name} and I am {this.props.age} years old!</p>
+                <p>{this.props.children}</p>
+                <input type="text" onChange={this.props.changed} value={this.props.name} />
+            </WithClass>
+        )
+        
+        // cach 1: Nếu trả về array phải có tt key!!
+        // return [
+        //     <p key="1" onClick={this.props.click}>I'm {this.props.name} and I am {this.props.age} years old!</p>,
+        //     <p key="2">{this.props.children}</p>,
+        //     <input key="3" type="text" onChange={this.props.changed} value={this.props.name} />
+        // ]
+    }
+```
+
+Cockpit.css sửa lại tên class css
+
+```css
+.Button { 
+    border: 1px solid blue;
+    padding: 16px;
+    background-color: green;
+    font: inherit;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .Button:hover {
+    background-color: lightgreen;
+    color: black;
+  }
+  
+  .Button.Red {
+    background-color: red;
+  }
+  
+  .Button.Red:hover {
+    background-color: salmon;
+    color: black;
+  }
+```
+
+Cockpit.js
+
+```js
+const cockpit = ( props ) => {
+    const assignedClasses = [];
+    // Sửa
+    let btnClass = classes.Button;
+    if ( props.showPersons ) {
+        btnClass = [classes.Button, classes.Red].join( ' ' );
+    }
+    
+    // Sau đó có thẻ remove class name trong thẻ div cha
+     return (
+        <Aux>
+            <h1>{props.appTitle}</h1>
+            <p className={assignedClasses.join( ' ' )}>This is really working!</p>
+            <button
+                className={btnClass}
+                onClick={props.clicked}>Toggle Persons</button>
+        </Aux>
+    );
+```
+
+Aux.js
+
+```js
+const aux = (props) => props.children;
+
+export default aux;
+```
+
+
+
+
+
 ### 49. [LEGACY] React 16.2 Feature Fragments.html
 
+If your project uses **React 16.2**, you can now use a built-in "Aux" component - a so called **fragment**.
+
+It's actually not called `Aux` but you simply use `<>` - an empty JSX tag.
+
+So the following code
+
+```
+<Aux>
+    <h1>First Element</h1>
+    <h1>Second Element</h1>
+</Aux>
+```
+
+becomes
+
+```
+<>
+    <h1>First Element</h1>
+    <h1>Second Element</h1>
+</>
+```
+
+Behind the scenes, it does the same our `Aux` component did.
+
 ### 50. [LEGACY] Understanding Higher Order Components (HOCs)
+
+Sửa Person.js
+
+```js
+return (
+      <WithClass classes={classes.Person}>
+        <p onClick={this.props.click}>
+          I'm {this.props.name} and I am {this.props.age} years old!
+        </p>
+        <p>{this.props.children}</p>
+        <input
+          type="text"
+          onChange={this.props.changed}
+          value={this.props.name}
+        />
+      </WithClass>
+    );
+
+
+// App.js cũng được thực hiện tương tự
+return (
+      <Aux>
+        <button onClick={() => { this.setState( { showPersons: true } ) }}>Show Persons</button>
+        <Cockpit
+          appTitle={this.props.title}
+          showPersons={this.state.showPersons}
+          persons={this.state.persons}
+          clicked={this.togglePersonsHandler} />
+        {persons}
+      </Aux>
+    );
+  }
+}
+
+export default withClass( App, classes.App );
+```
+
+![image-20200218010859299](./react-maximilan.assets/image-20200218010859299.png)  
+
+WithClass.js
+```js
+import React, { Component } from 'react';
+
+// const withClass = (WrappedComponent, className) => {
+//     return (props) => (
+//         <div className={className}>
+//             <WrappedComponent />
+//         </div>
+//     )
+// }
+}
+
+
+export default withClass;
+```
+
+
+
 
 ### 51. [LEGACY] A Different Approach to HOCs
 
 ### 52. [LEGACY] Passing Unknown Props
+WithClass.js
+```js
+import React, { Component } from 'react';
+
+// const withClass = (WrappedComponent, className) => {
+//     return (props) => (
+//         <div className={className}>
+//             <WrappedComponent {...props} />
+//         </div>
+//     )
+// }
+
+const withClass = (WrappedComponent, className) => {
+    return class extends Component {
+        render () {
+            return (
+                <div className={className}>
+                    <WrappedComponent {...this.props} />
+                </div>
+            )
+        }
+    }
+}
+// dùng class
+
+export default withClass;
+```
 
 ### 53. [LEGACY] Using setState Correctly
 
+counter App.js
+
+```js
+togglePersonsHandler = () => {
+    const doesShow = this.state.showPersons;
+    this.setState( ( prevState, props ) => {
+      return {
+        showPersons: !doesShow,
+        toggleClicked: prevState.toggleClicked + 1
+      }
+    } );
+  }
+```
+
+Get prevState, vào tab react để xem state => nên sử dụng cách này
+
 ### 54. [LEGACY] Validating Props
+
+`npm install --save prop-types`
+
+Person.js
+
+```js
+import PropTypes from 'prop-types';
+
+Person.propTypes = {
+    click: PropTypes.func,
+    name: PropTypes.string,
+    age: PropTypes.number,
+    changed: PropTypes.func 
+};
+```
+
+Persons.js
+
+```js
+import React, { PureComponent } from 'react';
+
+import Person from './Person/Person';
+
+class Persons extends PureComponent {
+    constructor( props ) {
+        super( props );
+        console.log( '[Persons.js] Inside Constructor', props );
+        this.lastPersonRef = React.createRef();
+    }
+
+ ....
+
+    componentDidUpdate () {
+        console.log( '[UPDATE Persons.js] Inside componentDidUpdate' );
+    }
+
+    render () {
+        console.log( '[Persons.js] Inside render()' );
+        return this.props.persons.map( ( person, index ) => {
+            return <Person
+                click={() => this.props.clicked( index )}
+                name={person.name}
+                position={index}
+                age={person.age}
+// add
+                ref={this.lastPersonRef}
+                key={person.id}
+                changed={( event ) => this.props.changed( event, person.id )} />
+        } );
+    }
+}
+
+export default Persons;
+```
+
+Person
+
+```js
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+import classes from './Person.css';
+import withClass from '../../../hoc/WithClass';
+import Aux from '../../../hoc/Aux';
+
+class Person extends Component {
+    constructor( props ) {
+        super( props );
+        console.log( '[Person.js] Inside Constructor', props );
+        this.inputElement = React.createRef();
+    }
+
+    componentWillMount () {
+        console.log( '[Person.js] Inside componentWillMount()' );
+    }
+
+    componentDidMount () {
+        console.log( '[Person.js] Inside componentDidMount()' );
+        // add
+        if ( this.props.position === 0 ) {
+            this.inputElement.current.focus();
+        }
+    }
+
+    focus() {
+        this.inputElement.current.focus();
+    }
+
+    render () {
+        console.log( '[Person.js] Inside render()' );
+        return (
+            <Aux>
+                <p onClick={this.props.click}>I'm {this.props.name} and I am {this.props.age} years old!</p>
+                <p>{this.props.children}</p>
+                <input
+// add
+                    ref={this.inputElement}
+                    type="text"
+                    onChange={this.props.changed}
+                    value={this.props.name} />
+            </Aux>
+        )
+    }
+}
+
+Person.propTypes = {
+    click: PropTypes.func,
+    name: PropTypes.string,
+    age: PropTypes.number,
+    changed: PropTypes.func
+};
+
+export default withClass( Person, classes.Person );
+```
+
+
 
 ### 55. [LEGACY] Available PropTypes.html
 
+Source: https://reactjs.org/docs/typechecking-with-proptypes.html
+
+```js
+import PropTypes from 'prop-types';
+
+MyComponent.propTypes = {
+  // You can declare that a prop is a specific JS primitive. By default, these
+  // are all optional.
+  optionalArray: PropTypes.array,
+  optionalBool: PropTypes.bool,
+  optionalFunc: PropTypes.func,
+  optionalNumber: PropTypes.number,
+  optionalObject: PropTypes.object,
+  optionalString: PropTypes.string,
+  optionalSymbol: PropTypes.symbol,
+
+  // Anything that can be rendered: numbers, strings, elements or an array
+  // (or fragment) containing these types.
+  optionalNode: PropTypes.node,
+
+  // A React element.
+  optionalElement: PropTypes.element,
+
+  // You can also declare that a prop is an instance of a class. This uses
+  // JS's instanceof operator.
+  optionalMessage: PropTypes.instanceOf(Message),
+
+  // You can ensure that your prop is limited to specific values by treating
+  // it as an enum.
+  optionalEnum: PropTypes.oneOf(['News', 'Photos']),
+
+  // An object that could be one of many types
+  optionalUnion: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.instanceOf(Message)
+  ]),
+
+  // An array of a certain type
+  optionalArrayOf: PropTypes.arrayOf(PropTypes.number),
+
+  // An object with property values of a certain type
+  optionalObjectOf: PropTypes.objectOf(PropTypes.number),
+
+  // An object taking on a particular shape
+  optionalObjectWithShape: PropTypes.shape({
+    color: PropTypes.string,
+    fontSize: PropTypes.number
+  }),
+
+  // You can chain any of the above with `isRequired` to make sure a warning
+  // is shown if the prop isn't provided.
+  requiredFunc: PropTypes.func.isRequired,
+
+  // A value of any data type
+  requiredAny: PropTypes.any.isRequired,
+
+  // You can also specify a custom validator. It should return an Error
+  // object if the validation fails. Don't `console.warn` or throw, as this
+  // won't work inside `oneOfType`.
+  customProp: function(props, propName, componentName) {
+    if (!/matchme/.test(props[propName])) {
+      return new Error(
+        'Invalid prop `' + propName + '` supplied to' +
+        ' `' + componentName + '`. Validation failed.'
+      );
+    }
+  },
+
+  // You can also supply a custom validator to `arrayOf` and `objectOf`.
+  // It should return an Error object if the validation fails. The validator
+  // will be called for each key in the array or object. The first two
+  // arguments of the validator are the array or object itself, and the
+  // current item's key.
+  customArrayProp: PropTypes.arrayOf(function(propValue, key, componentName, location, propFullName) {
+    if (!/matchme/.test(propValue[key])) {
+      return new Error(
+        'Invalid prop `' + propFullName + '` supplied to' +
+        ' `' + componentName + '`. Validation failed.'
+      );
+    }
+  })
+};
+```
+
+### Requiring Single Child
+
+With `PropTypes.element` you can specify that only a single child can be passed to a component as children.
+
+```js
+import PropTypes from 'prop-types';
+
+class MyComponent extends React.Component {
+  render() {
+    // This must be exactly one element or it will warn.
+    const children = this.props.children;
+    return (
+      <div>
+        {children}
+      </div>
+    );
+  }
+}
+
+MyComponent.propTypes = {
+  children: PropTypes.element.isRequired
+};
+```
+
+### Default Prop Values
+
+You can define default values for your `props` by assigning to the special `defaultProps` property:
+
+```js
+class Greeting extends React.Component {
+  render() {
+    return (
+      <h1>Hello, {this.props.name}</h1>
+    );
+  }
+}
+
+// Specifies the default values for props:
+Greeting.defaultProps = {
+  name: 'Stranger'
+};
+
+// Renders "Hello, Stranger":
+ReactDOM.render(
+  <Greeting />,
+  document.getElementById('example')
+);
+```
+
+The `defaultProps` will be used to ensure that `this.props.name` will have a value if it was not specified by the parent component. The `propTypes` typechecking happens after `defaultProps` are resolved, so typechecking will also apply to the `defaultProps`.
+
 ### 56. [LEGACY] Using References (ref)
 
+focus vào input
+
+Person.js
+
+```js
+class Person extends Component {
+  constructor(props) {
+    super(props);
+    console.log("[Person.js] Inside Constructor", props);
+    this.inputElement = React.createRef();
+  }
+    
+componentDidMount () {
+        console.log( '[Person.js] Inside componentDidMount()' );
+        if ( this.props.position === 0 ) {
+            this.inputElement.current.focus();
+        }
+    }
+    
+focus() {
+    this.inputElement.current.focus();
+  }
+....
+
+ <input
+                    ref={this.inputElement}
+                    type="text"
+                    onChange={this.props.changed}
+                    value={this.props.name} />
+```
+
+
+
 ### 57. [LEGACY] More on the React ref API (16.3)
+
+xem lại
+
+Person.js, Persons.js call focus từ cha
+
+```js
+
+class Persons extends PureComponent {
+    constructor( props ) {
+        super( props );
+        console.log( '[Persons.js] Inside Constructor', props );
+        // add
+        this.lastPersonRef = React.createRef();
+    }
+
+    componentWillMount () {
+        console.log( '[Persons.js] Inside componentWillMount()' );
+    }
+
+    componentDidMount () {
+        console.log( '[Persons.js] Inside componentDidMount()' );
+        // add
+        this.lastPersonRef.current.focus();
+    }
+ .....
+ return this.props.persons.map( ( person, index ) => {
+            return <Person
+                click={() => this.props.clicked( index )}
+                name={person.name}
+                position={index}
+                age={person.age}
+// add
+                ref={this.lastPersonRef}
+                key={person.id}
+                changed={( event ) => this.props.changed( event, person.id )} />
+        } );
+
+// ở cuối file xoa withClass để tránh lỗi
+export default Persons;
+```
+
+
+
+
 
 ### 58. [LEGACY] The Context API (React 16.3)
 
@@ -4086,13 +4673,42 @@ Cách 2: SD Shalow check thì comment đoạn trên lại và tiến hành như 
 
 ### 63. [LEGACY] Useful Resources & Links.html
 
+- State & Lifecycle: https://reactjs.org/docs/state-and-lifecycle.html
+- PropTypes: https://reactjs.org/docs/typechecking-with-proptypes.html
+- Higher Order Components: https://reactjs.org/docs/higher-order-components.html
+- Refs: https://reactjs.org/docs/refs-and-the-dom.html
+
 ## 8. A Real App The Burger Builder (Basic Version)
 
 ### 1. About React Hooks.html
 
+As mentioned before, we'll build the course project **without React Hooks for now** (React Hooks are a new feature, introduced with React 16.8, I'll introduce them in-depth later).
+
+Towards the end of the course, we'll have an entire module where we convert it to use React Hooks though (after having yet another Hooks deep-dive module of course).
+
+
+### 2. Module Introduction
+Build a burger app
+
+### 3. Planning an App in React - Core Steps
+
+![image-20200218230946207](./react-maximilan.assets/image-20200218230946207.png)  
+
+Xác định ở bước 3 cái nào là stateless stateful
+
+### 4. Planning our App - Layout and Component Tree
+
+Xem lại
+
 ### 10. Adding Prop Type Validation
 
+![image-20200218231727724](./react-maximilan.assets/image-20200218231727724.png)
+
 ### 11. Starting the Burger Component
+
+enable css modules: npm run eject 
+
+
 
 ### 12. Outputting Burger Ingredients Dynamically
 
@@ -4109,8 +4725,6 @@ Cách 2: SD Shalow check thì comment đoạn trên lại và tiến hành như 
 ### 18. Displaying and Updating the Burger Price
 
 ### 19. Adding the Order Button
-
-### 2. Module Introduction
 
 ### 20. Creating the Order Summary Modal
 
@@ -4132,7 +4746,6 @@ Cách 2: SD Shalow check thì comment đoạn trên lại và tiến hành như 
 
 ### 29. Creating a Responsive Sidedrawer
 
-### 3. Planning an App in React - Core Steps
 
 ### 30. Working on Responsive Adjustments
 
@@ -4154,7 +4767,6 @@ Cách 2: SD Shalow check thì comment đoạn trên lại và tiến hành như 
 
 ### 39. Changing the Folder Structure
 
-### 4. Planning our App - Layout and Component Tree
 
 ### 40. Wrap Up
 
