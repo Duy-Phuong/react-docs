@@ -5898,9 +5898,37 @@ ToolBar.js
 
 ### 37. Improving Performance
 
+Modal.js
+
+```js
+class Modal extends Component {
+// don't need re-render
+    shouldComponentUpdate ( nextProps, nextState ) {
+        return nextProps.show !== this.props.show;
+    }
+    
+    componentWillUpdate () {
+        console.log('[Modal] WillUpdate');
+    }
+```
+
+OrderSummary.js
+
+```js
+class OrderSummary extends Component {
+    // This could be a functional component, doesn't have to be a class
+    componentWillUpdate() {
+        console.log('[OrderSummary] WillUpdate');
+    }
+```
+
+
+
 ### 38. Using Component Lifecycle Methods
 
 ### 39. Changing the Folder Structure
+
+move Layout in hoc/ folder
 
 
 ### 40. Wrap Up
@@ -5911,6 +5939,32 @@ ToolBar.js
 ## 9. Reaching out to the Web (Http Ajax)
 
 ### 1. Module Introduction
+
+### 
+
+### 2. Understanding Http Requests in React
+
+![image-20200219233954591](./react-maximilan.assets/image-20200219233954591.png)
+
+### 3. Understanding our Project and Introducing Axios
+
+![image-20200219234310890](./react-maximilan.assets/image-20200219234310890.png)  
+
+https://jsonplaceholder.typicode.com/
+
+Install axios: `npm install axios --save`
+
+### 4. Creating a Http Request to GET Data
+
+### 5. Rendering Fetched Data to the Screen
+
+### 6. Transforming Data
+
+### 7. Making a Post Selectable
+
+### 8. Fetching Data on Update (without Creating Infinite Loops)
+
+### 9. POSTing Data to the Server
 
 ### 10. Sending a DELETE Request
 
@@ -5929,22 +5983,6 @@ ToolBar.js
 ### 17. Wrap Up
 
 ### 18. Useful Resources & Links.html
-
-### 2. Understanding Http Requests in React
-
-### 3. Understanding our Project and Introducing Axios
-
-### 4. Creating a Http Request to GET Data
-
-### 5. Rendering Fetched Data to the Screen
-
-### 6. Transforming Data
-
-### 7. Making a Post Selectable
-
-### 8. Fetching Data on Update (without Creating Infinite Loops)
-
-### 9. POSTing Data to the Server
 
 ## 10. Burger Builder Project Accessing a Server
 
