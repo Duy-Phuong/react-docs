@@ -5021,7 +5021,7 @@ const burger = ( props ) => {
 export default burger;
 ```
 
-_ : không care about inself
+_ : không care about itself
 
 ### 13. Calculating the Ingredient Sum Dynamically
 
@@ -5030,17 +5030,314 @@ _ : không care about inself
 
 ### 14. Adding the Build Control Component
 
+BuildControls.js
 
+```js
+import React from 'react';
+
+import classes from './BuildControls.css';
+import BuildControl from './BuildControl/BuildControl';
+
+const controls = [
+    { label: 'Salad', type: 'salad' },
+    { label: 'Bacon', type: 'bacon' },
+    { label: 'Cheese', type: 'cheese' },
+    { label: 'Meat', type: 'meat' },
+];
+
+const buildControls = (props) => (
+    <div className={classes.BuildControls}>
+        <p>Current Price: <strong>{props.price.toFixed(2)}</strong></p>
+        {controls.map(ctrl => (
+            <BuildControl 
+                key={ctrl.label} 
+                label={ctrl.label}
+                 />
+        ))}
+        <button 
+            className={classes.OrderButton}
+            disabled={!props.purchasable}>ORDER NOW</button>
+    </div>
+);
+
+export default buildControls;
+```
+BuildControls.css
+
+```css
+.BuildControls {
+    width: 100%;
+    background-color: #CF8F2E;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    box-shadow: 0 2px 1px #ccc;
+    margin: auto;
+    padding: 10px 0;
+}
+
+.OrderButton {
+    background-color: #DAD735;
+    outline: none;
+    cursor: pointer;
+    border: 1px solid #966909;
+    color: #966909;
+    font-family: inherit;
+    font-size: 1.2em;
+    padding: 15px 30px;
+    box-shadow: 2px 2px 2px #966909;
+}
+
+.OrderButton:hover, .OrderButton:active {
+    background-color: #A0DB41;
+    border: 1px solid #966909;
+    color: #966909;
+}
+
+.OrderButton:disabled {
+    background-color: #C7C6C6;
+    cursor: not-allowed;
+    border: 1px solid #ccc;
+    color: #888888;
+}
+
+.OrderButton:not(:disabled) {
+    animation: enable 0.3s linear;
+}
+
+@keyframes enable {
+    0% {
+        transform: scale(1);
+    }
+    60% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+```
+BuildControl.js
+```js
+import React from 'react';
+
+import classes from './BuildControl.css';
+
+const buildControl = (props) => (
+    <div className={classes.BuildControl}>
+        <div className={classes.Label}>{props.label}</div>
+        <button 
+            className={classes.Less} 
+            onClick={props.removed} 
+            disabled={props.disabled}>Less</button>
+        <button 
+            className={classes.More} 
+            onClick={props.added}>More</button>
+    </div>
+);
+
+export default buildControl;
+```
+
+BuildControl.css
+```css
+.BuildControl {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0;
+}
+
+.BuildControl button {
+    display: block;
+    font: inherit;
+    padding: 5px;
+    margin: 0 5px;
+    width: 80px;
+    border: 1px solid #AA6817;
+    cursor: pointer;
+    outline: none;
+}
+
+
+.BuildControl button:disabled {
+    background-color: #AC9980;
+    border: 1px solid #7E7365;
+    color: #ccc;
+    cursor: default;
+}
+
+.BuildControl button:hover:disabled {
+    background-color: #AC9980;
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+.Label {
+    padding: 10px;
+    font-weight: bold;
+    width: 80px;
+}
+
+.BuildControl .Less {  
+    background-color: #D39952;
+    color: white;
+}
+
+.BuildControl .More {
+    background-color: #8F5E1E;
+    color: white;
+}
+
+.BuildControl .Less:hover, .BuildControl .Less:active {  
+    background-color: #DAA972;
+    color: white;
+}
+
+.BuildControl .More:hover,.BuildControl .More:active {
+    background-color: #99703F;
+    color: white;
+}
+```
+
+Vào BurgerBuilder.js thay BuildControls vào
 
 ### 15. Outputting Multiple Build Controls
 
 ### 16. Connecting State to Build Controls
 
+BurgerBuilder.js 
+
+```js
+const INGREDIENT_PRICES = {
+    salad: 0.5,
+    cheese: 0.4,
+    meat: 1.3,
+    bacon: 0.7
+};
+....
+
+// Add
+    addIngredientHandler = ( type ) => {
+        const oldCount = this.state.ingredients[type];
+        const updatedCount = oldCount + 1;
+        const updatedIngredients = {
+            ...this.state.ingredients
+        };
+        updatedIngredients[type] = updatedCount;
+        const priceAddition = INGREDIENT_PRICES[type];
+        const oldPrice = this.state.totalPrice;
+        const newPrice = oldPrice + priceAddition;
+        this.setState( { totalPrice: newPrice, ingredients: updatedIngredients } );
+        this.updatePurchaseState(updatedIngredients);
+    }
+
+    // ## 17
+    removeIngredientHandler = ( type ) => {
+        const oldCount = this.state.ingredients[type];
+        if ( oldCount <= 0 ) {
+            return;
+        }
+        const updatedCount = oldCount - 1;
+        const updatedIngredients = {
+            ...this.state.ingredients
+        };
+        updatedIngredients[type] = updatedCount;
+        const priceDeduction = INGREDIENT_PRICES[type];
+        const oldPrice = this.state.totalPrice;
+        const newPrice = oldPrice - priceDeduction;
+        this.setState( { totalPrice: newPrice, ingredients: updatedIngredients } );
+        this.updatePurchaseState(updatedIngredients);
+    }
+
+    render () {
+        // 17 add check valid value => true or false
+        const disabledInfo = {
+            ...this.state.ingredients
+        };
+        for ( let key in disabledInfo ) {
+            disabledInfo[key] = disabledInfo[key] <= 0
+        }
+        // {salad: true, meat: false, ...}
+        return (
+            <Aux>
+                <Burger ingredients={this.state.ingredients} />
+                <BuildControls
+// add
+                    ingredientAdded={this.addIngredientHandler}
+                    ingredientRemoved={this.removeIngredientHandler}
+                    disabled={disabledInfo}
+                    purchasable={this.state.purchasable}
+                    price={this.state.totalPrice} />
+            </Aux>
+        );
+    }
+}
+
+export default BurgerBuilder;
+```
+
+
+
+
+
 ### 17. Removing Ingredients Safely
 
 ### 18. Displaying and Updating the Burger Price
 
+BuildControls.js
+
+```js
+
+const buildControls = (props) => (
+    <div className={classes.BuildControls}>
+        <p>Current Price: <strong>{props.price.toFixed(2)}</strong></p>
+```
+
+
+
 ### 19. Adding the Order Button
+
+BuildControls.js add props purchasable
+
+```js
+
+const buildControls = (props) => (
+    <div className={classes.BuildControls}>
+        <p>Current Price: <strong>{props.price.toFixed(2)}</strong></p>
+        {controls.map(ctrl => (
+            <BuildControl 
+                key={ctrl.label} 
+                label={ctrl.label}
+                added={() => props.ingredientAdded(ctrl.type)}
+                removed={() => props.ingredientRemoved(ctrl.type)}
+                disabled={props.disabled[ctrl.type]} />
+        ))}
+        
+        // Add new button here
+        <button 
+            className={classes.OrderButton}
+            disabled={!props.purchasable}>ORDER NOW</button>
+    </div>
+);
+```
+
+BurgerBuilder.js
+
+```js
+updatePurchaseState (ingredients) {
+        const sum = Object.keys( ingredients )
+            .map( igKey => {
+                return ingredients[igKey];
+            } )
+            .reduce( ( sum, el ) => {
+                return sum + el;
+            }, 0 );
+        this.setState( { purchasable: sum > 0 } );
+    }
+```
+
+Khi thêm hay bớt nhớ thêm hàm này vào và truyền vào trong
 
 ### 20. Creating the Order Summary Modal
 
