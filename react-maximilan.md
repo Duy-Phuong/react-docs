@@ -5956,33 +5956,377 @@ Install axios: `npm install axios --save`
 
 ### 4. Creating a Http Request to GET Data
 
+Blog.js
+
+```js
+import React, { Component } from 'react';
+import axios from 'axios';
+
+import Post from '../../components/Post/Post';
+import FullPost from '../../components/FullPost/FullPost';
+import NewPost from '../../components/NewPost/NewPost';
+import './Blog.css';
+
+class Blog extends Component {
+    state = {
+        posts: [],
+        selectedPostId: null
+    }
+
+    componentDidMount () {
+        axios.get( 'https://jsonplaceholder.typicode.com/posts' )
+            .then( response => {
+                const posts = response.data.slice(0, 4);
+                const updatedPosts = posts.map(post => {
+                    return {
+                        ...post,
+                        author: 'Max'
+                    }
+                });
+                this.setState({posts: updatedPosts});
+                // console.log( response );
+            } );
+    }
+
+    postSelectedHandler = (id) => {
+        this.setState({selectedPostId: id});
+    }
+
+    render () {
+        const posts = this.state.posts.map(post => {
+            return <Post 
+                key={post.id} 
+                title={post.title} 
+                author={post.author}
+                clicked={() => this.postSelectedHandler(post.id)} />;
+        });
+
+        return (
+            <div>
+                <section className="Posts">
+                    {posts}
+                </section>
+                <section>
+                    <FullPost id={this.state.selectedPostId} />
+                </section>
+                <section>
+                    <NewPost />
+                </section>
+            </div>
+        );
+    }
+}
+
+export default Blog;
+```
+
+Post.js
+
+```js
+import React from 'react';
+
+import './Post.css';
+
+const post = (props) => (
+    <article className="Post" onClick={props.clicked}>
+        <h1>{props.title}</h1>
+        <div className="Info">
+            <div className="Author">{props.author}</div>
+        </div>
+    </article>
+);
+
+export default post;
+```
+
+
+
 ### 5. Rendering Fetched Data to the Screen
 
 ### 6. Transforming Data
 
 ### 7. Making a Post Selectable
 
+Blog.js
+
+```js
+postSelectedHandler = (id) => {
+        this.setState({selectedPostId: id});
+    }
+
+render () {
+        const posts = this.state.posts.map(post => {
+            return <Post 
+                key={post.id} 
+                title={post.title} 
+                author={post.author}
+                clicked={() => this.postSelectedHandler(post.id)} />;
+        });
+
+....
+<FullPost id={this.state.selectedPostId} />
+```
+
+
+
 ### 8. Fetching Data on Update (without Creating Infinite Loops)
+
+FullPost.js
+
+```js
+import React, { Component } from 'react';
+import axios from 'axios';
+
+import './FullPost.css';
+
+class FullPost extends Component {
+    state = {
+        loadedPost: null
+    }
+
+    componentDidUpdate () {
+        if ( this.props.id ) {
+            if ( !this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.id) ) {
+                axios.get( 'https://jsonplaceholder.typicode.com/posts/' + this.props.id )
+                    .then( response => {
+                        // console.log(response);
+                        this.setState( { loadedPost: response.data } );
+                    } );
+            }
+        }
+    }
+
+    render () {
+        let post = <p style={{ textAlign: 'center' }}>Please select a Post!</p>;
+        if ( this.props.id ) {
+            post = <p style={{ textAlign: 'center' }}>Loading...!</p>;
+        }
+        if ( this.state.loadedPost ) {
+            post = (
+                <div className="FullPost">
+                    <h1>{this.state.loadedPost.title}</h1>
+                    <p>{this.state.loadedPost.body}</p>
+                    <div className="Edit">
+                        <button className="Delete">Delete</button>
+                    </div>
+                </div>
+
+            );
+        }
+        return post;
+    }
+}
+
+export default FullPost;
+```
+
+loadedPost.content => sửa thành loadedPost.body mới đúng
 
 ### 9. POSTing Data to the Server
 
+NewPost.js
+
+```js
+postDataHandler = () => {
+        const data = {
+            title: this.state.title,
+            body: this.state.content,
+            author: this.state.author
+        };
+        axios.post('https://jsonplaceholder.typicode.com/posts', data)
+            .then(response => {
+                console.log(response);
+            });
+    }
+
+    render () {
+        return (
+            <div className="NewPost">
+                <h1>Add a Post</h1>
+                <label>Title</label>
+                <input type="text" value={this.state.title} onChange={(event) => this.setState({title: event.target.value})} />
+                <label>Content</label>
+                <textarea rows="4" value={this.state.content} onChange={(event) => this.setState({content: event.target.value})} />
+                <label>Author</label>
+                <select value={this.state.author} onChange={(event) => this.setState({author: event.target.value})}>
+                    <option value="Max">Max</option>
+                    <option value="Manu">Manu</option>
+                </select>
+                <button onClick={this.postDataHandler}>Add Post</button>
+            </div>
+        );
+    }
+```
+
+Thêm button Add post
+
 ### 10. Sending a DELETE Request
+
+FullPost.js
+
+```js
+// add
+    deletePostHandler = () => {
+        axios.delete('https://jsonplaceholder.typicode.com/posts/' + this.props.id)
+            .then(response => {
+                console.log(response);
+            });
+    }
+
+    render () {
+        ....
+        if ( this.state.loadedPost ) {
+            post = (
+                <div className="FullPost">
+                    <h1>{this.state.loadedPost.title}</h1>
+                    <p>{this.state.loadedPost.body}</p>
+                    <div className="Edit">
+                        // add
+                        <button onClick={this.deletePostHandler} className="Delete">Delete</button>
+                    </div>
+                </div>
+
+            );
+        }
+        return post;
+    }
+```
+
+
 
 ### 11. Fixing a Bug
 
+sửa .content thành body như trên
+
 ### 12. Handling Errors Locally
+
+Blog.js
+
+```js
+componentDidMount () {
+        axios.get( 'https://jsonplaceholder.typicode.com/posts' )
+            .then( response => {
+                const posts = response.data.slice(0, 4);
+                const updatedPosts = posts.map(post => {
+                    return {
+                        ...post,
+                        author: 'Max'
+                    }
+                });
+                this.setState({posts: updatedPosts});
+                // console.log( response );
+            } )
+            .catch(error => {
+                // console.log(error);
+                this.setState({error: true});
+            });
+    }
+
+render () {
+    // add
+        let posts = <p style={{textAlign: 'center'}}>Something went wrong!</p>;
+        if (!this.state.error) {
+            posts = this.state.posts.map(post => {
+                return <Post 
+                    key={post.id} 
+                    title={post.title} 
+                    author={post.author}
+                    clicked={() => this.postSelectedHandler(post.id)} />;
+            });
+        }
+```
+
+
 
 ### 13. Adding Interceptors to Execute Code Globally
 
+index.js
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import registerServiceWorker from './registerServiceWorker';
+import axios from 'axios';
+
+## 15 add
+axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com';
+axios.defaults.headers.common['Authorization'] = 'AUTH TOKEN';
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+
+axios.interceptors.request.use(request => {
+    console.log(request);
+    // Edit request config
+    return request;
+}, error => {
+    console.log(error);
+    return Promise.reject(error);
+});
+
+axios.interceptors.response.use(response => {
+    console.log(response);
+    // Edit request config
+    return response;
+}, error => {
+    console.log(error);
+    return Promise.reject(error);
+});
+
+ReactDOM.render( <App />, document.getElementById( 'root' ) );
+registerServiceWorker();
+
+```
+
+
+
 ### 14. Removing Interceptors.html
+
+You learned how to add an interceptor, getting rid of one is also easy. Simply store the reference to the interceptor in a variable and call `eject` with that reference as an argument, to remove it (more info: https://github.com/axios/axios#interceptors):
+
+```js
+var myInterceptor = axios.interceptors.request.use(function () {/*...*/});
+axios.interceptors.request.eject(myInterceptor);
+```
 
 ### 15. Setting a Default Global Configuration for Axios
 
 ### 16. Creating and Using Axios Instances
 
+Create file axios.js
+
+```js
+import axios from 'axios';
+
+const instance = axios.create({
+    baseURL: 'https://jsonplaceholder.typicode.com'
+});
+
+instance.defaults.headers.common['Authorization'] = 'AUTH TOKEN FROM INSTANCE';
+
+// instance.interceptors.request...
+
+export default instance;
+```
+
+comment baseURL ở index.js
+
+Blog.js
+
+```js
+// import axios from 'axios';
+import axios from '../../axios';
+```
+
+
+
+Xem lại
+
 ### 17. Wrap Up
 
 ### 18. Useful Resources & Links.html
+
+Axios Docs: https://github.com/axios/axios
 
 ## 10. Burger Builder Project Accessing a Server
 
