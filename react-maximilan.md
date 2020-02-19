@@ -5341,23 +5341,431 @@ Khi thêm hay bớt nhớ thêm hàm này vào và truyền vào trong
 
 ### 20. Creating the Order Summary Modal
 
+Add folder UI/
+
+Backdrop.js
+
+```js
+import React from 'react';
+
+import classes from './Backdrop.css';
+
+const backdrop = (props) => (
+    props.show ? <div className={classes.Backdrop} onClick={props.clicked}></div> : null
+);
+
+export default backdrop;
+```
+
+Modal.js
+
+```js
+import React from 'react';
+
+import classes from './Modal.css';
+import Aux from '../../../hoc/Aux';
+import Backdrop from '../Backdrop/Backdrop';
+
+const modal = ( props ) => (
+    <Aux>
+        <Backdrop show={props.show} clicked={props.modalClosed} />
+        <div
+            className={classes.Modal}
+            style={{
+                transform: props.show ? 'translateY(0)' : 'translateY(-100vh)',
+                opacity: props.show ? '1' : '0'
+            }}>
+            {props.children}
+        </div>
+    </Aux>
+);
+
+export default modal;
+```
+
+BurgerBuilder.js
+
+```js
+return (
+            <Aux>
+    // add
+                <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
+                    <OrderSummary 
+                        ingredients={this.state.ingredients}
+                        purchaseCancelled={this.purchaseCancelHandler}
+                        purchaseContinued={this.purchaseContinueHandler} />
+                </Modal>
+                <Burger ingredients={this.state.ingredients} />
+                ....
+            </Aux>
+        );
+```
+
+OrderSummary.js
+
+```js
+import React from 'react';
+
+import Aux from '../../../hoc/Aux';
+import Button from '../../UI/Button/Button';
+
+const orderSummary = ( props ) => {
+    const ingredientSummary = Object.keys( props.ingredients )
+        .map( igKey => {
+            return (
+                <li key={igKey}>
+                    <span style={{ textTransform: 'capitalize' }}>{igKey}</span>: {props.ingredients[igKey]}
+                </li> );
+        } );
+
+    return (
+        <Aux>
+            <h3>Your Order</h3>
+            <p>A delicious burger with the following ingredients:</p>
+            <ul>
+                {ingredientSummary}
+            </ul>
+            <p>Continue to Checkout?</p>
+            <Button btnType="Danger" clicked={props.purchaseCancelled}>CANCEL</Button>
+            <Button btnType="Success" clicked={props.purchaseContinued}>CONTINUE</Button>
+        </Aux>
+    );
+};
+
+export default orderSummary;
+```
+
+
+
+
+
 ### 21. Showing & Hiding the Modal (with Animation!)
+
+Add BurgerBuilder.js
+
+```js
+purchaseHandler = () => {
+        this.setState({purchasing: true});
+    }
+...
+// Add show or hide
+<Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
+                    <OrderSummary 
+                        ingredients={this.state.ingredients}
+                        purchaseCancelled={this.purchaseCancelHandler}
+                        purchaseContinued={this.purchaseContinueHandler} />
+            </Modal>
+             <Burger ingredients={this.state.ingredients} />
+<BuildControls
+                    ingredientAdded={this.addIngredientHandler}
+                    ingredientRemoved={this.removeIngredientHandler}
+                    disabled={disabledInfo}
+                    purchasable={this.state.purchasable}
+// Add
+                    ordered={this.purchaseHandler}
+                    price={this.state.totalPrice} />
+```
+
+BuildControls.js
+
+```js
+<button 
+            className={classes.OrderButton}
+            disabled={!props.purchasable}
+            onClick={props.ordered}>ORDER NOW</button>
+```
+
+Modal.js add style
+
+```js
+  <div
+            className={classes.Modal}
+            style={{
+                transform: props.show ? 'translateY(0)' : 'translateY(-100vh)',
+                opacity: props.show ? '1' : '0'
+            }}>
+            {props.children}
+        </div>
+```
+
+![image-20200219213331213](./react-maximilan.assets/image-20200219213331213.png)
 
 ### 22. Implementing the Backdrop Component
 
+Sửa BackDrop.js, Modal.js để wrap
+
+BurgerBuilder.js
+
+```js
+purchaseCancelHandler = () => {
+        this.setState({purchasing: false});
+    }
+```
+
+
+
 ### 23. Adding a Custom Button Component
+
+OrderSummary.js
+
+```js
+<p>Continue to Checkout?</p>
+            <Button btnType="Danger" clicked={props.purchaseCancelled}>CANCEL</Button>
+            <Button btnType="Success" clicked={props.purchaseContinued}>CONTINUE</Button>
+```
+
+Button.js
+
+```js
+import React from 'react';
+
+import classes from './Button.css';
+
+const button = (props) => (
+    <button
+        className={[classes.Button, classes[props.btnType]].join(' ')}
+        onClick={props.clicked}>{props.children}</button>
+);
+
+export default button;
+```
+
+
+
+
 
 ### 24. Implementing the Button Component
 
+BurgerBuilder.js
+
+```js
+
+    purchaseCancelHandler = () => {
+        this.setState({purchasing: false});
+    }
+
+    purchaseContinueHandler = () => {
+        alert('You continue!');
+    }
+....
+
+<Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
+                    <OrderSummary 
+                        ingredients={this.state.ingredients}
+/// add
+                        purchaseCancelled={this.purchaseCancelHandler}
+                        purchaseContinued={this.purchaseContinueHandler} />
+                </Modal>
+```
+
+
+
 ### 25. Adding the Price to the Order Summary
+
+OrderSummary.js add
+
+```js
+<p><strong>Total Price: {props.price.toFixed(2)}</strong></p>
+```
+
+BurgerBuilder.js thêm total
+
+```js
+<Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
+                    <OrderSummary 
+                        ingredients={this.state.ingredients}
+                        price={this.state.totalPrice}
+                        purchaseCancelled={this.purchaseCancelHandler}
+                        purchaseContinued={this.purchaseContinueHandler} />
+                </Modal>
+```
+
+
 
 ### 26. Adding a Toolbar
 
+Add components/Navigation/
+
+ToolBar.js
+
+```js
+import React from 'react';
+
+import classes from './Toolbar.css';
+import Logo from '../../Logo/Logo';
+import NavigationItems from '../NavigationItems/NavigationItems';
+import DrawerToggle from '../SideDrawer/DrawerToggle/DrawerToggle';
+
+const toolbar = ( props ) => (
+    <header className={classes.Toolbar}>
+        <DrawerToggle clicked={props.drawerToggleClicked} />
+        <div className={classes.Logo}>
+            <Logo />
+        </div>
+        <nav className={classes.DesktopOnly}>
+            <NavigationItems />
+        </nav>
+    </header>
+);
+
+export default toolbar;
+```
+
+ToolBar.css
+
+```css
+.Toolbar {
+    height: 56px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #703B09;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+    z-index: 90;
+}
+
+.Toolbar nav {
+    height: 100%;
+}
+
+.Logo {
+    height: 80%;
+}
+
+@media (max-width: 499px) {
+    .DesktopOnly {
+        display: none;
+    }
+}
+```
+
+Vào Layout.js add và cập nhật lại css cho Layout.css
+
+```css
+.Content {
+    margin-top: 72px;
+}
+```
+
+
+
 ### 27. Using a Logo in our Application
+
+Logo.js
+
+```js
+import React from 'react';
+
+import burgerLogo from '../../assets/images/burger-logo.png';
+import classes from './Logo.css';
+
+const logo = (props) => (
+    <div className={classes.Logo} style={{height: props.height}}>
+        <img src={burgerLogo} alt="MyBurger" />
+    </div>
+);
+
+export default logo;
+```
+
+Sau đó vào ToolBar.js thêm `<Logo />`, hình thì được load như trên vì webpack manage
 
 ### 28. Adding Reusable Navigation Items
 
+NavigationItems.js
+
+```js
+import React from 'react';
+
+import classes from './NavigationItems.css';
+import NavigationItem from './NavigationItem/NavigationItem';
+
+const navigationItems = () => (
+    <ul className={classes.NavigationItems}>
+        <NavigationItem link="/" active>Burger Builder</NavigationItem>
+        <NavigationItem link="/">Checkout</NavigationItem>
+    </ul>
+);
+
+export default navigationItems;
+```
+
+NavigationItem.js
+
+```js
+import React from 'react';
+
+import classes from './NavigationItem.css';
+
+const navigationItem = ( props ) => (
+    <li className={classes.NavigationItem}>
+        <a 
+            href={props.link} 
+            className={props.active ? classes.active : null}>{props.children}</a>
+    </li>
+);
+
+export default navigationItem;
+```
+
+Vào ToolBar.js add `<NavigationItems />`
+
+
+
 ### 29. Creating a Responsive Sidedrawer
+
+SideDrawer.js
+
+```js
+import React from 'react';
+
+import Logo from '../../Logo/Logo';
+import NavigationItems from '../NavigationItems/NavigationItems';
+import classes from './SideDrawer.css';
+import Backdrop from '../../UI/Backdrop/Backdrop';
+import Aux from '../../../hoc/Aux';
+
+const sideDrawer = ( props ) => {
+    let attachedClasses = [classes.SideDrawer, classes.Close];
+    if (props.open) {
+        attachedClasses = [classes.SideDrawer, classes.Open];
+    }
+    return (
+        <Aux>
+            <Backdrop show={props.open} clicked={props.closed}/>
+            <div className={attachedClasses.join(' ')}>
+                <div className={classes.Logo}>
+                    <Logo />
+                </div>
+                <nav>
+                    <NavigationItems />
+                </nav>
+            </div>
+        </Aux>
+    );
+};
+
+export default sideDrawer;
+```
+
+Logo.js
+
+```js
+const logo = (props) => (
+    <div className={classes.Logo} style={{height: props.height}}>
+        <img src={burgerLogo} alt="MyBurger" />
+    </div>
+);
+```
+
+
+
+
 
 
 ### 30. Working on Responsive Adjustments
