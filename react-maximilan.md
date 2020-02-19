@@ -5772,9 +5772,123 @@ const logo = (props) => (
 
 ### 31. More about Responsive Adjustments
 
+navigationItem.css
+
+```css
+
+@media (min-width: 500px) {
+    .NavigationItem {
+        margin: 0;
+        display: flex;
+        height: 100%;
+        width: auto;
+        align-items: center;
+    }
+    
+    .NavigationItem a {
+        color: white;
+        height: 100%;
+        padding: 16px 10px;
+        border-bottom: 4px solid transparent;
+    }
+    
+    .NavigationItem a:hover,
+    .NavigationItem a:active,
+    .NavigationItem a.active {
+        background-color: #8F5C2C;
+        border-bottom: 4px solid #40A4C8;
+        color: white;
+    }
+    
+    /// mobile
+```
+
+
+
+
+
 ### 32. Reusing the Backdrop
 
+sideDrawer.js
+
+```js
+// add
+const sideDrawer = ( props ) => {
+    let attachedClasses = [classes.SideDrawer, classes.Close];
+    if (props.open) {
+        attachedClasses = [classes.SideDrawer, classes.Open];
+    }
+    
+return (
+        <Aux>
+            <Backdrop show={props.open} clicked={props.closed}/>
+    // add
+    <div className={attachedClasses.join(' ')}>
+                <div className={classes.Logo}>
+                    <Logo />
+                </div>
+                <nav>
+                    <NavigationItems />
+                </nav>
+            </div
+```
+
+Layout.js
+
+```js
+class Layout extends Component {
+    state = {
+        showSideDrawer: false
+    }
+
+    sideDrawerClosedHandler = () => {
+        this.setState( { showSideDrawer: false } );
+    }
+// 33
+    sideDrawerToggleHandler = () => {
+        this.setState( ( prevState ) => {
+            return { showSideDrawer: !prevState.showSideDrawer };
+        } );
+    }
+
+render () {
+        return (
+            <Aux>
+                <Toolbar drawerToggleClicked={this.sideDrawerToggleHandler} />
+                <SideDrawer
+                    open={this.state.showSideDrawer}
+                    closed={this.sideDrawerClosedHandler} />
+```
+
+
+
 ### 33. Adding a Sidedrawer Toggle Button
+
+DrawToggle.js
+
+```js
+import React from 'react';
+
+import classes from './DrawerToggle.css';
+
+const drawerToggle = (props) => (
+    <div className={classes.DrawerToggle} onClick={props.clicked}>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+);
+
+export default drawerToggle;
+```
+
+ToolBar.js
+
+```js
+ <DrawerToggle clicked={props.drawerToggleClicked} />
+```
+
+
 
 ### 34. Adding a Hamburger Icon
 
