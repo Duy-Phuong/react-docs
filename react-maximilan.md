@@ -7100,6 +7100,29 @@ Sửa url sai => thêm catch
 
 ### 9. Removing Old Interceptors
 
+Khi có HOC => use leak memory
+
+withErrorHandler.js
+
+```js
+componentWillMount () {
+            this.reqInterceptor = axios.interceptors.request.use(req => {
+                this.setState({error: null});
+                return req;
+            });
+            this.resInterceptor = axios.interceptors.response.use(res => res, error => {
+                this.setState({error: error});
+            });
+        }
+
+componentWillUnmount() {
+            axios.interceptors.request.eject(this.reqInterceptor);
+            axios.interceptors.response.eject(this.resInterceptor);
+        }
+```
+
+Khi nào không cần BurgerBuilder nó sẽ clean up
+
 ### 10. Useful Resources & Links.html
 
 
