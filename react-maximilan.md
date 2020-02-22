@@ -1059,6 +1059,8 @@ onToggle
 
 Sẽ overwrite old state to new state, merge
 
+Nếu là class thì sẽ merge vào và ngược lại
+
 ### 18.1 state-learning-card.pdf.pdf
 
 ### 19. Function Components Naming.html
@@ -2259,6 +2261,7 @@ export default ErrorBoundary;
 App.js
 
 ```js
+// key để lặp k lỗi
 return (
   <ErrorBoundary key={person.id}>
     <Person
@@ -2658,6 +2661,8 @@ useEffect(() => {
 
 Khi chi muon goi http request khi lan dau render
 
+Cockpit.js
+
 ```js
 useEffect(() => {
   console.log("[Cockpit.js] useEffect");
@@ -2665,12 +2670,16 @@ useEffect(() => {
   setTimeout(() => {
     alert("Saved data to cloud!");
   }, 1000);
-}, [props.person]);
-// khi delete person nó mới call còn ấn vào button nó sẽ không call
+}, [props.persons]);
+// khi delete hay sửa input person nó mới call còn ấn vào button nó sẽ không call vì person not change
 // Nếu để là [] nó sẽ chạy lần đầu khi ấn button còn các lần sau sẽ không hiển thị nữa
 ```
 
+Tham số thứ 2: nếu không có khi ta reload hay ấn button hay xóa person sẽ alert
+
 [props.persons] : second arguments is point to all variable or all data use in that actually are used in your effect
+
+Có thể SD cùng lúc nhiều hàm useEffect
 
 ### 12. Cleaning up with Lifecycle Hooks & useEffect()
 
@@ -2680,11 +2689,13 @@ persons.js
   componentWillUnmount() {
     console.log('[Persons.js] componentWillUnmount');
   }
+// Khi click button lần 2 sẽ gọi useEffect 
 ```
 
 Cockpit
 
 ```js
+// khi remove
 useEffect(() => {
   console.log("[Cockpit.js] useEffect");
   // Http request...
@@ -2733,7 +2744,7 @@ Add state showCockpit and add button to remove the cockpit
 
 ### 13. Cleanup Work with useEffect() - Ex
 
-Clear timer neu k se nhin thay alert
+Clear timer neu k se nhin thay alert khi click button remove
 clearTimeout(timer)
 
 ```js
@@ -2748,11 +2759,12 @@ useEffect(() => {
     console.log("[Cockpit.js] cleanup work in useEffect");
   };
 }, []);
+// tham số thứ 2 => chạy khi mount and unmount
 ```
 
 ### 14. Using shouldComponentUpdate for Optimization
 
-Bấm vào button toggle và sau đó xóa Cockpit sẽ không render lại Persons
+Bấm vào button toggle và sau đó xóa Cockpit sẽ không render lại Persons(xem log)
 
 Person.js
 
@@ -2790,7 +2802,7 @@ https://academind.com/learn/javascript/reference-vs-primitive-values/
 
 ### 15. Optimizing Functional Components with React.memo()
 
-Khi thay đổi name trong input useEffect trong Cockpit được gọi => prevent
+Khi thay đổi name trong input useEffect trong Cockpit được gọi bằng cách xem log của useEffect => prevent
 
 ```js
 export default React.memo(cockpit);
@@ -2808,6 +2820,7 @@ App.js add personsLength
             clicked={this.togglePersonsHandler}
           />
         ) : null}
+// Không phụ thuộc gì của persons nên Cockpit sẽ không gọi lại useEffect nếu có memo
 ```
 
 nếu không thêm thì nó sẽ phụ thuộc vào person nếu truyền person vào như cũ  => re-render khi bấm vào button sẽ gọi useEffect
@@ -2816,7 +2829,7 @@ Kết quả là khi thay đổi input nó sẽ không gọi lại hàm useEffect
 
 ### 16. When should you optimize
 
-Khi có khoảng 60% component cần update mà wrap bằng memo hay shouldComponentUpdate thì sẽ ảnh hưởng tốc độ app
+Khi có khoảng 60% component cần update mà wrap bằng memo hay shouldComponentUpdate thì sẽ ảnh hưởng tốc độ app vì phải check mỗi lần render
 
 ### 17. PureComponents instead of shouldComponentUpdate
 
@@ -3036,7 +3049,7 @@ Thực hiện giống như Aux
       </React.Fragment>
 ```
 
-
+hay import { Fragment} from 'react';
 
 ### 22. Higher Order Components (HOC) - Introduction
 
@@ -3162,7 +3175,7 @@ export default withClass;
 
 ```
 
-
+Person.js
 
 ```js
 import React, { Component } from 'react';
@@ -3213,13 +3226,32 @@ this.setState({
 ```
 Sửa thành
 ```js
-this.setState((prevState, props) => {
+nameChangedHandler = (event, id) => {
+    const personIndex = this.state.persons.findIndex(p => {
+      return p.id === id;
+    });
+
+    const person = {
+      ...this.state.persons[personIndex]
+    };
+
+    // const person = Object.assign({}, this.state.persons[personIndex]);
+
+    person.name = event.target.value;
+
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+
+    // Add new
+    this.setState((prevState, props) => {
       return {
         persons: persons,
         changeCounter: prevState.changeCounter + 1
       };
     });
+  };
 // wrong bởi vì nó cannot be previous state
+// Vào F12/ React để xem thay đổi khi sửa input
 ```
 
 ### 26. Using PropTypes
@@ -3291,6 +3323,8 @@ class Person extends Component {
 
     // add
   componentDidMount() {
+    // document.querySelector('input').focus(); 
+    // focus vào input đầu
     // inputElement là thuộc tính của class
     // Cách 1
     // this.inputElement.focus();
@@ -3342,6 +3376,7 @@ import classes from './Cockpit.css';
 
 const cockpit = props => {
     // add
+    // can store value in there
   const toggleBtnRef = useRef(null);
 
   useEffect(() => {
@@ -3374,7 +3409,7 @@ export default React.memo(cockpit);
 
 Làm cho nút tự bấm sau khi load page
 
-Thêm trong hàm useEffect vì nó sẽ chạy sau khi JSX code render xong
+Thêm trong hàm useEffect vì nó sẽ chạy sau khi JSX code render xong => không bị lỗi
 
 ### 29. Understanding Prop Chain Problems
 
@@ -3470,7 +3505,7 @@ return (
         }
 ```
 
-Khi pass data to multiple component => use context
+Khi pass data to multiple component, multiple level => use context
 
 ### 30. Using the Context API
 
@@ -3581,6 +3616,8 @@ return (
         ) : (
           <p>Please log in</p>
         )}
+
+// Xóa AuthContext.Consumer
 ```
 
 Cockpit.js
@@ -4020,7 +4057,7 @@ App.js khi ấn button thì state change => update
 App.js add button show
 
 ```js
-        <button onClick={() => { this.setState( { showPersons: true } ) }}>Show Persons</button>
+<button onClick={() => { this.setState( { showPersons: true } ) }}>Show Persons</button>
 
 ```
 
@@ -4053,7 +4090,7 @@ Persons.js bỏ // để test
   // }
 ```
 
-Cách 2: SD Shalow check thì comment đoạn trên lại và tiến hành như bên dưới:
+Cách 2: SD Shallow check thì comment đoạn trên lại và tiến hành như bên dưới:
 
 `class App extends PureComponent {` và `class Persons extends PureComponent {`
 
@@ -4061,7 +4098,9 @@ Nên hạn chế SD vì prevent update child component and performance
 
 ### 45. [LEGACY] How React Updates the App & Component Tree
 
-![image-20200218003926467](./react-maximilan.assets/image-20200218003926467.png)
+![image-20200218003926467](./react-maximilan.assets/image-20200218003926467.png)  
+
+Vì có check ở trên cùng rồi
 
 ### 46. [LEGACY] Understanding React's DOM Updating Strategy
 
@@ -4165,7 +4204,7 @@ const cockpit = ( props ) => {
         btnClass = [classes.Button, classes.Red].join( ' ' );
     }
     
-    // Sau đó có thẻ remove class name trong thẻ div cha
+    // Sau đó có thẻ remove className trong thẻ div cha
      return (
         <Aux>
             <h1>{props.appTitle}</h1>
@@ -4596,11 +4635,12 @@ class Person extends Component {
     
 componentDidMount () {
         console.log( '[Person.js] Inside componentDidMount()' );
+    // focus first element
         if ( this.props.position === 0 ) {
             this.inputElement.current.focus();
         }
     }
-    
+// add
 focus() {
     this.inputElement.current.focus();
   }
@@ -4653,8 +4693,33 @@ class Persons extends PureComponent {
                 changed={( event ) => this.props.changed( event, person.id )} />
         } );
 
-// ở cuối file xoa withClass để tránh lỗi
+
 export default Persons;
+```
+
+// ở cuối file xoa withClass để tránh lỗi ở file Person.js thôi vì withClass cũng là 1 component mà nó k có method focus nên sẽ báo lỗi
+
+Từ react 16 có cách fix
+
+```js
+const withClass = (WrappedComponent, className) => {
+    const WithClass = class extends Component {
+        render () {
+            return (
+                <div className={className}>
+                    <WrappedComponent ref={this.props.forwardedRef} {...this.props} />
+                </div>
+            )
+        }
+    }
+
+    return React.forwardRef((props, ref) => {
+        return <WithClass {...props} forwardedRef={ref} />
+    });
+}
+
+
+export default withClass;
 ```
 
 
@@ -4663,11 +4728,202 @@ export default Persons;
 
 ### 58. [LEGACY] The Context API (React 16.3)
 
+Tạo button Login in Cockpit
+Cách 1: truyền thủ công qua hàm LoginHandler
+
+App.js thêm wrap by AuthContext.Provider
+
+```js
+import AuthContext from '../context/auth-context';
+
+const authContext = React.createContext(false);
+
+return (
+      <Aux>
+        <button
+          onClick={() => {
+            this.setState({ showCockpit: false });
+          }}
+        >
+          Remove Cockpit
+        </button>
+        
+          {this.state.showCockpit ? (
+            <Cockpit
+              title={this.props.appTitle}
+              showPersons={this.state.showPersons}
+              personsLength={this.state.persons.length}
+              clicked={this.togglePersonsHandler}
+            />
+          ) : null}
+          // add
+          <AuthContext.Provider
+          value={this.state.authenticated} >
+          {persons}
+        </AuthContext.Provider>
+      </Aux>
+    );
+```
+
+Person.js
+
+```js
+componentDidMount() {
+    // this.inputElement.focus();
+    this.inputElementRef.current.focus();
+  }
+
+render() {
+return (
+      <Aux>
+       <AuthContext.Consumer> { auth => auth ? 
+          <p>Authenticated!</p>
+         : 
+          <p>Please log in</p>
+        }
+       </AuthContext.Consumer>
+```
+
 ### 59. [LEGACY] More on the Context API (16.6)
+
+New sample
+
+App.js
+
+```js
+import React, { Component } from 'react';
+
+import Login from './components/Login';
+import Profile from './components/Profile';
+import AuthContext from './auth-context';
+
+class App extends Component {
+  state = {
+    isAuth: false
+  };
+
+  toggleAuth = () => {
+    this.setState(prevState => {
+      return {
+        isAuth: !prevState.isAuth
+      };
+    });
+  };
+
+  render() {
+    return (
+      <AuthContext.Provider
+        value={{ isAuth: this.state.isAuth, toggleAuth: this.toggleAuth }}
+      >
+        <Login />
+        <Profile />
+      </AuthContext.Provider>
+    );
+  }
+}
+
+export default App;
+
+```
+
+Login.js
+
+```js
+import React, { Component } from 'react';
+
+import AuthContext from '../auth-context';
+
+class Login extends Component {
+  static contextType = AuthContext;
+
+  componentDidMount() {
+    console.log(this.context);
+  }
+
+  render() {
+    return (
+      <button onClick={this.context.toggleAuth}>
+        {this.context.isAuth ? 'Logout' : 'Login'}
+      </button>
+    );
+  }
+}
+
+export default Login;
+// Không cần dùng Consumer mà truy cập bằng this.context
+
+```
+
+Profile.js
+
+```js
+import React from 'react';
+
+import AuthContext from '../auth-context';
+
+const profile = props => (
+  <AuthContext.Consumer>
+    {authContext => {
+      return (
+        <h1>{authContext.isAuth ? 'You are logged in!' : 'Not logged in!'}</h1>
+      );
+    }}
+  </AuthContext.Consumer>
+);
+
+export default profile;
+
+```
+
+auth-context.js
+
+```js
+import React from 'react';
+
+export default React.createContext({
+  isAuth: false,
+  toggleAuth: () => {}
+});
+// Fix lỗi import từ App.js
+```
+
+
 
 ### 60. [LEGACY] Updated Lifecycle Hooks (React 16.3)
 
+Từ react 16.3 nên tránh sử dụng componentWillUpdate, componentWillMount, componentWillReceiveProps
+
+App.js
+
+```js
+static getDerivedStateFromProps(nextProps, prevState) {
+    console.log(
+      "[UPDATE App.js] Inside getDerivedStateFromProps",
+      nextProps,
+      prevState
+    );
+
+    return prevState;
+  }
+
+  getSnapshotBeforeUpdate() {
+    console.log(
+      "[UPDATE App.js] Inside getSnapshotBeforeUpdate"
+    );
+  }
+```
+
+![image-20200222114423992](./react-maximilan.assets/image-20200222114423992.png)  
+
+![image-20200222114605448](./react-maximilan.assets/image-20200222114605448.png)  
+
+Lưu lại vị trí scroll trước khi update
+
 ### 61. [LEGACY] The memo Method (16.4)
+
+Áp dụng cho functional component
+
+`export default React.memno(cockpit);`
 
 ### 62. [LEGACY] Wrap Up
 
