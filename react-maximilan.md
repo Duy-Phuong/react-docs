@@ -7131,6 +7131,107 @@ Khi nào không cần BurgerBuilder nó sẽ clean up
 
 ### 1. Module Introduction
 
+![image-20200223011501290](./react-maximilan.assets/image-20200223011501290.png)  
+
+![image-20200223011652350](./react-maximilan.assets/image-20200223011652350.png)
+
+### 2. Routing and SPAs
+
+### 3. Setting Up Links
+
+Blog.js
+
+```js
+class Blog extends Component {
+    render () {
+        return (
+            <div className="Blog">
+                <header>
+                    <nav>
+                        <ul>
+                           <li><a href="/">Home</a></li>
+                           <li><a href="/">New Post</a></li>
+                        </ul>
+                    </nav>
+                </header>
+```
+
+Chỉnh Blog.css cho link
+
+```css
+.Blog ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.Blog li {
+    display: inline-block;
+    margin: 20px;
+}
+
+.Blog a {
+    text-decoration: none;
+    color: black;
+}
+
+.Blog a:hover,
+.Blog a:active {
+    color: #fa923f;
+}
+```
+
+
+
+### 4. Setting Up the Router Package
+
+`npm install --save react-router react-router-dom`
+
+Tại Blog.js xóa FullPost and NewPost
+
+App.js
+
+```js
+import React, { Component } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+
+import Blog from './containers/Blog/Blog';
+
+class App extends Component {
+  render () {
+    return (
+      // now we can use routing
+      <BrowserRouter>
+        <div className="App">
+          <Blog />
+        </div>
+      </BrowserRouter>
+    );
+  }
+}
+
+export default App;
+
+```
+
+Chỉnh sửa lại cấu trúc folder Post, Blog
+
+### 5. react-router vs react-router-dom.html
+
+We installed both `react-router` and `react-router-dom` . **Technically, only `react-router-dom` is required for web development**. It wraps `react-router` and therefore uses it as a dependency. 
+
+We **don't need to install** `react-router` on our own for it to work. You can omit this installation step, I left it in there for historic reasons and because I like to emphasize that the main package is named react-router. If you ever search for assistance, you probably want to search for "react router" - that's the name of the package.
+
+### 6. Preparing the Project For Routing
+
+### 7. Setting Up and Rendering Routes
+
+### 8. Rendering Components for Routes
+
+### 9. Switching Between Pages
+
 ### 10. Using Links to Switch Pages
 
 ### 11. Using Routing-Related Props
@@ -7151,7 +7252,7 @@ Khi nào không cần BurgerBuilder nó sẽ clean up
 
 ### 19. Using Switch to Load a Single Route
 
-### 2. Routing and SPAs
+
 
 ### 2.1 routing-learning-card.pdf.pdf
 
@@ -7175,7 +7276,7 @@ Khi nào không cần BurgerBuilder nó sẽ clean up
 
 ### 29. Loading Routes Lazily
 
-### 3. Setting Up Links
+### 
 
 ### 30. Lazy Loading with React Suspense (16.6)
 
@@ -7186,18 +7287,6 @@ Khi nào không cần BurgerBuilder nó sẽ clean up
 ### 33. Wrap Up
 
 ### 34. Useful Resources & Links.html
-
-### 4. Setting Up the Router Package
-
-### 5. react-router vs react-router-dom.html
-
-### 6. Preparing the Project For Routing
-
-### 7. Setting Up and Rendering Routes
-
-### 8. Rendering Components for Routes
-
-### 9. Switching Between Pages
 
 ## 12. Adding Routing to our Burger Project
 
