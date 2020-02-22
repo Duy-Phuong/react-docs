@@ -5123,6 +5123,8 @@ export default BurgerIngredient;
 
 ### 10. Adding Prop Type Validation
 
+Khi xài phải convert qua class-based component
+
 
 ### 11. Starting the Burger Component
 
@@ -5262,6 +5264,7 @@ const burger = ( props ) => {
         .reduce((arr, el) => {
             return arr.concat(el)
         }, []);
+    // # 13
     if (transformedIngredients.length === 0) {
         transformedIngredients = <p>Please start adding ingredients!</p>;
     }
@@ -5281,7 +5284,11 @@ _ : không care about itself
 
 ### 13. Calculating the Ingredient Sum Dynamically
 
+![image-20200222131833225](./react-maximilan.assets/image-20200222131833225.png)  
 
+(arr, el): arr là previous value, el là current value
+
+[] is initial value of the reduce value
 
 
 ### 14. Adding the Build Control Component
@@ -5459,6 +5466,36 @@ BuildControl.css
 Vào BurgerBuilder.js thay BuildControls vào
 
 ### 15. Outputting Multiple Build Controls
+
+```js
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>JavaScript Objects</h2>
+
+<p id="demo"></p>
+
+<script>
+// Create an object:
+var ingredients = {type:"Fiat", model:"500", color:"white"};
+const sum = Object.keys( ingredients )
+            .map( igKey => {
+            console.log("- key: ", igKey);
+            console.log(ingredients[igKey]);
+                return ingredients[igKey];
+            });
+ console.log(ingredients["type"]);
+// Display some data from the object:
+document.getElementById("demo").innerHTML = "The car type is " + sum[0];
+</script>
+
+</body>
+</html>
+// test
+```
+
+
 
 ### 16. Connecting State to Build Controls
 
@@ -5700,6 +5737,7 @@ export default orderSummary;
 Add BurgerBuilder.js
 
 ```js
+// phải là arrow func
 purchaseHandler = () => {
         this.setState({purchasing: true});
     }
@@ -5758,6 +5796,38 @@ purchaseCancelHandler = () => {
     }
 ```
 
+BackDrop.js
+
+```js
+import React from 'react';
+
+import classes from './Backdrop.css';
+
+const backdrop = (props) => (
+    props.show ? <div className={classes.Backdrop} onClick={props.clicked}></div> : null
+);
+
+export default backdrop;
+```
+
+Modal.js
+
+```js
+const modal = ( props ) => (
+    <Aux>
+        <Backdrop show={props.show} clicked={props.modalClosed} />
+        <div
+            className={classes.Modal}
+            style={{
+                transform: props.show ? 'translateY(0)' : 'translateY(-100vh)',
+                opacity: props.show ? '1' : '0'
+            }}>
+            {props.children}
+        </div>
+    </Aux>
+);
+```
+
 
 
 ### 23. Adding a Custom Button Component
@@ -5786,7 +5856,7 @@ const button = (props) => (
 export default button;
 ```
 
-
+OrderSummary được gọi trong BurgẻBuilder
 
 
 
@@ -5927,6 +5997,7 @@ const logo = (props) => (
 );
 
 export default logo;
+// # 30 mới thêm style={{height: props.height}}
 ```
 
 Sau đó vào ToolBar.js thêm `<Logo />`, hình thì được load như trên vì webpack manage
@@ -5995,6 +6066,7 @@ const sideDrawer = ( props ) => {
         <Aux>
             <Backdrop show={props.open} clicked={props.closed}/>
             <div className={attachedClasses.join(' ')}>
+                // # 30
                 <div className={classes.Logo}>
                     <Logo />
                 </div>
@@ -6009,6 +6081,24 @@ const sideDrawer = ( props ) => {
 export default sideDrawer;
 ```
 
+Layout.js
+
+```js
+ return (
+            <Aux>
+                <Toolbar drawerToggleClicked={this.sideDrawerToggleHandler} />
+                <SideDrawer
+                    open={this.state.showSideDrawer}
+                    closed={this.sideDrawerClosedHandler} />
+                <main className={classes.Content}>
+                    {this.props.children}
+                </main>
+            </Aux>
+        )
+```
+
+
+
 Logo.js
 
 ```js
@@ -6019,12 +6109,66 @@ const logo = (props) => (
 );
 ```
 
+SideDrawer.css
+
+```css
+.SideDrawer {
+    position: fixed;
+    width: 280px;
+    max-width: 70%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 200;
+    background-color: white;
+    padding: 32px 16px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease-out;
+}
+
+@media (min-width: 500px) {
+    .SideDrawer {
+        display: none;
+    }
+}
+
+.Open {
+    transform: translateX(0);
+}
+
+.Close {
+    transform: translateX(-100%);
+}
+
+.Logo {
+    height: 11%;
+    margin-bottom: 32px;
+}
+```
 
 
 
 
 
 ### 30. Working on Responsive Adjustments
+
+Toolbar.js
+
+```js
+const toolbar = ( props ) => (
+    <header className={classes.Toolbar}>
+        <DrawerToggle clicked={props.drawerToggleClicked} />
+        <div className={classes.Logo}>
+            <Logo />
+        </div>
+        <nav className={classes.DesktopOnly}>
+            <NavigationItems />
+        </nav>
+    </header>
+);
+```
+
+
 
 ### 31. More about Responsive Adjustments
 
@@ -6059,6 +6203,14 @@ navigationItem.css
     /// mobile
 ```
 
+
+ToolBar.js add css class
+
+```js
+<nav className={classes.DesktopOnly}>
+            <NavigationItems />
+        </nav>
+```
 
 
 
@@ -6142,6 +6294,21 @@ ToolBar.js
 
 ```js
  <DrawerToggle clicked={props.drawerToggleClicked} />
+```
+
+Truyền từ Layout.js vào
+
+```js
+sideDrawerToggleHandler = () => {
+        this.setState( ( prevState ) => {
+            return { showSideDrawer: !prevState.showSideDrawer };
+        } );
+    }
+
+    render () {
+        return (
+            <Aux>
+                <Toolbar drawerToggleClicked={this.sideDrawerToggleHandler} />
 ```
 
 
@@ -6342,6 +6509,7 @@ class FullPost extends Component {
 
     componentDidUpdate () {
         if ( this.props.id ) {
+        // Nếu k check => loop
             if ( !this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.id) ) {
                 axios.get( 'https://jsonplaceholder.typicode.com/posts/' + this.props.id )
                     .then( response => {
@@ -6547,6 +6715,8 @@ axios.interceptors.request.eject(myInterceptor);
 
 ### 15. Setting a Default Global Configuration for Axios
 
+Sau đó sửa lại các url để gọi
+
 ### 16. Creating and Using Axios Instances
 
 Create file axios.js
@@ -6561,17 +6731,27 @@ const instance = axios.create({
 instance.defaults.headers.common['Authorization'] = 'AUTH TOKEN FROM INSTANCE';
 
 // instance.interceptors.request...
+// Nếu  muốn SD
 
 export default instance;
 ```
 
 comment baseURL ở index.js
 
+```js
+// axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com';
+
+```
+
+
+
 Blog.js
 
 ```js
 // import axios from 'axios';
 import axios from '../../axios';
+
+// Thay đoạn import
 ```
 
 
@@ -6588,23 +6768,341 @@ Axios Docs: https://github.com/axios/axios
 
 ### 1. Module Introduction
 
-### 10. Useful Resources & Links.html
-
 ### 2. Firebase & The Right Database.html
+
+The Firebase Database console - which we'll see in the next lecture - changed visually.
+
+**Important:** Make sure you pick the **Realtime Database**, NOT Firestore!
+
+![img](https://udemy-images.s3.amazonaws.com:443/redactor/raw/2018-07-24_04-49-02-c41a7b68eafee498dfd8fba88ad4adc8.png)
 
 ### 3. Creating the Firebase Project
 
+![image-20200222225849287](./react-maximilan.assets/image-20200222225849287.png)  
+
+Click Go to console
+
+![image-20200222230548393](./react-maximilan.assets/image-20200222230548393.png)  
+
+Add Project
+
+![image-20200222230801750](./react-maximilan.assets/image-20200222230801750.png)  
+
+Database
+
+Vào database thêm /rules
+
+![image-20200222232009009](./react-maximilan.assets/image-20200222232009009.png)  
+
+Set rules là true rồi chọn PUBLISH
+
 ### 4. Creating the Axios Instance
+
+`npm install --save axios`
+
+create file axios-orders.js
+
+```js
+import axios from 'axios';
+
+const instance = axios.create({
+    baseURL: 'https://react-my-burger.firebaseio.com/'
+});
+
+export default instance;
+```
 
 ### 5. Sending a POST Request
 
+BurgerBuilder.js
+
+```js
+purchaseContinueHandler = () => {
+        // alert('You continue!');
+        this.setState( { loading: true } );
+        const order = {
+            ingredients: this.state.ingredients,
+            price: this.state.totalPrice,
+            customer: {
+                name: 'Max Schwarzmüller',
+                address: {
+                    street: 'Teststreet 1',
+                    zipCode: '41351',
+                    country: 'Germany'
+                },
+                email: 'test@test.com'
+            },
+            deliveryMethod: 'fastest'
+        }
+        // bất kì tên + .json 
+        // axios.post( '/orders.json', order )
+        //     .then( response => {
+        //         this.setState({ loading: false, purchasing: false });
+        //     } )
+        //     .catch( error => {
+        //         this.setState({ loading: false, purchasing: false });
+        //     } );
+    }
+```
+
+![image-20200222233546403](./react-maximilan.assets/image-20200222233546403.png)
+
 ### 6. Displaying a Spinner while Sending a Request
+
+Create Spinner when loading
+
+Search gg  css spinner: https://projects.lukehaas.me/css-loaders/
+
+```js
+import React from 'react';
+
+import classes from './Spinner.css';
+
+const spinner = () => (
+    <div className={classes.Loader}>Loading...</div>
+);
+
+export default spinner;
+```
+
+Spinner.css
+
+```css
+.Loader,
+.Loader:before,
+.Loader:after {
+  border-radius: 50%;
+}
+.Loader {
+  color: #521751;
+  font-size: 11px;
+  text-indent: -99999em;
+  margin: 55px auto;
+  position: relative;
+  width: 10em;
+  height: 10em;
+  box-shadow: inset 0 0 0 1em;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+}
+.Loader:before,
+.Loader:after {
+  position: absolute;
+  content: '';
+}
+.Loader:before {
+  width: 5.2em;
+  height: 10.2em;
+  background: #fff;
+  border-radius: 10.2em 0 0 10.2em;
+  top: -0.1em;
+  left: -0.1em;
+  -webkit-transform-origin: 5.2em 5.1em;
+  transform-origin: 5.2em 5.1em;
+  -webkit-animation: load2 2s infinite ease 1.5s;
+  animation: load2 2s infinite ease 1.5s;
+}
+.Loader:after {
+  width: 5.2em;
+  height: 10.2em;
+  background: #fff;
+  border-radius: 0 10.2em 10.2em 0;
+  top: -0.1em;
+  left: 5.1em;
+  -webkit-transform-origin: 0px 5.1em;
+  transform-origin: 0px 5.1em;
+  -webkit-animation: load2 2s infinite ease;
+  animation: load2 2s infinite ease;
+}
+@-webkit-keyframes load2 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load2 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+```
+
+BurgerBuilder.js add loading
+
+```js
+ render () {
+        const disabledInfo = {
+            ...this.state.ingredients
+        };
+        for ( let key in disabledInfo ) {
+            disabledInfo[key] = disabledInfo[key] <= 0
+        }
+     // add
+        let orderSummary = <OrderSummary
+            ingredients={this.state.ingredients}
+            price={this.state.totalPrice}
+            purchaseCancelled={this.purchaseCancelHandler}
+            purchaseContinued={this.purchaseContinueHandler} />;
+        if ( this.state.loading ) {
+            orderSummary = <Spinner />;
+        }
+```
+
+Modal.js
+
+```js
+class Modal extends Component {
+// fix lỗi k hiejn spinner
+    shouldComponentUpdate ( nextProps, nextState ) {
+        return nextProps.show !== this.props.show || nextProps.children !== this.props.children;
+    }
+```
+
+
 
 ### 7. Handling Errors
 
+withErrorHandler.js
+
+```js
+import React, { Component } from 'react';
+
+import Modal from '../../components/UI/Modal/Modal';
+import Aux from '../Aux/Aux';
+
+const withErrorHandler = ( WrappedComponent, axios ) => {
+    return class extends Component {
+        state = {
+            error: null
+        }
+
+    // video đang SD componentDidMount => sau này xài constructor 
+        componentWillMount () {
+            axios.interceptors.request.use(req => {
+                this.setState({error: null});
+                return req;
+            });
+            axios.interceptors.response.use(res => res, error => {
+                this.setState({error: error});
+            });
+        }
+
+        errorConfirmedHandler = () => {
+            this.setState({error: null});
+        }
+
+        render () {
+            return (
+                <Aux>
+                    <Modal 
+                        show={this.state.error}
+                        modalClosed={this.errorConfirmedHandler}>
+                        {this.state.error ? this.state.error.message : null}
+                    </Modal>
+                    <WrappedComponent {...this.props} />
+                </Aux>
+            );
+        }
+    }
+}
+
+export default withErrorHandler;
+```
+
+BurgerBuilder.js
+
+```js
+export default withErrorHandler( BurgerBuilder, axios );
+```
+
+Xem lại Modal .js
+
+`modalClosed`
+
 ### 8. Retrieving Data from the Backend
 
+![image-20200223003030262](./react-maximilan.assets/image-20200223003030262.png)  
+
+Add ingredients 
+
+BurgerBuilder.js
+
+```js
+class BurgerBuilder extends Component {
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {...}
+    // }
+    state = {
+        ingredients: null,
+        totalPrice: 4,
+        purchasable: false,
+        purchasing: false,
+        loading: false,
+        error: false
+    }
+
+    componentDidMount () {
+        axios.get( 'https://react-my-burger.firebaseio.com/ingredients.json' )
+            .then( response => {
+                this.setState( { ingredients: response.data } );
+            } )
+            .catch( error => {
+                this.setState( { error: true } );
+            } );
+    }
+
+....
+
+render () {
+        const disabledInfo = {
+            ...this.state.ingredients
+        };
+        for ( let key in disabledInfo ) {
+            disabledInfo[key] = disabledInfo[key] <= 0
+        }
+        let orderSummary = null;
+// Add new
+        let burger = this.state.error ? <p>Ingredients can't be loaded!</p> : <Spinner />;
+
+        if ( this.state.ingredients ) {
+            burger = (
+                <Aux>
+                    <Burger ingredients={this.state.ingredients} />
+                    <BuildControls
+                        ingredientAdded={this.addIngredientHandler}
+                        ingredientRemoved={this.removeIngredientHandler}
+                        disabled={disabledInfo}
+                        purchasable={this.state.purchasable}
+                        ordered={this.purchaseHandler}
+                        price={this.state.totalPrice} />
+                </Aux>
+            );
+            orderSummary = <OrderSummary
+                ingredients={this.state.ingredients}
+                price={this.state.totalPrice}
+                purchaseCancelled={this.purchaseCancelHandler}
+                purchaseContinued={this.purchaseContinueHandler} />;
+        }
+```
+
+Sửa url sai => thêm catch
+
 ### 9. Removing Old Interceptors
+
+### 10. Useful Resources & Links.html
+
+
 
 ## 11. Multi-Page-Feeling in a Single-Page-App Routing
 
