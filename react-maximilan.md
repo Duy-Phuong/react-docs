@@ -7486,6 +7486,160 @@ Thêm exact để không active 2 link cùng lúc
 Posts.js
 
 ```js
+// chua
+```
+
+
+
+### 17. Extracting Route Parameters
+
+Posts.js
+
+![image-20200223104434672](./react-maximilan.assets/image-20200223104434672.png)  
+
+Blog.js
+
+![image-20200223104702533](./react-maximilan.assets/image-20200223104702533.png)  
+
+FullPost.js
+
+```js
+class FullPost extends Component {
+    state = {
+        loadedPost: null
+    }
+
+// add
+    componentDidMount () {
+        console.log(this.props);
+        this.loadData();
+    }
+
+    componentDidUpdate() {
+        this.loadData();
+    }
+
+	loadData () {
+        // sua thanh this.props.match.params.id 
+        if ( this.props.match.params.id ) {
+            if ( !this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== +this.props.match.params.id) ) {
+                axios.get( '/posts/' + this.props.match.params.id )
+                    .then( response => {
+                        // console.log(response);
+                        this.setState( { loadedPost: response.data } );
+                    } );
+            }
+        }
+    }
+```
+
+![image-20200223105040777](./react-maximilan.assets/image-20200223105040777.png)  
+
+Khi click newPost vẫn hiện FullPost => bug
+
+### 18. Parsing Query Parameters & the Fragment.html
+
+You learned how to extract route parameters (=> `:id` etc). 
+
+But how do you extract **search** (also referred to as "**query**") **parameters** (=> `?something=somevalue` at the end of the URL)? How do you extract the **fragment** (=> `#something` at the end of the URL)?
+
+#### **Query Params:**
+
+You can pass them easily like this:
+
+```js
+<Link to="/my-path?start=5">Go to Start</Link> 
+
+```
+
+or
+
+```js
+<Link 
+    to={{
+        pathname: '/my-path',
+        search: '?start=5'
+    }}
+    >Go to Start</Link>
+```
+
+React router makes it easy to get access to the search string: `props.location.search` .
+
+But that will only give you something like `?start=5` 
+
+You probably want to get the key-value pair, without the `?` and the `=` . Here's a snippet which allows you to easily extract that information:
+
+```js
+componentDidMount() {
+    const query = new URLSearchParams(this.props.location.search);
+    for (let param of query.entries()) {
+        console.log(param); // yields ['start', '5']
+    }
+}
+```
+
+`URLSearchParams` is a built-in object, shipping with vanilla JavaScript. It returns an object, which exposes the `entries()` method. `entries()` returns an Iterator - basically a construct which can be used in a `for...of...` loop (as shown above).
+
+When looping through `query.entries()` , you get **arrays** where the first element is the **key name** (e.g. `start` ) and the second element is the assigned **value** (e.g. `5` ).
+
+#### **Fragment:**
+
+You can pass it easily like this:
+
+```js
+<Link to="/my-path#start-position">Go to Start</Link> 
+
+```
+
+or
+
+```
+<Link 
+    to={{
+        pathname: '/my-path',
+        hash: 'start-position'
+    }}
+    >Go to Start</Link>
+```
+
+React router makes it easy to extract the fragment. You can simply access `props.location.hash` .
+
+### 19. Using Switch to Load a Single Route
+
+Blog.js
+
+```js
+import { Route, NavLink, Switch } from 'react-router-dom';
+
+<Switch>
+       <Route path="/new-post" component={NewPost} />
+       <Route path="/posts" component={Posts} />
+</Switch>
+```
+
+![image-20200223110112496](./react-maximilan.assets/image-20200223110112496.png)  
+
+Nếu để thứ tự như trên sẽ báo lỗi id không hợp lệ
+
+Blog.js
+
+```js
+<Route path="/" exact component={Posts} />
+<Switch>
+        <Route path="/new-post" component={NewPost} />
+        <Route path="/:id" exact component={Posts} />
+</Switch>
+```
+
+
+
+### 2.1 routing-learning-card.pdf.pdf
+
+### 20. Navigating Programmatically
+
+Posts.js comment
+
+```js
 postSelectedHandler = ( id ) => {
         // this.props.history.push({pathname: '/posts/' + id});
         this.props.history.push( '/posts/' + id );
@@ -7506,59 +7660,258 @@ postSelectedHandler = ( id ) => {
                 );
             } );
         }
-
-        return (
-            <div>
-                <section className="Posts">
-                    {posts}
-                </section>
-                <Route path={this.props.match.url + '/:id'} exact component={FullPost} />
-            </div>
-        );
-    }
 ```
 
 
 
-### 17. Extracting Route Parameters
-
-Posts.js
-
-![image-20200223104434672](./react-maximilan.assets/image-20200223104434672.png)  
-
-Blog.js
-
-![image-20200223104702533](./react-maximilan.assets/image-20200223104702533.png)
-
-### 18. Parsing Query Parameters & the Fragment.html
-
-### 19. Using Switch to Load a Single Route
-
-
-
-### 2.1 routing-learning-card.pdf.pdf
-
-### 20. Navigating Programmatically
-
 ### 21. Additional Information Regarding Active Links
+
+Blog.js bỏ exact đi vì có :id nó k active
+
+```js
+<li><NavLink
+                                to="/"
+                                // exact
+                                activeClassName="my-active"
+                                activeStyle={{
+                                    color: '#fa923f',
+                                    textDecoration: 'underline'
+                                }}>Posts</NavLink></li>
+```
+
+Sau này chỉnh lại url nên revert file lại
 
 ### 22. Understanding Nested Routes
 
+Posts.js
+
+```js
+return (
+            <div>
+                <section className="Posts">
+                    {posts}
+                </section>
+// add
+                <Route path='/:id'} exact component={FullPost} />
+            </div>
+        );
+```
+
+Blog.js
+
+```js
+<Switch>
+        <Route path="/new-post" component={NewPost} />
+        <Route path="/posts" component={Posts} />
+ </Switch>
+```
+
+=> load FullPost dưới Posts
+
+![image-20200223112048562](./react-maximilan.assets/image-20200223112048562.png)  
+
+Sửa lại urls path="/posts" and NavLink
+
+Posts.js cũng sửa lại
+
+```js
+postSelectedHandler = ( id ) => {
+        // this.props.history.push({pathname: '/posts/' + id});
+        this.props.history.push( '/posts/' + id );
+    }
+
+return (
+            <div>
+                <section className="Posts">
+                    {posts}
+                </section>
+// add
+                <Route path={this.props.match.url + '/:id'} exact component={FullPost} />
+            </div>
+        );
+```
+
+
+
 ### 23. Creating Dynamic Nested Routes
+
+Khi ấn vào Post bất kì thì hiện thêm FullPost => sửa
+
+FullPost.js add
+
+```js
+	componentDidMount () {
+        console.log(this.props);
+        this.loadData();
+    }
+
+    componentDidUpdate() {
+        this.loadData();
+    }
+
+// thay this.props.id bằng this.props.match.params.id để k lặp 
+loadData () {
+        if ( this.props.match.params.id ) {
+            if ( !this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== +this.props.match.params.id) ) {
+                axios.get( '/posts/' + this.props.match.params.id )
+                    .then( response => {
+                        // console.log(response);
+                        this.setState( { loadedPost: response.data } );
+                    } );
+            }
+        }
+    }
+
+deletePostHandler = () => {
+    // fix
+        axios.delete('/posts/' + this.props.match.params.id)
+            .then(response => {
+                console.log(response);
+            });
+    }
+
+    render () {
+        let post = <p style={{ textAlign: 'center' }}>Please select a Post!</p>;
+// fix
+        if ( this.props.match.params.id ) {
+            post = <p style={{ textAlign: 'center' }}>Loading...!</p>;
+        }
+```
+
+Vì param nhận được là string không phải number nên cần convert
 
 ### 24. Redirecting Requests
 
+Blog.js
+
+```js
+<Switch>
+           <Route path="/new-post" component={NewPost} />
+           <Route path="/posts" component={Posts} />
+           <Redirect from="/" to="/posts" />
+           {/* <Route path="/" component={Posts} /> */}
+</Switch>
+```
+
+
+
 ### 25. Conditional Redirects
+
+NewPost
+
+```js
+postDataHandler = () => {
+        const data = {
+            title: this.state.title,
+            body: this.state.content,
+            author: this.state.author
+        };
+        axios.post( '/posts', data )
+            .then( response => {
+                console.log( response );
+                // Add
+                this.setState( { submitted: true } );
+            } );
+    }
+
+    render () {
+        // add
+        let redirect = null;
+        if (this.state.submitted) {
+            redirect = <Redirect to="/posts" />;
+        }
+        return (
+            <div className="NewPost">
+                {redirect}
+```
+
+
 
 ### 26. Using the History Prop to Redirect (Replace)
 
+NewPost
+
+```js
+postDataHandler = () => {
+        const data = {
+            title: this.state.title,
+            body: this.state.content,
+            author: this.state.author
+        };
+        axios.post( '/posts', data )
+            .then( response => {
+                console.log( response );
+                this.props.history.replace('/posts');
+                // this.setState( { submitted: true } );
+            } );
+    }
+```
+
+Cách này khi ấn nút back nó sẽ về lại trang trước vì được push vào stack `this.props.history.push('/posts');`
+
 ### 27. Working with Guards
+
+you have some route allow some person visit
+
+Blog.js
+
+```js
+<Switch>
+      { this.state.auth ? <Route path="/new-post" component={NewPost} /> : null}
+                    <Route path="/posts" component={Posts} />
+                    <Redirect from="/" to="/posts" />
+                    {/* <Route path="/" component={Posts} /> */}
+                </Switch>
+```
+
+NewPost.js
+
+```js
+componentDidMount () {
+    // if unauth
+    // this.props.history.replace('/posts');
+        console.log( this.props );
+    }
+```
+
+Chỉ là demo
 
 ### 28. Handling the 404 Case (Unknown Routes)
 
+Blog.js
+
+```js
+<Switch>
+      { this.state.auth ? <Route path="/new-post" component={NewPost} /> : null}
+       <Route path="/posts" component={Posts} />
+       <Route render={() => <h1>Not Found</h1>} />
+```
+
+
+
 ### 29. Loading Routes Lazily
 
-### 
+Vào tab network thấy load rất nhiều, khi cần mới download những thứ cần
+
+bundle.js chưa resource 
+
+Create file hoc/asynComponent.js
+
+![image-20200223133629463](./react-maximilan.assets/image-20200223133629463.png)  
+
+![image-20200223133742338](./react-maximilan.assets/image-20200223133742338.png)  
+
+Webpack will to prepare extra bundle for this potentially loaded code
+
+![image-20200223134303260](./react-maximilan.assets/image-20200223134303260.png)  
+
+Sau đó thay cho NewPost trong Route tag => load asyn chỉ cs thêm 1 file chunk load thêm
+
+```js
+
+```
+
+
 
 ### 30. Lazy Loading with React Suspense (16.6)
 
