@@ -7915,43 +7915,691 @@ Sau đó thay cho NewPost trong Route tag => load asyn chỉ cs thêm 1 file chu
 
 ### 30. Lazy Loading with React Suspense (16.6)
 
+App.js start
+
+```js
+import React, { Component } from 'react';
+import { BrowserRouter, Route, NavLink } from 'react-router-dom';
+
+import Posts from './containers/Posts';
+import User from './containers/User';
+import Welcome from './containers/Welcome';
+
+class App extends Component {
+  render() {
+    return (
+      <BrowserRouter>
+        <React.Fragment>
+          <nav>
+            <NavLink to="/user">User Page</NavLink> |&nbsp;
+            <NavLink to="/posts">Posts Page</NavLink>
+          </nav>
+          <Route path="/" component={Welcome} exact />
+          <Route path="/user" component={User} />
+          <Route path="/posts" component={Posts} />
+        </React.Fragment>
+      </BrowserRouter>
+    );
+  }
+}
+
+export default App;
+
+```
+
+App.js end
+
+```js
+import React, { Component, Suspense } from 'react';
+import { BrowserRouter, Route, NavLink } from 'react-router-dom';
+
+import User from './containers/User';
+import Welcome from './containers/Welcome';
+
+const Posts = React.lazy(() => import('./containers/Posts'));
+
+class App extends Component {
+  state = { showPosts: false };
+
+  modeHandler = () => {
+    this.setState(prevState => {
+      return { showPosts: !prevState.showPosts };
+    });
+  };
+
+  render() {
+    return (
+      <React.Fragment>
+        <button onClick={this.modeHandler}>Toggle Mode</button>
+        {this.state.showPosts ? (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Posts />
+          </Suspense>
+        ) : (
+          <User />
+        )}
+      </React.Fragment>
+
+// Step 1
+      // <BrowserRouter>
+      //   <React.Fragment>
+      //     <nav>
+      //       <NavLink to="/user">User Page</NavLink> |&nbsp;
+      //       <NavLink to="/posts">Posts Page</NavLink>
+      //     </nav>
+      //     <Route path="/" component={Welcome} exact />
+      //     <Route path="/user" component={User} />
+      //     <Route
+      //       path="/posts"
+      //       render={() => (
+      //         <Suspense fallback={<div>Loading...</div>}>
+      //           <Posts />
+      //         </Suspense>
+      //       )}
+      //     />
+      //   </React.Fragment>
+      // </BrowserRouter>
+    );
+  }
+}
+
+export default App;
+
+```
+
+
+
 ### 31. Routing and Server Deployment
 
+![image-20200223150541057](./react-maximilan.assets/image-20200223150541057.png)  
+
+App.js của Post
+
+`<BrowserRouter basename="/my-app">`
+
 ### 32. Time to Practice - Routing.html
+
+
 
 ### 33. Wrap Up
 
 ### 34. Useful Resources & Links.html
 
+React Router Docs: https://reacttraining.com/react-router/web/guides/philosophy
+
 ## 12. Adding Routing to our Burger Project
 
 ### 1. Module Introduction
 
+### 
+
+### 2. Building the Checkout Container
+
+Create file CheckOut.js
+
+```js
+import React, { Component } from 'react';
+
+import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
+
+class Checkout extends Component {
+    state = {
+        ingredients: {
+            salad: 1,
+            meat: 1,
+            cheese: 1,
+            bacon: 1
+        }
+    }
+
+    render() {
+        return (
+            <div>
+                <CheckoutSummary ingredients={this.state.ingredients}/>
+            </div>
+        );
+    }
+}
+
+export default Checkout;
+```
+
+CheckoutSummary.js
+
+```js
+import React from 'react';
+
+import Burger from '../../Burger/Burger';
+import Button from '../../UI/Button/Button';
+import classes from './CheckoutSummary.css';
+
+const checkoutSummary = (props) => {
+    return (
+        <div className={classes.CheckoutSummary}>
+            <h1>We hope it tastes well!</h1>
+            <div style={{width: '100%', margin: 'auto'}}>
+                <Burger ingredients={props.ingredients}/>
+            </div>
+            <Button 
+                btnType="Danger"
+                clicked>CANCEL</Button>
+            <Button 
+                btnType="Success"
+                clicked>CONTINUE</Button>
+        </div>
+    );
+}
+
+export default checkoutSummary;
+```
+
+Vào file app.js thêm Checkout tag
+
+### 3. Setting Up Routing & Routes
+
+`npm install --save react-router-dom`
+
+index.js
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+
+import './index.css';
+import App from './App';
+import registerServiceWorker from './registerServiceWorker';
+
+// add
+const app = (
+    <BrowserRouter>
+        <App />
+    </BrowserRouter>
+);
+
+ReactDOM.render( app, document.getElementById( 'root' ) );
+registerServiceWorker();
+
+```
+
+App.js
+
+```js
+import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
+
+import Layout from './hoc/Layout/Layout';
+import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
+import Checkout from './containers/Checkout/Checkout';
+
+class App extends Component {
+  render () {
+    return (
+      <div>
+        <Layout>
+          <Switch>
+            <Route path="/checkout" component={Checkout} />
+            <Route path="/" exact component={BurgerBuilder} />
+          </Switch>
+        </Layout>
+      </div>
+    );
+  }
+}
+
+export default App;
+
+```
+
+
+
+### 4. Navigating to the Checkout Page
+
+Khi bấm button CONTINUE
+
+BurgerBuilder.js
+
+```js
+purchaseContinueHandler = () => {
+        // alert('You continue!');
+        // this.setState( { loading: true } );
+        // const order = {
+        //     ingredients: this.state.ingredients,
+        //     price: this.state.totalPrice,
+        //     customer: {
+        //         name: 'Max Schwarzmüller',
+        //         address: {
+        //             street: 'Teststreet 1',
+        //             zipCode: '41351',
+        //             country: 'Germany'
+        //         },
+        //         email: 'test@test.com'
+        //     },
+        //     deliveryMethod: 'fastest'
+        // }
+        // axios.post( '/orders.json', order )
+        //     .then( response => {
+        //         this.setState( { loading: false, purchasing: false } );
+        //     } )
+        //     .catch( error => {
+        //         this.setState( { loading: false, purchasing: false } );
+        //     } );
+        this.props.history.push('/checkout');
+    }
+```
+
+khi in props ở Burger sẽ không có các thuộc tính như match vì nó k nằm  trong Route tag
+
+Phải import withRouter và gọi `export default withRouter(burger);`
+
+### 5. Navigating Back & To Next Page
+
+CheckoutSummary.js
+
+```js
+const checkoutSummary = (props) => {
+    return (
+        <div className={classes.CheckoutSummary}>
+            <h1>We hope it tastes well!</h1>
+            <div style={{width: '100%', margin: 'auto'}}>
+                <Burger ingredients={props.ingredients}/>
+            </div>
+            <Button 
+                btnType="Danger"
+                clicked={props.checkoutCancelled}>CANCEL</Button>
+            <Button 
+                btnType="Success"
+                clicked={props.checkoutContinued}>CONTINUE</Button>
+        </div>
+    );
+}
+
+export default checkoutSummary;
+// add event
+```
+
+Checkout.js
+
+```js
+ checkoutCancelledHandler = () => {
+        this.props.history.goBack();
+    }
+
+    checkoutContinuedHandler = () => {
+        this.props.history.replace('/checkout/contact-data');
+    }
+
+    render() {
+        return (
+            <div>
+                <CheckoutSummary 
+                    ingredients={this.state.ingredients}
+                    checkoutCancelled={this.checkoutCancelledHandler}
+                    checkoutContinued={this.checkoutContinuedHandler}/>
+            </div>
+        );
+    }
+```
+
+
+
+### 6. Passing Ingredients via Query Params
+
+BurgerBuilder.js
+
+```js
+ purchaseContinueHandler = () => {
+        // alert('You continue!');
+        // add
+        const queryParams = [];
+        for (let i in this.state.ingredients) {
+            queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
+        }
+        const queryString = queryParams.join('&');
+        this.props.history.push({
+            pathname: '/checkout',
+            search: '?' + queryString
+        });
+    }
+```
+
+Checkout.js
+
+```js
+componentDidMount() {
+        const query = new URLSearchParams(this.props.location.search);
+        const ingredients = {};
+        for (let param of query.entries()) {
+            // ['salad', '1']
+            ingredients[param[0]] = +param[1];
+        }
+        this.setState({ingredients: ingredients});
+    }
+```
+
+
+
+### 7. Navigating to the Contact Data Component
+
+Create Checkout/ContactData/ContactData.js
+
+```js
+import React, { Component } from 'react';
+
+import Button from '../../../components/UI/Button/Button';
+import Spinner from '../../../components/UI/Spinner/Spinner';
+import classes from './ContactData.css';
+import axios from '../../../axios-orders';
+
+class ContactData extends Component {
+    state = {
+        name: '',
+        email: '',
+        address: {
+            street: '',
+            postalCode: ''
+        },
+        loading: false
+    }
+
+// # 8
+    orderHandler = ( event ) => {
+        event.preventDefault(); // ngăn load lại
+        this.setState( { loading: true } );
+        const order = {
+            ingredients: this.props.ingredients,
+            price: this.props.price,
+            customer: {
+                name: 'Max Schwarzmüller',
+                address: {
+                    street: 'Teststreet 1',
+                    zipCode: '41351',
+                    country: 'Germany'
+                },
+                email: 'test@test.com'
+            },
+            deliveryMethod: 'fastest'
+        }
+        axios.post( '/orders.json', order )
+            .then( response => {
+                this.setState( { loading: false } );
+            
+            // fix ở checkout truyền vào ...props mới có thể push
+                this.props.history.push('/');
+            } )
+            .catch( error => {
+                this.setState( { loading: false } );
+            } );
+    }
+
+    render () {
+        let form = (
+            <form>
+                <input className={classes.Input} type="text" name="name" placeholder="Your Name" />
+                <input className={classes.Input} type="email" name="email" placeholder="Your Mail" />
+                <input className={classes.Input} type="text" name="street" placeholder="Street" />
+                <input className={classes.Input} type="text" name="postal" placeholder="Postal Code" />
+                <Button btnType="Success" clicked={this.orderHandler}>ORDER</Button>
+            </form>
+        );
+        if ( this.state.loading ) {
+            form = <Spinner />;
+        }
+        return (
+            <div className={classes.ContactData}>
+                <h4>Enter your Contact Data</h4>
+                {form}
+            </div>
+        );
+    }
+}
+
+export default ContactData;
+```
+
+Checkout.js
+
+```js
+// use render for pass props
+<Route  path={this.props.match.path + '/contact-data'} 
+        render={(props) => (<ContactData ingredients={this.state.ingredients} price={this.state.totalPrice} {...props} />)} />
+```
+
+Add css cho Contact.css
+
+```css
+.ContactData {
+    margin: 20px auto;
+    width: 80%;
+    text-align: center;
+    box-shadow: 0 2px 3px #ccc;
+    border: 1px solid #eee;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.Input {
+    display: block;
+}
+
+@media (min-width: 600px) {
+    .ContactData {
+        width: 500px;
+    }
+}
+```
+
+
+
+### 8. Order Submission & Passing Data Between Pages
+
+Add orderHandler, get data khi bấm nút ORDER tại Checkout
+
+BurgerBuilder.js
+
+```js
+purchaseContinueHandler = () => {
+        // alert('You continue!');
+        
+        const queryParams = [];
+        for (let i in this.state.ingredients) {
+            queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
+        }
+    // add price
+        queryParams.push('price=' + this.state.totalPrice);
+        const queryString = queryParams.join('&');
+        this.props.history.push({
+            pathname: '/checkout',
+            search: '?' + queryString
+        });
+    }
+```
+
+CheckOut.js
+
+```js
+class Checkout extends Component {
+    // fix  
+    state = {
+        ingredients: null,
+        price: 0
+    }
+
+// componentDidMount chuyển thành Will để fix lỗi khi ingredients: null, => có đủ r mới render
+    componentWillMount () {
+        const query = new URLSearchParams( this.props.location.search );
+        const ingredients = {};
+        let price = 0;
+        for ( let param of query.entries() ) {
+            // add price
+            // ['salad', '1']
+            if (param[0] === 'price') {
+                price = param[1];
+            } else {
+                ingredients[param[0]] = +param[1];
+            }
+        }
+        this.setState( { ingredients: ingredients, totalPrice: price } );
+    }
+```
+
+Khi ấn ORDER post ok
+
+### 9. Adding an Orders Page
+
+create file Orders.js, .css
+
+```js
+import React, { Component } from 'react';
+
+import Order from '../../components/Order/Order';
+import axios from '../../axios-orders';
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+
+class Orders extends Component {
+    state = {
+        orders: [],
+        loading: true
+    }
+
+// # 11
+    componentDidMount() {
+        axios.get('/orders.json')
+            .then(res => {
+                const fetchedOrders = [];
+                for (let key in res.data) {
+                    fetchedOrders.push({
+                        ...res.data[key],
+                        id: key
+                    });
+                }
+                this.setState({loading: false, orders: fetchedOrders});
+            })
+            .catch(err => {
+                this.setState({loading: false});
+            });
+    }
+
+    render () {
+        return (
+            <div>
+            // # 12
+                {this.state.orders.map(order => (
+                    <Order 
+                        key={order.id}
+                        ingredients={order.ingredients}
+                        price={order.price} />
+                ))}
+            </div>
+        );
+    }
+}
+
+# 11 sửa url sai để test
+export default withErrorHandler(Orders, axios);
+```
+
+Order.js
+
+```js
+import React from 'react';
+
+import classes from './Order.css';
+
+const order = ( props ) => {
+    const ingredients = [];
+
+    for ( let ingredientName in props.ingredients ) {
+        ingredients.push(
+            {
+                name: ingredientName,
+                amount: props.ingredients[ingredientName]
+            }
+        );
+    }
+
+    const ingredientOutput = ingredients.map(ig => {
+        return <span 
+            style={{
+                textTransform: 'capitalize',
+                display: 'inline-block',
+                margin: '0 8px',
+                border: '1px solid #ccc',
+                padding: '5px'
+                }}
+            key={ig.name}>{ig.name} ({ig.amount})</span>;
+    });
+
+    return (
+        <div className={classes.Order}>
+            <p>Ingredients: {ingredientOutput}</p>
+            <p>Price: <strong>USD {Number.parseFloat( props.price ).toFixed( 2 )}</strong></p>
+        </div>
+    );
+};
+
+export default order;
+```
+
+App.js
+
+```js
+<Layout>
+          <Switch>
+            <Route path="/checkout" component={Checkout} />
+            <Route path="/orders" component={Orders} />
+          <Route path="/" exact component={BurgerBuilder} />
+          </Switch>
+        </Layout>
+```
+
+
+
 ### 10. Implementing Navigation Links
+
+NavigationItems.js
+
+```js
+const navigationItems = () => (
+    <ul className={classes.NavigationItems}>
+        <NavigationItem link="/" exact>Burger Builder</NavigationItem>
+/// add
+        <NavigationItem link="/orders">Orders</NavigationItem>
+    </ul>
+);
+```
+
+NavigationItem.js
+
+```js
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+
+import classes from './NavigationItem.css';
+
+const navigationItem = ( props ) => (
+    <li className={classes.NavigationItem}>
+        <NavLink 
+            to={props.link}
+            exact={props.exact}
+            activeClassName={classes.active}>{props.children}</NavLink>
+    </li>
+);
+
+export default navigationItem;
+```
+
+
 
 ### 11. Fetching Orders
 
 ### 12. Outputting the Orders
 
+![image-20200223170603877](./react-maximilan.assets/image-20200223170603877.png)
+
 ### 13. Wrap Up
 
 ### 14. Useful Resources & Links.html
-
-### 2. Building the Checkout Container
-
-### 3. Setting Up Routing & Routes
-
-### 4. Navigating to the Checkout Page
-
-### 5. Navigating Back & To Next Page
-
-### 6. Passing Ingredients via Query Params
-
-### 7. Navigating to the Contact Data Component
-
-### 8. Order Submission & Passing Data Between Pages
-
-### 9. Adding an Orders Page
 
 ## 13. Forms and Form Validation
 
