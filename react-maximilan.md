@@ -8605,41 +8605,547 @@ export default navigationItem;
 
 ### 1. Module Introduction
 
+### 
+
+### 2. Analyzing the App
+
+Create Input in folder UI, input.css
+
+```js
+import React from 'react';
+
+import classes from './Input.css';
+
+const input = ( props ) => {
+    let inputElement = null;
+
+    switch ( props.elementType ) {
+        case ( 'input' ):
+            inputElement = <input
+                className={classes.InputElement}
+                {...props.elementConfig}
+                value={props.value}
+                onChange={props.changed} />;
+            break;
+        case ( 'textarea' ):
+            inputElement = <textarea
+                className={classes.InputElement}
+                {...props.elementConfig}
+                value={props.value}
+                onChange={props.changed} />;
+            break;
+        case ( 'select' ):
+            inputElement = (
+                <select
+                    className={classes.InputElement}
+                    value={props.value}
+                    onChange={props.changed}>
+                    {props.elementConfig.options.map(option => (
+                        <option key={option.value} value={option.value}>
+                            {option.displayValue}
+                        </option>
+                    ))}
+                </select>
+            );
+            break;
+        default:
+            inputElement = <input
+                className={classes.InputElement}
+                {...props.elementConfig}
+                value={props.value}
+                onChange={props.changed} />;
+    }
+
+    return (
+        <div className={classes.Input}>
+            <label className={classes.Label}>{props.label}</label>
+            {inputElement}
+        </div>
+    );
+
+};
+
+export default input;
+```
+
+ContactData.js để tạm, ở trên cũng sẽ nhận inputtype vì react 16
+
+```js
+let form = (
+            <form onSubmit={this.orderHandler}>
+                 <Input puttype="input" />
+                <Button btnType="Success">ORDER</Button>
+            </form>
+```
+
+
+
+### 3. Creating a Custom Dynamic Input Component
+
+ContactData.js
+
+```js
+class ContactData extends Component {
+    // adđ
+    state = {
+        orderForm: {
+            name: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Your Name'
+                },
+                value: ''
+            },
+            street: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Street'
+                },
+                value: ''
+            },
+            zipCode: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'ZIP Code'
+                },
+                value: ''
+            },
+            country: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Country'
+                },
+                value: ''
+            },
+            email: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'email',
+                    placeholder: 'Your E-Mail'
+                },
+                value: ''
+            },
+            deliveryMethod: {
+                elementType: 'select',
+                elementConfig: {
+                    options: [
+                        {value: 'fastest', displayValue: 'Fastest'},
+                        {value: 'cheapest', displayValue: 'Cheapest'}
+                    ]
+                },
+                value: ''
+            }
+        },
+        loading: false
+    }
+```
+
+
+
+### 4. Setting Up a JS Config for the Form
+
+Sửa lại Input.js
+
+### 5. Dynamically Create Inputs based on JS Config
+
+ContactData.js
+
+```js
+let form = (
+            <form onSubmit={this.orderHandler}>
+                {formElementsArray.map(formElement => (
+                    <Input 
+                        key={formElement.id}
+                        elementType={formElement.config.elementType}
+                        elementConfig={formElement.config.elementConfig}
+                        value={formElement.config.value}
+                        changed={(event) => this.inputChangedHandler(event, formElement.id)} />
+                ))}
+                <Button btnType="Success">ORDER</Button>
+            </form>
+        );
+```
+
+
+
+### 6. Adding a Dropdown Component
+
+```js
+case ( 'select' ):
+            inputElement = (
+                <select
+                    className={classes.InputElement}
+                    value={props.value}
+                    onChange={props.changed}>
+                    {props.elementConfig.options.map(option => (
+                        <option key={option.value} value={option.value}>
+                            {option.displayValue}
+                        </option>
+                    ))}
+                </select>
+            );
+            break;
+```
+
+
+
+### 7. Handling User Input
+
+ContactData thêm hàm onChange
+
+```js
+inputChangedHandler = (event, inputIdentifier) => {
+        const updatedOrderForm = {
+            ...this.state.orderForm
+        };
+        const updatedFormElement = { 
+            ...updatedOrderForm[inputIdentifier]
+        };
+        updatedFormElement.value = event.target.value;
+        updatedOrderForm[inputIdentifier] = updatedFormElement;
+        this.setState({orderForm: updatedOrderForm});
+    }
+
+...
+let form = (
+            <form onSubmit={this.orderHandler}>
+                {formElementsArray.map(formElement => (
+                    <Input 
+                        key={formElement.id}
+                        elementType={formElement.config.elementType}
+                        elementConfig={formElement.config.elementConfig}
+                        value={formElement.config.value}
+// add
+                        changed={(event) => this.inputChangedHandler(event, formElement.id)} />
+                ))}
+                <Button btnType="Success">ORDER</Button>
+            </form>
+        );
+```
+
+
+
+### 8. Handling Form Submission
+
+ContactData.js
+
+```js
+orderHandler = ( event ) => {
+        event.preventDefault();
+        this.setState( { loading: true } );
+    // add
+        const formData = {};
+        for (let formElementIdentifier in this.state.orderForm) {
+            formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
+        }
+        const order = {
+            ingredients: this.props.ingredients,
+            price: this.props.price,
+            // add
+            orderData: formData
+        }
+        axios.post( '/orders.json', order )
+            .then( response => {
+                this.setState( { loading: false } );
+                this.props.history.push( '/' );
+            } )
+            .catch( error => {
+                this.setState( { loading: false } );
+            } );
+    }
+```
+
+
+
+### 9. Adding Custom Form Validation
+
+Contactdata.js
+
+```js
+state = {
+        orderForm: {
+            name: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Your Name'
+                },
+                value: '',
+                // add
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false
+            },
+            street: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Street'
+                },
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false
+            },
+            zipCode: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'ZIP Code'
+                },
+                value: '',
+                validation: {
+                    required: true,
+                    minLength: 5,
+                    maxLength: 5
+                },
+                valid: false,
+                touched: false
+            },
+            country: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Country'
+                },
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false
+            },
+            email: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'email',
+                    placeholder: 'Your E-Mail'
+                },
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false
+            },
+            deliveryMethod: {
+                elementType: 'select',
+                elementConfig: {
+                    options: [
+                        {value: 'fastest', displayValue: 'Fastest'},
+                        {value: 'cheapest', displayValue: 'Cheapest'}
+                    ]
+                },
+                value: '',
+                valid: true
+            }
+        },
+        formIsValid: false,
+        loading: false
+    }
+
+checkValidity(value, rules) {
+        let isValid = true;
+        
+        if (rules.required) {
+            isValid = value.trim() !== '' && isValid;
+        }
+
+        if (rules.minLength) {
+            isValid = value.length >= rules.minLength && isValid
+        }
+
+        if (rules.maxLength) {
+            isValid = value.length <= rules.maxLength && isValid
+        }
+
+        return isValid;
+    }
+
+    inputChangedHandler = (event, inputIdentifier) => {
+        const updatedOrderForm = {
+            ...this.state.orderForm
+        };
+        const updatedFormElement = { 
+            ...updatedOrderForm[inputIdentifier]
+        };
+        updatedFormElement.value = event.target.value;
+        // add
+        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
+        updatedFormElement.touched = true;
+        updatedOrderForm[inputIdentifier] = updatedFormElement;
+        
+        let formIsValid = true;
+        for (let inputIdentifier in updatedOrderForm) {
+            formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
+        }
+        this.setState({orderForm: updatedOrderForm, formIsValid: formIsValid});
+    }
+```
+
+
+
 ### 10. Fixing a Common Validation Gotcha
 
 ### 11. Adding Validation Feedback
+
+Input
+
+```js
+const input = ( props ) => {
+    let inputElement = null;
+    const inputClasses = [classes.InputElement];
+// add
+    if (props.invalid && props.shouldValidate && props.touched) {
+        inputClasses.push(classes.Invalid);
+    }
+```
+
+props invalid truyền vào trong
 
 ### 12. Improving Visual Feedback
 
 ### 13. Showing Error Messages.html
 
+We're not showing any error messages in our form, but you can of course easily add some.
+
+The form inputs (`` component) already receives the information whether it's invalid or not. You could of course easily add some conditionally rendered element inside of that component.
+
+For example (inside `` component function):
+
+```js
+// all the other code from the videos
+
+let validationError = null;
+if (props.invalid && props.touched) {
+    validationError = <p>Please enter a valid value!</p>;
+}
+
+return (
+     <div className={classes.Input}>
+         <label className={classes.Label}>{props.label}</label>
+         {inputElement}
+         {validationError}
+     </div>
+ );
+```
+
+This could of course be finetuned. You could also pass the value type (e.g. `"email address"` ) as a prop:
+
+```
+validationError = Please enter a valid {props.valueType};
+```
+
+You could also receive the complete error message as a prop:
+
+```
+validationError = {props.errorMessage};
+```
+
+And of course, also don't forget to style the messages if you want to do that:
+
+```
+validationError = {props.errorMessage};
+```
+
+In your CSS file, you could have:
+
+```css
+.ValidationError {
+    color: red;
+    margin: 5px 0;
+} 
+```
+
 ### 14. Handling Overall Form Validity
+
+ContactData thêm formIsValid: false,
+
+```js
+inputChangedHandler = (event, inputIdentifier) => {
+        const updatedOrderForm = {
+            ...this.state.orderForm
+        };
+        const updatedFormElement = { 
+            ...updatedOrderForm[inputIdentifier]
+        };
+        updatedFormElement.value = event.target.value;
+        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
+        updatedFormElement.touched = true;
+        updatedOrderForm[inputIdentifier] = updatedFormElement;
+        
+    // Add
+        let formIsValid = true;
+        for (let inputIdentifier in updatedOrderForm) {
+            formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
+        }
+        this.setState({orderForm: updatedOrderForm, formIsValid: formIsValid});
+    }
+
+
+....
+<Button btnType="Success" disabled={!this.state.formIsValid}>ORDER</Button>
+```
+
+Sửa file button.js thêm tt disabled
 
 ### 15. Working on an Error
 
+Đối với combobox thêm validation: {} để tránh lỗi
+
+hay `if (!rules) return true;`
+
 ### 16. Fixing a Bug
 
+deliveryMethod nên set value defauft cho combobox
+
+- Validate.js (you may import its functionality into your React projects): https://validatejs.org/
+- Get more ideas about potential validation approaches: https://react.rocks/tag/Validation
+
+Alternatives to the manual approach taken in this course:
+
+- react-validation package: https://www.npmjs.com/package/react-validation
+- formsy-react package: https://github.com/christianalfoni/formsy-react
+
 ### 17. Useful Resources & Links.html
-
-### 2. Analyzing the App
-
-### 3. Creating a Custom Dynamic Input Component
-
-### 4. Setting Up a JS Config for the Form
-
-### 5. Dynamically Create Inputs based on JS Config
-
-### 6. Adding a Dropdown Component
-
-### 7. Handling User Input
-
-### 8. Handling Form Submission
-
-### 9. Adding Custom Form Validation
 
 ## 14. Redux
 
 ### 1. Module Introduction
+
+### 2. Understanding State
+
+State quyết định cái gì được hiển thị lên màn hình
+
+### 3. The Complexity of Managing State
+
+![image-20200223223919354](./react-maximilan.assets/image-20200223223919354.png)
+
+### 4. Understanding the Redux Flow
+
+![image-20200223224449104](./react-maximilan.assets/image-20200223224449104.png)
+
+### 4.1 redux-learning-card.pdf.pdf
+
+### 5. Setting Up Reducer and Store
+
+
+
+### 6. Dispatching Actions
+
+### 7. Adding Subscriptions
+
+### 8. Connecting React to Redux
+
+### 9. Connecting the Store to React
 
 ### 10. Dispatching Actions from within the Component
 
@@ -8663,7 +9169,7 @@ export default navigationItem;
 
 ### 19.1 state-types.pdf.pdf
 
-### 2. Understanding State
+### 
 
 ### 20. Time to Practice - Redux Basics.html
 
@@ -8675,21 +9181,7 @@ export default navigationItem;
 
 ### 24. Useful Resources & Links.html
 
-### 3. The Complexity of Managing State
-
-### 4. Understanding the Redux Flow
-
-### 4.1 redux-learning-card.pdf.pdf
-
-### 5. Setting Up Reducer and Store
-
-### 6. Dispatching Actions
-
-### 7. Adding Subscriptions
-
-### 8. Connecting React to Redux
-
-### 9. Connecting the Store to React
+### 
 
 ## 15. Adding Redux to our Project
 
