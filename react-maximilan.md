@@ -7226,27 +7226,309 @@ We **don't need to install** `react-router` on our own for it to work. You can o
 
 ### 6. Preparing the Project For Routing
 
+Create Post Component.js tách từ blog ra, copy cả css
+
+```js
+import React, { Component } from 'react';
+import axios from '../../../axios';
+
+import Post from '../../../components/Post/Post';
+import './Posts.css';
+
+class Posts extends Component {
+    state = {
+        posts: []
+    }
+
+    componentDidMount () {
+        console.log(this.props);
+        axios.get( '/posts' )
+            .then( response => {
+                const posts = response.data.slice(0, 4);
+                const updatedPosts = posts.map(post => {
+                    return {
+                        ...post,
+                        author: 'Max'
+                    }
+                });
+                this.setState({posts: updatedPosts});
+                // console.log( response );
+            } )
+            .catch(error => {
+                console.log(error);
+                // this.setState({error: true});
+            });
+    }
+
+    postSelectedHandler = (id) => {
+        this.setState({selectedPostId: id});
+    }
+    
+    render () {
+        let posts = <p style={{textAlign: 'center'}}>Something went wrong!</p>;
+        if (!this.state.error) {
+            posts = this.state.posts.map(post => {
+                return <Post 
+                    key={post.id} 
+                    title={post.title} 
+                    author={post.author}
+                    clicked={() => this.postSelectedHandler(post.id)} />;
+            });
+        }
+
+        return (
+            <section className="Posts">
+                {posts}
+            </section>
+        );
+    }
+}
+
+export default Posts;
+```
+
+
+
 ### 7. Setting Up and Rendering Routes
+
+Blog.js
+
+```js
+import { Route, Link } from 'react-router-dom';
+
+
+
+{/* <Route path="/" exact render={() => <h1>Home</h1>} />
+  <Route path="/" render={() => <h1>Home 2</h1>} /> */}
+            <Route path="/" exact component={Posts} />
+            <Route path="/new-post" component={NewPost} />
+```
+
+exact là biến boolean có nó có nghĩa là true => tell does my path start with /, complete path like this; exact là full path
+
+Khi call / thì nó sẽ hiển thị cả Home và Home2 nếu dòng 2 có exact, khi không có vào link khác nó cũng sẽ hiện Home2
 
 ### 8. Rendering Components for Routes
 
 ### 9. Switching Between Pages
 
+=> bị reload page
+
 ### 10. Using Links to Switch Pages
+
+Blog.js
+
+```js
+<header>
+                    <nav>
+                        <ul>
+                            <li><Link to="/">Home</Link></li>
+                            <li><Link to={{
+                                pathname: '/new-post',
+                                hash: '#submit',
+                                search: '?quick-submit=true'
+                            }}>New Post</Link></li>
+                        </ul>
+                    </nav>
+                </header>
+```
+
+
 
 ### 11. Using Routing-Related Props
 
+Trong Post.js và NewPost.js thêm
+
+```js
+componentDidMount () {
+        console.log(this.props);
+```
+
+![image-20200223085450744](./react-maximilan.assets/image-20200223085450744.png)
+
 ### 12. The withRouter HOC & Route Props
+
+Post.js
+
+```js
+import React from 'react';
+
+import './Post.css';
+
+const post = (props) => {
+    // Add
+    console.log(props);
+    return  (
+    <article className="Post" onClick={props.clicked}>
+        <h1>{props.title}</h1>
+        <div className="Info">
+            <div className="Author">{props.author}</div>
+        </div>
+    </article>
+);
+}
+
+export default post;
+```
+
+Khi console.log(props); Không có loaction, history and match
+
+![image-20200223095508332](./react-maximilan.assets/image-20200223095508332.png)  
+
+Post.js
+
+```js
+import React from 'react';
+import { withRouter } from 'react-router-dom';
+
+import './Post.css';
+
+const post = (props) => {
+    console.log(props);
+    return  (
+    <article className="Post" onClick={props.clicked}>
+        <h1>{props.title}</h1>
+        <div className="Info">
+            <div className="Author">{props.author}</div>
+        </div>
+    </article>
+);
+}
+
+// add
+export default withRouter(post);
+```
+
+![image-20200223095857964](./react-maximilan.assets/image-20200223095857964.png)  
+
+Sau đó revert file này lại như ban đầu
 
 ### 13. Absolute vs Relative Paths
 
+Blog.js có thể truy cập path bằng cách this.props.match.url + 'new-post'
+
 ### 14. Absolute vs Relative Paths (Article).html
+
+You learned about `Link` , you learned about the `to` property it uses.
+
+The path you can use in to can be either **absolute** or **relative**. 
+
+#### **Absolute Paths**
+
+By default, if you just enter `to="/some-path"` or `to="some-path"` , that's an **absolute path**. 
+
+**Absolute path** means that it's **always appended right after your domain**. Therefore, both syntaxes (with and without leading slash) lead to `example.com/some-path` .
+
+#### **Relative Paths**
+
+Sometimes, you might want to create a relative path instead. This is especially useful, if your component is already loaded given a specific path (e.g. `posts` ) and you then want to append something to that existing path (so that you, for example, get `/posts/new` ).
+
+If you're on a component loaded via `/posts` , `to="new"` would lead to `example.com/new` , **NOT** `example.com/posts/new` . 
+
+To change this behavior, you have to find out which path you're on and add the new fragment to that existing path. You can do that with the `url` property of `props.match` :
+
+`<Link to={props.match.url + '/new'}>` will lead to `example.com/posts/new` when placing this link in a component loaded on `/posts` . If you'd use the same `` in a component loaded via `/all-posts` , the link would point to `/all-posts/new` .
+
+**There's no better or worse way of creating Link paths** - choose the one you need. Sometimes, you want to ensure that you always load the same path, no matter on which path you already are => Use absolute paths in this scenario.
+
+Use relative paths if you want to navigate relative to your existing path.
 
 ### 15. Styling the Active Route
 
+Blog.js sửa thành NavLink
+
+```js
+import { Route, NavLink, Switch } from 'react-router-dom';
+
+import './Blog.css';
+import Posts from './Posts/Posts';
+import NewPost from './NewPost/NewPost';
+
+class Blog extends Component {
+    render () {
+        return (
+            <div className="Blog">
+                <header>
+                    <nav>
+                        <ul>
+                            <li><NavLink
+                                to="/posts/"
+                                exact
+                                activeClassName="my-active"
+                                activeStyle={{
+                                    color: '#fa923f',
+                                    textDecoration: 'underline'
+                                }}>Posts</NavLink></li>
+                            <li><NavLink to={{
+                                pathname: '/new-post',
+                                hash: '#submit',
+                                search: '?quick-submit=true'
+                            }}>New Post</NavLink></li>
+                        </ul>
+                    </nav>
+                </header>
+```
+
+Blog.css
+
+```css
+.Blog a:hover,
+.Blog a:active,
+.Blog a.active {
+    color: #fa923f;
+}
+```
+
+Thêm exact để không active 2 link cùng lúc
+
 ### 16. Passing Route Parameters
 
+Posts.js
+
+```js
+postSelectedHandler = ( id ) => {
+        // this.props.history.push({pathname: '/posts/' + id});
+        this.props.history.push( '/posts/' + id );
+    }
+
+    render () {
+        let posts = <p style={{ textAlign: 'center' }}>Something went wrong!</p>;
+        if ( !this.state.error ) {
+            posts = this.state.posts.map( post => {
+                return (
+                    // <Link to={'/posts/' + post.id} key={post.id}>
+                    <Post
+                        key={post.id}
+                        title={post.title}
+                        author={post.author}
+                        clicked={() => this.postSelectedHandler( post.id )} />
+                    // </Link>
+                );
+            } );
+        }
+
+        return (
+            <div>
+                <section className="Posts">
+                    {posts}
+                </section>
+                <Route path={this.props.match.url + '/:id'} exact component={FullPost} />
+            </div>
+        );
+    }
+```
+
+
+
 ### 17. Extracting Route Parameters
+
+Posts.js
+
+![image-20200223104434672](./react-maximilan.assets/image-20200223104434672.png)  
+
+Blog.js
+
+![image-20200223104702533](./react-maximilan.assets/image-20200223104702533.png)
 
 ### 18. Parsing Query Parameters & the Fragment.html
 
