@@ -9137,25 +9137,330 @@ State quyết định cái gì được hiển thị lên màn hình
 
 ### 5. Setting Up Reducer and Store
 
+Create file redux-basic.js
 
+```js
+const redux = require('redux');
+const createStore = redux.createStore;
+
+const initialState = {
+    counter: 0
+}
+
+// Reducer
+const rootReducer = (state = initialState, action) => {
+    if (action.type === 'INC_COUNTER') {
+        return {
+            ...state,
+            counter: state.counter + 1
+        };
+    }
+    if (action.type === 'ADD_COUNTER') {
+        return {
+            ...state,
+            counter: state.counter + action.value
+        };
+    }
+    return state;
+};
+
+// Store
+const store = createStore(rootReducer);
+console.log(store.getState());
+
+// Subscription
+store.subscribe(() => {
+    console.log('[Subscription]', store.getState());
+});
+
+// Dispatching Action
+store.dispatch({type: 'INC_COUNTER'});
+store.dispatch({type: 'ADD_COUNTER', value: 10});
+console.log(store.getState());
+
+```
+
+Lưu ý : reducer chỉ có 1, test bằng node js
+
+Lệnh node filename
 
 ### 6. Dispatching Actions
+
+
 
 ### 7. Adding Subscriptions
 
 ### 8. Connecting React to Redux
 
+index.js
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+
+import './index.css';
+import App from './App';
+import registerServiceWorker from './registerServiceWorker';
+import reducer from './store/reducer';
+
+const store = createStore(reducer);
+// # 9 
+ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
+registerServiceWorker();
+
+```
+
+Create file store/reducer.js
+
+```js
+const initialState = {
+    counter: 0
+}
+
+const reducer = (state = initialState, action) => {
+    // # 10
+    if (action.type === 'INCREMENT') {
+        return {
+            counter: state.counter + 1
+        }
+    }
+    return state;
+};
+
+export default reducer;
+```
+
+
+
 ### 9. Connecting the Store to React
 
+`npm install --save react-redux`
+
+Tại index.js thêm `ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));`  
+
+Provider is a component inject store to react component
+
 ### 10. Dispatching Actions from within the Component
+
+connect is a func return HOC
+
+Counter.js
+
+```js
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import CounterControl from '../../components/CounterControl/CounterControl';
+import CounterOutput from '../../components/CounterOutput/CounterOutput';
+
+class Counter extends Component {
+    state = {
+        counter: 0
+    }
+
+    counterChangedHandler = ( action, value ) => {
+        switch ( action ) {
+            case 'inc':
+                this.setState( ( prevState ) => { return { counter: prevState.counter + 1 } } )
+                break;
+            case 'dec':
+                this.setState( ( prevState ) => { return { counter: prevState.counter - 1 } } )
+                break;
+            case 'add':
+                this.setState( ( prevState ) => { return { counter: prevState.counter + value } } )
+                break;
+            case 'sub':
+                this.setState( ( prevState ) => { return { counter: prevState.counter - value } } )
+                break;
+        }
+    }
+
+    render () {
+        return (
+            <div>
+            // add
+                <CounterOutput value={this.props.ctr} />
+
+                <CounterControl label="Increment" clicked={this.props.onIncrementCounter} />
+                <CounterControl label="Decrement" clicked={() => this.counterChangedHandler( 'dec' )}  />
+                <CounterControl label="Add 5" clicked={() => this.counterChangedHandler( 'add', 5 )}  />
+                <CounterControl label="Subtract 5" clicked={() => this.counterChangedHandler( 'sub', 5 )}  />
+            </div>
+        );
+    }
+}
+// add
+const mapStateToProps = state => {
+    return {
+        ctr: state.counter
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onIncrementCounter: () => dispatch({type: 'INCREMENT'})
+    };
+};
+// add
+export default connect(mapStateToProps, mapDispatchToProps)(Counter);
+```
+
+
 
 ### 11. Time to Practice - Dispatching Actions.html
 
 ### 12. Passing and Retrieving Data with Action
 
+Counter.js
+
+```js
+class Counter extends Component {
+    render () {
+        return (
+            <div>
+                <CounterOutput value={this.props.ctr} />
+                <CounterControl label="Increment" clicked={this.props.onIncrementCounter} />
+                <CounterControl label="Decrement" clicked={this.props.onDecrementCounter}  />
+                <CounterControl label="Add 10" clicked={this.props.onAddCounter}  />
+                <CounterControl label="Subtract 15" clicked={this.props.onSubtractCounter}  />
+                <hr />
+                <button onClick={() => this.props.onStoreResult(this.props.ctr)}>Store Result</button>
+                <ul>
+                    {this.props.storedResults.map(strResult => (
+                        <li key={strResult.id} onClick={() => this.props.onDeleteResult(strResult.id)}>{strResult.value}</li>
+                    ))}
+                </ul>
+            </div>
+        );
+    }
+}
+
+const mapStateToProps = state => {
+    return {
+
+        ctr: state.ctr.counter,
+        storedResults: state.res.results
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onIncrementCounter: () => dispatch({type: actionTypes.INCREMENT}),
+        onDecrementCounter: () => dispatch({type: actionTypes.DECREMENT}),
+        // add start
+        onAddCounter: () => dispatch({type: actionTypes.ADD, val: 10}),
+        onSubtractCounter: () => dispatch({type: actionTypes.SUBTRACT, val: 15}),
+        // add end
+        onStoreResult: (result) => dispatch({type: actionTypes.STORE_RESULT, result: result}),
+        onDeleteResult: (id) => dispatch({type: actionTypes.DELETE_RESULT, resultElId: id})
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Counter);
+```
+
+reducer.js
+
+```js
+const reducer = ( state = initialState, action ) => {
+    switch ( action.type ) {
+        case actionTypes.INCREMENT:
+            const newState = Object.assign({}, state);
+            newState.counter = state.counter + 1;
+            return newState;
+        case actionTypes.DECREMENT:
+            return {
+                ...state,
+                counter: state.counter - 1
+            }
+        case actionTypes.ADD:
+            return {
+                ...state,
+                counter: state.counter + action.val
+            }
+        case actionTypes.SUBTRACT:
+            return {
+                ...state,
+                counter: state.counter - action.val
+            }
+    }
+    return state;
+};
+```
+
+
+
 ### 13. Switch-Case in the Reducer
 
 ### 14. Updating State Immutably
+
+Thêm button tại file Counter.js
+
+```js
+const mapStateToProps = state => {
+    return {
+
+        ctr: state.ctr.counter,
+        storedResults: state.res.results
+    }
+};
+
+<hr />
+   <button onClick={() => this.props.onStoreResult(this.props.ctr)}>Store Result</button>
+<ul>
+    {this.props.storedResults.map(strResult => (
+<li key={strResult.id} onClick={() => this.props.onDeleteResult(strResult.id)}>{strResult.value}</li>
+     ))}
+</ul>
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onIncrementCounter: () => dispatch({type: actionTypes.INCREMENT}),
+        onDecrementCounter: () => dispatch({type: actionTypes.DECREMENT}),
+        onAddCounter: () => dispatch({type: actionTypes.ADD, val: 10}),
+        onSubtractCounter: () => dispatch({type: actionTypes.SUBTRACT, val: 15}),
+        // add
+        onStoreResult: (result) => dispatch({type: actionTypes.STORE_RESULT, result: result}),
+        onDeleteResult: (id) => dispatch({type: actionTypes.DELETE_RESULT, resultElId: id})
+    }
+};
+```
+
+result.js
+
+```js
+import * as actionTypes from '../actions';
+
+const initialState = {
+    results: []
+};
+
+const reducer = ( state = initialState, action ) => {
+    switch ( action.type ) {
+        case actionTypes.STORE_RESULT:
+            return {
+                ...state,
+                results: state.results.concat({id: new Date(), value: action.result})
+            }
+        case actionTypes.DELETE_RESULT:
+            // const id = 2;
+            // const newArray = [...state.results];
+            // newArray.splice(id, 1)
+            const updatedArray = state.results.filter(result => result.id !== action.resultElId);
+            return {
+                ...state,
+                results: updatedArray
+            }
+    }
+    return state;
+};
+
+export default reducer;
+```
+
+ ...state: để giữ lại state, copy state
 
 ### 15. Updating Arrays Immutably
 
