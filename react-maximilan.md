@@ -9444,6 +9444,7 @@ const reducer = ( state = initialState, action ) => {
                 ...state,
                 results: state.results.concat({id: new Date(), value: action.result})
             }
+            // # 15
         case actionTypes.DELETE_RESULT:
             // const id = 2;
             // const newArray = [...state.results];
@@ -9464,29 +9465,356 @@ export default reducer;
 
 ### 15. Updating Arrays Immutably
 
+Hàm filter return a new array, get các element khác id
+
 ### 16. Immutable Update Patterns.html
+
+Immutable Update Patterns on reduxjs.org: http://redux.js.org/docs/recipes/reducers/ImmutableUpdatePatterns.html
+
+## Updating Nested Objects
+
+The key to updating nested data is **that \*every\* level of nesting must be copied and updated appropriately**. This is often a difficult concept for those learning Redux, and there are some specific problems that frequently occur when trying to update nested objects. These lead to accidental direct mutation, and should be avoided.
+
+##### Common Mistake #1: New variables that point to the same objects
+
+Defining a new variable does *not* create a new actual object - it only creates another reference to the same object. An example of this error would be:
+
+```js
+function updateNestedState(state, action) {
+    let nestedState = state.nestedState;
+    // ERROR: this directly modifies the existing object reference - don't do this!
+    nestedState.nestedField = action.data;
+
+    return {
+        ...state,
+        nestedState
+    };
+}
+```
+
+This function does correctly return a shallow copy of the top-level state object, but because the `nestedState` variable was still pointing at the existing object, the state was directly mutated.
+
+##### Common Mistake #2: Only making a shallow copy of one level
+
+Another common version of this error looks like this:
+
+```js
+function updateNestedState(state, action) {
+    // Problem: this only does a shallow copy!
+    let newState = {...state};
+
+    // ERROR: nestedState is still the same object!
+    newState.nestedState.nestedField = action.data;
+
+    return newState;
+}
+```
+
+Doing a shallow copy of the top level is *not* sufficient - the `nestedState` object should be copied as well.
+
+##### Correct Approach: Copying All Levels of Nested Data
+
+Unfortunately, the process of correctly applying immutable updates to deeply nested state can easily become verbose and hard to read. Here's what an example of updating `state.first.second[someId].fourth` might look like:
+
+```js
+function updateVeryNestedField(state, action) {
+    return {
+        ...state,
+        first : {
+            ...state.first,
+            second : {
+                ...state.first.second,
+                [action.someId] : {
+                    ...state.first.second[action.someId],
+                    fourth : action.someValue
+                }
+            }
+        }
+    }
+}
+```
+
+Obviously, each layer of nesting makes this harder to read, and gives more chances to make mistakes. This is one of several reasons why you are encouraged to keep your state flattened, and compose reducers as much as possible.
+
+## Inserting and Removing Items in Arrays
+
+Normally, a Javascript array's contents are modified using mutative functions like `push`, `unshift`, and `splice`. Since we don't want to mutate state directly in reducers, those should normally be avoided. Because of that, you might see "insert" or "remove" behavior written like this:
+
+```js
+function insertItem(array, action) {
+    return [
+        ...array.slice(0, action.index),
+        action.item,
+        ...array.slice(action.index)
+    ]
+}
+
+function removeItem(array, action) {
+    return [
+        ...array.slice(0, action.index),
+        ...array.slice(action.index + 1)
+    ];
+}
+```
+
+However, remember that the key is that the *original in-memory reference* is not modified. **As long as we make a copy first, we can safely mutate the copy**. Note that this is true for both arrays and objects, but nested values still must be updated using the same rules.
+
+This means that we could also write the insert and remove functions like this:
+
+```js
+function insertItem(array, action) {
+    let newArray = array.slice();
+    newArray.splice(action.index, 0, action.item);
+    return newArray;
+}
+
+function removeItem(array, action) {
+    let newArray = array.slice();
+    newArray.splice(action.index, 1);
+    return newArray;
+}
+```
+
+The remove function could also be implemented as:
+
+```js
+function removeItem(array, action) {
+    return array.filter( (item, index) => index !== action.index);
+}
+```
+
+## Updating an Item in an Array
+
+Updating one item in an array can be accomplished by using `Array.map`, returning a new value for the item we want to update, and returning the existing values for all other items:
+
+```js
+function updateObjectInArray(array, action) {
+    return array.map( (item, index) => {
+        if(index !== action.index) {
+            // This isn't the item we care about - keep it as-is
+            return item;
+        }
+
+        // Otherwise, this is the one we want - return an updated value
+        return {
+            ...item,
+            ...action.item
+        };    
+    });
+}
+```
+
+## Immutable Update Utility Libraries
+
+Because writing immutable update code can become tedious, there are a number of utility libraries that try to abstract out the process. These libraries vary in APIs and usage, but all try to provide a shorter and more succinct way of writing these updates. Some, like [dot-prop-immutable](https://github.com/debitoor/dot-prop-immutable), take string paths for commands:
+
+```
+state = dotProp.set(state, `todos.${index}.complete`, true)
+```
+
+Others, like [immutability-helper](https://github.com/kolodny/immutability-helper) (a fork of the now-deprecated React Immutability Helpers addon), use nested values and helper functions:
+
+```js
+var collection = [1, 2, {a: [12, 17, 15]}];
+var newCollection = update(collection, {2: {a: {$splice: [[1, 1, 13, 14]]}}});
+```
+
+They can provide a useful alternative to writing manual immutable update logic.
+
+[Immutable Data#Immutable Update Utilities](https://github.com/markerikson/redux-ecosystem-links/blob/master/immutable-data.md#immutable-update-utilities) section of the [Redux Addons Catalog](https://github.com/markerikson/redux-ecosystem-links).
 
 ### 17. Outsourcing Action Types
 
+Create file actions.js
+
+```js
+export const INCREMENT = 'INCREMENT';
+export const DECREMENT = 'DECREMENT';
+export const ADD = 'ADD';
+export const SUBTRACT = 'SUBTRACT';
+export const STORE_RESULT = 'STORE_RESULT';
+export const DELETE_RESULT = 'DELETE_RESULT';
+```
+
+Ở file khác import: `import * as actionTypes from '../actions';`
+
 ### 18. Combining Multiple Reducers
+
+Tách file
+
+index.js
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore, combineReducers } from 'redux';
+
+import counterReducer from './store/reducers/counter';
+import resultReducer from './store/reducers/result';
+import './index.css';
+import App from './App';
+import registerServiceWorker from './registerServiceWorker';
+
+const rootReducer = combineReducers({
+    ctr: counterReducer,
+    res: resultReducer
+});
+
+const store = createStore(rootReducer);
+
+ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
+registerServiceWorker();
+
+```
+
+Sửa lại file Counter.js
+
+```js
+<button onClick={() => this.props.onStoreResult(this.props.ctr)}>Store Result</button>
+
+...
+
+const mapStateToProps = state => {
+    return {
+
+        ctr: state.ctr.counter,
+        storedResults: state.res.results
+    }
+};
+```
+
+
 
 ### 19. Understanding State Types
 
 ### 19.1 state-types.pdf.pdf
 
-### 
+![image-20200224214536333](./react-maximilan.assets/image-20200224214536333.png)
 
 ### 20. Time to Practice - Redux Basics.html
 
 ### 21. [OPTIONAL] Assignment Solution
 
+npm install --save redux react-redux
+
+reducer.js
+
+```js
+import * as actionTypes from './actions';
+
+const initialState = {
+    persons: []
+};
+
+const reducer = ( state = initialState, action ) => {
+    switch ( action.type ) {
+        case actionTypes.ADD_PERSON:
+            const newPerson = {
+                id: Math.random(), // not really unique but good enough here!
+                name: 'Max',
+                age: Math.floor( Math.random() * 40 )
+            }
+            return {
+                ...state,
+                persons: state.persons.concat( newPerson )
+            }
+        case actionTypes.REMOVE_PERSON:
+            return {
+                ...state,
+                persons: state.persons.filter(person => person.id !== action.personId)
+            }
+    }
+    return state;
+};
+
+export default reducer;
+```
+
+index.js
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+
+import './index.css';
+import App from './App';
+import registerServiceWorker from './registerServiceWorker';
+import reducer from './store/reducer';
+
+const store = createStore(reducer);
+
+ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
+registerServiceWorker();
+
+```
+
+Person.js
+
+```js
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import Person from '../components/Person/Person';
+import AddPerson from '../components/AddPerson/AddPerson';
+import * as actionTypes from '../store/actions';
+
+class Persons extends Component {
+    // di chuyen cac ham add delete to reducer
+    
+    render () {
+        return (
+            <div>
+                <AddPerson personAdded={this.props.onAddedPerson} />
+                {this.props.prs.map(person => (
+                    <Person 
+                        key={person.id}
+                        name={person.name} 
+                        age={person.age} 
+                        clicked={() => this.props.onRemovedPerson(person.id)}/>
+                ))}
+            </div>
+        );
+    }
+}
+
+const mapStateToProps = state => {
+    return {
+        prs: state.persons
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onAddedPerson: () => dispatch({type: actionTypes.ADD_PERSON}),
+        onRemovedPerson: (id) => dispatch({type: actionTypes.REMOVE_PERSON, personId: id})
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Persons);
+```
+
+
+
 ### 22. Combining Local UI State and Redux
+
+Sửa file addPerson.js
+
+xem lại
 
 ### 23. Wrap Up
 
 ### 24. Useful Resources & Links.html
 
-### 
+
+
+- Redux Docs: http://redux.js.org/
+- Core Concepts: http://redux.js.org/docs/introduction/CoreConcepts.html
+- Actions: http://redux.js.org/docs/basics/Actions.html
+- Reducers: http://redux.js.org/docs/basics/Reducers.html
+- Redux FAQs: http://redux.js.org/docs/FAQ.html
 
 ## 15. Adding Redux to our Project
 
