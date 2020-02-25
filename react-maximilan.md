@@ -9820,43 +9820,302 @@ xem lại
 
 ### 1. Module Introduction
 
-### 10. Useful Resources & Links.html
-
 ### 2. Installing Redux and React Redux
+
+reducer.js
+
+```js
+import * as actionTypes from './actions';
+
+const initialState = {
+    ingredients: null,
+    totalPrice: 4
+};
+
+const reducer = (state = initialState, action) => {
+
+};
+
+export default reducer;
+```
+
+index.js
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+
+import './index.css';
+import App from './App';
+import registerServiceWorker from './registerServiceWorker';
+import reducer from './store/reducer';
+
+const store = createStore(reducer);
+
+const app = (
+    <Provider store={store}>
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
+    </Provider>
+);
+
+ReactDOM.render( app, document.getElementById( 'root' ) );
+registerServiceWorker();
+
+```
+
+
 
 ### 3. Basic Redux Setup
 
 ### 4. Finishing the Reducer for Ingredients
 
+reducer.js
+
+```js
+import * as actionTypes from './actions';
+
+const initialState = {
+    ingredients: {
+        salad: 0,
+        bacon: 0,
+        cheese: 0,
+        meat: 0
+    },
+    totalPrice: 4
+};
+
+const INGREDIENT_PRICES = {
+    salad: 0.5,
+    cheese: 0.4,
+    meat: 1.3,
+    bacon: 0.7
+};
+
+const reducer = ( state = initialState, action ) => {
+    switch ( action.type ) {
+        case actionTypes.ADD_INGREDIENT:
+            return {
+                ...state,
+                ingredients: {
+                    ...state.ingredients,
+                    [action.ingredientName]: state.ingredients[action.ingredientName] + 1
+                },
+                totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
+            };
+        case actionTypes.REMOVE_INGREDIENT:
+            return {
+                ...state,
+                ingredients: {
+                    ...state.ingredients,
+                    [action.ingredientName]: state.ingredients[action.ingredientName] - 1
+                },
+                totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName]
+            };
+        default:
+            return state;
+    }
+};
+
+export default reducer;
+```
+
+BurgerBuilder.js comment lại
+
+```js
+componentDidMount () {
+        console.log(this.props);
+        // axios.get( 'https://react-my-burger.firebaseio.com/ingredients.json' )
+        //     .then( response => {
+        //         this.setState( { ingredients: response.data } );
+        //     } )
+        //     .catch( error => {
+        //         this.setState( { error: true } );
+        //     } );
+    }
+```
+
+
+
 ### 5. Connecting the Burger Builder Container to our Store
+
+BurgerBuilder.js
+
+```js
+
+// delete state k cần
+state = {
+        purchasing: false,
+        loading: false,
+        error:
+    
+// Thay hết this.state.ingredients => this.props.ings
+const mapStateToProps = state => {
+    return {
+        ings: state.ingredients,
+        price: state.totalPrice
+    };
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onIngredientAdded: (ingName) => dispatch({type: actionTypes.ADD_INGREDIENT, ingredientName: ingName}),
+        onIngredientRemoved: (ingName) => dispatch({type: actionTypes.REMOVE_INGREDIENT, ingredientName: ingName})
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler( BurgerBuilder, axios ));
+```
+
+BuildControls
+
+button ORDER k hoạt động
 
 ### 6. Working on the Total Price Calculation
 
+reducer xử lý totalPrice
+
+Xóa hàm add and remove in BurgerBuilder.js
+
+```js
+const mapStateToProps = state => {
+    return {
+        ings: state.ingredients,
+        // add
+        price: state.totalPrice
+    };
+}
+// sau đố replace state
+```
+
+
+
 ### 7. Redux & UI State
+
+BurgerBuilder sẽ không quản lí state purchasable
+
+```js
+updatePurchaseState ( ingredients ) {
+        const sum = Object.keys( ingredients )
+            .map( igKey => {
+                return ingredients[igKey];
+            } )
+            .reduce( ( sum, el ) => {
+                return sum + el;
+            }, 0 );
+        return sum > 0;
+    }
+
+....
+burger = (
+                <Aux>
+                    <Burger ingredients={this.props.ings} />
+                    <BuildControls
+                        ingredientAdded={this.props.onIngredientAdded}
+                        ingredientRemoved={this.props.onIngredientRemoved}
+                        disabled={disabledInfo}
+/// add
+                        purchasable={this.updatePurchaseState(this.props.ings)}
+                        ordered={this.purchaseHandler}
+                        price={this.props.price} />
+                </Aux>
+            );
+```
+
+
 
 ### 8. Adjusting Checkout and Contact Data
 
+remove purchaseContinueHandler in BurgerBuilder
+
+```js
+purchaseContinueHandler = () => {
+        this.props.history.push('/checkout');
+    }
+```
+
+Checkout.js
+
+```js
+// xóa componentWillMount and remove state
+import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
+import ContactData from './ContactData/ContactData';
+
+class Checkout extends Component {
+
+    checkoutCancelledHandler = () => {
+        this.props.history.goBack();
+    }
+
+    checkoutContinuedHandler = () => {
+        this.props.history.replace( '/checkout/contact-data' );
+    }
+
+    render () {
+        return (
+            <div>
+                <CheckoutSummary
+            // chuyển state thành props
+                    ingredients={this.props.ings}
+                    checkoutCancelled={this.checkoutCancelledHandler}
+                    checkoutContinued={this.checkoutContinuedHandler} />
+                <Route 
+                    path={this.props.match.path + '/contact-data'} 
+// add
+                    component={ContactData} />
+            </div>
+        );
+    }
+}
+
+const mapStateToProps = state => {
+    return {
+        ings: state.ingredients
+    }
+};
+
+export default connect(mapStateToProps)(Checkout);
+```
+
+ContactData.js
+
+```js
+
+const mapStateToProps = state => {
+    return {
+        ings: state.ingredients, // nhớ thay tên
+        price: state.totalPrice
+    }
+};
+
+export default connect(mapStateToProps)(ContactData);
+```
+
+
+
 ### 9. Wrap Up
+
+### 10. Useful Resources & Links.html
 
 ## 16. Redux Advanced
 
 ### 1. Module Introduction
 
-### 10. Using Action Creators and Get State
 
-### 11. Using Utility Functions
-
-### 12. A Leaner Switch Case Statement
-
-### 13. An Alternative Folder Structure
-
-### 14. Diving Much Deeper
-
-### 15. Wrap Up
-
-### 16. Useful Resources & Links.html
 
 ### 2. Adding Middleware
+
+Middleware is term used for function or the code general you hook into a process which then get executed as part of  that process without stopping it
+
+![image-20200225203849602](./react-maximilan.assets/image-20200225203849602.png)
 
 ### 3. Using the Redux Devtools
 
@@ -9871,6 +10130,22 @@ xem lại
 ### 8. Restructuring Actions
 
 ### 9. Where to Put Data Transforming Logic
+
+
+
+### 10. Using Action Creators and Get State
+
+### 11. Using Utility Functions
+
+### 12. A Leaner Switch Case Statement
+
+### 13. An Alternative Folder Structure
+
+### 14. Diving Much Deeper
+
+### 15. Wrap Up
+
+### 16. Useful Resources & Links.html
 
 ## 17. Redux Advanced Burger Project
 
