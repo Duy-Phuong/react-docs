@@ -10115,37 +10115,379 @@ export default connect(mapStateToProps)(ContactData);
 
 Middleware is term used for function or the code general you hook into a process which then get executed as part of  that process without stopping it
 
-![image-20200225203849602](./react-maximilan.assets/image-20200225203849602.png)
+![image-20200225203849602](./react-maximilan.assets/image-20200225203849602.png)  
+
+index.js: connect middleware to store
+
+```js
+
+// add
+const logger = store => {
+    // next is a middleware
+    return next => {
+        return action => {
+            console.log('[Middleware] Dispatching', action);
+            const result = next(action);
+            console.log('[Middleware] next state', store.getState());
+            return result;
+        }
+    }
+};
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+// add
+const store = createStore(rootReducer, applyMiddleware(logger));
+
+// sau đó run npm start
+
+```
+
+![image-20200225210018306](./react-maximilan.assets/image-20200225210018306.png)
 
 ### 3. Using the Redux Devtools
+
+install redux dev tool 
+
+https://github.com/zalmoxisus/redux-devtools-extension
+
+index.js
+
+```js
+// add
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(logger)));
+
+```
+
+Trong file READMe.md có HD
+
+![image-20200225211147576](./react-maximilan.assets/image-20200225211147576.png)  
+
+
 
 ### 4. Executing Asynchronous Code - Introduction
 
 ### 5. Introducing Action Creators
 
+create folder actions/ .  Sửa file action.js
+
+```js
+export const INCREMENT = 'INCREMENT';
+export const DECREMENT = 'DECREMENT';
+export const ADD = 'ADD';
+export const SUBTRACT = 'SUBTRACT';
+export const STORE_RESULT = 'STORE_RESULT';
+export const DELETE_RESULT = 'DELETE_RESULT';
+
+export const increment = () => {
+    return {
+        type: INCREMENT
+    };
+};
+
+export const decrement = () => {
+    return {
+        type: DECREMENT
+    };
+};
+
+export const add = (value) => {
+    return {
+        type: ADD,
+        val: value
+    };
+};
+
+export const subtract = (value) => {
+    return {
+        type: SUBTRACT,
+        val: value
+    };
+};
+
+export const storeResult = (res) => {
+    return {
+        type: STORE_RESULT,
+        result: res
+    };
+};
+
+export const deleteResult = (resElId) => {
+    return {
+        type: DELETE_RESULT,
+        resultElId: resElId
+    };
+};
+```
+
+It is a func return an action or create an action
+
 ### 6. Action Creators & Async Code
+
+Counter.js
+
+```js
+import * as actionCreators from '../../store/actions/actions';
+
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onIncrementCounter: () => dispatch(actionCreators.increment()),
+        onDecrementCounter: () => dispatch(actionCreators.decrement()),
+        onAddCounter: () => dispatch(actionCreators.add(10)),
+        onSubtractCounter: () => dispatch(actionCreators.subtract(15)),
+        onStoreResult: (result) => dispatch(actionCreators.storeResult(result)),
+        onDeleteResult: (id) => dispatch(actionCreators.deleteResult(id))
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Counter);
+```
+
+
 
 ### 7. Handling Asynchronous Code
 
+redux-thunk: https://github.com/reduxjs/redux-thunk
+
+Thunk là 1 function mà nó khác biệt những function bình thường là thay vì return trực tiếp kết quả thì **thunk** lại return ra 1 function và trong function đó làm tiếp một vài nhiệm vụ nữa sau đó mới return ra kết quả cuối cùng.
+
+[https://insights.innovatube.com/redux-th%E1%BA%ADt-l%C3%A0-%C4%91%C6%A1n-gi%E1%BA%A3n-ph%E1%BA%A7n-cu%E1%BB%91i-4155b1cfed03](https://insights.innovatube.com/redux-thật-là-đơn-giản-phần-cuối-4155b1cfed03)
+
+not return an action => return dispatch action
+
+`npm install --save redux-thunk`
+
+index.js
+
+```js
+import thunk from 'redux-thunk';
+
+
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(logger, thunk)));
+
+```
+
+action.js
+
+```js
+export const saveResult = ( res ) => {
+    return {
+        type: STORE_RESULT,
+        result: res
+    };
+}
+
+export const storeResult = ( res ) => {
+    return dispatch => {
+        setTimeout( () => {
+            dispatch(saveResult(res));
+        }, 2000 );
+    }
+};
+// sẽ loop vô tận nếu dispatch storeResult
+```
+
+npm start
+
 ### 8. Restructuring Actions
+
+Sửa lại folder actions
+
+actionTypes.js
+
+```js
+export const INCREMENT = 'INCREMENT';
+export const DECREMENT = 'DECREMENT';
+export const ADD = 'ADD';
+export const SUBTRACT = 'SUBTRACT';
+export const STORE_RESULT = 'STORE_RESULT';
+export const DELETE_RESULT = 'DELETE_RESULT';
+
+// tách ra 2 file nữa actions vs result 
+```
+
+index.js trong folder action
+
+```js
+export {
+    add,
+    subtract,
+    increment,
+    decrement
+} from './counter';
+export {
+    storeResult,
+    deleteResult
+} from './result';
+```
+
+Sửa lại import counter.js, result.js, Counter.js
 
 ### 9. Where to Put Data Transforming Logic
 
+result.js
 
+```js
+export const saveResult = ( res ) => {
+    // chỉnh sửa nên đặt ở đây
+    // const updatedResult = res * 2;
+    return {
+        type: actionTypes.STORE_RESULT,
+        result: res
+    };
+}
+
+export const storeResult = ( res ) => {
+    return (dispatch, getState) => {
+        setTimeout( () => {
+            // const oldCounter = getState().ctr.counter;
+            // console.log(oldCounter);
+            dispatch(saveResult(res));
+        }, 2000 );
+    }
+};
+```
+
+Nên update logic in reducer
+
+result.js
+
+```js
+
+const initialState = {
+    results: []
+};
+
+const reducer = ( state = initialState, action ) => {
+    switch ( action.type ) {
+        case actionTypes.STORE_RESULT:
+            // Change here
+            return {
+                ...state,
+                results: state.results.concat({id: new Date(), value: action.result})
+            }
+        case actionTypes.DELETE_RESULT:
+            // const id = 2;
+            // const newArray = [...state.results];
+            // newArray.splice(id, 1)
+            const updatedArray = state.results.filter(result => result.id !== action.resultElId);
+            return {
+                ...state,
+                results: updatedArray
+            }
+    }
+    return state;
+};
+
+export default reducer;
+```
+
+
+
+![image-20200225221753848](./react-maximilan.assets/image-20200225221753848.png)
 
 ### 10. Using Action Creators and Get State
 
+result.js nhờ tham số thứ 2 trong redux-thunk getState current
+
+```js
+
+export const storeResult = ( res ) => {
+    return (dispatch, getState) => {
+        setTimeout( () => {
+            // const oldCounter = getState().ctr.counter;
+            // console.log(oldCounter);
+            dispatch(saveResult(res));
+        }, 2000 );
+    }
+};
+
+```
+
+
+
 ### 11. Using Utility Functions
+
+optional way
+
+create file utility.js
+
+```js
+export const updateObject = (oldObject, updatedValues) => {
+    return {
+        ...oldObject,
+        ...updatedValues
+    }
+};
+```
+
+counter.js
+
+```js
+
+import { updateObject } from '../utility';
+
+const reducer = ( state = initialState, action ) => {
+    switch ( action.type ) {
+        case actionTypes.INCREMENT:
+            return updateObject(state, {counter: state.counter + 1});
+        case actionTypes.DECREMENT:
+            return updateObject(state, {counter: state.counter - 1});
+        case actionTypes.ADD:
+            return updateObject(state, {counter: state.counter + action.val});
+        case actionTypes.SUBTRACT:
+            return updateObject(state, {counter: state.counter - action.val});
+    }
+    return state;
+};
+
+export default reducer;
+```
+
+result.js
+
+```js
+// 12
+const deleteResult = ( state, action ) => {
+    const updatedArray = state.results.filter( result => result.id !== action.resultElId );
+    return updateObject( state, { results: updatedArray } );
+};
+
+const reducer = ( state = initialState, action ) => {
+    switch ( action.type ) {
+        case actionTypes.STORE_RESULT : return updateObject( state, { results: state.results.concat( { id: new Date(), value: action.result * 2 } ) } );
+        case actionTypes.DELETE_RESULT : return deleteResult(state, action);
+    }
+    return state;
+};
+
+export default reducer;
+```
+
+
 
 ### 12. A Leaner Switch Case Statement
 
 ### 13. An Alternative Folder Structure
 
+create store in folder container
+
 ### 14. Diving Much Deeper
+
+xem lại Immutable update patterns in trang chủ redux
 
 ### 15. Wrap Up
 
 ### 16. Useful Resources & Links.html
+
+- Middleware: http://redux.js.org/docs/advanced/Middleware.html
+- redux-thunk package: https://github.com/gaearon/redux-thunk
+- Async Actions: https://redux.js.org/advanced/asyncactions
 
 ## 17. Redux Advanced Burger Project
 
