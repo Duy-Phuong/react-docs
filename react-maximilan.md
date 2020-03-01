@@ -1,4 +1,614 @@
-[TOC]
+[TOC]  
+
+
+- [React - The Complete Guide (incl Hooks, React Router, Redux)](#react---the-complete-guide-incl-hooks-react-router-redux)
+  - [1. Getting Started](#1-getting-started)
+    - [1. Introduction](#1-introduction)
+    - [2. What is React](#2-what-is-react)
+    - [2.1 components-learning-card.pdf.pdf](#21-components-learning-cardpdfpdf)
+    - [3. Real-World SPAs & React Web Apps](#3-real-world-spas--react-web-apps)
+    - [4. Writing our First React Code](#4-writing-our-first-react-code)
+    - [5. Why Should we Choose React](#5-why-should-we-choose-react)
+    - [6. React Alternatives](#6-react-alternatives)
+    - [7. Understanding Single Page Applications and Multi Page Applications](#7-understanding-single-page-applications-and-multi-page-applications)
+    - [8. Course Outline](#8-course-outline)
+    - [9. How to get the Most out of This Course](#9-how-to-get-the-most-out-of-this-course)
+    - [10. Useful Resources & Links.html](#10-useful-resources--linkshtml)
+  - [2. Refreshing Next Generation JavaScript (Optional)](#2-refreshing-next-generation-javascript-optional)
+    - [1. Module Introduction](#1-module-introduction)
+    - [2. Understanding let and const](#2-understanding-let-and-const)
+    - [3. Arrow Functions](#3-arrow-functions)
+    - [4. Exports and Imports](#4-exports-and-imports)
+    - [5. Understanding Classes](#5-understanding-classes)
+    - [6. Classes, Properties and Methods](#6-classes-properties-and-methods)
+    - [7. The Spread & Rest Operator](#7-the-spread--rest-operator)
+    - [8. Destructuring](#8-destructuring)
+    - [9. Reference and Primitive Types Refresher](#9-reference-and-primitive-types-refresher)
+    - [10. Refreshing Array Functions](#10-refreshing-array-functions)
+    - [11. Wrap Up](#11-wrap-up)
+    - [12. Next-Gen JavaScript - Summary.html](#12-next-gen-javascript---summaryhtml)
+      - [**let & const**](#let--const)
+      - [**ES6 Arrow Functions**](#es6-arrow-functions)
+      - [**Exports & Imports**](#exports--imports)
+      - [**Classes**](#classes)
+      - [**Spread & Rest Operator**](#spread--rest-operator)
+      - [**Destructuring**](#destructuring)
+    - [12.1 next-gen-js-summary.pdf.pdf](#121-next-gen-js-summarypdfpdf)
+    - [13. JS Array Functions.html](#13-js-array-functionshtml)
+  - [3. Understanding the Base Features & Syntax](#3-understanding-the-base-features--syntax)
+    - [1. Module Introduction](#1-module-introduction-1)
+    - [2. The Build Workflow](#2-the-build-workflow)
+    - [3. Using Create React App](#3-using-create-react-app)
+    - [4. Understanding the Folder Structure](#4-understanding-the-folder-structure)
+    - [4.1 ide-setup.pdf.pdf](#41-ide-setuppdfpdf)
+    - [5. Understanding Component Basics](#5-understanding-component-basics)
+    - [5.1 components-learning-card.pdf.pdf](#51-components-learning-cardpdfpdf)
+    - [6. Understanding JSX](#6-understanding-jsx)
+    - [7. JSX Restrictions](#7-jsx-restrictions)
+    - [8. Creating a Functional Component](#8-creating-a-functional-component)
+    - [9. Components & JSX Cheat Sheet.html](#9-components--jsx-cheat-sheethtml)
+    - [9.1 components.pdf.pdf](#91-componentspdfpdf)
+    - [10. Working with Components & Re-Using Them](#10-working-with-components--re-using-them)
+    - [11. Outputting Dynamic Content](#11-outputting-dynamic-content)
+    - [12. Working with Props](#12-working-with-props)
+    - [12.1 props-learning-card.pdf.pdf](#121-props-learning-cardpdfpdf)
+    - [13. Understanding the Children Property](#13-understanding-the-children-property)
+    - [14. Understanding & Using State](#14-understanding--using-state)
+    - [15. Props & State.html](#15-props--statehtml)
+    - [15.1 props&state.pdf.pdf](#151-propsstatepdfpdf)
+    - [16. Handling Events with Methods](#16-handling-events-with-methods)
+    - [17. To Which Events Can You Listen.html](#17-to-which-events-can-you-listenhtml)
+    - [Clipboard Events](#clipboard-events)
+    - [Composition Events](#composition-events)
+    - [Keyboard Events](#keyboard-events)
+    - [Focus Events](#focus-events)
+    - [Form Events](#form-events)
+    - [Mouse Events](#mouse-events)
+    - [Selection Events](#selection-events)
+    - [Touch Events](#touch-events)
+    - [UI Events](#ui-events)
+    - [Wheel Events](#wheel-events)
+    - [Media Events](#media-events)
+    - [Image Events](#image-events)
+    - [Animation Events](#animation-events)
+    - [Transition Events](#transition-events)
+    - [Other Events](#other-events)
+    - [18. Manipulating the State](#18-manipulating-the-state)
+    - [18.1 state-learning-card.pdf.pdf](#181-state-learning-cardpdfpdf)
+    - [19. Function Components Naming.html](#19-function-components-naminghtml)
+    - [20. Using the useState() Hook for State Manipulation](#20-using-the-usestate-hook-for-state-manipulation)
+    - [20.3 usestate-learning-card.pdf.pdf](#203-usestate-learning-cardpdfpdf)
+    - [21. Stateless vs Stateful Components](#21-stateless-vs-stateful-components)
+    - [22. Passing Method References Between Components](#22-passing-method-references-between-components)
+    - [23. Adding Two Way Binding](#23-adding-two-way-binding)
+    - [24. Adding Styling with Stylesheets](#24-adding-styling-with-stylesheets)
+    - [25. Working with Inline Styles](#25-working-with-inline-styles)
+    - [26. Time to Practice - The Base Syntax.html](#26-time-to-practice---the-base-syntaxhtml)
+    - [27. [OPTIONAL] Assignment Solution](#27-optional-assignment-solution)
+    - [28. Useful Resources & Links.html](#28-useful-resources--linkshtml)
+  - [4. Working with Lists and Conditionals](#4-working-with-lists-and-conditionals)
+    - [1. Module Introduction](#1-module-introduction-2)
+    - [2. Rendering Content Conditionally](#2-rendering-content-conditionally)
+    - [2.1 jsx-conditionals-learning-card.pdf.pdf](#21-jsx-conditionals-learning-cardpdfpdf)
+    - [3. Handling Dynamic Content The JavaScript Way](#3-handling-dynamic-content-the-javascript-way)
+    - [4. Outputting Lists (Intro)](#4-outputting-lists-intro)
+    - [5. Outputting Lists](#5-outputting-lists)
+    - [5.1 jsx-lists-learning-card.pdf.pdf](#51-jsx-lists-learning-cardpdfpdf)
+    - [6. Lists & State](#6-lists--state)
+    - [7. Updating State Immutably](#7-updating-state-immutably)
+    - [8. Lists & Keys](#8-lists--keys)
+    - [9. Flexible Lists](#9-flexible-lists)
+    - [10. Wrap Up](#10-wrap-up)
+    - [11. Time to Practice - Lists & Conditionals.html](#11-time-to-practice---lists--conditionalshtml)
+    - [12. [OPTIONAL] Assignment Solution](#12-optional-assignment-solution)
+    - [13. Useful Resources & Links.html](#13-useful-resources--linkshtml)
+  - [5. Styling React Components & Elements](#5-styling-react-components--elements)
+    - [1. Module Introduction](#1-module-introduction-3)
+    - [2. Outlining the Problem Set](#2-outlining-the-problem-set)
+    - [3. Setting Styles Dynamically](#3-setting-styles-dynamically)
+    - [4. Setting Class Names Dynamically](#4-setting-class-names-dynamically)
+    - [5. Adding and Using Radium](#5-adding-and-using-radium)
+    - [6. Using Radium for Media Queries](#6-using-radium-for-media-queries)
+    - [7. MUST READ Enabling CSS Modules.html](#7-must-read-enabling-css-moduleshtml)
+    - [8. Enabling & Using CSS Modules](#8-enabling--using-css-modules)
+    - [8.1 css-modules-learning-card.pdf.pdf](#81-css-modules-learning-cardpdfpdf)
+    - [9. More on CSS Modules.html](#9-more-on-css-moduleshtml)
+    - [10. Adding Pseudo Selectors](#10-adding-pseudo-selectors)
+    - [11. Working with Media Queries](#11-working-with-media-queries)
+    - [12. Useful Resources & Links.html](#12-useful-resources--linkshtml)
+  - [6. Debugging React Apps](#6-debugging-react-apps)
+    - [1. Module Introduction](#1-module-introduction-4)
+    - [2. Understanding Error Messages](#2-understanding-error-messages)
+    - [3. Finding Logical Errors by using Dev Tools & Sourcemaps](#3-finding-logical-errors-by-using-dev-tools--sourcemaps)
+    - [4. Working with the React Developer Tools](#4-working-with-the-react-developer-tools)
+    - [5. Using Error Boundaries (React 16+)](#5-using-error-boundaries-react-16)
+    - [6. Wrap Up](#6-wrap-up)
+    - [7. Useful Resources & Links.html](#7-useful-resources--linkshtml)
+  - [7. Diving Deeper into Components & React Internals](#7-diving-deeper-into-components--react-internals)
+    - [1. Module Introduction](#1-module-introduction-5)
+    - [2. A Better Project Structure](#2-a-better-project-structure)
+    - [3. Splitting an App Into Components](#3-splitting-an-app-into-components)
+    - [4. Comparing Stateless and Stateful Components](#4-comparing-stateless-and-stateful-components)
+    - [5. Class-based vs Functional Components](#5-class-based-vs-functional-components)
+    - [6. class Component Lifecycle Overview](#6-class-component-lifecycle-overview)
+    - [7. Component Creation Lifecycle in Action](#7-component-creation-lifecycle-in-action)
+    - [7.1 lifecycle-creation-learning-card.pdf.pdf](#71-lifecycle-creation-learning-cardpdfpdf)
+    - [8. Component Update Lifecycle (for props Changes)](#8-component-update-lifecycle-for-props-changes)
+    - [8.1 lifecycle-update-external-learning-card.pdf.pdf](#81-lifecycle-update-external-learning-cardpdfpdf)
+    - [9. Component Update Lifecycle (for state Changes)](#9-component-update-lifecycle-for-state-changes)
+    - [10. Using useEffect() in Functional Components](#10-using-useeffect-in-functional-components)
+    - [11. Controlling the useEffect() Behavior](#11-controlling-the-useeffect-behavior)
+    - [12. Cleaning up with Lifecycle Hooks & useEffect()](#12-cleaning-up-with-lifecycle-hooks--useeffect)
+    - [13. Cleanup Work with useEffect() - Ex](#13-cleanup-work-with-useeffect---ex)
+    - [14. Using shouldComponentUpdate for Optimization](#14-using-shouldcomponentupdate-for-optimization)
+    - [14.1 Reference vs Primitive Types.html](#141-reference-vs-primitive-typeshtml)
+    - [15. Optimizing Functional Components with React.memo()](#15-optimizing-functional-components-with-reactmemo)
+    - [16. When should you optimize](#16-when-should-you-optimize)
+    - [17. PureComponents instead of shouldComponentUpdate](#17-purecomponents-instead-of-shouldcomponentupdate)
+    - [18. How React Updates the DOM](#18-how-react-updates-the-dom)
+    - [19. Rendering Adjacent JSX Elements](#19-rendering-adjacent-jsx-elements)
+    - [19.1 react-adjacent-jsx.pdf.pdf](#191-react-adjacent-jsxpdfpdf)
+    - [20. Windows Users Must Read.html](#20-windows-users-must-readhtml)
+      - [**1) Problems when unzipping the attached file:**](#1-problems-when-unzipping-the-attached-file)
+      - [**2) Problems with the creation of an Aux folder and/ or file:**](#2-problems-with-the-creation-of-an-aux-folder-and-or-file)
+    - [21. Using React.Fragment](#21-using-reactfragment)
+    - [22. Higher Order Components (HOC) - Introduction](#22-higher-order-components-hoc---introduction)
+    - [23. Another Form of HOCs](#23-another-form-of-hocs)
+    - [24. Passing Unknown Props](#24-passing-unknown-props)
+    - [25. Setting State Correctly](#25-setting-state-correctly)
+    - [26. Using PropTypes](#26-using-proptypes)
+    - [27. Using Refs](#27-using-refs)
+    - [28. Refs with React Hooks](#28-refs-with-react-hooks)
+    - [29. Understanding Prop Chain Problems](#29-understanding-prop-chain-problems)
+    - [30. Using the Context API](#30-using-the-context-api)
+    - [31. contextType & useContext()](#31-contexttype--usecontext)
+    - [32. Wrap Up](#32-wrap-up)
+    - [33. Useful Resources & Links.html](#33-useful-resources--linkshtml)
+    - [34. MUST READ Legacy Lectures.html](#34-must-read-legacy-lectureshtml)
+    - [35. [LEGACY] Splitting an App Into Components](#35-legacy-splitting-an-app-into-components)
+    - [36. [LEGACY] Comparing Stateless and Stateful Components](#36-legacy-comparing-stateless-and-stateful-components)
+    - [37. [LEGACY] Understanding the Component Lifecycle](#37-legacy-understanding-the-component-lifecycle)
+    - [38. [LEGACY] Converting Stateless to Stateful Components](#38-legacy-converting-stateless-to-stateful-components)
+    - [39. [LEGACY] Component Creation Lifecycle in Action](#39-legacy-component-creation-lifecycle-in-action)
+    - [39.1 lifecycle-creation-learning-card.pdf.pdf](#391-lifecycle-creation-learning-cardpdfpdf)
+    - [40. [LEGACY] componentWillUnmount().html](#40-legacy-componentwillunmounthtml)
+    - [41. [LEGACY] Component Updating Lifecycle Hooks](#41-legacy-component-updating-lifecycle-hooks)
+    - [42. [LEGACY] Component Updating Lifecycle in Action](#42-legacy-component-updating-lifecycle-in-action)
+    - [42.1 lifecycle-update-external-learning-card.pdf.pdf](#421-lifecycle-update-external-learning-cardpdfpdf)
+    - [43. [LEGACY] Updating Lifecycle Hooks (Triggered by State Changes)](#43-legacy-updating-lifecycle-hooks-triggered-by-state-changes)
+    - [43.1 lifecycle-update-internal-learning-card.pdf.pdf](#431-lifecycle-update-internal-learning-cardpdfpdf)
+    - [44. [LEGACY] Performance Gains with PureComponents](#44-legacy-performance-gains-with-purecomponents)
+    - [45. [LEGACY] How React Updates the App & Component Tree](#45-legacy-how-react-updates-the-app--component-tree)
+    - [46. [LEGACY] Understanding React's DOM Updating Strategy](#46-legacy-understanding-reacts-dom-updating-strategy)
+    - [47. [LEGACY] Windows Users Must Read - File Downloads.html](#47-legacy-windows-users-must-read---file-downloadshtml)
+      - [**1) Problems when unzipping the attached file:**](#1-problems-when-unzipping-the-attached-file-1)
+      - [**2) Problems with the creation of an Aux folder and/ or file:**](#2-problems-with-the-creation-of-an-aux-folder-and-or-file-1)
+    - [48. [LEGACY] Returning Adjacent Elements (React 16+)](#48-legacy-returning-adjacent-elements-react-16)
+    - [49. [LEGACY] React 16.2 Feature Fragments.html](#49-legacy-react-162-feature-fragmentshtml)
+    - [50. [LEGACY] Understanding Higher Order Components (HOCs)](#50-legacy-understanding-higher-order-components-hocs)
+    - [51. [LEGACY] A Different Approach to HOCs](#51-legacy-a-different-approach-to-hocs)
+    - [52. [LEGACY] Passing Unknown Props](#52-legacy-passing-unknown-props)
+    - [53. [LEGACY] Using setState Correctly](#53-legacy-using-setstate-correctly)
+    - [54. [LEGACY] Validating Props](#54-legacy-validating-props)
+    - [55. [LEGACY] Available PropTypes.html](#55-legacy-available-proptypeshtml)
+    - [Requiring Single Child](#requiring-single-child)
+    - [Default Prop Values](#default-prop-values)
+    - [56. [LEGACY] Using References (ref)](#56-legacy-using-references-ref)
+    - [57. [LEGACY] More on the React ref API (16.3)](#57-legacy-more-on-the-react-ref-api-163)
+    - [58. [LEGACY] The Context API (React 16.3)](#58-legacy-the-context-api-react-163)
+    - [59. [LEGACY] More on the Context API (16.6)](#59-legacy-more-on-the-context-api-166)
+    - [60. [LEGACY] Updated Lifecycle Hooks (React 16.3)](#60-legacy-updated-lifecycle-hooks-react-163)
+    - [61. [LEGACY] The memo Method (16.4)](#61-legacy-the-memo-method-164)
+    - [62. [LEGACY] Wrap Up](#62-legacy-wrap-up)
+    - [63. [LEGACY] Useful Resources & Links.html](#63-legacy-useful-resources--linkshtml)
+  - [8. A Real App The Burger Builder (Basic Version)](#8-a-real-app-the-burger-builder-basic-version)
+    - [1. About React Hooks.html](#1-about-react-hookshtml)
+    - [2. Module Introduction](#2-module-introduction)
+    - [3. Planning an App in React - Core Steps](#3-planning-an-app-in-react---core-steps)
+    - [4. Planning our App - Layout and Component Tree](#4-planning-our-app---layout-and-component-tree)
+    - [5. Planning the State](#5-planning-the-state)
+    - [6. Setting up the Project](#6-setting-up-the-project)
+    - [7. Creating a Layout Component](#7-creating-a-layout-component)
+    - [8. Starting Implementation of The Burger Builder Container](#8-starting-implementation-of-the-burger-builder-container)
+    - [9. Adding a Dynamic Ingredient Component](#9-adding-a-dynamic-ingredient-component)
+    - [10. Adding Prop Type Validation](#10-adding-prop-type-validation)
+    - [11. Starting the Burger Component](#11-starting-the-burger-component)
+    - [12. Outputting Burger Ingredients Dynamically](#12-outputting-burger-ingredients-dynamically)
+    - [13. Calculating the Ingredient Sum Dynamically](#13-calculating-the-ingredient-sum-dynamically)
+    - [14. Adding the Build Control Component](#14-adding-the-build-control-component)
+    - [15. Outputting Multiple Build Controls](#15-outputting-multiple-build-controls)
+    - [16. Connecting State to Build Controls](#16-connecting-state-to-build-controls)
+    - [17. Removing Ingredients Safely](#17-removing-ingredients-safely)
+    - [18. Displaying and Updating the Burger Price](#18-displaying-and-updating-the-burger-price)
+    - [19. Adding the Order Button](#19-adding-the-order-button)
+    - [20. Creating the Order Summary Modal](#20-creating-the-order-summary-modal)
+    - [21. Showing & Hiding the Modal (with Animation!)](#21-showing--hiding-the-modal-with-animation)
+    - [22. Implementing the Backdrop Component](#22-implementing-the-backdrop-component)
+    - [23. Adding a Custom Button Component](#23-adding-a-custom-button-component)
+    - [24. Implementing the Button Component](#24-implementing-the-button-component)
+    - [25. Adding the Price to the Order Summary](#25-adding-the-price-to-the-order-summary)
+    - [26. Adding a Toolbar](#26-adding-a-toolbar)
+    - [27. Using a Logo in our Application](#27-using-a-logo-in-our-application)
+    - [28. Adding Reusable Navigation Items](#28-adding-reusable-navigation-items)
+    - [29. Creating a Responsive Sidedrawer](#29-creating-a-responsive-sidedrawer)
+    - [30. Working on Responsive Adjustments](#30-working-on-responsive-adjustments)
+    - [31. More about Responsive Adjustments](#31-more-about-responsive-adjustments)
+    - [32. Reusing the Backdrop](#32-reusing-the-backdrop)
+    - [33. Adding a Sidedrawer Toggle Button](#33-adding-a-sidedrawer-toggle-button)
+    - [34. Adding a Hamburger Icon](#34-adding-a-hamburger-icon)
+    - [35. Improving the App - Introduction](#35-improving-the-app---introduction)
+    - [36. Prop Type Validation](#36-prop-type-validation)
+    - [37. Improving Performance](#37-improving-performance)
+    - [38. Using Component Lifecycle Methods](#38-using-component-lifecycle-methods)
+    - [39. Changing the Folder Structure](#39-changing-the-folder-structure)
+    - [40. Wrap Up](#40-wrap-up)
+    - [41. Useful Resources & Links.html](#41-useful-resources--linkshtml)
+  - [9. Reaching out to the Web (Http Ajax)](#9-reaching-out-to-the-web-http-ajax)
+    - [1. Module Introduction](#1-module-introduction-6)
+    - [](#)
+    - [2. Understanding Http Requests in React](#2-understanding-http-requests-in-react)
+    - [3. Understanding our Project and Introducing Axios](#3-understanding-our-project-and-introducing-axios)
+    - [4. Creating a Http Request to GET Data](#4-creating-a-http-request-to-get-data)
+    - [5. Rendering Fetched Data to the Screen](#5-rendering-fetched-data-to-the-screen)
+    - [6. Transforming Data](#6-transforming-data)
+    - [7. Making a Post Selectable](#7-making-a-post-selectable)
+    - [8. Fetching Data on Update (without Creating Infinite Loops)](#8-fetching-data-on-update-without-creating-infinite-loops)
+    - [9. POSTing Data to the Server](#9-posting-data-to-the-server)
+    - [10. Sending a DELETE Request](#10-sending-a-delete-request)
+    - [11. Fixing a Bug](#11-fixing-a-bug)
+    - [12. Handling Errors Locally](#12-handling-errors-locally)
+    - [13. Adding Interceptors to Execute Code Globally](#13-adding-interceptors-to-execute-code-globally)
+    - [14. Removing Interceptors.html](#14-removing-interceptorshtml)
+    - [15. Setting a Default Global Configuration for Axios](#15-setting-a-default-global-configuration-for-axios)
+    - [16. Creating and Using Axios Instances](#16-creating-and-using-axios-instances)
+    - [17. Wrap Up](#17-wrap-up)
+    - [18. Useful Resources & Links.html](#18-useful-resources--linkshtml)
+  - [10. Burger Builder Project Accessing a Server](#10-burger-builder-project-accessing-a-server)
+    - [1. Module Introduction](#1-module-introduction-7)
+    - [2. Firebase & The Right Database.html](#2-firebase--the-right-databasehtml)
+    - [3. Creating the Firebase Project](#3-creating-the-firebase-project)
+    - [4. Creating the Axios Instance](#4-creating-the-axios-instance)
+    - [5. Sending a POST Request](#5-sending-a-post-request)
+    - [6. Displaying a Spinner while Sending a Request](#6-displaying-a-spinner-while-sending-a-request)
+    - [7. Handling Errors](#7-handling-errors)
+    - [8. Retrieving Data from the Backend](#8-retrieving-data-from-the-backend)
+    - [9. Removing Old Interceptors](#9-removing-old-interceptors)
+    - [10. Useful Resources & Links.html](#10-useful-resources--linkshtml-1)
+  - [11. Multi-Page-Feeling in a Single-Page-App Routing](#11-multi-page-feeling-in-a-single-page-app-routing)
+    - [1. Module Introduction](#1-module-introduction-8)
+    - [2. Routing and SPAs](#2-routing-and-spas)
+    - [3. Setting Up Links](#3-setting-up-links)
+    - [4. Setting Up the Router Package](#4-setting-up-the-router-package)
+    - [5. react-router vs react-router-dom.html](#5-react-router-vs-react-router-domhtml)
+    - [6. Preparing the Project For Routing](#6-preparing-the-project-for-routing)
+    - [7. Setting Up and Rendering Routes](#7-setting-up-and-rendering-routes)
+    - [8. Rendering Components for Routes](#8-rendering-components-for-routes)
+    - [9. Switching Between Pages](#9-switching-between-pages)
+    - [10. Using Links to Switch Pages](#10-using-links-to-switch-pages)
+    - [11. Using Routing-Related Props](#11-using-routing-related-props)
+    - [12. The withRouter HOC & Route Props](#12-the-withrouter-hoc--route-props)
+    - [13. Absolute vs Relative Paths](#13-absolute-vs-relative-paths)
+    - [14. Absolute vs Relative Paths (Article).html](#14-absolute-vs-relative-paths-articlehtml)
+      - [**Absolute Paths**](#absolute-paths)
+      - [**Relative Paths**](#relative-paths)
+    - [15. Styling the Active Route](#15-styling-the-active-route)
+    - [16. Passing Route Parameters](#16-passing-route-parameters)
+    - [17. Extracting Route Parameters](#17-extracting-route-parameters)
+    - [18. Parsing Query Parameters & the Fragment.html](#18-parsing-query-parameters--the-fragmenthtml)
+      - [**Query Params:**](#query-params)
+      - [**Fragment:**](#fragment)
+    - [19. Using Switch to Load a Single Route](#19-using-switch-to-load-a-single-route)
+    - [2.1 routing-learning-card.pdf.pdf](#21-routing-learning-cardpdfpdf)
+    - [20. Navigating Programmatically](#20-navigating-programmatically)
+    - [21. Additional Information Regarding Active Links](#21-additional-information-regarding-active-links)
+    - [22. Understanding Nested Routes](#22-understanding-nested-routes)
+    - [23. Creating Dynamic Nested Routes](#23-creating-dynamic-nested-routes)
+    - [24. Redirecting Requests](#24-redirecting-requests)
+    - [25. Conditional Redirects](#25-conditional-redirects)
+    - [26. Using the History Prop to Redirect (Replace)](#26-using-the-history-prop-to-redirect-replace)
+    - [27. Working with Guards](#27-working-with-guards)
+    - [28. Handling the 404 Case (Unknown Routes)](#28-handling-the-404-case-unknown-routes)
+    - [29. Loading Routes Lazily](#29-loading-routes-lazily)
+    - [30. Lazy Loading with React Suspense (16.6)](#30-lazy-loading-with-react-suspense-166)
+    - [31. Routing and Server Deployment](#31-routing-and-server-deployment)
+    - [32. Time to Practice - Routing.html](#32-time-to-practice---routinghtml)
+    - [33. Wrap Up](#33-wrap-up)
+    - [34. Useful Resources & Links.html](#34-useful-resources--linkshtml)
+  - [12. Adding Routing to our Burger Project](#12-adding-routing-to-our-burger-project)
+    - [1. Module Introduction](#1-module-introduction-9)
+    - [](#-1)
+    - [2. Building the Checkout Container](#2-building-the-checkout-container)
+    - [3. Setting Up Routing & Routes](#3-setting-up-routing--routes)
+    - [4. Navigating to the Checkout Page](#4-navigating-to-the-checkout-page)
+    - [5. Navigating Back & To Next Page](#5-navigating-back--to-next-page)
+    - [6. Passing Ingredients via Query Params](#6-passing-ingredients-via-query-params)
+    - [7. Navigating to the Contact Data Component](#7-navigating-to-the-contact-data-component)
+    - [8. Order Submission & Passing Data Between Pages](#8-order-submission--passing-data-between-pages)
+    - [9. Adding an Orders Page](#9-adding-an-orders-page)
+    - [10. Implementing Navigation Links](#10-implementing-navigation-links)
+    - [11. Fetching Orders](#11-fetching-orders)
+    - [12. Outputting the Orders](#12-outputting-the-orders)
+    - [13. Wrap Up](#13-wrap-up)
+    - [14. Useful Resources & Links.html](#14-useful-resources--linkshtml)
+  - [13. Forms and Form Validation](#13-forms-and-form-validation)
+    - [1. Module Introduction](#1-module-introduction-10)
+    - [](#-2)
+    - [2. Analyzing the App](#2-analyzing-the-app)
+    - [3. Creating a Custom Dynamic Input Component](#3-creating-a-custom-dynamic-input-component)
+    - [4. Setting Up a JS Config for the Form](#4-setting-up-a-js-config-for-the-form)
+    - [5. Dynamically Create Inputs based on JS Config](#5-dynamically-create-inputs-based-on-js-config)
+    - [6. Adding a Dropdown Component](#6-adding-a-dropdown-component)
+    - [7. Handling User Input](#7-handling-user-input)
+    - [8. Handling Form Submission](#8-handling-form-submission)
+    - [9. Adding Custom Form Validation](#9-adding-custom-form-validation)
+    - [10. Fixing a Common Validation Gotcha](#10-fixing-a-common-validation-gotcha)
+    - [11. Adding Validation Feedback](#11-adding-validation-feedback)
+    - [12. Improving Visual Feedback](#12-improving-visual-feedback)
+    - [13. Showing Error Messages.html](#13-showing-error-messageshtml)
+    - [14. Handling Overall Form Validity](#14-handling-overall-form-validity)
+    - [15. Working on an Error](#15-working-on-an-error)
+    - [16. Fixing a Bug](#16-fixing-a-bug)
+    - [17. Useful Resources & Links.html](#17-useful-resources--linkshtml)
+  - [14. Redux](#14-redux)
+    - [1. Module Introduction](#1-module-introduction-11)
+    - [2. Understanding State](#2-understanding-state)
+    - [3. The Complexity of Managing State](#3-the-complexity-of-managing-state)
+    - [4. Understanding the Redux Flow](#4-understanding-the-redux-flow)
+    - [4.1 redux-learning-card.pdf.pdf](#41-redux-learning-cardpdfpdf)
+    - [5. Setting Up Reducer and Store](#5-setting-up-reducer-and-store)
+    - [6. Dispatching Actions](#6-dispatching-actions)
+    - [7. Adding Subscriptions](#7-adding-subscriptions)
+    - [8. Connecting React to Redux](#8-connecting-react-to-redux)
+    - [9. Connecting the Store to React](#9-connecting-the-store-to-react)
+    - [10. Dispatching Actions from within the Component](#10-dispatching-actions-from-within-the-component)
+    - [11. Time to Practice - Dispatching Actions.html](#11-time-to-practice---dispatching-actionshtml)
+    - [12. Passing and Retrieving Data with Action](#12-passing-and-retrieving-data-with-action)
+    - [13. Switch-Case in the Reducer](#13-switch-case-in-the-reducer)
+    - [14. Updating State Immutably](#14-updating-state-immutably)
+    - [15. Updating Arrays Immutably](#15-updating-arrays-immutably)
+    - [16. Immutable Update Patterns.html](#16-immutable-update-patternshtml)
+  - [Updating Nested Objects](#updating-nested-objects)
+        - [Common Mistake #1: New variables that point to the same objects](#common-mistake-1-new-variables-that-point-to-the-same-objects)
+        - [Common Mistake #2: Only making a shallow copy of one level](#common-mistake-2-only-making-a-shallow-copy-of-one-level)
+        - [Correct Approach: Copying All Levels of Nested Data](#correct-approach-copying-all-levels-of-nested-data)
+  - [Inserting and Removing Items in Arrays](#inserting-and-removing-items-in-arrays)
+  - [Updating an Item in an Array](#updating-an-item-in-an-array)
+  - [Immutable Update Utility Libraries](#immutable-update-utility-libraries)
+    - [17. Outsourcing Action Types](#17-outsourcing-action-types)
+    - [18. Combining Multiple Reducers](#18-combining-multiple-reducers)
+    - [19. Understanding State Types](#19-understanding-state-types)
+    - [19.1 state-types.pdf.pdf](#191-state-typespdfpdf)
+    - [20. Time to Practice - Redux Basics.html](#20-time-to-practice---redux-basicshtml)
+    - [21. [OPTIONAL] Assignment Solution](#21-optional-assignment-solution)
+    - [22. Combining Local UI State and Redux](#22-combining-local-ui-state-and-redux)
+    - [23. Wrap Up](#23-wrap-up)
+    - [24. Useful Resources & Links.html](#24-useful-resources--linkshtml)
+  - [15. Adding Redux to our Project](#15-adding-redux-to-our-project)
+    - [1. Module Introduction](#1-module-introduction-12)
+    - [2. Installing Redux and React Redux](#2-installing-redux-and-react-redux)
+    - [3. Basic Redux Setup](#3-basic-redux-setup)
+    - [4. Finishing the Reducer for Ingredients](#4-finishing-the-reducer-for-ingredients)
+    - [5. Connecting the Burger Builder Container to our Store](#5-connecting-the-burger-builder-container-to-our-store)
+    - [6. Working on the Total Price Calculation](#6-working-on-the-total-price-calculation)
+    - [7. Redux & UI State](#7-redux--ui-state)
+    - [8. Adjusting Checkout and Contact Data](#8-adjusting-checkout-and-contact-data)
+    - [9. Wrap Up](#9-wrap-up)
+    - [10. Useful Resources & Links.html](#10-useful-resources--linkshtml-2)
+  - [16. Redux Advanced](#16-redux-advanced)
+    - [1. Module Introduction](#1-module-introduction-13)
+    - [2. Adding Middleware](#2-adding-middleware)
+    - [3. Using the Redux Devtools](#3-using-the-redux-devtools)
+    - [4. Executing Asynchronous Code - Introduction](#4-executing-asynchronous-code---introduction)
+    - [5. Introducing Action Creators](#5-introducing-action-creators)
+    - [6. Action Creators & Async Code](#6-action-creators--async-code)
+    - [7. Handling Asynchronous Code](#7-handling-asynchronous-code)
+    - [8. Restructuring Actions](#8-restructuring-actions)
+    - [9. Where to Put Data Transforming Logic](#9-where-to-put-data-transforming-logic)
+    - [10. Using Action Creators and Get State](#10-using-action-creators-and-get-state)
+    - [11. Using Utility Functions](#11-using-utility-functions)
+    - [12. A Leaner Switch Case Statement](#12-a-leaner-switch-case-statement)
+    - [13. An Alternative Folder Structure](#13-an-alternative-folder-structure)
+    - [14. Diving Much Deeper](#14-diving-much-deeper)
+    - [15. Wrap Up](#15-wrap-up)
+    - [16. Useful Resources & Links.html](#16-useful-resources--linkshtml)
+  - [17. Redux Advanced Burger Project](#17-redux-advanced-burger-project)
+    - [1. Module Introduction](#1-module-introduction-14)
+    - [2. Installing the Redux Devtools](#2-installing-the-redux-devtools)
+    - [3. Preparing the Folder Structure](#3-preparing-the-folder-structure)
+    - [4. Creating Action Creators](#4-creating-action-creators)
+    - [5. Executing Asynchronous Code](#5-executing-asynchronous-code)
+    - [6. Fetching Ingredients Asynchronously](#6-fetching-ingredients-asynchronously)
+    - [7. Initializing Ingredients in the BurgerBuilder](#7-initializing-ingredients-in-the-burgerbuilder)
+    - [8. Changing the Order of our Ingredients Manually](#8-changing-the-order-of-our-ingredients-manually)
+    - [9. Adding Order Actions](#9-adding-order-actions)
+    - [10. Connecting Contact Data Container & Actions](#10-connecting-contact-data-container--actions)
+    - [11. The Order Reducer](#11-the-order-reducer)
+    - [12. Working on Order Actions](#12-working-on-order-actions)
+    - [13. Redirect to Improve UX](#13-redirect-to-improve-ux)
+    - [14. Combining Reducers](#14-combining-reducers)
+    - [15. Handling Purchases & Updating the UI](#15-handling-purchases--updating-the-ui)
+    - [16. Resetting the Price after Purchases](#16-resetting-the-price-after-purchases)
+    - [17. Fetching Orders (via Redux)](#17-fetching-orders-via-redux)
+    - [18. Checking our Implemented Functionalities](#18-checking-our-implemented-functionalities)
+    - [19. Refactoring Reducers](#19-refactoring-reducers)
+    - [20. Refactoring Reducers Continued](#20-refactoring-reducers-continued)
+    - [21. Wrap Up](#21-wrap-up)
+    - [22. Useful Resources & Links.html](#22-useful-resources--linkshtml)
+  - [18. Adding Authentication to our Burger Project](#18-adding-authentication-to-our-burger-project)
+    - [1. Module Introduction](#1-module-introduction-15)
+    - [10. Logging Users Out](#10-logging-users-out)
+    - [11. Accessing Protected Resources](#11-accessing-protected-resources)
+    - [12. Updating the UI Depending on Auth State](#12-updating-the-ui-depending-on-auth-state)
+    - [13. Adding a Logout Link](#13-adding-a-logout-link)
+    - [14. Forwarding Unauthenticated Users](#14-forwarding-unauthenticated-users)
+    - [15. Redirecting the User to the Checkout Page](#15-redirecting-the-user-to-the-checkout-page)
+    - [16. Persistent Auth State with localStorage](#16-persistent-auth-state-with-localstorage)
+    - [17. Fixing Connect + Routing Errors](#17-fixing-connect--routing-errors)
+    - [18. Ensuring App Security](#18-ensuring-app-security)
+    - [19. Guarding Routes](#19-guarding-routes)
+    - [2. Understanding Authentication in Single Page Applications](#2-understanding-authentication-in-single-page-applications)
+    - [20. Displaying User Specific Orders](#20-displaying-user-specific-orders)
+    - [21. Wrap Up](#21-wrap-up-1)
+    - [22. Useful Resources & Links.html](#22-useful-resources--linkshtml-1)
+    - [3. Required App Adjustments](#3-required-app-adjustments)
+    - [4. Adding an Auth Form](#4-adding-an-auth-form)
+    - [5. Adding Actions](#5-adding-actions)
+    - [6. Getting a Token from the Backend](#6-getting-a-token-from-the-backend)
+    - [7. Adding Sign-In](#7-adding-sign-in)
+    - [8. Storing the Token](#8-storing-the-token)
+    - [9. Adding a Spinner](#9-adding-a-spinner)
+  - [19. Improving our Burger Project](#19-improving-our-burger-project)
+    - [1. Module Introduction](#1-module-introduction-16)
+    - [2. Fixing the Redirect to the Frontpage](#2-fixing-the-redirect-to-the-frontpage)
+    - [3. Using updateObject in the Entire App](#3-using-updateobject-in-the-entire-app)
+    - [4. Sharing the Validation Method](#4-sharing-the-validation-method)
+    - [5. Using Environment Variables](#5-using-environment-variables)
+    - [6. Removing console.log()s](#6-removing-consolelogs)
+    - [7. Adding Lazy Loading](#7-adding-lazy-loading)
+    - [8. Wrap Up](#8-wrap-up)
+    - [9. Useful Resources & Links.html](#9-useful-resources--linkshtml)
+  - [20. Testing](#20-testing)
+    - [1. Module Introduction](#1-module-introduction-17)
+    - [10. How to Test Redux](#10-how-to-test-redux)
+    - [11. Wrap Up](#11-wrap-up-1)
+    - [12. Useful Resources & Links.html](#12-useful-resources--linkshtml-1)
+    - [2. What is Testing](#2-what-is-testing)
+    - [3. Required Testing Tools](#3-required-testing-tools)
+    - [4. What To Test](#4-what-to-test)
+    - [5. Writing our First Test](#5-writing-our-first-test)
+    - [6. Testing Components Continued](#6-testing-components-continued)
+    - [7. Jest and Enzyme Documentations](#7-jest-and-enzyme-documentations)
+    - [8. Testing Components Correctly](#8-testing-components-correctly)
+    - [9. Testing Containers](#9-testing-containers)
+  - [21. Deploying the App to the Web](#21-deploying-the-app-to-the-web)
+    - [1. Module Introduction](#1-module-introduction-18)
+    - [2. Deployment Steps](#2-deployment-steps)
+    - [3. Building the Project](#3-building-the-project)
+    - [4. Example Deploying on Firebase](#4-example-deploying-on-firebase)
+    - [5. Wrap Up](#5-wrap-up)
+    - [6. Useful Resources & Links.html](#6-useful-resources--linkshtml)
+  - [22. Bonus Working with Webpack](#22-bonus-working-with-webpack)
+    - [1. Module Introduction](#1-module-introduction-19)
+    - [10. Setting Up the Basic Webpack Config](#10-setting-up-the-basic-webpack-config)
+    - [11. Adding File Rules](#11-adding-file-rules)
+    - [12. Introducing Babel](#12-introducing-babel)
+    - [13. Adding CSS File Support](#13-adding-css-file-support)
+    - [14. Creating Rules for Images](#14-creating-rules-for-images)
+    - [15. Lazy Loading](#15-lazy-loading)
+    - [16. Injecting the Script into the index.html File](#16-injecting-the-script-into-the-indexhtml-file)
+    - [16. Injecting the Script into the index.html File.vtt](#16-injecting-the-script-into-the-indexhtml-filevtt)
+    - [17. Creating the Production Workflow](#17-creating-the-production-workflow)
+    - [18. Wrap Up](#18-wrap-up)
+    - [19. Adding babel-polyfill.html](#19-adding-babel-polyfillhtml)
+    - [2. Important Use Webpack 3.html](#2-important-use-webpack-3html)
+    - [20. Useful Resources & Links.html](#20-useful-resources--linkshtml)
+    - [3. Introducing Webpack](#3-introducing-webpack)
+    - [4. How Webpack works](#4-how-webpack-works)
+    - [5. Basic Workflow Requirements](#5-basic-workflow-requirements)
+    - [6. Project & npm Setup](#6-project--npm-setup)
+    - [7. Creating a Basic Folder & File Structure](#7-creating-a-basic-folder--file-structure)
+    - [8. Creating the Basic React Application](#8-creating-the-basic-react-application)
+    - [9. Installing Production Dependencies](#9-installing-production-dependencies)
+  - [23. Bonus Next.js](#23-bonus-nextjs)
+    - [1. Module Introduction](#1-module-introduction-20)
+    - [10. Useful Resources & Links.html](#10-useful-resources--linkshtml-3)
+    - [2. Understanding Server Side Rendering](#2-understanding-server-side-rendering)
+    - [3. Setting Up a Project](#3-setting-up-a-project)
+    - [4. Understanding the Basics](#4-understanding-the-basics)
+    - [5. Next.js & Components & Pages](#5-nextjs--components--pages)
+    - [6. Styling our App in Next.js](#6-styling-our-app-in-nextjs)
+    - [7. Handling (404) Errors](#7-handling-404-errors)
+    - [8. A Special Lifecycle Hook](#8-a-special-lifecycle-hook)
+    - [9. Deploying our App](#9-deploying-our-app)
+  - [24. Bonus Animations in React Apps](#24-bonus-animations-in-react-apps)
+    - [1. Module Introduction](#1-module-introduction-21)
+    - [10. Transition Events](#10-transition-events)
+    - [11. The CSSTransition Component](#11-the-csstransition-component)
+    - [12. Customizing CSS Classnames](#12-customizing-css-classnames)
+    - [13. Animating Lists](#13-animating-lists)
+    - [14. Alternative Animation Packages](#14-alternative-animation-packages)
+    - [15. Wrap Up](#15-wrap-up-1)
+    - [16. Useful Resources & Links.html](#16-useful-resources--linkshtml-1)
+    - [2. Preparing the Demo Project](#2-preparing-the-demo-project)
+    - [3. Using CSS Transitions](#3-using-css-transitions)
+    - [4. Using CSS Animations](#4-using-css-animations)
+    - [5. CSS Transition & Animations Limitations](#5-css-transition--animations-limitations)
+    - [6. Using ReactTransitionGroup](#6-using-reacttransitiongroup)
+    - [7. Using the Transition Component](#7-using-the-transition-component)
+    - [8. Wrapping the Transition Component](#8-wrapping-the-transition-component)
+    - [9. Animation Timings](#9-animation-timings)
+  - [25. Bonus A Brief Introduction to Redux Saga](#25-bonus-a-brief-introduction-to-redux-saga)
+    - [1. Module Introduction](#1-module-introduction-22)
+    - [10. Moving the Orders Side Effects into Sagas](#10-moving-the-orders-side-effects-into-sagas)
+    - [11. Why Sagas can be Helpful](#11-why-sagas-can-be-helpful)
+    - [12. Diving Deeper into Sagas](#12-diving-deeper-into-sagas)
+    - [13. Useful Resources & Links.html](#13-useful-resources--linkshtml-1)
+    - [2. Installing Redux Saga](#2-installing-redux-saga)
+    - [3. Creating our First Saga](#3-creating-our-first-saga)
+    - [4. Hooking the Saga Up (to the Store and Actions)](#4-hooking-the-saga-up-to-the-store-and-actions)
+    - [5. Moving Logic from the Action Creator to a Saga](#5-moving-logic-from-the-action-creator-to-a-saga)
+    - [6. Moving More Logic Into Sagas](#6-moving-more-logic-into-sagas)
+    - [7. Handling Authentication with a Saga](#7-handling-authentication-with-a-saga)
+    - [8. Handling Auto-Sign-In with a Saga](#8-handling-auto-sign-in-with-a-saga)
+    - [9. Moving the BurgerBuilder Side Effects into a Saga](#9-moving-the-burgerbuilder-side-effects-into-a-saga)
+  - [26. React Hooks](#26-react-hooks)
+    - [1. Introduction](#1-introduction-1)
+    - [10. The useEffect() Hook](#10-the-useeffect-hook)
+    - [11. Controlling Effect Execution](#11-controlling-effect-execution)
+    - [12. Effect Cleanup](#12-effect-cleanup)
+    - [13. Converting the App Component](#13-converting-the-app-component)
+    - [14. The useContext() Hook](#14-the-usecontext-hook)
+    - [15. State and Effects Gotchas](#15-state-and-effects-gotchas)
+    - [16. The useReducer() Hook](#16-the-usereducer-hook)
+    - [17. useReducer() vs useState()](#17-usereducer-vs-usestate)
+    - [18. Working with References and useRef()](#18-working-with-references-and-useref)
+    - [19. Preparing & Optimizing](#19-preparing--optimizing)
+    - [2. What are Hooks](#2-what-are-hooks)
+    - [20. Avoiding Unnecessary Re-Rendering](#20-avoiding-unnecessary-re-rendering)
+    - [21. How to think about Functional Components with Hooks](#21-how-to-think-about-functional-components-with-hooks)
+    - [22. Creating a Custom Hook](#22-creating-a-custom-hook)
+    - [23. Wrap Up](#23-wrap-up-1)
+    - [3. Enabling Hooks](#3-enabling-hooks)
+    - [4. The useState() Hook](#4-the-usestate-hook)
+    - [5. Adding Array Destructuring](#5-adding-array-destructuring)
+    - [6. Using Multiple State](#6-using-multiple-state)
+    - [7. Using One State Instead](#7-using-one-state-instead)
+    - [8. The Rules of Hooks](#8-the-rules-of-hooks)
+    - [9. Sending Data via Http](#9-sending-data-via-http)
+  - [27. Using Hooks in the Burger Builder](#27-using-hooks-in-the-burger-builder)
+    - [1. Introduction](#1-introduction-2)
+    - [10. Using React.memo() & More!](#10-using-reactmemo--more)
+    - [11. Adding a Custom Error Handling Hook](#11-adding-a-custom-error-handling-hook)
+    - [12. Wrap Up](#12-wrap-up)
+    - [13. Useful Resources & Links.html](#13-useful-resources--linkshtml-2)
+    - [2. Converting App](#2-converting-app)
+    - [3. Routing with React.lazy()](#3-routing-with-reactlazy)
+    - [4. Converting the Layout Component](#4-converting-the-layout-component)
+    - [5. Converting withErrorHandler HOC](#5-converting-witherrorhandler-hoc)
+    - [6. Adjusting the Order & Checkout Containers](#6-adjusting-the-order--checkout-containers)
+    - [7. Add Hooks to ContactData](#7-add-hooks-to-contactdata)
+    - [8. Converting the BurgerBuilder Container](#8-converting-the-burgerbuilder-container)
+    - [9. Adjusting Auth & Logout Components](#9-adjusting-auth--logout-components)
+  - [28. Bonus Building the Burger CSS](#28-bonus-building-the-burger-css)
+    - [1. Building the Burger CSS Code](#1-building-the-burger-css-code)
+    - [1.1 burger-css.pdf.pdf](#11-burger-csspdfpdf)
+  - [29. Next Steps and Course Roundup](#29-next-steps-and-course-roundup)
+    - [1. Module Introduction](#1-module-introduction-23)
+    - [10. Bonus More Content!.html](#10-bonus-more-contenthtml)
+    - [2. React Rocks! Where to find more Examples](#2-react-rocks-where-to-find-more-examples)
+    - [3. More Inspiration Real-World Projects Built with React](#3-more-inspiration-real-world-projects-built-with-react)
+    - [4. Static React Apps with Gatsby.js](#4-static-react-apps-with-gatsbyjs)
+    - [5. Introducing React Native](#5-introducing-react-native)
+    - [6. Component Libraries (Example Material UI)](#6-component-libraries-example-material-ui)
+    - [7. Smaller Apps with Preact](#7-smaller-apps-with-preact)
+    - [8. Comparing React with Preact](#8-comparing-react-with-preact)
+    - [9. Congratulations](#9-congratulations)
+- [Tìm hiểu về Hooks trong React](#t%c3%acm-hi%e1%bb%83u-v%e1%bb%81-hooks-trong-react)
+  - [1. Mở đầu](#1-m%e1%bb%9f-%c4%91%e1%ba%a7u)
+  - [2. React Hook](#2-react-hook)
+    - [a. useState](#a-usestate)
+    - [b. useReducer](#b-usereducer)
+    - [c. useEffect](#c-useeffect)
 
 C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Source_All/python/Test/readfile.py
 ======== name dir ========
@@ -1523,7 +2133,7 @@ person is an reference object so you can change value of it when using const
 
 ### 7. Updating State Immutably
 
-use `this.state.persons.slice();` to copy
+use `this.state.persons.slice();` to copy đây là 1 cách
 
 ### 8. Lists & Keys
 
@@ -1690,7 +2300,7 @@ Change backgroundColor to green
 
   render () {
     const style = {
-      backgroundColor: 'green',
+      backgroundColor: 'green', // Add
       color: 'white', // ADD
       font: 'inherit',
       border: '1px solid blue',
@@ -2076,6 +2686,8 @@ App.js(Sau khi sửa phải run lại app)
 ```js
 // add
 import classes from "./App.css";
+
+// btnClass = classes.Red;
 
 const assignedClasses = [];
 if (this.state.persons.length <= 2) {
@@ -10493,6 +11105,148 @@ xem lại Immutable update patterns in trang chủ redux
 
 ### 1. Module Introduction
 
+
+
+### 2. Installing the Redux Devtools
+
+clean db
+
+index.js
+
+```js
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(burgerBuilderReducer, composeEnhancers(
+    applyMiddleware(thunk)
+));
+```
+
+
+
+### 3. Preparing the Folder Structure
+
+In store create actions and reducer folder and file in this
+
+### 4. Creating Action Creators
+
+BurgerBuilder.js in action
+
+```js
+import * as actionTypes from './actionTypes';
+import axios from '../../axios-orders';
+
+export const addIngredient = ( name ) => {
+    return {
+        type: actionTypes.ADD_INGREDIENT,
+        ingredientName: name
+    };
+};
+
+export const removeIngredient = ( name ) => {
+    return {
+        type: actionTypes.REMOVE_INGREDIENT,
+        ingredientName: name
+    };
+};
+// # 6
+export const setIngredients = ( ingredients ) => {
+    return {
+        type: actionTypes.SET_INGREDIENTS,
+        ingredients: ingredients
+    };
+};
+
+/// # 6
+export const fetchIngredientsFailed = () => {
+    return {
+        type: actionTypes.FETCH_INGREDIENTS_FAILED
+    };
+};
+
+export const initIngredients = () => {
+    return dispatch => {
+        axios.get( 'https://react-my-burger.firebaseio.com/ingredients.json' )
+            .then( response => {
+               dispatch(setIngredients(response.data));
+            } )
+            .catch( error => {
+                dispatch(fetchIngredientsFailed());
+            } );
+    };
+};
+```
+
+container BurgerBuilder.js
+
+```js
+import * as burgerBuilderActions from '../../store/actions/index';
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onIngredientAdded: (ingName) => dispatch(burgerBuilderActions.addIngredient(ingName)),
+        onIngredientRemoved: (ingName) => dispatch(burgerBuilderActions.removeIngredient(ingName)),
+        onInitIngredients: () => dispatch(burgerBuilderActions.initIngredients())
+    }
+}
+```
+
+index.js
+
+```js
+export {
+    addIngredient,
+    removeIngredient,
+    initIngredients
+} from './burgerBuilder';
+export { } from './order';
+```
+
+
+
+### 5. Executing Asynchronous Code
+
+npm install redux-thunk
+
+Xem lại chỗ index.js
+
+```js
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(burgerBuilderReducer, composeEnhancers(
+    applyMiddleware(thunk)
+));
+
+```
+
+
+
+### 6. Fetching Ingredients Asynchronously
+
+Copy hàm trong BurgerBuilder componentDidMount và xóa state error
+
+reducer/burgerBuilder.js
+
+```js
+
+const initialState = {
+    ingredients: null,  // change
+    totalPrice: 4,
+    error: false
+};
+```
+
+Thêm fetchIngredientsFailed
+
+### 7. Initializing Ingredients in the BurgerBuilder
+
+### 8. Changing the Order of our Ingredients Manually
+
+### 9. Adding Order Actions
+
+
+
 ### 10. Connecting Contact Data Container & Actions
 
 ### 11. The Order Reducer
@@ -10513,27 +11267,11 @@ xem lại Immutable update patterns in trang chủ redux
 
 ### 19. Refactoring Reducers
 
-### 2. Installing the Redux Devtools
-
 ### 20. Refactoring Reducers Continued
 
 ### 21. Wrap Up
 
 ### 22. Useful Resources & Links.html
-
-### 3. Preparing the Folder Structure
-
-### 4. Creating Action Creators
-
-### 5. Executing Asynchronous Code
-
-### 6. Fetching Ingredients Asynchronously
-
-### 7. Initializing Ingredients in the BurgerBuilder
-
-### 8. Changing the Order of our Ingredients Manually
-
-### 9. Adding Order Actions
 
 ## 18. Adding Authentication to our Burger Project
 
