@@ -722,6 +722,8 @@ console.log(this.y); // undefined
 
 ### 5. Understanding Classes
 
+https://jsbin.com/komifafifu/edit?js,console
+
 ### 6. Classes, Properties and Methods
 
 ![image-20200214220115303](./react-maximilan.assets/image-20200214220115303.png)
@@ -1774,7 +1776,7 @@ export default app;
 Stateful is a component that manage state
 Stateless is a component that doesn’t manage state
 
-=> func presentation component than statefull component => easy to maintain and manage 
+=> func presentation component than stateful component => easy to maintain and manage 
 
 ### 22. Passing Method References Between Components
 
@@ -2828,6 +2830,8 @@ F12 tab console and source
 
 ### 3. Finding Logical Errors by using Dev Tools & Sourcemaps
 
+Vào tab source
+
 ### 4. Working with the React Developer Tools
 
 ### 5. Using Error Boundaries (React 16+)
@@ -3108,7 +3112,7 @@ Cách init state ở ngoài là cách hiện đại trong js, behind the sence
 
 ### 8. Component Update Lifecycle (for props Changes)
 
-rarely use react hook to update your state
+rarely use react lifecycle hook to update your state
 there is a more elegant way of updating your state or managing your component based on external properties
 
 getSnapshotBeforeUpdate => Get snapshot of use state, restore the scrolling position before update happen
@@ -3284,7 +3288,7 @@ useEffect(() => {
   }, 1000);
 }, [props.persons]);
 // khi delete hay sửa input person nó mới call còn ấn vào button nó sẽ không call vì person not change
-// Nếu để là [] nó sẽ chạy lần đầu khi ấn button còn các lần sau sẽ không hiển thị nữa
+// Nếu để là [] nó sẽ chạy lần đầu khi load để ấn button còn các lần sau sẽ không hiển thị nữa
 ```
 
 Tham số thứ 2: nếu không có khi ta reload hay ấn button hay xóa person sẽ alert
@@ -3301,7 +3305,7 @@ persons.js
   componentWillUnmount() {
     console.log('[Persons.js] componentWillUnmount');
   }
-// Khi click button lần 2 sẽ gọi useEffect 
+// Khi click button toggle sẽ gọi useEffect 
 ```
 
 Cockpit
@@ -3312,9 +3316,11 @@ useEffect(() => {
   console.log("[Cockpit.js] useEffect");
   // Http request...
   setTimeout(() => {
+      // lần đầu khi load lên
     alert("Saved data to cloud!");
   }, 1000);
   return () => {
+      // lần ấn remove
     console.log("[Cockpit.js] cleanup work in useEffect");
   };
 }, []);
@@ -3372,6 +3378,7 @@ useEffect(() => {
   };
 }, []);
 // tham số thứ 2 => chạy khi mount and unmount
+// khi ấn xóa nó sẽ hiển thị tiếp alert
 ```
 
 ### 14. Using shouldComponentUpdate for Optimization
@@ -3414,6 +3421,10 @@ https://academind.com/learn/javascript/reference-vs-primitive-values/
 
 ### 15. Optimizing Functional Components with React.memo()
 
+Khi change name
+
+![image-20200301225653037](./react-maximilan.assets/image-20200301225653037.png)
+
 Khi thay đổi name trong input useEffect trong Cockpit được gọi bằng cách xem log của useEffect => prevent
 
 ```js
@@ -3421,7 +3432,7 @@ export default React.memo(cockpit);
 // will store a snapshot of this component, only input change => re-render. If parent doesnot change React will back in store components
 ```
 
-App.js add personsLength
+App.js add personsLength để nó không liên quan gì đến person nên khi change input sẽ không còn in ra log
 
 ```js
 {this.state.showCockpit ? (
@@ -3681,6 +3692,8 @@ export default withClass;
 App.js wrap WithClass
 
 ```js
+import WithClass from '../hoc/WithClass';
+
 return (
       <WithClass classes={classes.App}>
         <button
@@ -4153,6 +4166,7 @@ return (
         >
           Remove Cockpit
         </button>
+// add
         <AuthContext.Provider
           value={{
             authenticated: this.state.authenticated,
@@ -4212,6 +4226,8 @@ return (
 Person.js
 
 ```js
+import AuthContext from '../../../context/auth-context';
+
 static contextType = AuthContext;
 
 componentDidMount() {
@@ -4236,6 +4252,7 @@ Cockpit.js
 
 ```js
 import React, { useEffect, useRef, useContext } from 'react';
+import AuthContext from '../../../context/auth-context';
 
 
 const cockpit = props => {
