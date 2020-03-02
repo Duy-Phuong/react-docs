@@ -4304,7 +4304,7 @@ You can skip all remaining lectures in this module (i.e. the lectures with **"[L
 
 ### 35. [LEGACY] Splitting an App Into Components
 
-Person.js
+Persons.js
 
 ```js
 import React from 'react';
@@ -5017,6 +5017,7 @@ import React, { PureComponent } from 'react';
 import Person from './Person/Person';
 
 class Persons extends PureComponent {
+    // add
     constructor( props ) {
         super( props );
         console.log( '[Persons.js] Inside Constructor', props );
@@ -5288,6 +5289,17 @@ focus() {
 
 xem lại
 
+Person.js add để Persons gọi được
+
+```js
+// add
+focus() {
+    this.inputElement.current.focus();
+  }
+```
+
+
+
 Person.js, Persons.js call focus từ cha
 
 ```js
@@ -5358,6 +5370,10 @@ export default withClass;
 ### 58. [LEGACY] The Context API (React 16.3)
 
 Tạo button Login in Cockpit
+
+```js
+<button onClick={props.login}>Log in</button>
+```
 Cách 1: truyền thủ công qua hàm LoginHandler
 
 App.js thêm wrap by AuthContext.Provider
@@ -5367,6 +5383,23 @@ import AuthContext from '../context/auth-context';
 
 const authContext = React.createContext(false);
 
+loginHandler = () => {
+    this.setState({ authenticated: true });
+  };
+
+
+if (this.state.showPersons) {
+      persons = (
+        <Persons
+          persons={this.state.persons}
+          clicked={this.deletePersonHandler}
+          changed={this.nameChangedHandler}
+// add
+          isAuthenticated={this.state.authenticated}
+        />
+      );
+    }
+    
 return (
       <Aux>
         <button
@@ -5411,6 +5444,8 @@ return (
           <p>Please log in</p>
         }
        </AuthContext.Consumer>
+    
+// đây là cách 2, có thể xem lại cách 1 truyền thủ công
 ```
 
 ### 59. [LEGACY] More on the Context API (16.6)
