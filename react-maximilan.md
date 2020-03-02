@@ -5912,6 +5912,90 @@ export default BurgerBuilder;
 
 Burger.js
 
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
+
+```js
+const object1 = {
+  a: 'somestring',
+  b: 42,
+  c: false
+};
+
+console.log(Object.keys(object1));
+// expected output: Array ["a", "b", "c"]
+
+------------
+
+const object1 = {
+  a: 0,
+  b: 2,
+  c: 1
+};
+
+console.log(Object.keys(object1));
+// expected output: Array ["a", "b", "c"]
+
+    let transformedIngredients = Object.keys( object1 )
+        .map( igKey => {
+          console.log( object1[igKey]);
+            return [...Array(object1[igKey] )];
+        });
+console.log(transformedIngredients);
+
+> Array ["a", "b", "c"]
+> 0
+> 2
+> 1
+> Array [Array [], Array [undefined, undefined], Array [undefined]]
+
+--------------------
+const object1 = {
+  a: 0,
+  b: 2,
+  c: 1
+};
+
+console.log(Object.keys(object1));
+// expected output: Array ["a", "b", "c"]
+
+    let transformedIngredients = Object.keys( object1 )
+        .map( igKey => {
+          console.log( object1[igKey]);
+            return [...Array(object1[igKey] )].map( ( _, i ) => {
+                return igKey + i;
+            });
+        });
+console.log(transformedIngredients);
+
+> Array [Array [], Array ["b0", "b1"], Array ["c0"]]
+
+---------------------------------
+    const object1 = {
+  a: 0,
+  b: 2,
+  c: 1
+};
+
+console.log(Object.keys(object1));
+// expected output: Array ["a", "b", "c"]
+
+    let transformedIngredients = Object.keys( object1 )
+        .map( igKey => {
+          console.log( object1[igKey]);
+            return [...Array(object1[igKey] )].map( ( _, i ) => {
+                return igKey + i;
+            });
+        }).reduce((arr, el) => {
+            return arr.concat(el)
+        }, []);
+console.log(transformedIngredients);
+
+> Array ["b0", "b1", "c0"]
+
+```
+
+
+
 ```js
 import React from 'react';
 
@@ -5991,12 +6075,17 @@ export default buildControls;
 ```
 BuildControls.css
 
+https://www.w3schools.com/css/tryit.asp?filename=trycss3_flexbox_flex-flow_row_wrap
+
+https://www.w3schools.com/css/css3_flexbox.asp
+
 ```css
 .BuildControls {
     width: 100%;
     background-color: #CF8F2E;
     display: flex;
-    flex-flow: column;
+    flex-flow: column; // nếu muốn nằm ngang thay bằng row wrap
+    
     align-items: center;
     box-shadow: 0 2px 1px #ccc;
     margin: auto;
@@ -6067,6 +6156,9 @@ export default buildControl;
 ```
 
 BuildControl.css
+
+https://www.w3schools.com/css/tryit.asp?filename=trycss3_flexbox_justify-content_space-between
+
 ```css
 .BuildControl {
     display: flex;
@@ -6128,6 +6220,8 @@ BuildControl.css
 ```
 
 Vào BurgerBuilder.js thay BuildControls vào
+
+![image-20200303012456798](./react-maximilan.assets/image-20200303012456798.png)
 
 ### 15. Outputting Multiple Build Controls
 
@@ -6249,6 +6343,8 @@ BuildControls.js
 const buildControls = (props) => (
     <div className={classes.BuildControls}>
         <p>Current Price: <strong>{props.price.toFixed(2)}</strong></p>
+            
+
 ```
 
 
