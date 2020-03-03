@@ -775,6 +775,8 @@ const doubleArr = num.map((x) => {
 
 ### 11. Wrap Up
 
+reduce https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
+
 ### 12. Next-Gen JavaScript - Summary.html
 
 In this module, I provided a brief introduction into some core next-gen JavaScript features, of course focusing on the ones you'll see the most in this course. Here's a quick summary!
@@ -6396,7 +6398,7 @@ Khi thêm hay bớt nhớ thêm hàm này vào và truyền vào trong
 
 Add folder UI/
 
-Backdrop.js
+Backdrop.js, css create new in session 22
 
 ```js
 import React from 'react';
@@ -6410,7 +6412,7 @@ const backdrop = (props) => (
 export default backdrop;
 ```
 
-Modal.js
+Modal.js, css create new
 
 ```js
 import React from 'react';
@@ -6436,7 +6438,7 @@ const modal = ( props ) => (
 export default modal;
 ```
 
-BurgerBuilder.js
+BurgerBuilder.js create new
 
 ```js
 return (
@@ -6454,7 +6456,7 @@ return (
         );
 ```
 
-OrderSummary.js
+OrderSummary.js create new
 
 ```js
 import React from 'react';
@@ -6488,13 +6490,13 @@ const orderSummary = ( props ) => {
 export default orderSummary;
 ```
 
-
+![image-20200303210745211](./react-maximilan.assets/image-20200303210745211.png)
 
 
 
 ### 21. Showing & Hiding the Modal (with Animation!)
 
-Add BurgerBuilder.js
+Add BurgerBuilder.js add purchasing
 
 ```js
 // phải là arrow func
@@ -6575,6 +6577,7 @@ Modal.js
 ```js
 const modal = ( props ) => (
     <Aux>
+    // add
         <Backdrop show={props.show} clicked={props.modalClosed} />
         <div
             className={classes.Modal}
@@ -6586,6 +6589,22 @@ const modal = ( props ) => (
         </div>
     </Aux>
 );
+```
+
+BurgerBuilder.js
+
+```js
+// add new function
+purchaseCancelHandler = () => {
+        this.setState({purchasing: false});
+    }
+
+    render () {
+        ....
+        return (
+            <Aux>
+            // add modalClosed
+                <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
 ```
 
 
@@ -6610,13 +6629,15 @@ import classes from './Button.css';
 const button = (props) => (
     <button
         className={[classes.Button, classes[props.btnType]].join(' ')}
-        onClick={props.clicked}>{props.children}</button>
+        onClick={props.clicked}>
+            {props.children}
+	</button>
 );
 
 export default button;
 ```
 
-OrderSummary được gọi trong BurgẻBuilder
+OrderSummary được gọi trong BurgerBuilder
 
 
 
@@ -6684,12 +6705,14 @@ import DrawerToggle from '../SideDrawer/DrawerToggle/DrawerToggle';
 
 const toolbar = ( props ) => (
     <header className={classes.Toolbar}>
-        <DrawerToggle clicked={props.drawerToggleClicked} />
-        <div className={classes.Logo}>
-            <Logo />
+         <div>
+    		MENU
+		</div>
+        <div>
+            Logo
         </div>
         <nav className={classes.DesktopOnly}>
-            <NavigationItems />
+            NavigationItems
         </nav>
     </header>
 );
@@ -6732,6 +6755,27 @@ ToolBar.css
 
 Vào Layout.js add và cập nhật lại css cho Layout.css
 
+```js
+import React from 'react';
+
+import Aux from '../../hoc/Aux';
+import classes from './Layout.css';
+
+const layout = ( props ) => (
+    <Aux>
+    // add
+        <Toolbar />
+        <main className={classes.Content}>
+            {props.children}
+        </main>
+    </Aux>
+);
+
+export default layout;
+```
+
+
+
 ```css
 .Content {
     margin-top: 72px;
@@ -6751,7 +6795,7 @@ import burgerLogo from '../../assets/images/burger-logo.png';
 import classes from './Logo.css';
 
 const logo = (props) => (
-    <div className={classes.Logo} style={{height: props.height}}>
+    <div className={classes.Logo} >
         <img src={burgerLogo} alt="MyBurger" />
     </div>
 );
@@ -6761,6 +6805,27 @@ export default logo;
 ```
 
 Sau đó vào ToolBar.js thêm `<Logo />`, hình thì được load như trên vì webpack manage
+
+ToolBar.js
+
+```js
+
+const toolbar = ( props ) => (
+    <header className={classes.Toolbar}>
+        Menu
+        <div className={classes.Logo}>
+            <Logo />
+        </div>
+        <nav className={classes.DesktopOnly}>
+            NavigationItems
+        </nav>
+    </header>
+);
+
+export default toolbar;
+```
+
+
 
 ### 28. Adding Reusable Navigation Items
 
@@ -6800,7 +6865,76 @@ const navigationItem = ( props ) => (
 export default navigationItem;
 ```
 
+NavigationItem.css
+
+```css
+.NavigationItem {
+    margin: 10px 0;
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+}
+
+.NavigationItem a {
+    color: #8F5C2C;
+    text-decoration: none;
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+}
+
+.NavigationItem a:hover,
+.NavigationItem a:active,
+.NavigationItem a.active {
+    color: #40A4C8;
+}
+
+@media (min-width: 500px) {
+    .NavigationItem {
+        margin: 0;
+        display: flex;
+        height: 100%;
+        width: auto;
+        align-items: center;
+    }
+    
+    .NavigationItem a {
+        color: white;
+        height: 100%;
+        padding: 16px 10px;
+        border-bottom: 4px solid transparent;
+    }
+    
+    .NavigationItem a:hover,
+    .NavigationItem a:active,
+    .NavigationItem a.active {
+        background-color: #8F5C2C;
+        border-bottom: 4px solid #40A4C8;
+        color: white;
+    }
+}
+```
+
+
+
 Vào ToolBar.js add `<NavigationItems />`
+
+```js
+
+const toolbar = ( props ) => (
+    <header className={classes.Toolbar}>
+        <DrawerToggle clicked={props.drawerToggleClicked} />
+        <div className={classes.Logo}>
+            <Logo />
+        </div>
+        <nav className={classes.DesktopOnly}>
+            <NavigationItems />
+        </nav>
+    </header>
+);
+
+export default toolbar;
+```
 
 
 
@@ -6859,7 +6993,7 @@ Layout.js
 
 
 
-Logo.js
+Logo.js add style
 
 ```js
 const logo = (props) => (
@@ -6900,6 +7034,8 @@ SideDrawer.css
     transform: translateX(-100%);
 }
 
+
+// add 
 .Logo {
     height: 11%;
     margin-bottom: 32px;
@@ -7022,7 +7158,8 @@ class Layout extends Component {
 render () {
         return (
             <Aux>
-                <Toolbar drawerToggleClicked={this.sideDrawerToggleHandler} />
+                <Toolbar />
+// add
                 <SideDrawer
                     open={this.state.showSideDrawer}
                     closed={this.sideDrawerClosedHandler} />
@@ -7041,6 +7178,7 @@ import classes from './DrawerToggle.css';
 
 const drawerToggle = (props) => (
     <div className={classes.DrawerToggle} onClick={props.clicked}>
+    // # 34
         <div></div>
         <div></div>
         <div></div>
@@ -7078,6 +7216,8 @@ sideDrawerToggleHandler = () => {
 ### 35. Improving the App - Introduction
 
 ### 36. Prop Type Validation
+
+BurgerIngredient.js
 
 ### 37. Improving Performance
 
@@ -7269,7 +7409,7 @@ class FullPost extends Component {
 
     componentDidUpdate () {
         if ( this.props.id ) {
-        // Nếu k check => loop
+        // Nếu k check => loop vì gọi setState thì component sẽ update
             if ( !this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.id) ) {
                 axios.get( 'https://jsonplaceholder.typicode.com/posts/' + this.props.id )
                     .then( response => {
@@ -7424,6 +7564,8 @@ render () {
 
 ### 13. Adding Interceptors to Execute Code Globally
 
+![image-20200303231548671](./react-maximilan.assets/image-20200303231548671.png)
+
 index.js
 
 ```js
@@ -7554,7 +7696,7 @@ Vào database thêm /rules
 
 ![image-20200222232009009](./react-maximilan.assets/image-20200222232009009.png)  
 
-Set rules là true rồi chọn PUBLISH
+Set rules là true rồi chọn PUBLISH; có thể set là "true " đặt trong dấu ""
 
 ### 4. Creating the Axios Instance
 
@@ -7609,7 +7751,9 @@ purchaseContinueHandler = () => {
 
 ### 6. Displaying a Spinner while Sending a Request
 
-Create Spinner when loading
+Create Spinner when loading;
+
+code pen io
 
 Search gg  css spinner: https://projects.lukehaas.me/css-loaders/
 
@@ -7722,7 +7866,7 @@ Modal.js
 
 ```js
 class Modal extends Component {
-// fix lỗi k hiejn spinner
+// fix lỗi k hien spinner
     shouldComponentUpdate ( nextProps, nextState ) {
         return nextProps.show !== this.props.show || nextProps.children !== this.props.children;
     }
