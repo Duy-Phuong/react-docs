@@ -7926,6 +7926,11 @@ export default withErrorHandler;
 BurgerBuilder.js
 
 ```js
+                <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
+                    {orderSummary}
+                </Modal>
+
+
 export default withErrorHandler( BurgerBuilder, axios );
 ```
 
@@ -7975,8 +7980,9 @@ render () {
         for ( let key in disabledInfo ) {
             disabledInfo[key] = disabledInfo[key] <= 0
         }
-        let orderSummary = null;
+        
 // Add new
+    let orderSummary = null;
         let burger = this.state.error ? <p>Ingredients can't be loaded!</p> : <Spinner />;
 
         if ( this.state.ingredients ) {
@@ -7997,6 +8003,10 @@ render () {
                 price={this.state.totalPrice}
                 purchaseCancelled={this.purchaseCancelHandler}
                 purchaseContinued={this.purchaseContinueHandler} />;
+        }
+	
+       if ( this.state.loading ) {
+            orderSummary = <Spinner />;
         }
 ```
 
