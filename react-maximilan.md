@@ -7866,7 +7866,7 @@ Modal.js
 
 ```js
 class Modal extends Component {
-// fix lỗi k hien spinner
+// fix lỗi k hien spinner add nextProps.children !== this.props.children
     shouldComponentUpdate ( nextProps, nextState ) {
         return nextProps.show !== this.props.show || nextProps.children !== this.props.children;
     }
