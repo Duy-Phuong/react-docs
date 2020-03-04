@@ -8319,7 +8319,27 @@ Sau đó revert file này lại như ban đầu
 
 ### 13. Absolute vs Relative Paths
 
+Relative path là vs post/new-post => new-post là relative
+
 Blog.js có thể truy cập path bằng cách this.props.match.url + 'new-post'
+Blog.js
+
+```js
+<header>
+                    <nav>
+                        <ul>
+                            <li><Link to="/">Home</Link></li>
+                            <li><Link to={{
+                                // add dynamic path để test => nhớ revert
+                                // pathname: '/new-post',
+                                pathname: this.props.match.url + '/new-post',
+                                hash: '#submit',
+                                search: '?quick-submit=true'
+                            }}>New Post</Link></li>
+                        </ul>
+                    </nav>
+                </header>
+```
 
 ### 14. Absolute vs Relative Paths (Article).html
 
@@ -8397,7 +8417,7 @@ Thêm exact để không active 2 link cùng lúc
 
 ### 16. Passing Route Parameters
 
-Posts.js
+Posts.js click => show FullPost
 
 ```js
 // chua
@@ -8407,7 +8427,7 @@ Posts.js
 
 ### 17. Extracting Route Parameters
 
-Posts.js
+Posts.js cách 1 
 
 ![image-20200223104434672](./react-maximilan.assets/image-20200223104434672.png)  
 
@@ -8449,7 +8469,7 @@ class FullPost extends Component {
 
 ![image-20200223105040777](./react-maximilan.assets/image-20200223105040777.png)  
 
-Khi click newPost vẫn hiện FullPost => bug
+Khi click newPost vẫn hiện FullPost và NewPost=> bug
 
 ### 18. Parsing Query Parameters & the Fragment.html
 
@@ -8533,7 +8553,7 @@ import { Route, NavLink, Switch } from 'react-router-dom';
 
 ![image-20200223110112496](./react-maximilan.assets/image-20200223110112496.png)  
 
-Nếu để thứ tự như trên sẽ báo lỗi id không hợp lệ
+Nếu để thứ tự như trên sẽ báo lỗi id không hợp lệ nên phải đưa :id xuống dưới cùng
 
 Blog.js
 
@@ -8541,7 +8561,7 @@ Blog.js
 <Route path="/" exact component={Posts} />
 <Switch>
         <Route path="/new-post" component={NewPost} />
-        <Route path="/:id" exact component={Posts} />
+        <Route path="/:id" exact component={FullPost} />
 </Switch>
 ```
 
@@ -8555,8 +8575,8 @@ Posts.js comment
 
 ```js
 postSelectedHandler = ( id ) => {
-        // this.props.history.push({pathname: '/posts/' + id});
-        this.props.history.push( '/posts/' + id );
+        // this.props.history.push({pathname: '/' + id});
+        this.props.history.push( '/' + id );
     }
 
     render () {
@@ -8595,11 +8615,19 @@ Blog.js bỏ exact đi vì có :id nó k active
 
 Sau này chỉnh lại url nên revert file lại
 
+sửa hết thành thêm /posts để tránh click vào newPost mà vẫn active 2 link, sửa link có id nữa
+
 ### 22. Understanding Nested Routes
 
 Posts.js
 
 ```js
+// sửa lại url
+postSelectedHandler = ( id ) => {
+        // this.props.history.push({pathname: '/posts/' + id});
+        this.props.history.push( '/posts/' + id );
+    }
+
 return (
             <div>
                 <section className="Posts">
@@ -8624,7 +8652,7 @@ Blog.js
 
 ![image-20200223112048562](./react-maximilan.assets/image-20200223112048562.png)  
 
-Sửa lại urls path="/posts" and NavLink
+Sửa lại urls path="/posts" and NavLink trong Blog.js
 
 Posts.js cũng sửa lại
 
@@ -8639,7 +8667,7 @@ return (
                 <section className="Posts">
                     {posts}
                 </section>
-// add
+// add dynamic url
                 <Route path={this.props.match.url + '/:id'} exact component={FullPost} />
             </div>
         );
