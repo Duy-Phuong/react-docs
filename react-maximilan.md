@@ -1243,6 +1243,8 @@ class App extends Component {
 export default App;
 ```
 
+Khi import có thể đặt bất cứ tên gì mà mình thích
+
 ### 9. Components & JSX Cheat Sheet.html
 
 Components are the **core building block of React apps**. Actually, React really is just a library for creating components in its core.
@@ -2797,6 +2799,7 @@ App.css add
 App.js
 
 ```js
+// btnClass = classes.Red;
 <button
             className={btnClass}
             onClick={this.togglePersonsHandler}>Toggle Persons</button>
@@ -5345,6 +5348,8 @@ export default Persons;
 Từ react 16 có cách fix
 
 ```js
+import React, { Component } from 'react';
+
 const withClass = (WrappedComponent, className) => {
     const WithClass = class extends Component {
         render () {
@@ -5568,7 +5573,7 @@ static getDerivedStateFromProps(nextProps, prevState) {
       nextProps,
       prevState
     );
-
+// return old state, will never update
     return prevState;
   }
 
@@ -5583,7 +5588,9 @@ static getDerivedStateFromProps(nextProps, prevState) {
 
 ![image-20200222114605448](./react-maximilan.assets/image-20200222114605448.png)  
 
-Lưu lại vị trí scroll trước khi update
+Lưu lại vị trí scroll trước khi update, ấn buton để check
+
+https://reactjs.org/blog/2020/02/26/react-v16.13.0.html
 
 ### 61. [LEGACY] The memo Method (16.4)
 
@@ -8687,6 +8694,7 @@ FullPost.js add
         this.loadData();
     }
 
+// add
     componentDidUpdate() {
         this.loadData();
     }
@@ -8798,6 +8806,7 @@ you have some route allow some person visit
 Blog.js
 
 ```js
+// thêm state auth: flase nó sẽ redirect về posts
 <Switch>
       { this.state.auth ? <Route path="/new-post" component={NewPost} /> : null}
                     <Route path="/posts" component={Posts} />
@@ -8805,6 +8814,8 @@ Blog.js
                     {/* <Route path="/" component={Posts} /> */}
                 </Switch>
 ```
+
+Cách 2: thêm check unauth và replace
 
 NewPost.js
 
@@ -8827,9 +8838,10 @@ Blog.js
       { this.state.auth ? <Route path="/new-post" component={NewPost} /> : null}
        <Route path="/posts" component={Posts} />
        <Route render={() => <h1>Not Found</h1>} />
+//       <Redirect from="/" to="/posts" />
 ```
 
-
+Nó sẽ không hoạt đông cùng với Redirect nên phải comment đoạn này lại
 
 ### 29. Loading Routes Lazily
 
