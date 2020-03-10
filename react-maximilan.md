@@ -6401,6 +6401,8 @@ updatePurchaseState (ingredients) {
 
 Khi thêm hay bớt nhớ thêm hàm này vào và truyền vào trong
 
+![image-20200310202222263](./react-maximilan.assets/image-20200310202222263.png)
+
 ### 20. Creating the Order Summary Modal
 
 Add folder UI/
@@ -6551,7 +6553,11 @@ Modal.js add style
         </div>
 ```
 
-![image-20200219213331213](./react-maximilan.assets/image-20200219213331213.png)
+![image-20200219213331213](./react-maximilan.assets/image-20200219213331213.png)  
+
+https://www.w3schools.com/cssref/css3_pr_transform.asp
+
+translateY là trượt xuống nếu số dương
 
 ### 22. Implementing the Backdrop Component
 
@@ -6688,7 +6694,8 @@ BurgerBuilder.js thêm total
 <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
                     <OrderSummary 
                         ingredients={this.state.ingredients}
-                        price={this.state.totalPrice}
+  						// add
+						price={this.state.totalPrice}
                         purchaseCancelled={this.purchaseCancelHandler}
                         purchaseContinued={this.purchaseContinueHandler} />
                 </Modal>
@@ -6781,7 +6788,7 @@ const layout = ( props ) => (
 export default layout;
 ```
 
-
+Layout.css
 
 ```css
 .Content {
@@ -6789,7 +6796,7 @@ export default layout;
 }
 ```
 
-
+![image-20200310204406410](./react-maximilan.assets/image-20200310204406410.png)
 
 ### 27. Using a Logo in our Application
 
@@ -7055,7 +7062,7 @@ SideDrawer.css
 
 ### 30. Working on Responsive Adjustments
 
-Toolbar.js
+Toolbar.js ADD CLASS  Logo
 
 ```js
 const toolbar = ( props ) => (
@@ -7723,7 +7730,7 @@ export default instance;
 
 ### 5. Sending a POST Request
 
-BurgerBuilder.js
+BurgerBuilder.js khi ấn nút CONTINUE
 
 ```js
 purchaseContinueHandler = () => {
@@ -7879,7 +7886,7 @@ class Modal extends Component {
     }
 ```
 
-
+Thêm nextProps.children !== this.props.children
 
 ### 7. Handling Errors
 
@@ -7944,6 +7951,8 @@ export default withErrorHandler( BurgerBuilder, axios );
 Xem lại Modal .js
 
 `modalClosed`
+
+![image-20200310213053133](./react-maximilan.assets/image-20200310213053133.png)
 
 ### 8. Retrieving Data from the Backend
 
@@ -8258,7 +8267,7 @@ Blog.js
 
 ### 11. Using Routing-Related Props
 
-Trong Post.js và NewPost.js thêm
+Trong Posts.js và NewPost.js thêm
 
 ```js
 componentDidMount () {
@@ -8296,7 +8305,9 @@ Khi console.log(props); Không có loaction, history and match
 
 ![image-20200223095508332](./react-maximilan.assets/image-20200223095508332.png)  
 
-Post.js
+Post.js get info of nearest routes => nên sẽ get giống như Posts
+
+Get access to routing relative props 
 
 ```js
 import React from 'react';
@@ -8427,7 +8438,7 @@ Thêm exact để không active 2 link cùng lúc
 Posts.js click => show FullPost
 
 ```js
-// chua
+// #17 full
 ```
 
 
@@ -8477,6 +8488,8 @@ class FullPost extends Component {
 ![image-20200223105040777](./react-maximilan.assets/image-20200223105040777.png)  
 
 Khi click newPost vẫn hiện FullPost và NewPost=> bug
+
+![image-20200310222652094](./react-maximilan.assets/image-20200310222652094.png)
 
 ### 18. Parsing Query Parameters & the Fragment.html
 
@@ -8791,6 +8804,7 @@ postDataHandler = () => {
         axios.post( '/posts', data )
             .then( response => {
                 console.log( response );
+            // Khi ấn back thì sẽ vẫn ở lại trang này => push để back
                 this.props.history.replace('/posts');
                 // this.setState( { submitted: true } );
             } );
