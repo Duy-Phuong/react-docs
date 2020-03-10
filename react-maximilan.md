@@ -8859,7 +8859,7 @@ Nó sẽ không hoạt đông cùng với Redirect nên phải comment đoạn n
 
 ### 29. Loading Routes Lazily
 
-Vào tab network thấy load rất nhiều, khi cần mới download những thứ cần
+Vào tab network thấy load rất nhiều, khi cần mới download những thứ cần ví dụ ở file Posts thì không cần load newPost
 
 bundle.js chưa resource 
 
@@ -8875,9 +8875,7 @@ Webpack will to prepare extra bundle for this potentially loaded code
 
 Sau đó thay cho NewPost trong Route tag => load asyn chỉ cs thêm 1 file chunk load thêm
 
-```js
 
-```
 
 
 
@@ -9032,7 +9030,7 @@ class Checkout extends Component {
 export default Checkout;
 ```
 
-CheckoutSummary.js
+CheckoutSummary.js, .css
 
 ```js
 import React from 'react';
@@ -9123,36 +9121,15 @@ export default App;
 
 ### 4. Navigating to the Checkout Page
 
-Khi bấm button CONTINUE
+Khi bấm button CONTINUE sẽ link tới /checkout
 
 BurgerBuilder.js
 
 ```js
 purchaseContinueHandler = () => {
-        // alert('You continue!');
-        // this.setState( { loading: true } );
-        // const order = {
-        //     ingredients: this.state.ingredients,
-        //     price: this.state.totalPrice,
-        //     customer: {
-        //         name: 'Max Schwarzmüller',
-        //         address: {
-        //             street: 'Teststreet 1',
-        //             zipCode: '41351',
-        //             country: 'Germany'
-        //         },
-        //         email: 'test@test.com'
-        //     },
-        //     deliveryMethod: 'fastest'
-        // }
-        // axios.post( '/orders.json', order )
-        //     .then( response => {
-        //         this.setState( { loading: false, purchasing: false } );
-        //     } )
-        //     .catch( error => {
-        //         this.setState( { loading: false, purchasing: false } );
-        //     } );
+        // add start
         this.props.history.push('/checkout');
+        // add end
     }
 ```
 
@@ -9160,7 +9137,13 @@ khi in props ở Burger sẽ không có các thuộc tính như match vì nó k 
 
 Phải import withRouter và gọi `export default withRouter(burger);`
 
+Khi ấn vào nút continue
+
+![image-20200310234634644](./react-maximilan.assets/image-20200310234634644.png)
+
 ### 5. Navigating Back & To Next Page
+
+Thêm để khi ấn nút cancel hay continue sẽ go back or next
 
 CheckoutSummary.js
 
@@ -9189,7 +9172,9 @@ export default checkoutSummary;
 Checkout.js
 
 ```js
- checkoutCancelledHandler = () => {
+ 
+// add new
+checkoutCancelledHandler = () => {
         this.props.history.goBack();
     }
 
@@ -9218,8 +9203,10 @@ BurgerBuilder.js
 ```js
  purchaseContinueHandler = () => {
         // alert('You continue!');
-        // add
+        // add new
         const queryParams = [];
+     
+     // i là porperty name
         for (let i in this.state.ingredients) {
             queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
         }
@@ -9249,7 +9236,7 @@ componentDidMount() {
 
 ### 7. Navigating to the Contact Data Component
 
-Create Checkout/ContactData/ContactData.js
+Create Checkout/ContactData/ContactData.js , .css
 
 ```js
 import React, { Component } from 'react';
@@ -9292,7 +9279,7 @@ class ContactData extends Component {
             .then( response => {
                 this.setState( { loading: false } );
             
-            // fix ở checkout truyền vào ...props mới có thể push
+            // fix ở checkout truyền vào ...props mới có thể push do chưa có history
                 this.props.history.push('/');
             } )
             .catch( error => {
@@ -9328,9 +9315,21 @@ export default ContactData;
 Checkout.js
 
 ```js
-// use render for pass props
-<Route  path={this.props.match.path + '/contact-data'} 
-        render={(props) => (<ContactData ingredients={this.state.ingredients} price={this.state.totalPrice} {...props} />)} />
+render () {
+        return (
+            <div>
+                <CheckoutSummary
+                    ingredients={this.state.ingredients}
+                    checkoutCancelled={this.checkoutCancelledHandler}
+                    checkoutContinued={this.checkoutContinuedHandler} />
+                 // add start
+                <Route 
+                    path={this.props.match.path + '/contact-data'} 
+                    render={(props) => (<ContactData ingredients={this.state.ingredients} price={this.state.totalPrice} {...props} />)} />
+                // add end
+            </div>
+        );
+
 ```
 
 Add css cho Contact.css
@@ -9357,7 +9356,7 @@ Add css cho Contact.css
 }
 ```
 
-
+![image-20200311003033618](./react-maximilan.assets/image-20200311003033618.png)
 
 ### 8. Order Submission & Passing Data Between Pages
 
@@ -9393,7 +9392,7 @@ class Checkout extends Component {
         price: 0
     }
 
-// componentDidMount chuyển thành Will để fix lỗi khi ingredients: null, => có đủ r mới render
+// sửa componentDidMount chuyển thành Will để fix lỗi khi ingredients: null, => có đủ r mới render
     componentWillMount () {
         const query = new URLSearchParams( this.props.location.search );
         const ingredients = {};
@@ -9411,7 +9410,7 @@ class Checkout extends Component {
     }
 ```
 
-Khi ấn ORDER post ok
+Khi ấn ORDER post ok tại file ContactData
 
 ### 9. Adding an Orders Page
 
@@ -9425,12 +9424,12 @@ import axios from '../../axios-orders';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 
 class Orders extends Component {
+    // # 11
     state = {
         orders: [],
         loading: true
     }
 
-// # 11
     componentDidMount() {
         axios.get('/orders.json')
             .then(res => {
@@ -9447,6 +9446,7 @@ class Orders extends Component {
                 this.setState({loading: false});
             });
     }
+// #11 end
 
     render () {
         return (
@@ -9475,6 +9475,7 @@ import React from 'react';
 import classes from './Order.css';
 
 const order = ( props ) => {
+    # 12 add start
     const ingredients = [];
 
     for ( let ingredientName in props.ingredients ) {
@@ -9497,7 +9498,7 @@ const order = ( props ) => {
                 }}
             key={ig.name}>{ig.name} ({ig.amount})</span>;
     });
-
+    # 12 add end
     return (
         <div className={classes.Order}>
             <p>Ingredients: {ingredientOutput}</p>
@@ -9547,6 +9548,7 @@ import classes from './NavigationItem.css';
 
 const navigationItem = ( props ) => (
     <li className={classes.NavigationItem}>
+    // add NavLink
         <NavLink 
             to={props.link}
             exact={props.exact}
@@ -9560,6 +9562,39 @@ export default navigationItem;
 
 
 ### 11. Fetching Orders
+
+Tạo data trên firebase
+
+Orders.js
+
+```js
+class Orders extends Component {
+    // # 11
+    state = {
+        orders: [],
+        loading: true
+    }
+
+    componentDidMount() {
+        axios.get('/orders.json')
+            .then(res => {
+                const fetchedOrders = [];
+                for (let key in res.data) {
+                    fetchedOrders.push({
+                        ...res.data[key],
+                        id: key
+                    });
+                }
+                this.setState({loading: false, orders: fetchedOrders});
+            })
+            .catch(err => {
+                this.setState({loading: false});
+            });
+    }
+// #11 end
+```
+
+
 
 ### 12. Outputting the Orders
 
