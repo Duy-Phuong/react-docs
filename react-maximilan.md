@@ -9612,6 +9612,100 @@ class Orders extends Component {
 
 ### 2. Analyzing the App
 
+Input.js
+
+```js
+import React from 'react';
+
+import classes from './Input.css';
+
+const input = ( props ) => {
+    let inputElement = null;
+
+    // Nếu để inputType nó sẽ báo error vì react 16
+    switch ( props.inputtype ) {
+        case ( 'input' ):
+            inputElement = <input
+                className={classes.InputElement}
+                {...props} />;
+            break;
+        case ( 'textarea' ):
+            inputElement = <textarea
+                className={classes.InputElement}
+                {...props}/>;
+            break;
+        default:
+            inputElement = <input
+                className={classes.InputElement}
+                {...props} />;
+    }
+
+    return (
+        <div className={classes.Input}>
+            <label className={classes.Label}>{props.label}</label>
+            {inputElement}
+        </div>
+    );
+
+};
+
+export default input;
+```
+
+
+
+![image-20200311222924383](./react-maximilan.assets/image-20200311222924383.png)
+
+Input.css
+
+```css
+.Input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.Label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.InputElement {
+    outline: none;
+    border: 1px solid #ccc;
+    background-color: white;
+    font: inherit;
+    padding: 6px 10px;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.InputElement:focus {
+    outline: none;
+    background-color: #ccc;
+}
+```
+
+Contact.js
+
+```js
+let form = (
+            <form>
+                <Input inputtype="input" type="text" name="name" placeholder="Your Name" />
+                <Input inputtype="input" type="email" name="email" placeholder="Your Mail" />
+                <Input inputtype="input" type="text" name="street" placeholder="Street" />
+                <Input inputtype="input" type="text" name="postal" placeholder="Postal Code" />
+                <Button btnType="Success" clicked={this.orderHandler}>ORDER</Button>
+            </form>
+        );
+```
+
+
+
+### 3. Creating a Custom Dynamic Input Component
+
 Create Input in folder UI, input.css
 
 ```js
@@ -9637,6 +9731,7 @@ const input = ( props ) => {
                 value={props.value}
                 onChange={props.changed} />;
             break;
+        // add in part 6
         case ( 'select' ):
             inputElement = (
                 <select
@@ -9671,19 +9766,15 @@ const input = ( props ) => {
 export default input;
 ```
 
-ContactData.js để tạm, ở trên cũng sẽ nhận inputtype vì react 16
+container/ Checkout/ ContactData.js để tạm, ở trên cũng sẽ nhận inputtype vì react 16
 
 ```js
 let form = (
             <form onSubmit={this.orderHandler}>
-                 <Input puttype="input" />
+                 <Input inputtype="input" />
                 <Button btnType="Success">ORDER</Button>
             </form>
 ```
-
-
-
-### 3. Creating a Custom Dynamic Input Component
 
 ContactData.js
 
@@ -9745,6 +9836,7 @@ class ContactData extends Component {
         },
         loading: false
     }
+
 ```
 
 
@@ -9758,7 +9850,16 @@ Sửa lại Input.js
 ContactData.js
 
 ```js
-let form = (
+render () {
+        const formElementsArray = [];
+        for (let key in this.state.orderForm) {
+            formElementsArray.push({
+                id: key,
+                config: this.state.orderForm[key]
+            });
+        }
+    
+		let form = (
             <form onSubmit={this.orderHandler}>
                 {formElementsArray.map(formElement => (
                     <Input 
@@ -9862,7 +9963,7 @@ orderHandler = ( event ) => {
     }
 ```
 
-
+![image-20200311233743058](./react-maximilan.assets/image-20200311233743058.png)
 
 ### 9. Adding Custom Form Validation
 
@@ -10000,7 +10101,7 @@ checkValidity(value, rules) {
 
 ### 11. Adding Validation Feedback
 
-Input
+Input.js add class css
 
 ```js
 const input = ( props ) => {
@@ -10014,7 +10115,59 @@ const input = ( props ) => {
 
 props invalid truyền vào trong
 
+ContactData.js
+
+```js
+ let form = (
+            <form onSubmit={this.orderHandler}>
+                {formElementsArray.map(formElement => (
+                    <Input 
+                        key={formElement.id}
+                        elementType={formElement.config.elementType}
+                        elementConfig={formElement.config.elementConfig}
+                        value={formElement.config.value}
+// add start
+                        invalid={!formElement.config.valid}
+                        shouldValidate={formElement.config.validation}
+                        touched={formElement.config.touched}
+// add end
+                        changed={(event) => this.inputChangedHandler(event, formElement.id)} />
+                ))}
+                <Button btnType="Success" disabled={!this.state.formIsValid}>ORDER</Button>
+            </form>
+        );
+```
+
+
+
 ### 12. Improving Visual Feedback
+
+ContactData.js
+
+```js
+inputChangedHandler = (event, inputIdentifier) => {
+        const updatedOrderForm = {
+            ...this.state.orderForm
+        };
+        const updatedFormElement = { 
+            ...updatedOrderForm[inputIdentifier]
+        };
+        updatedFormElement.value = event.target.value;
+        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
+    // add start
+        updatedFormElement.touched = true;
+    // add end
+        updatedOrderForm[inputIdentifier] = updatedFormElement;
+        
+        let formIsValid = true;
+        for (let inputIdentifier in updatedOrderForm) {
+            formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
+        }
+        this.setState({orderForm: updatedOrderForm, formIsValid: formIsValid});
+    }
+```
+
+
 
 ### 13. Showing Error Messages.html
 
@@ -10096,13 +10249,44 @@ inputChangedHandler = (event, inputIdentifier) => {
 
 ....
 <Button btnType="Success" disabled={!this.state.formIsValid}>ORDER</Button>
+
+// Sửa json
+,
+            deliveryMethod: {
+                elementType: 'select',
+                elementConfig: {
+                    options: [
+                        {value: 'fastest', displayValue: 'Fastest'},
+                        {value: 'cheapest', displayValue: 'Cheapest'}
+                    ]
+                },
+               // add
+                value: '', // # 16 có thể fix bằng thêm fastest
+                valid: true
 ```
 
 Sửa file button.js thêm tt disabled
 
 ### 15. Working on an Error
 
+![image-20200312000728244](./react-maximilan.assets/image-20200312000728244.png)
+
+```js
+
+checkValidity(value, rules) {
+        let isValid = true;
+        // vì checkbox k có required nên access vào bị lỗi
+        if (rules.required) {
+            isValid = value.trim() !== '' && isValid;
+        }
+ // cách 1: chỉnh sửa obj có thêm tt validation: {}
+```
+
+
+
 Đối với combobox thêm validation: {} để tránh lỗi
+
+Cách 2:
 
 hay `if (!rules) return true;`
 
