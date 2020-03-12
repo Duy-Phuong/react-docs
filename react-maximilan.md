@@ -10369,7 +10369,9 @@ console.log(store.getState());
 
 Lưu ý : reducer chỉ có 1, test bằng node js
 
-Lệnh node filename
+Lệnh node filename.js
+
+![image-20200312003731089](./react-maximilan.assets/image-20200312003731089.png)
 
 ### 6. Dispatching Actions
 
@@ -10427,6 +10429,28 @@ export default reducer;
 
 Tại index.js thêm `ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));`  
 
+index.js
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+
+import './index.css';
+import App from './App';
+import registerServiceWorker from './registerServiceWorker';
+import reducer from './store/reducer';
+
+const store = createStore(reducer);
+// add
+ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
+registerServiceWorker();
+
+```
+
+
+
 Provider is a component inject store to react component
 
 ### 10. Dispatching Actions from within the Component
@@ -10467,7 +10491,7 @@ class Counter extends Component {
     render () {
         return (
             <div>
-            // add
+            // add props get from state redux
                 <CounterOutput value={this.props.ctr} />
 
                 <CounterControl label="Increment" clicked={this.props.onIncrementCounter} />
@@ -10494,7 +10518,13 @@ const mapDispatchToProps = dispatch => {
 export default connect(mapStateToProps, mapDispatchToProps)(Counter);
 ```
 
+connect is a function return HOC, gồm state you want to get and dispatch
 
+mapStateToProps: tên đặt gì cũng được, store state manage by redux => give me the value of counter in global state managed by redux
+
+Nếu kết quả khi chạy như bên dưới thì counter get từ file redux thành công, ở chap này thì đoạn có chỉ có `export default connect(mapStateToProps)(Counter);`
+
+![image-20200313003857591](./react-maximilan.assets/image-20200313003857591.png)
 
 ### 11. Time to Practice - Dispatching Actions.html
 
