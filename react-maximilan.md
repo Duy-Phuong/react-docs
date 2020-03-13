@@ -10530,7 +10530,7 @@ Nếu kết quả khi chạy như bên dưới thì counter get từ file redux 
 
 ### 12. Passing and Retrieving Data with Action
 
-Counter.js
+Counter.js thêm tham số để pass to reducer
 
 ```js
 class Counter extends Component {
@@ -10582,6 +10582,7 @@ reducer.js
 
 ```js
 const reducer = ( state = initialState, action ) => {
+    // 13 chuyển if thành switch
     switch ( action.type ) {
         case actionTypes.INCREMENT:
             const newState = Object.assign({}, state);
@@ -10592,6 +10593,7 @@ const reducer = ( state = initialState, action ) => {
                 ...state,
                 counter: state.counter - 1
             }
+            // add action.val to pass data to reducer
         case actionTypes.ADD:
             return {
                 ...state,
@@ -10645,7 +10647,7 @@ const mapDispatchToProps = dispatch => {
 };
 ```
 
-result.js
+result.js hiện tại chưa tách file thêm vào results ở file reducer.js
 
 ```js
 import * as actionTypes from '../actions';
