@@ -10618,14 +10618,9 @@ const reducer = ( state = initialState, action ) => {
 Thêm button tại file Counter.js
 
 ```js
-const mapStateToProps = state => {
-    return {
 
-        ctr: state.ctr.counter,
-        storedResults: state.res.results
-    }
-};
 
+// add two button
 <hr />
    <button onClick={() => this.props.onStoreResult(this.props.ctr)}>Store Result</button>
 <ul>
@@ -10633,6 +10628,16 @@ const mapStateToProps = state => {
 <li key={strResult.id} onClick={() => this.props.onDeleteResult(strResult.id)}>{strResult.value}</li>
      ))}
 </ul>
+
+// ....
+
+const mapStateToProps = state => {
+    return {
+        ctr: state.ctr.counter,
+        // add new state to props
+        storedResults: state.res.results
+    }
+};
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -10661,9 +10666,11 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.STORE_RESULT:
             return {
                 ...state,
+                // sử dụng concat thay vì push để tránh ảnh hưởng tới state vì nó là kiểu dl tham chiếu
+                // concat will return new array
                 results: state.results.concat({id: new Date(), value: action.result})
             }
-            // # 15
+            // # 15 thêm delete 
         case actionTypes.DELETE_RESULT:
             // const id = 2;
             // const newArray = [...state.results];
@@ -10682,7 +10689,56 @@ export default reducer;
 
  ...state: để giữ lại state, copy state
 
+counter.js
+
+```js
+import * as actionTypes from '../actions';
+
+const initialState = {
+    counter: 0
+};
+
+const reducer = ( state = initialState, action ) => {
+    switch ( action.type ) {
+            // add copy state
+        case actionTypes.INCREMENT:
+            // add new
+            const newState = Object.assign({}, state);
+            newState.counter = state.counter + 1;
+            return newState;
+        case actionTypes.DECREMENT:
+            return {
+                ...state, // add new
+                counter: state.counter - 1
+            }
+        case actionTypes.ADD:
+            return {
+                ...state,
+                counter: state.counter + action.val
+            }
+        case actionTypes.SUBTRACT:
+            return {
+                ...state,
+                counter: state.counter - action.val
+            }
+    }
+    return state;
+};
+
+export default reducer;
+```
+
+Hiện tại chưa tách file
+
+![image-20200313213007632](./react-maximilan.assets/image-20200313213007632.png)  
+
+Thay                 results: state.results.concat({id: new Date(), value: action.counter}) để test, ấn nút STORE RESULT thì sẽ lưu lại ấn nút ADD rồi ấn STORE tiếp tục để kiểm tra
+
 ### 15. Updating Arrays Immutably
+
+Cách 1: copy array use ... 
+
+Cách 2: Nên xài cách này
 
 Hàm filter return a new array, get các element khác id
 
@@ -10855,9 +10911,9 @@ export const STORE_RESULT = 'STORE_RESULT';
 export const DELETE_RESULT = 'DELETE_RESULT';
 ```
 
-Ở file khác import: `import * as actionTypes from '../actions';`
+Ở file khác import: `import * as actionTypes from '../actions';
 
-### 18. Combining Multiple Reducers
+Counter.js and 2 file reducer
 
 Tách file
 
@@ -10875,6 +10931,7 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
+// add new
 const rootReducer = combineReducers({
     ctr: counterReducer,
     res: resultReducer
@@ -10887,25 +10944,42 @@ registerServiceWorker();
 
 ```
 
-Sửa lại file Counter.js
+Sửa lại file Counter.js xóa state trong class Counter
 
 ```js
+// store counter this.props.ctr để truyền vào
 <button onClick={() => this.props.onStoreResult(this.props.ctr)}>Store Result</button>
 
 ...
 
 const mapStateToProps = state => {
     return {
-
+        // thay state thành  state.ctr và res lấy từ global state ở file index
         ctr: state.ctr.counter,
         storedResults: state.res.results
     }
 };
 ```
 
+result.js
+
+```js
+
+const reducer = ( state = initialState, action ) => {
+    switch ( action.type ) {
+        case actionTypes.STORE_RESULT:
+            return {
+                ...state,
+                // sửa action.result để nhận vì không thể access từ global state
+                results: state.results.concat({id: new Date(), value: action.result})
+            }
+```
+
 
 
 ### 19. Understanding State Types
+
+Xem lại
 
 ### 19.1 state-types.pdf.pdf
 
@@ -11022,6 +11096,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(Persons);
 Sửa file addPerson.js
 
 xem lại
+
+![image-20200313221238382](./react-maximilan.assets/image-20200313221238382.png)
 
 ### 23. Wrap Up
 
