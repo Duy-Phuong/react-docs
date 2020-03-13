@@ -10954,7 +10954,7 @@ Sửa lại file Counter.js xóa state trong class Counter
 
 const mapStateToProps = state => {
     return {
-        // thay state thành  state.ctr và res lấy từ global state ở file index
+        // thay state thành  state.ctr và state.res lấy từ global state ở file index
         ctr: state.ctr.counter,
         storedResults: state.res.results
     }
@@ -11095,7 +11095,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Persons);
 
 Sửa file addPerson.js
 
-xem lại
+xem lại bài 22 có thêm xử lý
 
 ![image-20200313221238382](./react-maximilan.assets/image-20200313221238382.png)
 
@@ -11115,7 +11115,20 @@ xem lại
 
 ### 1. Module Introduction
 
+Define state to manage in burgerBuilder.js
+
 ### 2. Installing Redux and React Redux
+
+`npm install --save redux react-redux`
+
+create file action.js
+
+```js
+export const ADD_INGREDIENT = 'ADD_INGREDIENT';
+export const REMOVE_INGREDIENT = 'REMOVE_INGREDIENT';
+```
+
+
 
 reducer.js
 
@@ -11167,6 +11180,8 @@ registerServiceWorker();
 
 ### 3. Basic Redux Setup
 
+Sửa index.js
+
 ### 4. Finishing the Reducer for Ingredients
 
 reducer.js
@@ -11198,8 +11213,10 @@ const reducer = ( state = initialState, action ) => {
                 ...state,
                 ingredients: {
                     ...state.ingredients,
+                    // cú pháp es6 cho phép override property of the object
                     [action.ingredientName]: state.ingredients[action.ingredientName] + 1
                 },
+                // # 6 add
                 totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
             };
         case actionTypes.REMOVE_INGREDIENT:
@@ -11209,6 +11226,7 @@ const reducer = ( state = initialState, action ) => {
                     ...state.ingredients,
                     [action.ingredientName]: state.ingredients[action.ingredientName] - 1
                 },
+                // # 6 add
                 totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName]
             };
         default:
@@ -11242,13 +11260,31 @@ BurgerBuilder.js
 
 ```js
 
-// delete state k cần
+// delete state 3 thuộc tính đầu
 state = {
+   		// delete start
+    	// ingredients: null,
+        // totalPrice: 4,
+        // purchasable: false,
+        // delete end
         purchasing: false,
         loading: false,
         error:
     
 // Thay hết this.state.ingredients => this.props.ings
+    
+    <BuildControls
+    // add start
+                        ingredientAdded={this.props.onIngredientAdded}
+                        ingredientRemoved={this.props.onIngredientRemoved}
+	// add end
+                        disabled={disabledInfo}
+                        purchasable={this.updatePurchaseState(this.props.ings)}
+                        ordered={this.purchaseHandler}
+                        price={this.props.price} />
+    
+    
+    
 const mapStateToProps = state => {
     return {
         ings: state.ingredients,
@@ -11263,12 +11299,13 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
+// wrap connect
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler( BurgerBuilder, axios ));
 ```
 
 BuildControls
 
-button ORDER k hoạt động
+button ORDER k hoạt động và price chưa cập nhật đúng
 
 ### 6. Working on the Total Price Calculation
 
@@ -11277,6 +11314,41 @@ reducer xử lý totalPrice
 Xóa hàm add and remove in BurgerBuilder.js
 
 ```js
+// remove start
+/*
+    addIngredientHandler = ( type ) => {
+        const oldCount = this.state.ingredients[type];
+        const updatedCount = oldCount + 1;
+        const updatedIngredients = {
+            ...this.state.ingredients
+        };
+        updatedIngredients[type] = updatedCount;
+        const priceAddition = INGREDIENT_PRICES[type];
+        const oldPrice = this.state.totalPrice;
+        const newPrice = oldPrice + priceAddition;
+        this.setState( { totalPrice: newPrice, ingredients: updatedIngredients } );
+        this.updatePurchaseState( updatedIngredients );
+    }
+
+    removeIngredientHandler = ( type ) => {
+        const oldCount = this.state.ingredients[type];
+        if ( oldCount <= 0 ) {
+            return;
+        }
+        const updatedCount = oldCount - 1;
+        const updatedIngredients = {
+            ...this.state.ingredients
+        };
+        updatedIngredients[type] = updatedCount;
+        const priceDeduction = INGREDIENT_PRICES[type];
+        const oldPrice = this.state.totalPrice;
+        const newPrice = oldPrice - priceDeduction;
+        this.setState( { totalPrice: newPrice, ingredients: updatedIngredients } );
+        this.updatePurchaseState( updatedIngredients );
+    } */
+// remove end
+
+// thay state.totalPrice thành this.props.price
 const mapStateToProps = state => {
     return {
         ings: state.ingredients,
@@ -11284,7 +11356,7 @@ const mapStateToProps = state => {
         price: state.totalPrice
     };
 }
-// sau đố replace state
+// sau đó replace state
 ```
 
 
@@ -11302,6 +11374,7 @@ updatePurchaseState ( ingredients ) {
             .reduce( ( sum, el ) => {
                 return sum + el;
             }, 0 );
+    // modify return
         return sum > 0;
     }
 
@@ -11325,10 +11398,25 @@ burger = (
 
 ### 8. Adjusting Checkout and Contact Data
 
-remove purchaseContinueHandler in BurgerBuilder
+modify purchaseContinueHandler in BurgerBuilder
 
 ```js
-purchaseContinueHandler = () => {
+
+    purchaseContinueHandler = () => {
+        // alert('You continue!');
+        
+        /* comment
+        const queryParams = [];
+        for (let i in this.state.ingredients) {
+            queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
+        }
+        queryParams.push('price=' + this.state.totalPrice);
+        const queryString = queryParams.join('&');
+        this.props.history.push({
+            pathname: '/checkout',
+            search: '?' + queryString
+        });
+        */
         this.props.history.push('/checkout');
     }
 ```
@@ -11345,7 +11433,31 @@ import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSumm
 import ContactData from './ContactData/ContactData';
 
 class Checkout extends Component {
+// remove start
+    /*
+     state = {
+        ingredients: null,
+        price: 0
+    }
 
+    componentWillMount () {
+        const query = new URLSearchParams( this.props.location.search );
+        const ingredients = {};
+        let price = 0;
+        for ( let param of query.entries() ) {
+            // ['salad', '1']
+            if (param[0] === 'price') {
+                price = param[1];
+            } else {
+                ingredients[param[0]] = +param[1];
+            }
+        }
+        this.setState( { ingredients: ingredients, totalPrice: price } );
+    }
+    */
+
+// remove end
+    
     checkoutCancelledHandler = () => {
         this.props.history.goBack();
     }
@@ -11362,15 +11474,22 @@ class Checkout extends Component {
                     ingredients={this.props.ings}
                     checkoutCancelled={this.checkoutCancelledHandler}
                     checkoutContinued={this.checkoutContinuedHandler} />
+//                 remove start
                 <Route 
                     path={this.props.match.path + '/contact-data'} 
-// add
+                    render={(props) => (<ContactData ingredients={this.state.ingredients} price={this.state.totalPrice} {...props} />)} />
+// 				remove end
+                        
+                <Route 
+                    path={this.props.match.path + '/contact-data'} 
+// thay render thành component
                     component={ContactData} />
             </div>
         );
     }
 }
 
+// add
 const mapStateToProps = state => {
     return {
         ings: state.ingredients
@@ -11383,10 +11502,19 @@ export default connect(mapStateToProps)(Checkout);
 ContactData.js
 
 ```js
-
+// Chỉ thay đoạn này thành props từ global state
+        const order = {
+            ingredients: this.props.ings,
+            price: this.props.price,
+            orderData: formData
+        }
+        
+        
+        ...
+        
 const mapStateToProps = state => {
     return {
-        ings: state.ingredients, // nhớ thay tên
+        ings: state.ingredients, // nhớ thay thành this.props.ings
         price: state.totalPrice
     }
 };
