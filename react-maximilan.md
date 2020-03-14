@@ -11557,6 +11557,7 @@ const logger = store => {
     }
 };
 
+// # 3
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 // add
@@ -11570,11 +11571,11 @@ const store = createStore(rootReducer, applyMiddleware(logger));
 
 ### 3. Using the Redux Devtools
 
-install redux dev tool 
+install redux dev tool in chrome
 
 https://github.com/zalmoxisus/redux-devtools-extension
 
-index.js
+index.js setup base on github
 
 ```js
 // add
@@ -11671,7 +11672,7 @@ const mapDispatchToProps = dispatch => {
 export default connect(mapStateToProps, mapDispatchToProps)(Counter);
 ```
 
-
+Nhớ sửa lại import action trong counter and reducer
 
 ### 7. Handling Asynchronous Code
 
@@ -11695,7 +11696,7 @@ const store = createStore(rootReducer, composeEnhancers(applyMiddleware(logger, 
 
 ```
 
-action.js
+action.js chuyển hàm storeResult thành saveResult và gọi lại
 
 ```js
 export const saveResult = ( res ) => {
@@ -11712,10 +11713,10 @@ export const storeResult = ( res ) => {
         }, 2000 );
     }
 };
-// sẽ loop vô tận nếu dispatch storeResult
+
 ```
 
-npm start
+npm start rồi mở redux tool, xem action là console
 
 ### 8. Restructuring Actions
 
@@ -11749,7 +11750,41 @@ export {
 } from './result';
 ```
 
-Sửa lại import counter.js, result.js, Counter.js
+Sửa lại import counter.js, result.js trong folder action và reducer, Counter.js
+
+counter.js
+
+```js
+import * as actionTypes from './actionTypes';
+
+export const increment = () => {
+    return {
+        type: actionTypes.INCREMENT
+    };
+};
+
+export const decrement = () => {
+    return {
+        type: actionTypes.DECREMENT
+    };
+};
+
+export const add = ( value ) => {
+    return {
+        type: actionTypes.ADD,
+        val: value
+    };
+};
+
+export const subtract = ( value ) => {
+    return {
+        type: actionTypes.SUBTRACT,
+        val: value
+    };
+};
+```
+
+
 
 ### 9. Where to Put Data Transforming Logic
 
@@ -11757,7 +11792,7 @@ result.js
 
 ```js
 export const saveResult = ( res ) => {
-    // chỉnh sửa nên đặt ở đây
+    // chỉnh sửa k nên đặt ở đây
     // const updatedResult = res * 2;
     return {
         type: actionTypes.STORE_RESULT,
@@ -11768,15 +11803,13 @@ export const saveResult = ( res ) => {
 export const storeResult = ( res ) => {
     return (dispatch, getState) => {
         setTimeout( () => {
-            // const oldCounter = getState().ctr.counter;
-            // console.log(oldCounter);
             dispatch(saveResult(res));
         }, 2000 );
     }
 };
 ```
 
-Nên update logic in reducer
+Nên update logic in reducer thay vì action creator
 
 result.js
 
@@ -11821,8 +11854,10 @@ result.js nhờ tham số thứ 2 trong redux-thunk getState current
 ```js
 
 export const storeResult = ( res ) => {
+	// thêm tham số thứ 2
     return (dispatch, getState) => {
         setTimeout( () => {
+            // add
             // const oldCounter = getState().ctr.counter;
             // console.log(oldCounter);
             dispatch(saveResult(res));
@@ -11832,11 +11867,11 @@ export const storeResult = ( res ) => {
 
 ```
 
-
+ctr xem trong index.js
 
 ### 11. Using Utility Functions
 
-optional way
+optional way you don't have to do 
 
 create file utility.js
 
@@ -11896,13 +11931,33 @@ export default reducer;
 
 ### 12. A Leaner Switch Case Statement
 
+tách hàm để làm code gọn hơn trong switch
+
+```js
+// tách hàm delete ra
+const deleteResult = ( state, action ) => {
+    const updatedArray = state.results.filter( result => result.id !== action.resultElId );
+    return updateObject( state, { results: updatedArray } );
+};
+
+const reducer = ( state = initialState, action ) => {
+    switch ( action.type ) {
+        case actionTypes.STORE_RESULT : return updateObject( state, { results: state.results.concat( { id: new Date(), value: action.result * 2 } ) } );
+        case actionTypes.DELETE_RESULT : return deleteResult(state, action);
+    }
+    return state;
+};
+```
+
+
+
 ### 13. An Alternative Folder Structure
 
-create store in folder container
+create store in folder container/Counter/store
 
 ### 14. Diving Much Deeper
 
-xem lại Immutable update patterns in trang chủ redux
+xem lại mục Immutable update patterns in trang chủ redux
 
 ### 15. Wrap Up
 
@@ -11920,28 +11975,43 @@ xem lại Immutable update patterns in trang chủ redux
 
 ### 2. Installing the Redux Devtools
 
-clean db
+clean db, xóa orders đi chỉ để lại ingredients
+
+![image-20200314095442722](./react-maximilan.assets/image-20200314095442722.png)
 
 index.js
 
 ```js
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-const store = createStore(burgerBuilderReducer, composeEnhancers(
-    applyMiddleware(thunk)
-));
+const store = createStore (reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 ```
 
+For a basic [Redux store](https://redux.js.org/api/createstore#createstorereducer-preloadedstate-enhancer) simply add:
 
+```js
+ const store = createStore(
+   reducer, /* preloadedState, */
+window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+ );
+```
 
 ### 3. Preparing the Folder Structure
 
-In store create actions and reducer folder and file in this
+Move submit form in ContactData into action creator
+
+In **store** folder create **actions** and **reducer** folder and file in this
+
+rename file action.js to actionTypes
+
+Trong folder action tạo file order.js để chứa action creator và burgerBuilder.js 
+
+Trong folder reducer tạo file order.js và rename reducer.js file to burgerBuilder.js chứa các xử lý liên quan đến burger
+
+
 
 ### 4. Creating Action Creators
 
-BurgerBuilder.js in action
+BurgerBuilder.js in action dựa vào file BurgerBuilder các hàm dispatch ở đó
 
 ```js
 import * as actionTypes from './actionTypes';
@@ -11975,6 +12045,7 @@ export const fetchIngredientsFailed = () => {
     };
 };
 
+// # 6 
 export const initIngredients = () => {
     return dispatch => {
         axios.get( 'https://react-my-burger.firebaseio.com/ingredients.json' )
@@ -11987,6 +12058,16 @@ export const initIngredients = () => {
     };
 };
 ```
+
+sau đó vào index.js import lại reducer
+
+```js
+import burgerBuilderReducer from './store/reducers/burgerBuilder';
+
+const store = createStore (burgerBuilderReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+```
+
+
 
 container BurgerBuilder.js
 
@@ -12006,22 +12087,26 @@ index.js
 
 ```js
 export {
+// add start
     addIngredient,
     removeIngredient,
+// add end
     initIngredients
 } from './burgerBuilder';
 export { } from './order';
 ```
 
-
+Hàm initIngredients  hiện tại chưa sử dụng ở các bài tiếp theo mới làm
 
 ### 5. Executing Asynchronous Code
 
-npm install redux-thunk
+`npm install redux-thunk`
 
-Xem lại chỗ index.js
+index.js
 
 ```js
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -12035,46 +12120,734 @@ const store = createStore(burgerBuilderReducer, composeEnhancers(
 
 ### 6. Fetching Ingredients Asynchronously
 
-Copy hàm trong BurgerBuilder componentDidMount và xóa state error
+BurgerBuilder.js
+
+```js
+
+// # 6
+export const setIngredients = ( ingredients ) => {
+    return {
+        type: actionTypes.SET_INGREDIENTS,
+        ingredients: ingredients
+    };
+};
+
+/// # 6
+export const fetchIngredientsFailed = () => {
+    return {
+        type: actionTypes.FETCH_INGREDIENTS_FAILED
+    };
+};
+
+// # 6 
+export const initIngredients = () => {
+    return dispatch => {
+        axios.get( 'https://react-my-burger.firebaseio.com/ingredients.json' )
+            .then( response => {
+               dispatch(setIngredients(response.data));
+            } )
+            .catch( error => {
+                dispatch(fetchIngredientsFailed());
+            } );
+    };
+};
+```
+
+
+
+Copy hàm trong BurgerBuilder.js componentDidMount và xóa state error chỉ để lại purchasing
+
+```js
+
+class BurgerBuilder extends Component {
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {...}
+    // }
+    state = {
+        purchasing: false
+    }
+
+// Xóa vì k SD code asyn trongd đây
+// delete start
+/*
+	if ( this.state.loading ) {
+            orderSummary = <Spinner />;
+        }
+        */
+// delete end
+
+thay this.state.error thành this.prop.error
+
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler( BurgerBuilder, axios ));
+```
+
+
 
 reducer/burgerBuilder.js
 
 ```js
 
 const initialState = {
-    ingredients: null,  // change
+    ingredients: null,  // change vì sẽ fetch new
     totalPrice: 4,
-    error: false
+    error: false // add
 };
 ```
 
 Thêm fetchIngredientsFailed
 
+hiện tại vẫn chưa chạy được
+
 ### 7. Initializing Ingredients in the BurgerBuilder
+
+reducer/burgerBuilder.js
+
+```js
+
+        case actionTypes.SET_INGREDIENTS:
+            return {
+                ...state,
+                ingredients: {
+                    // # 8  
+                    salad: action.ingredients.salad,
+                    bacon: action.ingredients.bacon,
+                    cheese: action.ingredients.cheese,
+                    meat: action.ingredients.meat
+                },
+                error: false
+            };
+        case actionTypes.FETCH_INGREDIENTS_FAILED:
+            return {
+                ...state,
+                error: true
+            };
+        default:
+            return state;
+```
+
+Xem action trong action creator
+
+BurgerBuilder.js
+
+```js
+	componentDidMount () {
+        console.log(this.props); 
+    // add
+        this.props.onInitIngredients();
+    }
+
+const mapStateToProps = state => {
+    return {
+        ings: state.ingredients,
+        price: state.totalPrice,
+        error: state.error // add
+    };
+}
+
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onIngredientAdded: (ingName) => dispatch(burgerBuilderActions.addIngredient(ingName)),
+        onIngredientRemoved: (ingName) => dispatch(burgerBuilderActions.removeIngredient(ingName)),
+        // add
+        onInitIngredients: () => dispatch(burgerBuilderActions.initIngredients())
+    }
+}
+```
+
+redux dev tool test
 
 ### 8. Changing the Order of our Ingredients Manually
 
+Vì lấy từ firebase nên salad sẽ ở dưới dùng nên set thủ công lại để thứ tự theo ý mình
+
 ### 9. Adding Order Actions
+
+actionTypes.js
+
+```js
+
+export const PURCHASE_BURGER_START = 'PURCHASE_BURGER_START';
+export const PURCHASE_BURGER_SUCCESS = 'PURCHASE_BURGER_SUCCESS';
+export const PURCHASE_BURGER_FAIL = 'PURCHASE_BURGER_FAIL';
+export const PURCHASE_INIT = 'PURCHASE_INIT';
+
+```
+
+order.js
+
+```js
+import * as actionTypes from './actionTypes';
+import axios from '../../axios-orders';
+
+export const purchaseBurgerSuccess = ( id, orderData ) => {
+    return {
+        type: actionTypes.PURCHASE_BURGER_SUCCESS,
+        orderId: id,
+        orderData: orderData
+    };
+};
+
+export const purchaseBurgerFail = ( error ) => {
+    return {
+        type: actionTypes.PURCHASE_BURGER_FAIL,
+        error: error
+    };
+}
+
+export const purchaseBurgerStart = () => {
+    return {
+        type: actionTypes.PURCHASE_BURGER_START
+    };
+};
+
+
+export const purchaseBurger = ( orderData ) => {
+    // copy từ ContactData qua
+    return dispatch => {
+        dispatch( purchaseBurgerStart() ); // # 12
+        axios.post( '/orders.json', orderData )
+            .then( response => {
+                console.log( response.data );
+                dispatch( purchaseBurgerSuccess( response.data.name, orderData ) );
+            } )
+            .catch( error => {
+                dispatch( purchaseBurgerFail( error ) );
+            } );
+    };
+};
+```
 
 
 
 ### 10. Connecting Contact Data Container & Actions
 
+ContactData.js
+
+```js
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler'
+import * as actions from '../../../store/actions/index';
+
+// Sửa hàm orderHandler thành 
+
+    orderHandler = ( event ) => {
+        event.preventDefault();
+  
+        const formData = {};
+        for (let formElementIdentifier in this.state.orderForm) {
+            formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
+        }
+        const order = {
+            ingredients: this.props.ings,
+            price: this.props.price,
+            orderData: formData
+        }
+        
+// add
+        this.props.onOrderBurger(order);
+        
+    }
+
+
+    
+const mapStateToProps = state => {
+    return {
+        ings: state.burgerBuilder.ingredients,
+        price: state.burgerBuilder.totalPrice,
+        loading: state.order.loading # 12
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onOrderBurger: (orderData) => dispatch(actions.purchaseBurger(orderData))
+    };
+};
+
+// thêm withErrorHandler
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData, axios));
+```
+
+index.js
+
+```js
+export {
+    addIngredient,
+    removeIngredient,
+    initIngredients
+} from './burgerBuilder';
+export {
+// add and rename in 12
+    purchaseBurger,
+// add end
+    purchaseInit,
+    fetchOrders
+} from './order';
+```
+
+
+
 ### 11. The Order Reducer
+
+reducer/order.js
+
+```js
+import * as actionTypes from '../actions/actionTypes';
+import { updateObject } from '../utility';
+
+const initialState = {
+    orders: [],
+    loading: false
+};
+
+
+const purchaseInit = ( state, action ) => {
+    return updateObject( state, { purchased: false } );
+};
+
+const purchaseBurgerStart = ( state, action ) => {
+    return updateObject( state, { loading: false } );
+};
+
+// add start
+const purchaseBurgerSuccess = ( state, action ) => {
+    // xem từ action creator 
+    const newOrder = updateObject( action.orderData, { id: action.orderId } );
+    return updateObject( state, {
+        loading: false,
+        // purchased: true, // thêm sau
+        orders: state.orders.concat( newOrder )
+    } );
+};
+
+const purchaseBurgerFail = ( state, action ) => {
+    return updateObject( state, { loading: false } );
+};
+// add end
+
+const reducer = ( state = initialState, action ) => {
+    switch ( action.type ) {
+        case actionTypes.PURCHASE_INIT: return purchaseInit( state, action );
+        // 12
+        case actionTypes.PURCHASE_BURGER_START: return purchaseBurgerStart( state, action );
+        case actionTypes.PURCHASE_BURGER_SUCCESS: return purchaseBurgerSuccess( state, action )
+        case actionTypes.PURCHASE_BURGER_FAIL: return purchaseBurgerFail( state, action );
+        default: return state;
+    }
+};
+
+export default reducer;
+```
+
+
 
 ### 12. Working on Order Actions
 
+order.js
+
+```js
+
+export const purchaseBurgerStart = () => {
+    return {
+        type: actionTypes.PURCHASE_BURGER_START
+    };
+};
+
+// thêm dispatch to the store
+dispatch( purchaseBurgerStart() ); // # 12
+```
+
+Sau đó xóa state loading trong ContactData, thêm loading vào mapStateToProps
+
+```js
+if ( this.props.loading ) { //
+            form = <Spinner />;
+        }
+
+
+const mapStateToProps = state => {
+    return {
+        ings: state.burgerBuilder.ingredients,
+        price: state.burgerBuilder.totalPrice,
+        loading: state.order.loading //
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onOrderBurger: (orderData) => dispatch(actions.purchaseBurger(orderData)) //
+    };
+};
+
+```
+
+
+
 ### 13. Redirect to Improve UX
+
+Checkout.js
+
+```js
+
+    render () {
+        // thêm check ingredients để tránh lỗi
+        let summary = <Redirect to="/" />
+        if ( this.props.ings ) {
+            summary = (
+                <div>
+                    <CheckoutSummary
+                        ingredients={this.props.ings}
+                        checkoutCancelled={this.checkoutCancelledHandler}
+                        checkoutContinued={this.checkoutContinuedHandler} />
+                    <Route
+                        path={this.props.match.path + '/contact-data'}
+                        component={ContactData} />
+                </div>
+            );
+        }
+        return summary;
+    }
+```
+
+
 
 ### 14. Combining Reducers
 
+index.js
+
+```js
+
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
+import thunk from 'redux-thunk';
+
+import './index.css';
+import App from './App';
+import registerServiceWorker from './registerServiceWorker';
+import burgerBuilderReducer from './store/reducers/burgerBuilder';
+import orderReducer from './store/reducers/order';
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+// add combine
+const rootReducer = combineReducers({
+    burgerBuilder: burgerBuilderReducer,
+    order: orderReducer
+});
+
+const store = createStore(rootReducer, composeEnhancers(
+    applyMiddleware(thunk)
+));
+
+```
+
+container/BurgerBuilder.js
+
+```js
+
+const mapStateToProps = state => {
+    return {
+        // thêm .burgerBuilder
+        ings: state.burgerBuilder.ingredients,
+        price: state.burgerBuilder.totalPrice,
+        error: state.burgerBuilder.error
+    };
+}
+```
+
+contactData.js
+
+```js
+
+const mapStateToProps = state => {
+    return {
+        ings: state.burgerBuilder.ingredients,
+        price: state.burgerBuilder.totalPrice,
+        loading: state.order.loading
+    }
+};
+```
+
+![image-20200314134444195](./react-maximilan.assets/image-20200314134444195.png)  
+
+name bị sai => fix
+
+![image-20200314134535986](./react-maximilan.assets/image-20200314134535986.png)  
+
+delivery method empty and no redirect => fix
+
+thêm `        value: 'fastest',` để fix trong contactData
+
+action/order.js
+
+```js
+axios.post( '/orders.json', orderData )
+            .then( response => {
+                console.log( response.data );
+                dispatch( purchaseBurgerSuccess( response.data.name, orderData ) ); // thêm .name
+            } )
+```
+
+
+
 ### 15. Handling Purchases & Updating the UI
+
+Khi load Checkout page thêm PURCHASE_INIT
+
+action/order.js
+
+```js
+
+export const purchaseInit = () => {
+    return {
+        type: actionTypes.PURCHASE_INIT
+    };
+};
+```
+
+order.js
+
+```js
+
+const initialState = {
+    orders: [],
+    loading: false,
+    purchased: false
+};
+
+const purchaseInit = ( state, action ) => {
+    return updateObject( state, { purchased: false } );
+};
+
+
+const purchaseBurgerSuccess = ( state, action ) => {
+    const newOrder = updateObject( action.orderData, { id: action.orderId } );
+    return updateObject( state, {
+        loading: false,
+        purchased: true, // add
+        orders: state.orders.concat( newOrder )
+    } );
+};
+```
+
+Checkout.js
+
+```js
+ if ( this.props.ings ) {
+     // add
+            const purchasedRedirect = this.props.purchased ? <Redirect to="/"/> : null;
+     summary = (
+                <div>
+                    {purchasedRedirect} // add
+                    <CheckoutSummary
+     ...
+     
+     
+const mapStateToProps = state => {
+    return {
+        ings: state.burgerBuilder.ingredients,
+        purchased: state.order.purchased
+    }
+};
+
+// thêm matchDispatch to props
+     // xem lại
+```
+
+Checkout.js thêm componentWillMounnt để call
+
+![image-20200314143104776](./react-maximilan.assets/image-20200314143104776.png)  
+
+Khi ấn order lần 2 bị redirect ?? => fix
+
+vì componentWillMounnt  check too late, nó k chặn old props render => xóa
+
+BurgerBuilder.js
+
+```js
+
+    purchaseContinueHandler = () => {
+        this.props.onInitPurchase(); // add
+        this.props.history.push('/checkout');
+    }
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onIngredientAdded: (ingName) => dispatch(actions.addIngredient(ingName)),
+        onIngredientRemoved: (ingName) => dispatch(actions.removeIngredient(ingName)),
+        onInitIngredients: () => dispatch(actions.initIngredients()),
+        onInitPurchase: () => dispatch(actions.purchaseInit()) // add
+    }
+}
+```
+
+
 
 ### 16. Resetting the Price after Purchases
 
+reducer.js
+
+```js
+
+const setIngredients = (state, action) => {
+    return updateObject( state, {
+        ingredients: {
+            salad: action.ingredients.salad,
+            bacon: action.ingredients.bacon,
+            cheese: action.ingredients.cheese,
+            meat: action.ingredients.meat
+        },
+        totalPrice: 4, // reset price
+        error: false
+    } );
+};
+```
+
+clear orders in firebase
+
 ### 17. Fetching Orders (via Redux)
 
+Orders.js xóa axios get data
+
+order.js
+
+```js
+
+export const fetchOrdersSuccess = ( orders ) => {
+    return {
+        type: actionTypes.FETCH_ORDERS_SUCCESS,
+        orders: orders
+    };
+};
+
+export const fetchOrdersFail = ( error ) => {
+    return {
+        type: actionTypes.FETCH_ORDERS_FAIL,
+        error: error
+    };
+};
+
+export const fetchOrdersStart = () => {
+    return {
+        type: actionTypes.FETCH_ORDERS_START
+    };
+};
+
+
+export const fetchOrders = () => {
+    return dispatch => {
+        dispatch(fetchOrdersStart());
+        axios.get( '/orders.json' )
+            .then( res => {
+                const fetchedOrders = [];
+                for ( let key in res.data ) {
+                    fetchedOrders.push( {
+                        ...res.data[key],
+                        id: key
+                    } );
+                }
+                dispatch(fetchOrdersSuccess(fetchedOrders));
+            } )
+            .catch( err => {
+                dispatch(fetchOrdersFail(err));
+            } );
+    };
+};
+```
+
+order.js in reducer
+
+```js
+
+const fetchOrdersStart = ( state, action ) => {
+    return updateObject( state, { loading: true } );
+};
+
+const fetchOrdersSuccess = ( state, action ) => {
+    return updateObject( state, {
+        orders: action.orders,
+        loading: false
+    } );
+};
+
+const fetchOrdersFail = ( state, action ) => {
+    return updateObject( state, { loading: false } );
+};
+
+```
+
+index.js
+
+```js
+export {
+    addIngredient,
+    removeIngredient,
+    initIngredients
+} from './burgerBuilder';
+export {
+    purchaseBurger,
+    purchaseInit,
+    fetchOrders
+} from './order';
+```
+
+Orders.js
+
+```js
+componentDidMount () {
+        this.props.onFetchOrders();
+    }
+// xóa state đi
+
+render () {
+    // fix thêm check
+        let orders = <Spinner />;
+        if ( !this.props.loading ) {
+            orders = this.props.orders.map( order => (
+                <Order
+                    key={order.id}
+                    ingredients={order.ingredients}
+                    price={order.price} />
+            ) )
+        }
+        return (
+            <div>
+                {orders}
+            </div>
+        );
+    }
+    
+    
+const mapStateToProps = state => {
+    return {
+        orders: state.order.orders,
+        loading: state.order.loading
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onFetchOrders: () => dispatch( actions.fetchOrders() )
+    };
+};
+
+export default connect( mapStateToProps, mapDispatchToProps )( withErrorHandler( Orders, axios ) );
+```
+
+
+
 ### 18. Checking our Implemented Functionalities
+
+order.js
+
+```js
+// loading true mới đúng
+const purchaseBurgerStart = ( state, action ) => {
+    return updateObject( state, { loading: true } );
+}; 
+```
+
+
 
 ### 19. Refactoring Reducers
 
@@ -12087,6 +12860,30 @@ Thêm fetchIngredientsFailed
 ## 18. Adding Authentication to our Burger Project
 
 ### 1. Module Introduction
+
+
+
+### 2. Understanding Authentication in Single Page Applications
+
+![image-20200314163634561](./react-maximilan.assets/image-20200314163634561.png)  
+
+![image-20200314163756208](./react-maximilan.assets/image-20200314163756208.png)
+
+### 3. Required App Adjustments
+
+### 4. Adding an Auth Form
+
+add container Auth folder
+
+### 5. Adding Actions
+
+### 6. Getting a Token from the Backend
+
+### 7. Adding Sign-In
+
+### 8. Storing the Token
+
+### 9. Adding a Spinner
 
 ### 10. Logging Users Out
 
@@ -12108,27 +12905,11 @@ Thêm fetchIngredientsFailed
 
 ### 19. Guarding Routes
 
-### 2. Understanding Authentication in Single Page Applications
-
 ### 20. Displaying User Specific Orders
 
 ### 21. Wrap Up
 
 ### 22. Useful Resources & Links.html
-
-### 3. Required App Adjustments
-
-### 4. Adding an Auth Form
-
-### 5. Adding Actions
-
-### 6. Getting a Token from the Backend
-
-### 7. Adding Sign-In
-
-### 8. Storing the Token
-
-### 9. Adding a Spinner
 
 ## 19. Improving our Burger Project
 
