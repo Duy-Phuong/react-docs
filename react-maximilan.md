@@ -12875,11 +12875,345 @@ const purchaseBurgerStart = ( state, action ) => {
 
 add container Auth folder
 
+Auth.js
+
+```js
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import Input from '../../components/UI/Input/Input';
+import Button from '../../components/UI/Button/Button';
+import classes from './Auth.css';
+import * as actions from '../../store/actions/index';
+
+class Auth extends Component {
+    state = {
+        controls: {
+            email: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'email',
+                    placeholder: 'Mail Address'
+                },
+                value: '',
+                validation: {
+                    required: true,
+                    isEmail: true
+                },
+                valid: false,
+                touched: false
+            },
+            password: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'password',
+                    placeholder: 'Password'
+                },
+                value: '',
+                validation: {
+                    required: true,
+                    minLength: 6
+                },
+                valid: false,
+                touched: false
+            }
+        }
+    }
+
+    checkValidity(value, rules) {
+        let isValid = true;
+        if (!rules) {
+            return true;
+        }
+        
+        if (rules.required) {
+            isValid = value.trim() !== '' && isValid;
+        }
+
+        if (rules.minLength) {
+            isValid = value.length >= rules.minLength && isValid
+        }
+
+        if (rules.maxLength) {
+            isValid = value.length <= rules.maxLength && isValid
+        }
+
+        if (rules.isEmail) {
+            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+            isValid = pattern.test(value) && isValid
+        }
+
+        if (rules.isNumeric) {
+            const pattern = /^\d+$/;
+            isValid = pattern.test(value) && isValid
+        }
+
+        return isValid;
+    }
+
+    inputChangedHandler = (event, controlName) => {
+        const updatedControls = {
+            ...this.state.controls,
+            [controlName]: {
+                ...this.state.controls[controlName],
+                value: event.target.value,
+                valid: this.checkValidity(event.target.value, this.state.controls[controlName].validation),
+                touched: true
+            }
+        };
+        this.setState({controls: updatedControls});
+    }
+
+    // # 5
+    submitHandler = (event) => {
+        event.preventDefault();
+        this.props.onAuth(this.state.controls.email.value, this.state.controls.password.value);
+    }
+
+    render () {
+        const formElementsArray = [];
+        for ( let key in this.state.controls ) {
+            formElementsArray.push( {
+                id: key,
+                config: this.state.controls[key]
+            } );
+        }
+
+        const form = formElementsArray.map( formElement => (
+            <Input
+                key={formElement.id}
+                elementType={formElement.config.elementType}
+                elementConfig={formElement.config.elementConfig}
+                value={formElement.config.value}
+                invalid={!formElement.config.valid}
+                shouldValidate={formElement.config.validation}
+                touched={formElement.config.touched}
+                changed={( event ) => this.inputChangedHandler( event, formElement.id )} />
+        ) );
+
+        return (
+            <div className={classes.Auth}>
+                <form onSubmit={this.submitHandler}>
+                    {form}
+                    <Button btnType="Success">SUBMIT</Button>
+                </form>
+            </div>
+        );
+    }
+}
+
+// #  5
+const mapDispatchToProps = dispatch => {
+    return {
+        onAuth: (email, password) => dispatch(actions.auth(email, password))
+    };
+};
+
+export default connect(null, mapDispatchToProps)(Auth);
+```
+
+App.js
+
+```js
+ <Layout>
+          <Switch>
+            <Route path="/checkout" component={Checkout} />
+            <Route path="/orders" component={Orders} />
+            <Route path="/auth" component={Auth} /> // add
+            <Route path="/" exact component={BurgerBuilder} />
+          </Switch>
+        </Layout>
+```
+
+NavigationItems.js
+
+```js
+
+const navigationItems = () => (
+    <ul className={classes.NavigationItems}>
+        <NavigationItem link="/" exact>Burger Builder</NavigationItem>
+        <NavigationItem link="/orders">Orders</NavigationItem>
+
+// add
+        <NavigationItem link="/auth">Authenticate</NavigationItem>
+    </ul>
+);
+```
+
+![image-20200314170654542](./react-maximilan.assets/image-20200314170654542.png)
+
 ### 5. Adding Actions
+
+actionTypes.js
+
+```js
+
+export const AUTH_START = 'AUTH_START';
+export const AUTH_SUCCESS = 'AUTH_SUCCESS';
+export const AUTH_FAIL = 'AUTH_FAIL';
+```
+
+auth.js
+
+```js
+import * as actionTypes from './actionTypes';
+
+export const authStart = () => {
+    return {
+        type: actionTypes.AUTH_START
+    };
+};
+
+export const authSuccess = (authData) => {
+    return {
+        type: actionTypes.AUTH_SUCCESS,
+        authData: authData
+    };
+};
+
+export const authFail = (error) => {
+    return {
+        type: actionTypes.AUTH_FAIL,
+        error: error
+    };
+};
+
+export const auth = (email, password) => {
+    return dispatch => {
+        dispatch(authStart());
+    };
+};
+```
+
+index.js
+
+```js
+
+export {
+    auth
+} from './auth';
+```
+
+
 
 ### 6. Getting a Token from the Backend
 
+![image-20200314173525906](./react-maximilan.assets/image-20200314173525906.png)  
+
+![image-20200314173610158](./react-maximilan.assets/image-20200314173610158.png)  
+
+Enable email and password
+
+https://firebase.google.com/docs/reference/rest/auth
+
+**Method:** POST
+
+**Content-Type:** application/json
+
+**Endpoint**
+
+```
+https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=[API_KEY]
+```
+
+store/auth.js
+
+```js
+import axios from 'axios';
+
+import * as actionTypes from './actionTypes';
+
+export const authStart = () => {
+    return {
+        type: actionTypes.AUTH_START
+    };
+};
+
+export const authSuccess = (token, userId) => {
+    return {
+        type: actionTypes.AUTH_SUCCESS,
+        idToken: token,
+        userId: userId
+    };
+};
+
+export const authFail = (error) => {
+    return {
+        type: actionTypes.AUTH_FAIL,
+        error: error
+    };
+};
+
+export const auth = (email, password, isSignup) => {
+    return dispatch => {
+        dispatch(authStart());
+        const authData = {
+            email: email,
+            password: password,
+            returnSecureToken: true
+        };
+        let url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyB5cHT6x62tTe-g27vBDIqWcwQWBSj3uiY';
+        
+        // # 7
+        if (!isSignup) {
+            url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyB5cHT6x62tTe-g27vBDIqWcwQWBSj3uiY';
+        }
+        
+        axios.post(url, authData)
+            .then(response => {
+                console.log(response);
+                dispatch(authSuccess(response.data.idToken, response.data.localId));
+            })
+            .catch(err => {
+                console.log(err);
+                dispatch(authFail(err));
+            });
+    };
+};
+```
+
+Copy web api key
+
+![image-20200314174433644](./react-maximilan.assets/image-20200314174433644.png)  
+
+Whether or not to return an ID and refresh token. Should always be true
+
+![image-20200314174735421](./react-maximilan.assets/image-20200314174735421.png)
+
+
+
 ### 7. Adding Sign-In
+
+Auth.js
+
+```js
+
+
+    submitHandler = ( event ) => {
+        event.preventDefault();
+        // thêm isSignup
+        this.props.onAuth( this.state.controls.email.value, this.state.controls.password.value, this.state.isSignup );
+    }
+    
+    switchAuthModeHandler = () => {
+        this.setState(prevState => {
+            return {isSignup: !prevState.isSignup};
+        });
+    }
+
+<Button 
+                    clicked={this.switchAuthModeHandler}
+                    btnType="Danger">SWITCH TO {this.state.isSignup ? 'SIGNIN' : 'SIGNUP'}</Button>
+
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onAuth: ( email, password, isSignup ) => dispatch( actions.auth( email, password, isSignup ) )
+    };
+};
+```
+
+
 
 ### 8. Storing the Token
 
