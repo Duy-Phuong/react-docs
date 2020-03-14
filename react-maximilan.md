@@ -13217,13 +13217,311 @@ const mapDispatchToProps = dispatch => {
 
 ### 8. Storing the Token
 
+create file reducer/auth.js
+
+```js
+
+import * as actionTypes from '../actions/actionTypes';
+import { updateObject } from '../utility';
+
+const initialState = {
+    token: null,
+    userId: null,
+    error: null,
+    loading: false
+};
+
+const authStart = ( state, action ) => {
+    return updateObject( state, { error: null, loading: true } );
+};
+
+const authSuccess = (state, action) => {
+    return updateObject( state, { 
+        token: action.idToken,
+        userId: action.userId,
+        error: null,
+        loading: false
+     } );
+};
+
+const authFail = (state, action) => {
+    return updateObject( state, {
+        error: action.error,
+        loading: false
+    });
+}
+
+const reducer = ( state = initialState, action ) => {
+    switch ( action.type ) {
+        case actionTypes.AUTH_START: return authStart(state, action);
+        case actionTypes.AUTH_SUCCESS: return authSuccess(state, action);
+        case actionTypes.AUTH_FAIL: return authFail(state, action);
+        default:
+            return state;
+    }
+};
+
+export default reducer;
+```
+
+index.js
+
+```js
+
+const rootReducer = combineReducers({
+    burgerBuilder: burgerBuilderReducer,
+    order: orderReducer,
+    auth: authReducer
+});
+
+const store = createStore(rootReducer, composeEnhancers(
+    applyMiddleware(thunk)
+));
+
+```
+
+action/auth.js
+
+```js
+
+import * as actionTypes from './actionTypes';
+
+export const authStart = () => {
+    return {
+        type: actionTypes.AUTH_START
+    };
+};
+
+export const authSuccess = (token, userId) => {
+    return {
+        type: actionTypes.AUTH_SUCCESS,
+        idToken: token,
+        userId: userId
+    };
+};
+
+export const authFail = (error) => {
+    return {
+        type: actionTypes.AUTH_FAIL,
+        error: error
+    };
+};
+
+...
+axios.post(url, authData)
+            .then(response => {
+                console.log(response);
+    // add
+                dispatch(authSuccess(response.data.idToken, response.data.localId));
+            })
+            .catch(err => {
+                console.log(err);
+                dispatch(authFail(err));
+            });
+```
+
+![image-20200314213929228](./react-maximilan.assets/image-20200314213929228.png)  
+
+
+
 ### 9. Adding a Spinner
+
+container/ Auth/ Auth.js
+
+```js
+// add spinner
+if (this.props.loading) {
+            form = <Spinner />
+        }
+
+        let errorMessage = null;
+
+        if (this.props.error) {
+            errorMessage = (
+                // .message vì error từ firebase
+                <p>{this.props.error.message}</p>
+            );
+        }
+
+
+// add
+const mapStateToProps = state => {
+    return {
+        loading: state.auth.loading,
+        error: state.auth.error
+    };
+};
+```
+
+state. auth thì xem ở index
+
+Khi nhập pass là 2 kí tự ấn đăng kí sẽ hiển thị để test
+
+action/auth.js
+
+```js
+axios.post(url, authData)
+            .then(response => {
+                console.log(response);
+                dispatch(authSuccess(response.data.idToken, response.data.localId));
+               // # 10
+    dispatch(checkAuthTimeout(response.data.expiresIn));
+            })
+            .catch(err => {
+    // add err.response.data.error
+                dispatch(authFail(err.response.data.error));
+            });
+```
+
+Vd: invalid email or email exist, xem thêm err in docs firebase
 
 ### 10. Logging Users Out
 
+action/auth.js
+
+```js
+
+export const logout = () => {
+    return {
+        type: actionTypes.AUTH_LOGOUT
+    };
+};
+
+export const checkAuthTimeout = (expirationTime) => {
+    return dispatch => {
+        setTimeout(() => {
+            dispatch(logout());
+        }, expirationTime * 1000); // ms 3.6s
+    };
+};
+```
+
+reducer/auth
+
+```js
+
+const authLogout = (state, action) => {
+    return updateObject(state, { token: null, userId: null });
+};
+```
+
+
+
 ### 11. Accessing Protected Resources
 
+![image-20200314220704425](./react-maximilan.assets/image-20200314220704425.png)  
+
+Nếu set như trên sẽ apply all database
+
+Nhưng thực tế thì ingredients thì cần cho everyone access và order dành cho ai log in mới có thể sử dụng
+
+![image-20200314221043778](./react-maximilan.assets/image-20200314221043778.png)
+
+![image-20200314221152358](./react-maximilan.assets/image-20200314221152358.png)  
+
+Sửa như bên trên thêm dấu ,
+
+action/order.js
+
+```js
+
+export const purchaseBurger = ( orderData, token ) => {
+    return dispatch => {
+        dispatch( purchaseBurgerStart() );
+        // add token
+        axios.post( '/orders.json?auth=' + token, orderData )
+            .then( response => {
+                console.log( response.data );
+                dispatch( purchaseBurgerSuccess( response.data.name, orderData ) );
+            } )
+            .catch( error => {
+                dispatch( purchaseBurgerFail( error ) );
+            } );
+    };
+};
+
+// add token
+export const fetchOrders = (token) => {
+    return dispatch => {
+        dispatch(fetchOrdersStart());
+        axios.get( '/orders.json?auth=' + token)
+            .then( res => {
+                const fetchedOrders = [];
+                for ( let key in res.data ) {
+                    fetchedOrders.push( {
+                        ...res.data[key],
+                        id: key
+                    } );
+                }
+                dispatch(fetchOrdersSuccess(fetchedOrders));
+            } )
+            .catch( err => {
+                dispatch(fetchOrdersFail(err));
+            } );
+    };
+};
+```
+
+Trong container file Order.js
+
+```js
+
+class Orders extends Component {
+    // add
+    componentDidMount () {
+        this.props.onFetchOrders(this.props.token);
+    }
+    
+   
+const mapStateToProps = state => {
+    return {
+        orders: state.order.orders,
+        loading: state.order.loading,
+        token: state.auth.token
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onFetchOrders: (token) => dispatch( actions.fetchOrders(token) )
+    };
+};
+
+export default connect( mapStateToProps, mapDispatchToProps )( withErrorHandler( Orders, axios ) );
+```
+
+Sau đó vào link Order để test, nếu tab network return 200 is ok
+
+ContactData.js
+
+```js
+this.props.onOrderBurger(order, this.props.token);
+...
+
+const mapStateToProps = state => {
+    return {
+        ings: state.burgerBuilder.ingredients,
+        price: state.burgerBuilder.totalPrice,
+        loading: state.order.loading,
+         // add token
+        token: state.auth.token
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        // add token
+        onOrderBurger: (orderData, token) => dispatch(actions.purchaseBurger(orderData, token))
+    };
+};
+
+```
+
+Khi reload sẽ mất token
+
 ### 12. Updating the UI Depending on Auth State
+
+
 
 ### 13. Adding a Logout Link
 
