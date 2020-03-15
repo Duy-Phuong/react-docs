@@ -13959,25 +13959,163 @@ const mapDispatchToProps = dispatch => {
 export default withRouter( connect( mapStateToProps, mapDispatchToProps )( App ) );
 ```
 
-
+withRouter will enforce your props pass down component
 
 ### 17. Fixing Connect + Routing Errors
 
+Khi log in reload page 
+
+![image-20200315074911458](./react-maximilan.assets/image-20200315074911458.png)  
+
+if (expirationDate <= new Date()) 
+
+![image-20200315075149626](./react-maximilan.assets/image-20200315075149626.png)  
+
 ### 18. Ensuring App Security
+
+![image-20200315080511543](./react-maximilan.assets/image-20200315080511543.png)  
+
+![image-20200315080610923](./react-maximilan.assets/image-20200315080610923.png)  
+
+
+
+https://firebase.google.com/docs/reference/rest/auth
+
+Exchange custom token for an ID and refresh token
+
+You can exchange a custom Auth token for an ID and refresh token by issuing an HTTP `POST` request to the Auth `verifyCustomToken` endpoint.
+
+**Method:** POST
+
+**Content-Type:** application/json
+
+**Endpoint**
+
+```js
+https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=[API_KEY]
+```
+
+có thể get refresh token => not use
 
 ### 19. Guarding Routes
 
+App.js
+
+```js
+render () {
+    let routes = (
+      <Switch>
+        <Route path="/auth" component={Auth} />
+        <Route path="/" exact component={BurgerBuilder} />
+        <Redirect to="/" />
+      </Switch>
+    );
+
+    if ( this.props.isAuthenticated ) {
+      routes = (
+        <Switch>
+          <Route path="/checkout" component={Checkout} />
+          <Route path="/orders" component={Orders} />
+          <Route path="/logout" component={Logout} />
+          <Route path="/" exact component={BurgerBuilder} />
+          <Redirect to="/" />
+        </Switch>
+      );
+    }
+```
+
+
+
 ### 20. Displaying User Specific Orders
+
+ContactData.js
+
+```js
+
+        const order = {
+            ingredients: this.props.ings,
+            price: this.props.price,
+            orderData: formData,
+            userId: this.props.userId // add
+        }
+
+        this.props.onOrderBurger(order, this.props.token);
+
+const mapStateToProps = state => {
+    return {
+        ings: state.burgerBuilder.ingredients,
+        price: state.burgerBuilder.totalPrice,
+        loading: state.order.loading,
+        token: state.auth.token,
+        userId: state.auth.userId // add
+    }
+};
+```
+
+we visit orders, you will get order of that user
+
+order.js
+
+```js
+
+export const fetchOrders = (token, userId) => {
+    return dispatch => {
+        dispatch(fetchOrdersStart());
+        // add
+        const queryParams = '?auth=' + token + '&orderBy="userId"&equalTo="' + userId + '"';
+        axios.get( '/orders.json' + queryParams)
+            .then( res => {
+                const fetchedOrders = [];
+                for ( let key in res.data ) {
+                    fetchedOrders.push( {
+                        ...res.data[key],
+                        id: key
+                    } );
+                }
+                dispatch(fetchOrdersSuccess(fetchedOrders));
+            } )
+            .catch( err => {
+                dispatch(fetchOrdersFail(err));
+            } );
+    };
+};
+```
+
+Orders.js
+
+```js
+componentDidMount () {
+        this.props.onFetchOrders(this.props.token, this.props.userId);
+    }
+
+
+```
+
+![image-20200315084515002](./react-maximilan.assets/image-20200315084515002.png)
 
 ### 21. Wrap Up
 
 ### 22. Useful Resources & Links.html
+
+- SPA Authentication in general: https://stormpath.com/blog/token-auth-spa
+- Firebase authentication REST API: https://firebase.google.com/docs/reference/rest/auth/ 
 
 ## 19. Improving our Burger Project
 
 ### 1. Module Introduction
 
 ### 2. Fixing the Redirect to the Frontpage
+
+reducer/ order.js
+
+```js
+
+const fetchOrdersStart = ( state, action ) => {
+    return updateObject( state, { loading: true } );
+};
+```
+
+
 
 ### 3. Using updateObject in the Entire App
 
