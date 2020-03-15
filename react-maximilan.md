@@ -13521,15 +13521,445 @@ Khi reload sẽ mất token
 
 ### 12. Updating the UI Depending on Auth State
 
+hoc/Layout.js
+
+```js
+<Toolbar
+// add props
+                    isAuth={this.props.isAuthenticated}
+                    drawerToggleClicked={this.sideDrawerToggleHandler} />
+                        
+                        
+// add
+const mapStateToProps = state => {
+    return {
+        isAuthenticated: state.auth.token !== null
+    };
+};
+
+export default connect( mapStateToProps )( Layout );
+```
+
+ToolBar.js
+
+```js
+<nav className={classes.DesktopOnly}>
+            <NavigationItems isAuthenticated={props.isAuth} />
+        </nav>
+```
+
+NavigationItems.js
+
+```js
+
+const navigationItems = ( props ) => (
+    <ul className={classes.NavigationItems}>
+        <NavigationItem link="/" exact>Burger Builder</NavigationItem>
+       // # 14
+       {props.isAuthenticated ? <NavigationItem link="/orders">Orders</NavigationItem> : null}
+        
+        /// add
+        {!props.isAuthenticated
+            ? <NavigationItem link="/auth">Authenticate</NavigationItem>
+            : <NavigationItem link="/logout">Logout</NavigationItem>}
+    </ul>
+);
+
+export default navigationItems;
+```
+
 
 
 ### 13. Adding a Logout Link
 
+container/Logout/Logout.js create
+
+```js
+import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import * as actions from '../../../store/actions/index';
+
+class Logout extends Component {
+    componentDidMount () {
+        this.props.onLogout();
+    }
+
+    render () {
+        return <Redirect to="/"/>;
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onLogout: () => dispatch(actions.logout())
+    };
+};
+
+export default connect(null, mapDispatchToProps)(Logout);
+```
+
+action/auth.js
+
+```js
+
+export const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('expirationDate');
+    localStorage.removeItem('userId');
+    return {
+        type: actionTypes.AUTH_LOGOUT
+    };
+};
+
+```
+
+export logout in index.js
+
+App.js
+
+```js
+routes = (
+        <Switch>
+          <Route path="/checkout" component={Checkout} />
+          <Route path="/orders" component={Orders} />
+              // add
+          <Route path="/logout" component={Logout} />
+          <Route path="/" exact component={BurgerBuilder} />
+          <Redirect to="/" />
+        </Switch>
+      );
+```
+
+
+
 ### 14. Forwarding Unauthenticated Users
+NavigationItems.js
+
+```js
+
+const navigationItems = ( props ) => (
+    <ul className={classes.NavigationItems}>
+        <NavigationItem link="/" exact>Burger Builder</NavigationItem>
+        // add start
+        {props.isAuthenticated ? <NavigationItem link="/orders">Orders</NavigationItem> : null}
+        // add end
+        
+        {!props.isAuthenticated
+            ? <NavigationItem link="/auth">Authenticate</NavigationItem>
+            : <NavigationItem link="/logout">Logout</NavigationItem>}
+    </ul>
+);
+
+export default navigationItems;
+```
+
+container/Auth/Auth.js xem lại video chỗ check Redirect có khác
+```js
+// add
+        let authRedirect = null;
+        if (this.props.isAuthenticated) {
+            authRedirect = <Redirect to={this.props.authRedirectPath}/>
+        }
+// add end
+        return (
+         <div className={classes.Auth}>
+                {authRedirect}
+        ....
+        
+const mapStateToProps = state => {
+    return {
+        loading: state.auth.loading,
+        error: state.auth.error,
+        // add
+        isAuthenticated: state.auth.token !== null
+    };
+};
+
+
+```
+Ấn vào thì sau khi login sẽ vào trang chủ
+
+burgerBuilder.js
+```js
+
+    purchaseHandler = () => {
+    // add
+        if (this.props.isAuthenticated) {
+            this.setState( { purchasing: true } );
+        } else {
+            this.props.onSetAuthRedirectPath('/checkout');
+            this.props.history.push('/auth');
+        }
+    }
+    
+purchaseContinueHandler = () => {
+        this.props.onInitPurchase();
+        this.props.history.push('/checkout'); // add
+    }
+    
+ <BuildControls
+                        ingredientAdded={this.props.onIngredientAdded}
+                        ingredientRemoved={this.props.onIngredientRemoved}
+                        disabled={disabledInfo}
+                        purchasable={this.updatePurchaseState(this.props.ings)}
+                        ordered={this.purchaseHandler}
+                        // add
+                        isAuth={this.props.isAuthenticated}
+                        price={this.props.price} />
+                        
+                        
+const mapStateToProps = state => {
+    return {
+        ings: state.burgerBuilder.ingredients,
+        price: state.burgerBuilder.totalPrice,
+        error: state.burgerBuilder.error,
+        // add
+        isAuthenticated: state.auth.token !== null
+    };
+}
+```
+buildControls.js
+```js
+        <button
+            className={classes.OrderButton}
+            disabled={!props.purchasable}
+            // add
+            onClick={props.ordered}>{props.isAuth ? 'ORDER NOW' : 'SIGN UP TO ORDER'}</button>
+    </div>
+);
+
+export default buildControls;
+```
 
 ### 15. Redirecting the User to the Checkout Page
 
+reducer/ BurgerBuilder.js add building
+
+```js
+
+const initialState = {
+    ingredients: null,
+    totalPrice: 4,
+    error: false,
+    building: false // add
+};
+
+
+const addIngredient = ( state, action ) => {
+    const updatedIngredient = { [action.ingredientName]: state.ingredients[action.ingredientName] + 1 }
+    const updatedIngredients = updateObject( state.ingredients, updatedIngredient );
+    const updatedState = {
+        ingredients: updatedIngredients,
+        totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName],
+        building: true // add
+    }
+    return updateObject( state, updatedState );
+};
+
+const removeIngredient = (state, action) => {
+    const updatedIng = { [action.ingredientName]: state.ingredients[action.ingredientName] - 1 }
+    const updatedIngs = updateObject( state.ingredients, updatedIng );
+    const updatedSt = {
+        ingredients: updatedIngs,
+        totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName],
+        building: true // add
+    }
+    return updateObject( state, updatedSt );
+};
+
+const setIngredients = (state, action) => {
+    return updateObject( state, {
+        ingredients: {
+            salad: action.ingredients.salad,
+            bacon: action.ingredients.bacon,
+            cheese: action.ingredients.cheese,
+            meat: action.ingredients.meat
+        },
+        totalPrice: 4,
+        error: false,
+        building: false // add
+    } );
+};
+```
+
+Auth.js
+
+```js
+
+        let authRedirect = null;
+        if (this.props.isAuthenticated) {
+            // redirect
+            authRedirect = <Redirect to={this.props.authRedirectPath}/>
+        }
+```
+
+reducer/ auth.js
+
+```js
+
+const initialState = {
+    token: null,
+    userId: null,
+    error: null,
+    loading: false,
+    // add
+    authRedirectPath: '/'
+};
+
+
+const setAuthRedirectPath = (state, action) => {
+    return updateObject(state, { authRedirectPath: action.path })
+}
+
+```
+
+action/ auth.js
+
+```js
+
+export const setAuthRedirectPath = (path) => {
+    return {
+        type: actionTypes.SET_AUTH_REDIRECT_PATH,
+        path: path
+    };
+};
+```
+
+Vào index.js export
+
+Auth.js
+
+```js
+ componentDidMount() {
+        if (!this.props.buildingBurger && this.props.authRedirectPath !== '/') {
+            this.props.onSetAuthRedirectPath();
+        }
+    }
+
+const mapStateToProps = state => {
+    return {
+        loading: state.auth.loading,
+        error: state.auth.error,
+        isAuthenticated: state.auth.token !== null,
+        buildingBurger: state.burgerBuilder.building,
+        authRedirectPath: state.auth.authRedirectPath
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onAuth: ( email, password, isSignup ) => dispatch( actions.auth( email, password, isSignup ) ),
+        onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
+    };
+};
+```
+
+BurgerBuilder.js
+
+```js
+purchaseHandler = () => {
+        if (this.props.isAuthenticated) {
+            this.setState( { purchasing: true } );
+        } else {
+            // add
+            this.props.onSetAuthRedirectPath('/checkout');
+            this.props.history.push('/auth');
+        }
+    }
+
+const mapDispatchToProps = dispatch => {
+    return {
+        ....
+        // add
+        onSetAuthRedirectPath: (path) => dispatch(actions.setAuthRedirectPath(path))
+    }
+}
+```
+
+
+
 ### 16. Persistent Auth State with localStorage
+
+Khi login xong reload page => mất auth
+
+action/auth.js
+
+```js
+axios.post(url, authData)
+            .then(response => {
+                console.log(response);
+                const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
+    // add
+                localStorage.setItem('token', response.data.idToken);
+                localStorage.setItem('expirationDate', expirationDate);
+                localStorage.setItem('userId', response.data.localId);
+                dispatch(authSuccess(response.data.idToken, response.data.localId));
+                dispatch(checkAuthTimeout(response.data.expiresIn));
+            })
+
+
+export const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('expirationDate');
+    localStorage.removeItem('userId');
+    return {
+        type: actionTypes.AUTH_LOGOUT
+    };
+};
+
+// add
+export const authCheckState = () => {
+    return dispatch => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            dispatch(logout());
+        } else {
+            const expirationDate = new Date(localStorage.getItem('expirationDate'));
+            if (expirationDate <= new Date()) {
+                dispatch(logout());
+            } else {
+                const userId = localStorage.getItem('userId');
+                dispatch(authSuccess(token, userId));
+                dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000 ));
+            }   
+        }
+    };
+};
+```
+
+![image-20200315073201533](./react-maximilan.assets/image-20200315073201533.png)  
+
+Document firebase có get user info khi truyền vào user id
+
+App.js
+
+```js
+
+class App extends Component {
+  componentDidMount () {
+    this.props.onTryAutoSignup();
+  }
+    
+...
+
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.token !== null
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onTryAutoSignup: () => dispatch( actions.authCheckState() )
+  };
+};
+
+export default withRouter( connect( mapStateToProps, mapDispatchToProps )( App ) );
+```
+
+
 
 ### 17. Fixing Connect + Routing Errors
 
