@@ -14115,17 +14115,205 @@ const fetchOrdersStart = ( state, action ) => {
 };
 ```
 
+CheckoutSummary.css
+
+```js
+.CheckoutSummary {
+    text-align: center;
+    width: 80%;
+    margin: auto;
+}
+```
+
+Để auto center for Burger
+
+Should close SideBar when click in link
+
+SideDrawer.js
+
+```js
+ <Backdrop show={props.open} clicked={props.closed}/>
+// add click event
+     <div className={attachedClasses.join(' ')} onClick={props.closed}>
+```
+
 
 
 ### 3. Using updateObject in the Entire App
 
+create folder share/utility.js
+
+ContactData.js sửa thành UpdateObject
+
+```js
+inputChangedHandler = (event, inputIdentifier) => {
+        /*
+        const updatedOrderForm = {
+            ...this.state.orderForm
+        };
+        const updatedFormElement = { 
+            ...updatedOrderForm[inputIdentifier]
+        };
+        updatedFormElement.value = event.target.value;
+        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
+        updatedFormElement.touched = true;
+        updatedOrderForm[inputIdentifier] = updatedFormElement;
+        */
+        const updatedFormElement = updateObject(this.state.orderForm[inputIdentifier], {
+            value: event.target.value,
+            valid: checkValidity(event.target.value, this.state.orderForm[inputIdentifier].validation),
+            touched: true
+        });
+        const updatedOrderForm = updateObject(this.state.orderForm, {
+            [inputIdentifier]: updatedFormElement
+        });
+        
+        let formIsValid = true;
+        for (let inputIdentifier in updatedOrderForm) {
+            formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
+        }
+        this.setState({orderForm: updatedOrderForm, formIsValid: formIsValid});
+    }
+
+```
+
+http://es6-features.org/#Constants
+
+Auth.js
+
+```js
+/* inputChangedHandler = ( event, controlName ) => {
+        const updatedControls = {
+            ...this.state.controls,
+            [controlName]: {
+                ...this.state.controls[controlName],
+                value: event.target.value,
+                valid: this.checkValidity( event.target.value, this.state.controls[controlName].validation ),
+                touched: true
+            }
+        };
+        this.setState( { controls: updatedControls } );
+    }
+    
+    */
+
+
+    inputChangedHandler = ( event, controlName ) => {
+        const updatedControls = updateObject( this.state.controls, {
+            [controlName]: updateObject( this.state.controls[controlName], {
+                value: event.target.value,
+                valid: checkValidity( event.target.value, this.state.controls[controlName].validation ),
+                touched: true
+            } )
+        } );
+        this.setState( { controls: updatedControls } );
+    }
+```
+
+
+
 ### 4. Sharing the Validation Method
 
+utility.js
+
+```js
+
+export const checkValidity 
+// copy hàm qua từ ContactData and Auth
+```
+
+
+
 ### 5. Using Environment Variables
+
+index.js
+
+```js
+const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
+
+```
+
+
 
 ### 6. Removing console.log()s
 
 ### 7. Adding Lazy Loading
+
+hoc/asyncComponent/asyncComponent.js
+
+```js
+import React, { Component } from 'react';
+
+const asyncComponent = (importComponent) => {
+    return class extends Component {
+        state = {
+            component: null
+        }
+
+        componentDidMount () {
+            importComponent()
+                .then(cmp => {
+                    this.setState({component: cmp.default});
+                });
+        }
+        
+        render () {
+            const C = this.state.component;
+
+            return C ? <C {...this.props} /> : null;
+        }
+    }
+}
+
+export default asyncComponent;
+```
+
+Give us a promise return a component
+
+App.js
+
+```js
+// add
+const asyncCheckout = asyncComponent(() => {
+  return import('./containers/Checkout/Checkout');
+});
+
+const asyncOrders = asyncComponent(() => {
+  return import('./containers/Orders/Orders');
+});
+
+const asyncAuth = asyncComponent(() => {
+  return import('./containers/Auth/Auth');
+});
+
+
+  render () {
+    let routes = (
+      <Switch>
+        // fix
+        <Route path="/auth" component={asyncAuth} />
+        <Route path="/" exact component={BurgerBuilder} />
+        <Redirect to="/" />
+      </Switch>
+    );
+
+    if ( this.props.isAuthenticated ) {
+      routes = (
+        <Switch>
+          // replace
+          <Route path="/checkout" component={asyncCheckout} />
+          <Route path="/orders" component={asyncOrders} />
+          <Route path="/logout" component={Logout} />
+          <Route path="/auth" component={asyncAuth} />
+          <Route path="/" exact component={BurgerBuilder} />
+          <Redirect to="/" />
+        </Switch>
+      );
+    }
+
+```
+
+
 
 ### 8. Wrap Up
 
@@ -14135,13 +14323,11 @@ const fetchOrdersStart = ( state, action ) => {
 
 ### 1. Module Introduction
 
-### 10. How to Test Redux
-
-### 11. Wrap Up
-
-### 12. Useful Resources & Links.html
+### 
 
 ### 2. What is Testing
+
+![image-20200315135905045](./react-maximilan.assets/image-20200315135905045.png)
 
 ### 3. Required Testing Tools
 
@@ -14156,6 +14342,12 @@ const fetchOrdersStart = ( state, action ) => {
 ### 8. Testing Components Correctly
 
 ### 9. Testing Containers
+
+### 10. How to Test Redux
+
+### 11. Wrap Up
+
+### 12. Useful Resources & Links.html
 
 ## 21. Deploying the App to the Web
 
