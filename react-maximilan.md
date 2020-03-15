@@ -14331,9 +14331,15 @@ const asyncAuth = asyncComponent(() => {
 
 ### 3. Required Testing Tools
 
+![image-20200315141910365](./react-maximilan.assets/image-20200315141910365.png)
+
 ### 4. What To Test
 
+![image-20200315142153401](./react-maximilan.assets/image-20200315142153401.png)
+
 ### 5. Writing our First Test
+
+npm install enzyme và jest
 
 ### 6. Testing Components Continued
 
@@ -14349,15 +14355,40 @@ const asyncAuth = asyncComponent(() => {
 
 ### 12. Useful Resources & Links.html
 
+- Enzyme API: http://airbnb.io/enzyme/docs/api/
+- Jest Docs: https://facebook.github.io/jest/
+
 ## 21. Deploying the App to the Web
 
 ### 1. Module Introduction
 
 ### 2. Deployment Steps
 
+![image-20200315142809143](./react-maximilan.assets/image-20200315142809143.png)
+
 ### 3. Building the Project
 
+npm run build
+
+Bây giờ bạn sẽ có build folder
+
 ### 4. Example Deploying on Firebase
+
+![image-20200315143502000](./react-maximilan.assets/image-20200315143502000.png)  
+
+npm install -g firebase-tools
+
+![image-20200315143655433](./react-maximilan.assets/image-20200315143655433.png)  
+
+Khi init nhớ chọn hosting, ấn space to select
+
+Khi hỏi do you want to use publuc dir? **build**
+
+![image-20200315143910218](./react-maximilan.assets/image-20200315143910218.png)
+
+https://morioh.com/p/66918873ff30?fbclid=IwAR3uKX8cy8_ogYFPnBmNqllqlmS6zuAN-7sK6nEjHfHtVa72rZI5sz6iW3k
+
+Pagination
 
 ### 5. Wrap Up
 
@@ -14366,6 +14397,25 @@ const asyncAuth = asyncComponent(() => {
 ## 22. Bonus Working with Webpack
 
 ### 1. Module Introduction
+
+
+### 2. Important Use Webpack 3.html
+
+
+### 3. Introducing Webpack
+
+### 4. How Webpack works
+
+### 5. Basic Workflow Requirements
+
+### 6. Project & npm Setup
+
+### 7. Creating a Basic Folder & File Structure
+
+### 8. Creating the Basic React Application
+
+### 9. Installing Production Dependencies
+
 
 ### 10. Setting Up the Basic Webpack Config
 
@@ -14389,23 +14439,8 @@ const asyncAuth = asyncComponent(() => {
 
 ### 19. Adding babel-polyfill.html
 
-### 2. Important Use Webpack 3.html
-
 ### 20. Useful Resources & Links.html
 
-### 3. Introducing Webpack
-
-### 4. How Webpack works
-
-### 5. Basic Workflow Requirements
-
-### 6. Project & npm Setup
-
-### 7. Creating a Basic Folder & File Structure
-
-### 8. Creating the Basic React Application
-
-### 9. Installing Production Dependencies
 
 ## 23. Bonus Next.js
 
