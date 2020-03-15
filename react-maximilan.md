@@ -14398,32 +14398,262 @@ Pagination
 
 ### 1. Module Introduction
 
-
 ### 2. Important Use Webpack 3.html
 
+Important: When installing Webpack (we'll do that in one of the next lectures), run `npm install --save-dev webpack@3` because the latest version (version 4) has a slightly different syntax. 
+
+So for the same config & code as shown in the videos to work for you, you need version 3.
+
+If you want to update to Webpack 4.x, the following migration guide should help: https://dev.to/flexdinesh/upgrade-to-webpack-4---5bc5
 
 ### 3. Introducing Webpack
 
+![image-20200315223428242](./react-maximilan.assets/image-20200315223428242.png)  
+
+
+
 ### 4. How Webpack works
+
+![image-20200315225205068](./react-maximilan.assets/image-20200315225205068.png)
 
 ### 5. Basic Workflow Requirements
 
+![image-20200315225605943](./react-maximilan.assets/image-20200315225605943.png)
+
 ### 6. Project & npm Setup
+
+https://topdev.vn/blog/webpack-la-gi/?fbclid=IwAR3AC8CUOR0lADZ9Rze40ljX9jnwJ_LNpXNfgacnzsRYRdobZ8ISlb-YI5k
+
+.gitignore
+
+```shell
+node_modules
+.DS_Store
+/dist
+```
+
+RUN
+
+```shell
+npm init 
+# Tạo ra file package.json
+npm install --save-dev webpack webpack-dev-server
+```
+
+https://toidicode.com/hoc-ecmascript?fbclid=IwAR3Ml9cUoDb1xxLzESwG3KW7aRodR--ev26sDRZtddA8Xek5RJ2fN7SrhHc
 
 ### 7. Creating a Basic Folder & File Structure
 
+![image-20200315231838963](./react-maximilan.assets/image-20200315231838963.png)
+
 ### 8. Creating the Basic React Application
+
+PizzaImage.js
+
+```js
+import React from 'react';
+
+import classes from './PizzaImage.css';
+import PizzaImage from '../../assets/pizza.jpg';
+
+const pizzaImage = (props) => (
+    <div className={classes.PizzaImage}>
+        <img src={PizzaImage} className={classes.PizzaImg} />
+    </div>
+);
+
+export default pizzaImage;
+```
+
+Pizza.js
+
+```js
+import React, { Component } from 'react';
+
+import PizzaImage from '../components/PizzaImage/PizzaImage';
+
+class Pizza extends Component {
+    render () {
+        return (
+            <div>
+                <h1>The Pizza</h1>
+                <PizzaImage />
+            </div>
+        );
+    }
+}
+
+export default Pizza;
+```
+
+App.js
+
+```js
+import React, { Component } from 'react';
+import { Link, Route } from 'react-router-dom';
+
+import Users from './containers/Users';
+import asyncComponent from './hoc/asyncComponent';
+
+const AsyncPizza = asyncComponent(() => {
+    return import('./containers/Pizza.js');
+});
+
+class App extends Component {
+    render () {
+        return (
+            <div>
+                <div>
+                    <Link to="/">Users</Link> |
+                    <Link to="/pizza">Pizza</Link>
+                </div>
+                <div>
+                    <Route path="/" exact component={Users} />
+                    <Route path="/pizza" component={AsyncPizza} />
+                </div>
+            </div>
+        );
+    }
+}
+```
+
+index.js
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+
+import './index.css';
+import App from './App';
+
+const app = (
+    <BrowserRouter>
+        <App />
+    </BrowserRouter>
+);
+
+ReactDOM.render(app, document.getElementById('root'));
+```
+
+
 
 ### 9. Installing Production Dependencies
 
+npm install --save react-dom react-router-dom
 
 ### 10. Setting Up the Basic Webpack Config
 
+webpack.config.js
+
+```js
+const path = require('path');
+const autoprefixer = require('autoprefixer');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+    devtool: 'cheap-module-eval-source-map',
+    entry: './src/index.js',
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'bundle.js',
+        chunkFilename: '[id].js',
+        publicPath: ''
+    },
+   // 11
+    resolve: {
+        extensions: ['.js', '.jsx']
+    },
+
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                loader: 'babel-loader', // # 12
+                exclude: /node_modules/
+            },
+            {
+                test: /\.css$/,
+                exclude: /node_modules/,
+                use: [
+                    { loader: 'style-loader' },
+                    { 
+                        loader: 'css-loader', // understand css import
+                        options: {
+                            importLoaders: 1,
+                            modules: true,
+                            localIdentName: '[name]__[local]__[hash:base64:5]'
+                        }
+                     },
+                     { 
+                         loader: 'postcss-loader',
+                         options: {
+                             ident: 'postcss',
+                             plugins: () => [
+                                 autoprefixer({
+                                     browsers: [
+                                        "> 1%",
+                                        "last 2 versions"
+                                     ]
+                                 })
+                             ]
+                         }
+                      }
+                ]
+            },
+            {
+                test: /\.(png|jpe?g|gif)$/,
+                loader: 'url-loader?limit=8000&name=images/[name].[ext]'
+            }
+        ]
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: __dirname + '/src/index.html',
+            filename: 'index.html',
+            inject: 'body'
+        })
+    ]
+};
+```
+
+
+
 ### 11. Adding File Rules
+
+
 
 ### 12. Introducing Babel
 
+npm install --save-dev babel-loader babel-core babel-preset-react babel-preset-env
+
+.babelrc
+
+```js
+{
+    "presets": [
+        ["env", {
+            "targets": {
+                "browsers": [
+                    "> 1%",
+                    "last 2 versions"
+                ]
+            }
+        }],
+        "stage-2",
+        "react"
+    ],
+    "plugins": [
+        "syntax-dynamic-import"
+    ]
+}
+```
+
+targets: which browser version I want to support
+
 ### 13. Adding CSS File Support
+
+npm install --save css-loader  style-loader postcss-loader autoprefixer
 
 ### 14. Creating Rules for Images
 
