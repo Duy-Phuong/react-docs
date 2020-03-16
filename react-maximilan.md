@@ -14653,19 +14653,301 @@ targets: which browser version I want to support
 
 ### 13. Adding CSS File Support
 
-npm install --save css-loader  style-loader postcss-loader autoprefixer
+npm install --save-dev css-loader  style-loader postcss-loader autoprefixer
+
+Đối với use apply từ dưới lên trên: css-loader => style css loader
+
+css-loader: hiểu import
+
+postcssLoader: allow transform css
+
+autoprefixer: auto prefix css properties
 
 ### 14. Creating Rules for Images
 
+npm install --save-dev url-loader file-loader
+
+8000bytes
+
 ### 15. Lazy Loading
 
+npm start => error sửa lại path như trên thì ok
+
+auto import lỗi => chunkFilename: '[id].js',
+
+```shell
+npm insatll --save-dev babel-plugin-syntax-dynamic-import
+```
+
+bableIrc
+
+```js
+{
+    "presets": [
+        ["env", {
+            "targets": {
+                "browsers": [
+                    "> 1%",
+                    "last 2 versions"
+                ]
+            }
+        }],
+        "stage-2", // add
+        "react"
+    ],
+        // add
+    "plugins": [
+        "syntax-dynamic-import"
+    ]
+}
+```
+
+```shell
+npm insatll --save-dev babel-preset-stage-2
+// nếu k sẽ báo lỗi stage = {}
+npm start
+8080
+```
+
 ### 16. Injecting the Script into the index.html File
+
+```shell
+npm install --save-dev html-webpack-plugin
+```
+
+connect html to output
 
 ### 16. Injecting the Script into the index.html File.vtt
 
 ### 17. Creating the Production Workflow
 
+package.json
+
+```js
+ "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server",
+        // add
+    "build": "rimraf dist && webpack --config webpack.prod.config.js --progress --profile --color"
+  },
+```
+
+`npm run build` : sau đó vào folder dist xem nhưng file quá dài => xóa tạo file mới
+
+webpack.prod.config.js
+
+```js
+const path = require('path');
+const autoprefixer = require('autoprefixer');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
+
+module.exports = {
+    devtool: 'cheap-module-source-map', // fix
+    entry: './src/index.js',
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'bundle.js',
+        chunkFilename: '[id].js',
+        publicPath: ''
+    },
+    resolve: {
+        extensions: ['.js', '.jsx']
+    },
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/
+            },
+            {
+                test: /\.css$/,
+                exclude: /node_modules/,
+                use: [
+                    { loader: 'style-loader' },
+                    { 
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1,
+                            modules: true,
+                            localIdentName: '[name]__[local]__[hash:base64:5]'
+                        }
+                     },
+                     { 
+                         loader: 'postcss-loader',
+                         options: {
+                             ident: 'postcss',
+                             plugins: () => [
+                                 autoprefixer({
+                                     browsers: [
+                                        "> 1%",
+                                        "last 2 versions"
+                                     ]
+                                 })
+                             ]
+                         }
+                      }
+                ]
+            },
+            {
+                test: /\.(png|jpe?g|gif)$/,
+                loader: 'url-loader?limit=8000&name=images/[name].[ext]'
+            }
+        ]
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: __dirname + '/src/index.html',
+            filename: 'index.html',
+            inject: 'body'
+        }),
+        // add
+        new webpack.optimize.UglifyJsPlugin()
+    ]
+};
+```
+
+`npm install --save-dev rimraf` : allow delete folder or files I want to delete in dist folder
+
+```shell
+npm run build
+```
+
+
+
 ### 18. Wrap Up
+
+https://topdev.vn/blog/webpack-la-gi/?fbclid=IwAR3AC8CUOR0lADZ9Rze40ljX9jnwJ_LNpXNfgacnzsRYRdobZ8ISlb-YI5k
+
+Là công cụ giúp gói gọn toàn bộ file js, css(bao gồm cả scss,sass,..). Nó giúp bạn compile các module Javascript theo cấu trúc project. Ngoài ra nó có thể tối ưu tùy chọn theo môi trường khác nhau như development hay production.
+
+Ngày nay các website đang có xu hướng trở thành những web app với các đặc tính như:
+
+- Càng ngày càng sử dụng JS nhiều hơn
+- Những browser ngày càng hỗ trợ những công nghệ mới
+- Những trang full-page-reload ít đi, single page app lên ngôi
+
+Dẫn đến phần code client-side ngày càng nhiều. Điều đó có nghĩa chúng ta cần phải có một công cụ để quản lí chúng một cách hiệu quả. Và webpack là một công cụ rất mạnh để làm điều đó. Nó là một module bundler rất mới nhưng đã gây sốt gần đây. Nó nhận vào các module cùng với các dependencies và generate ra các static assets tương ứng. Các bạn xem thêm [Webpack cho người mới bắt đầu](https://techtalk.vn/webpack-cho-nguoi-moi-bat-dau.html) tại đây nhé!
+
+Team webpack đang làm việc tích cực để cho ra thế hệ thứ 4. Mình xin giới thiệu sơ qua các chức năng mới của bản này.
+
+## **Webpack 4 gần như không cần cấu hình module bundler**
+
+Webpack rất mạnh mẽ và có không ít các feature khá độc nhưng bên cạnh đó cũng có không ít các điểm khá hạn chế, một trong số đó là `configuration file`.
+
+Cung cấp 1 cấu hình cho webpack không phải là một vấn đề lớn trong các dự án vừa và lớn. Tuy nhiên đối với các dự án nhỏ thì nó tỏ ra hơi khó nhằng. Sean và team webpack đang thay đổi điều đó cho thân thiện hơn: webpack 4 sẽ không cần 1 file cấu hình mặc định.
+
+Nào chúng ta thử nó 1 chút, tạo 1 thư mục mới và đi vào trong:
+
+| 123  | mkdir webpack-4-quickstart && cd $_ |
+| ---- | ----------------------------------- |
+|      |                                     |
+
+Khởi tạo 1 package.json bằng cách chạy lệnh:
+
+| 123  | npm init -y |
+| ---- | ----------- |
+|      |             |
+
+Bây giờ kéo về webpack 4. Hiện tại webpack 4 đang trong quá trình beta, điều đó có nghĩa chúng ta nên lấy về từ nhánh `Next`:
+
+| 123  | npm i webpack@next --save-dev |
+| ---- | ----------------------------- |
+|      |                               |
+
+Ta cần cài thêm **webpack-cli** nữa:
+
+| 123  | npm i webpack-cli --save-dev |
+| ---- | ---------------------------- |
+|      |                              |
+
+Bây giờ mở `package.json` và thêm khai báo sau:
+
+| 12345 | "scripts": {  "build": "webpack" } |
+| ----- | ---------------------------------- |
+|       |                                    |
+
+Lưu file và chạy:
+
+| 123  | npm run build |
+| ---- | ------------- |
+|      |               |
+
+Và xem điều gì xảy ra:
+
+| 123  | ERROR **in** Entry module **not** found: Error: Can't resolve './src' in '~/webpack-4-quickstart' |
+| ---- | ------------------------------------------------------------ |
+|      |                                                              |
+
+webpack 4 đang muốn tìm kiếm entry point trong `./src`, nói chung đó là điểm bắt đầu để bạn xây dựng gói javascipt bundle của bạn. Đọc thêm tại đây để hiểu rõ hơn nhé: [webpack](https://techtalk.vn/webpack-cho-nguoi-moi-bat-dau.html). Trong phiên bản trước của webpack, entry point được define bên trong file cấu hình với tên là `webpack.config.js`.
+
+Nhưng bây giờ với webpac 4 thì chúng ta không cần define cái entry point này nữa. Nó sẽ được đặt mặc định trong `./src/index.js` . Thử test cái feature mới này thấy thật dễ dàng, tạo `./src/index.js` :
+
+| 123  | console.log('Tui là webpack 4); |
+| ---- | ------------------------------- |
+|      |                                 |
+
+và build lại xem:
+
+| 123  | npm run build |
+| ---- | ------------- |
+|      |               |
+
+Bạn sẽ lấy được bundle trong `~/webpack-4-quickstart/dist/main.js`. Khoan đã? chờ 1 chút, nó đâu cần define ở file output đâu nhỉ??!!
+
+***Trong webpack 4 không cần phải define entry point, cũng không cần trong out put file.\***
+
+Tôi biết rằng đối với rất nhiều người thì điều này không quá thú vị. Sức mạnh chính của webpack là split code. Nhưng tin tui đi, file cấu hình lằng nhằng lắm, nhất là anh em mới tiếp xúc hay cần làm nhanh cái gì đó. Sau khi set up xong thì webpack 4 nó xem `./src/index.js` như là entry point mặc định.
+
+Trong phần tiếp theo chúng ta sẽ tìm hiểu thêm một số feature khá ngon: production và development mode.
+
+## **Webpack 4: production và development mode**
+
+Có 2 file cấu hình phổ biến trong webpack:
+
+- 1 file cấu hình cho development, để mình define webpack dev server và những thứ khác.
+- 1 cho production, để define **UglifyJSPlugin,** sourcemaps…
+
+Khi mà gặp những project lớn thì có thể cần phải có cả 2 file này, trong webpack 4 bạn có thể sử dụng 2 trạng thái của nó mà không phải làm bất kỳ một dùng cấu hình nào.
+
+**Bằng cách nào?**
+
+Thì nó giới thiệu chức năng này có sẵn mà dùng thôi :v. Trên thực tế khi bạn chạy dòng lệnh `npm run build` thì bạn sẽ thấy 1 thông báo:
+
+![img](react-maximilan.assets/web-pack-4.png)
+
+| 123  | The 'mode' option has **not** been set. Set 'mode' option **to** 'development' **or** 'production' **to** enable defaults **for** this environment. |
+| ---- | ------------------------------------------------------------ |
+|      |                                                              |
+
+Thông báo này có nghĩa là gì? Mở file package.json và update thêm script sau:
+
+| 123456 | "scripts": {  "dev": "webpack --mode development",  "build": "webpack --mode production" } |
+| ------ | ------------------------------------------------------------ |
+|        |                                                              |
+
+Bây giờ thử chạy:
+
+| 123  | npm run dev |
+| ---- | ----------- |
+|      |             |
+
+rồi nhìn code file `./dist/main.js`, nó chưa được minified là ok. Tiếp tục chạy thử :
+
+| 123  | npm run build |
+| ---- | ------------- |
+|      |               |
+
+và ta thấy minified bundle trong `./dist/main.js`
+
+**Production mode** enable tất cả các tối ưu trong webpack. Bao gồm minified code, [scope hoisting](https://topdev.vn/blog/meo-voi-es6-va-thu-thuat-de-lam-cho-code-sach-hon-ngan-hon-va-de-doc-hon/), [tree-shaking](https://topdev.vn/blog/topdev-ama-nhung-giai-dap-cong-dong-hay-nhat-tu-technical-lead-giaohangnhanh/) và nhiều nữa.
+
+**Developement mode** chủ yếu tối ưu hóa tốc độ và không minified code để bạn dễ dàng làm việc.
+
+## **Resources**
+
+Github repo tại đây : [webpack-4-quickstart](https://github.com/valentinogagliardi/webpack-4-quickstart)
 
 ### 19. Adding babel-polyfill.html
 
@@ -14678,41 +14960,243 @@ npm install --save css-loader  style-loader postcss-loader autoprefixer
 
 ### 10. Useful Resources & Links.html
 
+Next.js Repo & Docs: https://github.com/zeit/next.js/
+
 ### 2. Understanding Server Side Rendering
+
+https://viblo.asia/p/nextjs-series-part-1-gioi-thieu-ve-nextjs-Qbq5QAkL5D8
+
+https://github.com/zeit/next.js/
+
+## Getting Started
+
+Visit https://nextjs.org/learn to get started with Next.js.
+
+## Documentation
+
+Visit https://nextjs.org/docs to view the documentation.
+
+It render on server and return pre-render html code, nextjs is a package helping you with server side rendering
+
+![image-20200316213123204](./react-maximilan.assets/image-20200316213123204.png)
 
 ### 3. Setting Up a Project
 
+```shell
+npm init
+npm install --save react react-dom next
+// nextjs yêu cầu version react 16 
+
+```
+
+package.json
+
+```js
+{
+  "name": "react-complete-guide",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+      // add
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "next": "^4.1.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
+  }
+}
+
+```
+
+We don't use  React-router with nextjs to create routes and allow user visit /auth/users => create folder and file to reflect ours URL in the file system
+
+[Create React App](https://github.com/facebook/create-react-app) có rất nhiều star trên GitHub và hứa hẹn không cần config gì cả. Vì vậy nhìn nó rất đơn giản. Bạn cần học về client routing, page layout, .. nhưng không đề cập tới Server Side Rendering.
+
+Không giống với Next.js, bạn sẽ yêu thích làm việc với Next.js chỉ trong vòng 1 giờ. Ngày càng có nhiều người sử dụng Vue, ngay cả khi nó vẫn thua kém React và Angular ở một vài khía cạnh. Bởi vì bạn có thể làm được nhiều nhất trong thời gian ngắn nhất. Với tôi, Next.js đã khép lại khoảng cách React với Vue, và React trở thành sự lựa chọn hàng đầu.
+
+https://viblo.asia/p/tai-sao-toi-lai-chon-react-nextjs-thay-vi-vue-hay-angular-LzD5d6w4ZjY
+
+Create folder pages/auth/index.js
+
+pages/index.js
+
+```js
+// create a component in two file index
+```
+
+Không cần setting routing bạn có thể load these two different components as page
+
+![image-20200316215447576](./react-maximilan.assets/image-20200316215447576.png)
+
+`npm run dev` và xem tab [http://localhost:3000](http://localhost:3000/) bạn sẽ thấy page với text "Hello Next.js" hiện ra
+
 ### 4. Understanding the Basics
+
+index.js
+
+```js
+import React, { Component } from "react";
+import Link from "next/link";
+import Router from "next/router";
+
+class IndexPage extends Component {
+
+  render() {
+    return (
+      <div>
+        <h1>The Main Page of {this.props.appName}</h1>
+        <p>
+          <Link href="/auth">
+            <a>Auth</a>
+          </Link>
+        </p>
+        <button onClick={() => Router.push("/auth")}>Go to Auth</button>
+      </div>
+    );
+  }
+}
+
+export default IndexPage;
+
+```
+
+Khi bấm vào link nó sẽ vào index trang auth/
 
 ### 5. Next.js & Components & Pages
 
+compose your app
+
+.gitignore
+
+User.js
+
+```js
+import React from 'react';
+
+const user = (props) => (
+    <div>
+        <h1>{props.name}</h1>
+        <p>Age: {props.age}</p>
+// # 5
+        <style jsx>{`
+            div {
+                border: 1px solid #eee;
+                box-shadow: 0 2p 3px #ccc;
+                padding: 20px;
+                text-align: center;
+            }
+        `}</style>
+    </div>
+);
+
+export default user;
+```
+
+auth/index.js
+
+```js
+
+const authIndexPage = (props) => (
+  <div>
+    <h1>The Auth Index Page - {props.appName}</h1>
+    <User name="Max" age={28} />
+  </div>
+);
+```
+
+
+
 ### 6. Styling our App in Next.js
+
+
 
 ### 7. Handling (404) Errors
 
+_error.js
+
+```js
+import React from 'react';
+import Link from 'next/link';
+
+const errorPage = () => (
+    <div>
+        <h1>Oops, something went wrong.</h1>
+        <p>Try <Link href="/"><a>going back</a></Link>.</p>
+    </div>
+);
+
+export default errorPage;
+```
+
+
+
+
+
 ### 8. A Special Lifecycle Hook
 
+pages/index.js
+
+```js
+
+class IndexPage extends Component {
+  // execute on the server or the client => init app before load
+  static getInitialProps(context) {
+    const promise = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve({ appName: "Super App" });
+      }, 1000);
+    });
+    return promise;
+  }
+```
+
+https://nextjs.org/docs/basic-features/data-fetching
+
+auth/index.js
+
+```js
+
+const authIndexPage = (props) => (
+  <div>
+    <h1>The Auth Index Page - {props.appName}</h1>
+    <User name="Max" age={28} />
+  </div>
+);
+
+authIndexPage.getInitialProps = context => {
+  const promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve({ appName: "Super App (Auth)" });
+    }, 1000);
+  });
+  return promise;
+};
+
+export default authIndexPage;
+
+```
+
+
+
 ### 9. Deploying our App
+
+`npm run build`: create dist folder
 
 ## 24. Bonus Animations in React Apps
 
 ### 1. Module Introduction
 
-### 10. Transition Events
+Fix cors: https://www.youtube.com/watch?v=hxyp_LkKDdk&fbclid=IwAR3BrlCOjU4uo6A54vn5mCNkjUK7c0vOexMY4hmcrrc3pJvt-EqKuCEKrDs
 
-### 11. The CSSTransition Component
-
-### 12. Customizing CSS Classnames
-
-### 13. Animating Lists
-
-### 14. Alternative Animation Packages
-
-### 15. Wrap Up
-
-### 16. Useful Resources & Links.html
 
 ### 2. Preparing the Demo Project
+
 
 ### 3. Using CSS Transitions
 
@@ -14727,6 +15211,20 @@ npm install --save css-loader  style-loader postcss-loader autoprefixer
 ### 8. Wrapping the Transition Component
 
 ### 9. Animation Timings
+
+### 10. Transition Events
+
+### 11. The CSSTransition Component
+
+### 12. Customizing CSS Classnames
+
+### 13. Animating Lists
+
+### 14. Alternative Animation Packages
+
+### 15. Wrap Up
+
+### 16. Useful Resources & Links.html
 
 ## 25. Bonus A Brief Introduction to Redux Saga
 
