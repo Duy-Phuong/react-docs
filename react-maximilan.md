@@ -15196,35 +15196,484 @@ Fix cors: https://www.youtube.com/watch?v=hxyp_LkKDdk&fbclid=IwAR3BrlCOjU4uo6A54
 
 
 ### 2. Preparing the Demo Project
+Modal.css
+```css
 
+.ModalOpen {
+    display: block;
+}
+
+.ModalClosed {
+    display: none;
+}
+```
+
+BackDrop.css
+```css
+
+.BackdropOpen {
+    display: block;
+}
+
+.BackdropClosed {
+    display: none;
+}
+```
+
+BackDrop.js
+```js
+import React from 'react';
+
+import './Backdrop.css';
+
+const backdrop = (props) => {
+    const cssClasses = ['Backdrop', props.show ? 'BackdropOpen' : 'BackdropClosed'];
+
+    return <div className={cssClasses.join(' ')}></div>;
+};
+
+export default backdrop;
+
+```
+
+Modal.js
+```js
+import React from "react";
+
+import "./Modal.css";
+
+const modal = props => {
+  const cssClasses = [
+    "Modal",
+    props.show ? "ModalOpen" : "ModalClosed"
+  ];
+
+  return (
+    <div className={cssClasses.join(' ')}>
+      <h1>A Modal</h1>
+      <button className="Button" onClick={props.closed}>
+        Dismiss
+      </button>
+    </div>
+  );
+};
+
+export default modal;
+
+```
+
+App.js
+```js
+
+class App extends Component {
+  state = {
+    modalIsOpen: false
+  }
+
+  showModal = () => {
+    this.setState({modalIsOpen: true});
+  }
+
+  closeModal = () => {
+    this.setState({modalIsOpen: false});
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <h1>React Animations</h1>
+        <Modal show={this.state.modalIsOpen} closed={this.closeModal}/>
+        <Backdrop show={this.state.modalIsOpen} />
+        <button className="Button" onClick={this.showModal}>Open Modal</button>
+        <h3>Animating Lists</h3>
+        <List />
+      </div>
+    );
+  }
+}
+
+```
+![image-20200316230939478](./react-maximilan.assets/image-20200316230939478.png)
 
 ### 3. Using CSS Transitions
 
+Modal.css
+```css
+.Modal {
+    position: fixed;
+    z-index: 200;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 2px #ccc;
+    background-color: white;
+    padding: 10px;
+    text-align: center;
+    box-sizing: border-box;
+    top: 30%;
+    left: 25%;
+    width: 50%;
+    transition: all 0.3s ease-out; // add
+}
+
+.ModalOpen {
+    // xóa display
+    animation: openModal 0.4s ease-out forwards;
+}
+
+.ModalClosed {
+    animation: closeModal 0.4s ease-out forwards;
+}
+
+@keyframes openModal {
+    0% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(90%); // jump down
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes closeModal {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    50% {
+        opacity: 0.8;
+        transform: translateY(60%);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+}
+```
+
 ### 4. Using CSS Animations
+
+App.js
+
+```js
+{this.state.modalIsOpen ? (
+          <Modal show={this.state.modalIsOpen} closed={this.modalIsOpen} />
+        ) : null}
+        {this.state.modalIsOpen ? (
+          <Backdrop show={this.state.modalIsOpen} />
+        ) : null}
+// Khi ấn DISSMISS thì không có animation
+```
+
+
 
 ### 5. CSS Transition & Animations Limitations
 
+
+
 ### 6. Using ReactTransitionGroup
+
+gg: react transition group
+
+https://github.com/reactjs/react-transition-group
+
+https://reactcommunity.org/react-transition-group/
+
+```bash
+npm install react-transition-group --save
+```
+
+App.js add button
+
+```js
+<button
+          className="Button"
+          onClick={() =>
+            this.setState(prevState => ({ showBlock: !prevState.showBlock }))}
+        >
+          Toggle
+        </button>
+        <br />
+        <Transition 
+          in={this.state.showBlock} 
+          timeout={1000}
+          mountOnEnter // add and remove from the DOM
+          unmountOnExit>
+          {state => (
+            <div
+              style={{
+                backgroundColor: "red",
+                width: 100,
+                height: 100,
+                margin: "auto",
+                transition: 'opacity 1s ease-out',
+                opacity: state === 'exiting' ? 0 : 1
+              }}
+            />
+          )}
+        </Transition>
+```
+
+
 
 ### 7. Using the Transition Component
 
+using Transition with Modal
+
+Modal.js
+
+```js
+ const cssClasses = [
+          "Modal",
+          props.show === "entering"
+            ? "ModalOpen"
+            : props.show === "exiting" ? "ModalClosed" : null
+        ];
+```
+
+App.js
+
+```js
+<Transition
+          in={this.state.modelIsOpen}
+          timeout={300}
+          mountOnEnter
+          unmountOnExit
+        >
+          {state => (
+            <Modal show={state} closed={this.closeModal} />
+          )}
+        </Transition>
+```
+
+
+
 ### 8. Wrapping the Transition Component
+
+Modal.js
+
+```js
+// 9
+const animationTiming = {
+    enter: 400,
+    exit: 1000
+};
+
+const modal = props => {
+  return (
+    <Transition 
+        mountOnEnter 
+        unmountOnExit 
+        in={props.show} 
+        timeout={animationTiming}>
+      {state => {
+        const cssClasses = [
+          "Modal",
+          state === "entering"
+            ? "ModalOpen"
+            : state === "exiting" ? "ModalClosed" : null
+        ];
+        return (
+          <div className={cssClasses.join(" ")}>
+            <h1>A Modal</h1>
+            <button className="Button" onClick={props.closed}>
+              Dismiss
+            </button>
+          </div>
+        );
+      }}
+    </Transition>
+  );
+};
+
+```
+
+App.js
+
+```js
+<Modal show={this.state.modalIsOpen} closed={this.closeModal} />
+```
+
+
 
 ### 9. Animation Timings
 
+Chỉnh sửa lại Modal.css thời gian out là 1s
+
 ### 10. Transition Events
+
+App.js
+
+```js
+ <Transition
+          in={this.state.showBlock}
+          timeout={1000}
+          mountOnEnter
+          unmountOnExit
+          onEnter={() => console.log('onEnter')}
+          onEntering={() => console.log('onEntering')}
+          onEntered={() => console.log('onEntered')}
+          onExit={() => console.log('onExit')}
+          onExiting={() => console.log('onExiting')}
+          onExited={() => console.log('onExited')}
+```
+
+
 
 ### 11. The CSSTransition Component
 
+Modal.js
+
+```js
+
+import CSSTransition from "react-transition-group/CSSTransition";
+
+import "./Modal.css";
+
+const animationTiming = {
+    enter: 400,
+    exit: 1000
+};
+
+const modal = props => {
+  return (
+    <CSSTransition 
+        mountOnEnter 
+        unmountOnExit 
+        in={props.show} 
+        timeout={animationTiming}
+// add
+        classNames="fade-slice">
+```
+
+Modal.css
+
+```css
+
+.fade-slide-enter {
+
+}
+
+.fade-slide-enter-active {
+    animation: openModal 0.4s ease-out forwards;
+}
+
+.fade-slide-exit {
+
+}
+
+.fade-slide-exit-active {
+    animation: closeModal 1s ease-out forwards;
+}
+
+```
+
+
+
 ### 12. Customizing CSS Classnames
+
+Modal.js
+
+```js
+<CSSTransition 
+        mountOnEnter 
+        unmountOnExit 
+        in={props.show} 
+        timeout={animationTiming}
+        classNames={{
+            enter: '',
+            enterActive: 'ModalOpen',
+            exit: '',
+            exitActive: 'ModalClosed'
+        }}>
+```
+
+
 
 ### 13. Animating Lists
 
+List.js
+
+```js
+
+import TransitionGroup from "react-transition-group/TransitionGroup";
+import CSSTransition from "react-transition-group/CSSTransition";
+
+render() {
+    const listItems = this.state.items.map((item, index) => (
+        // add
+      <CSSTransition key={index} classNames="fade" timeout={300}>
+        <li
+          className="ListItem"
+          onClick={() => this.removeItemHandler(index)}>
+          {item}
+        </li>
+      </CSSTransition>
+    ));
+
+    return (
+      <div>
+        <button className="Button" onClick={this.addItemHandler}>
+          Add Item
+        </button>
+        <p>Click Item to Remove.</p>
+// add
+        <TransitionGroup component="ul" className="List">
+          {listItems}
+        </TransitionGroup>
+      </div>
+    );
+  }
+```
+
+List.css
+
+```css
+
+.fade-enter {
+    opacity: 0;
+}
+
+.fade-enter-active {
+    opacity: 1;
+    transition: opacity 0.3s ease-out;
+}
+
+.fade-exit {
+    opacity: 1;
+}
+
+.fade-exit-active {
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+}
+```
+
+
+
 ### 14. Alternative Animation Packages
+
+gg: react motion
+
+Không define thủ công timer animation
+
+- Npm: `npm install --save react-motion`
+
+gg: react move
 
 ### 15. Wrap Up
 
 ### 16. Useful Resources & Links.html
+
+- More on CSS Transitions: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions
+- More on CSS Animations: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations
+- More on ReactTransitionGroup: https://github.com/reactjs/react-transition-group
+- Alternative => React Motion: https://github.com/chenglou/react-motion
+- Alternative => React Move: https://github.com/react-tools/react-move
+- Animating Route Animations: https://github.com/maisano/react-router-transition
 
 ## 25. Bonus A Brief Introduction to Redux Saga
 
