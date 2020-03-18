@@ -15679,33 +15679,610 @@ gg: react move
 
 ### 1. Module Introduction
 
+Thay cho redux-thunk
+
+### 2. Installing Redux Saga
+
+npm install --save redux-saga
+
+### 3. Creating our First Saga
+
+Create folder store/ saga
+
+auth.js create new in saga
+
+```js
+
+import { put } from "redux-saga/effects";
+import axios from "axios";
+
+import * as actions from "../actions/index";
+
+export function* logoutSaga(action) {
+  yield localStorage.removeItem("token");
+  yield localStorage.removeItem("expirationDate");
+  yield localStorage.removeItem("userId");
+  yield put(actions.logoutSucceed());
+}
+
+---------------------
+    auth.js
+
+export const logoutSucceed = () => {
+  return {
+    type: actionTypes.AUTH_LOGOUT
+  };
+};
+```
+
+execute start to end immediately with asyn code
+
+put will dispatch the action, yield is simply execute by step and wait to finish
+
+ Dấu sao trong function is a generator, func will be execute incrementally so you can kind of call them and they don't run from start to end immediately but you can pause during function execution, for example to wait for asynchronous code to finish and that is exactly what redux saga takes advantages of.
+
+### 4. Hooking the Saga Up (to the Store and Actions)
+
+index.js
+
+```js
+import createSagaMiddleware from 'redux-saga';
+import { logoutSaga } from './store/sagas';
+
+const sagaMiddleware = createSagaMiddleware();
+
+const store = createStore(rootReducer, composeEnhancers(
+    applyMiddleware(thunk, sagaMiddleware)
+));
+
+sagaMiddleware.run(logoutSaga);
+```
+
+F12 chạy tab redux thấy 2 cái logout
+
+### 5. Moving Logic from the Action Creator to a Saga
+
+action/auth.js
+
+```js
+
+export const logout = () => {
+  // localStorage.removeItem('token');
+  // localStorage.removeItem('expirationDate');
+  // localStorage.removeItem('userId');
+  return {
+    type: actionTypes.AUTH_INITIATE_LOGOUT
+  };
+};
+
+// 6
+export const logoutSucceed = () => {
+  return {
+    type: actionTypes.AUTH_LOGOUT
+  };
+};
+```
+
+sagas/index.js
+
+```js
+import { takeEvery } from "redux-saga/effects";
+
+import * as actionTypes from "../actions/actionTypes";
+import {
+  logoutSaga
+} from "./auth";
+
+export function* watchAuth() {
+  yield takeEvery(actionTypes.AUTH_INITIATE_LOGOUT, logoutSaga);
+}
+// takeEvery: listen
+```
+
+index.js
+
+```js
+
+const sagaMiddleware = createSagaMiddleware();
+
+const store = createStore(rootReducer, composeEnhancers(
+    applyMiddleware(thunk, sagaMiddleware)
+));
+
+sagaMiddleware.run(watchAuth);
+
+```
+
+
+
+### 6. Moving More Logic Into Sagas
+
+Nhớ export trong file index
+
+saga/auth.js
+
+```js
+import { delay } from "redux-saga";
+
+export function* checkAuthTimeoutSaga(action) {
+  yield delay(action.expirationTime * 1000);
+  yield put(actions.logout());
+}
+
+------------- auth.js in action ---------
+    
+export const checkAuthTimeout = expirationTime => {
+  return {
+    type: actionTypes.AUTH_CHECK_TIMEOUT,
+    expirationTime: expirationTime
+  };
+};
+```
+
+saga/index.js
+
+```js
+import { takeEvery } from "redux-saga/effects";
+
+import * as actionTypes from "../actions/actionTypes";
+import {
+  logoutSaga,
+  checkAuthTimeoutSaga,
+  authUserSaga,
+  authCheckStateSaga
+} from "./auth";
+
+export function* watchAuth() {
+  yield takeEvery(actionTypes.AUTH_CHECK_TIMEOUT, checkAuthTimeoutSaga); // add
+  yield takeEvery(actionTypes.AUTH_INITIATE_LOGOUT, logoutSaga);
+  yield takeEvery(actionTypes.AUTH_USER, authUserSaga);
+  yield takeEvery(actionTypes.AUTH_CHECK_STATE, authCheckStateSaga);
+}
+
+```
+
+Đăng nhập để test
+
+### 7. Handling Authentication with a Saga
+
+saga/auth.js
+
+```js
+
+export function* authUserSaga(action) {
+  yield put(actions.authStart());
+  const authData = {
+    email: action.email,
+    password: action.password,
+    returnSecureToken: true
+  };
+  let url =
+    "https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyB5cHT6x62tTe-g27vBDIqWcwQWBSj3uiY";
+  if (!action.isSignup) {
+    url =
+      "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyB5cHT6x62tTe-g27vBDIqWcwQWBSj3uiY";
+  }
+  try {
+    const response = yield axios.post(url, authData);
+
+    const expirationDate = yield new Date(
+      new Date().getTime() + response.data.expiresIn * 1000
+    );
+    yield localStorage.setItem("token", response.data.idToken);
+    yield localStorage.setItem("expirationDate", expirationDate);
+    yield localStorage.setItem("userId", response.data.localId);
+    yield put(
+      actions.authSuccess(response.data.idToken, response.data.localId)
+    );
+    yield put(actions.checkAuthTimeout(response.data.expiresIn));
+  } catch (error) {
+    yield put(actions.authFail(error.response.data.error));
+  }
+}
+
+```
+
+index.js
+
+```js
+
+export {
+    auth,
+    logout,
+    setAuthRedirectPath,
+    authCheckState,
+    logoutSucceed,
+    // add
+    authStart,
+    authSuccess,
+    authFail,
+    checkAuthTimeout
+} from './auth';
+```
+
+action/auth.js
+
+```js
+
+export const auth = (email, password, isSignup) => {
+  return {
+    type: actionTypes.AUTH_USER,
+    email: email,
+    password: password,
+    isSignup: isSignup
+  };
+};
+
+```
+
+Sau đó vào file index.js thêm
+
+### 8. Handling Auto-Sign-In with a Saga
+
+saga/auth.js
+
+```js
+
+export function* authCheckStateSaga(action) {
+  const token = yield localStorage.getItem("token");
+  if (!token) {
+    yield put(actions.logout());
+  } else {
+    const expirationDate = yield new Date(
+      localStorage.getItem("expirationDate")
+    );
+    if (expirationDate <= new Date()) {
+      yield put(actions.logout());
+    } else {
+      const userId = yield localStorage.getItem("userId");
+      yield put(actions.authSuccess(token, userId));
+      yield put(
+        actions.checkAuthTimeout(
+          (expirationDate.getTime() - new Date().getTime()) / 1000
+        )
+      );
+    }
+  }
+```
+
+action/auth.js
+
+```js
+
+export const authCheckState = () => {
+  return {
+    type: actionTypes.AUTH_CHECK_STATE
+  };
+};
+// sau đó listener in index file
+log out and reload again
+```
+
+
+
+### 9. Moving the BurgerBuilder Side Effects into a Saga
+
+burgerBuilder.js in saga
+
+```js
+import { put } from "redux-saga/effects";
+
+import axios from "../../axios-orders";
+import * as actions from "../actions";
+
+export function* initIngredientsSaga(action) {
+  try {
+    const response = yield axios.get(
+      "https://react-my-burger.firebaseio.com/ingredients.json"
+    );
+    yield put(actions.setIngredients(response.data));
+  } catch (error) {
+    yield put(actions.fetchIngredientsFailed());
+  }
+}
+
+```
+
+burgerBuilder.js in action
+
+```js
+
+export const setIngredients = ( ingredients ) => {
+    return {
+        type: actionTypes.SET_INGREDIENTS,
+        ingredients: ingredients
+    };
+};
+
+export const fetchIngredientsFailed = () => {
+    return {
+        type: actionTypes.FETCH_INGREDIENTS_FAILED
+    };
+};
+
+export const initIngredients = () => {
+    return {
+        type: actionTypes.INIT_INGREDIENTS
+    };
+};
+```
+
+action/index.js
+
+```js
+export {
+    addIngredient,
+    removeIngredient,
+    initIngredients,
+    // add
+    setIngredients,
+    fetchIngredientsFailed
+} from './burgerBuilder';
+```
+
+index.js in saga
+
+```js
+import {
+  logoutSaga,
+  checkAuthTimeoutSaga,
+  authUserSaga,
+  authCheckStateSaga
+} from "./auth";
+import { initIngredientsSaga } from "./burgerBuilder";
+
+export function* watchAuth() {
+  yield takeEvery(actionTypes.AUTH_CHECK_TIMEOUT, checkAuthTimeoutSaga);
+  yield takeEvery(actionTypes.AUTH_INITIATE_LOGOUT, logoutSaga);
+  yield takeEvery(actionTypes.AUTH_USER, authUserSaga);
+  yield takeEvery(actionTypes.AUTH_CHECK_STATE, authCheckStateSaga);
+}
+
+// add
+export function* watchBurgerBuilder() {
+  yield takeEvery(actionTypes.INIT_INGREDIENTS, initIngredientsSaga);
+}
+```
+
+index
+
+```js
+
+sagaMiddleware.run(watchAuth);
+sagaMiddleware.run(watchBurgerBuilder);
+```
+
+
+
 ### 10. Moving the Orders Side Effects into Sagas
+
+Create saga/order.js
+
+```js
+import { put } from "redux-saga/effects";
+
+import axios from "../../axios-orders";
+
+export function* purchaseBurgerSaga(action) {
+  yield put(actions.purchaseBurgerStart());
+  try {
+    const response = yield axios.post(
+      "/orders.json?auth=" + action.token,
+      action.orderData
+    );
+    yield put(
+      actions.purchaseBurgerSuccess(response.data.name, action.orderData)
+    );
+  } catch (error) {
+    yield put(actions.purchaseBurgerFail(error));
+  }
+}
+
+
+export function* fetchOrdersSaga(action) {
+  yield put(actions.fetchOrdersStart());
+  const queryParams =
+    "?auth=" +
+    action.token +
+    '&orderBy="userId"&equalTo="' +
+    action.userId +
+    '"';
+  try {
+    const response = yield axios.get("/orders.json" + queryParams);
+    const fetchedOrders = [];
+    for (let key in response.data) {
+      fetchedOrders.push({
+        ...response.data[key],
+        id: key
+      });
+    }
+    yield put(actions.fetchOrdersSuccess(fetchedOrders));
+  } catch (error) {
+    yield put(actions.fetchOrdersFail(error));
+  }
+}
+
+```
+
+action/order.js
+
+```js
+import * as actionTypes from "./actionTypes";
+
+export const purchaseBurgerSuccess = (id, orderData) => {
+  return {
+    type: actionTypes.PURCHASE_BURGER_SUCCESS,
+    orderId: id,
+    orderData: orderData
+  };
+};
+
+export const purchaseBurgerFail = error => {
+  return {
+    type: actionTypes.PURCHASE_BURGER_FAIL,
+    error: error
+  };
+};
+
+export const purchaseBurgerStart = () => {
+  return {
+    type: actionTypes.PURCHASE_BURGER_START
+  };
+};
+
+export const purchaseBurger = (orderData, token) => {
+  return {
+    type: actionTypes.PURCHASE_BURGER,
+    orderData: orderData,
+    token: token
+  };
+};
+
+export const purchaseInit = () => {
+  return {
+    type: actionTypes.PURCHASE_INIT
+  };
+};
+
+
+export const fetchOrdersSuccess = orders => {
+  return {
+    type: actionTypes.FETCH_ORDERS_SUCCESS,
+    orders: orders
+  };
+};
+
+export const fetchOrdersFail = error => {
+  return {
+    type: actionTypes.FETCH_ORDERS_FAIL,
+    error: error
+  };
+};
+
+export const fetchOrdersStart = () => {
+  return {
+    type: actionTypes.FETCH_ORDERS_START
+  };
+};
+
+export const fetchOrders = (token, userId) => {
+  return {
+    type: actionTypes.FETCH_ORDERS,
+    token: token,
+    userId: userId
+  };
+```
+
+saga/index.js
+
+```js
+
+export function* watchOrder() {
+  yield takeLatest(actionTypes.PURCHASE_BURGER, purchaseBurgerSaga);
+  yield takeEvery(actionTypes.FETCH_ORDERS, fetchOrdersSaga);
+}
+
+
+-----------index.js -----------------
+    sagaMiddleware.run(watchOrder);
+
+```
+
+action/index.js
+
+```js
+
+export {
+    purchaseBurger,
+    purchaseInit,
+    fetchOrders,
+    // add
+    purchaseBurgerStart,
+    purchaseBurgerFail,
+    purchaseBurgerSuccess,
+    fetchOrdersSuccess,
+    fetchOrdersStart,
+    fetchOrdersFail
+} from './order';
+```
+
+
 
 ### 11. Why Sagas can be Helpful
 
 ### 12. Diving Deeper into Sagas
 
+saga/auth.js
+
+```js
+
+import { put, call } from "redux-saga/effects";
+import axios from "axios";
+
+import * as actions from "../actions/index";
+
+export function* logoutSaga(action) {
+  yield call([localStorage, "removeItem"], "token");
+  yield call([localStorage, "removeItem"], "expirationDate");
+  yield call([localStorage, "removeItem"], "userId");
+  yield put(actions.logoutSucceed());
+}
+/*
+Now you might wonder what the advantage of this is
+after all, it's longer than before, right?
+
+Well this actually makes your generators testable because you can easily mock this and not really execute this code whilst you always need to execute it down there. So you can use call here all over the place to also remove expiration date and user ID, that allows you to get rid of that.*/
+```
+
+saga/ index.js
+
+```js
+
+export function* watchAuth() {
+  yield all([ // add
+    takeEvery(actionTypes.AUTH_CHECK_TIMEOUT, checkAuthTimeoutSaga),
+    takeEvery(actionTypes.AUTH_INITIATE_LOGOUT, logoutSaga),
+    takeEvery(actionTypes.AUTH_USER, authUserSaga),
+    takeEvery(actionTypes.AUTH_CHECK_STATE, authCheckStateSaga)
+  ]);
+}
+
+So for example if the user hammers the purchase burger button, we maybe only always want to use the
+latest click, that is why besides takeEvery, we can also use takeLatest and if we use that here on purchase burger, takeLatest will automatically cancel any ongoing executions of purchaseBurgerSaga and always only execute the latest one.
+```
+
+
+
 ### 13. Useful Resources & Links.html
 
-### 2. Installing Redux Saga
+Find the module source code attached to this lecture.
 
-### 3. Creating our First Saga
+Useful Links:
 
-### 4. Hooking the Saga Up (to the Store and Actions)
-
-### 5. Moving Logic from the Action Creator to a Saga
-
-### 6. Moving More Logic Into Sagas
-
-### 7. Handling Authentication with a Saga
-
-### 8. Handling Auto-Sign-In with a Saga
-
-### 9. Moving the BurgerBuilder Side Effects into a Saga
+- Redux Saga: Full Documentation => https://redux-saga.js.org/
+- Advanced Concepts: https://redux-saga.js.org/docs/advanced/
+- API Reference: https://redux-saga.js.org/docs/api/
+- Pros & Cons for Redux Saga vs Thunks: https://stackoverflow.com/questions/34930735/pros-cons-of-using-redux-saga-with-es6-generators-vs-redux-thunk-with-es2017-asy/34933395
 
 ## 26. React Hooks
 
 ### 1. Introduction
+
+### 2. What are Hooks
+
+### 3. Enabling Hooks
+
+### 4. The useState() Hook
+
+### 5. Adding Array Destructuring
+
+### 6. Using Multiple State
+
+### 7. Using One State Instead
+
+### 8. The Rules of Hooks
+
+### 9. Sending Data via Http
 
 ### 10. The useEffect() Hook
 
@@ -15727,7 +16304,7 @@ gg: react move
 
 ### 19. Preparing & Optimizing
 
-### 2. What are Hooks
+### 
 
 ### 20. Avoiding Unnecessary Re-Rendering
 
@@ -15736,20 +16313,6 @@ gg: react move
 ### 22. Creating a Custom Hook
 
 ### 23. Wrap Up
-
-### 3. Enabling Hooks
-
-### 4. The useState() Hook
-
-### 5. Adding Array Destructuring
-
-### 6. Using Multiple State
-
-### 7. Using One State Instead
-
-### 8. The Rules of Hooks
-
-### 9. Sending Data via Http
 
 ## 27. Using Hooks in the Burger Builder
 
