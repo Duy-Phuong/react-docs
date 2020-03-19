@@ -16268,11 +16268,17 @@ Useful Links:
 
 ### 1. Introduction
 
+Từ version 16.8
+
 ### 2. What are Hooks
+
+![image-20200320003547076](./react-maximilan.assets/image-20200320003547076.png)
 
 ### 3. Enabling Hooks
 
 ### 4. The useState() Hook
+
+
 
 ### 5. Adding Array Destructuring
 
