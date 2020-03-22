@@ -375,7 +375,6 @@
   - [Updating an Item in an Array](#updating-an-item-in-an-array)
   - [Immutable Update Utility Libraries](#immutable-update-utility-libraries)
     - [17. Outsourcing Action Types](#17-outsourcing-action-types)
-    - [18. Combining Multiple Reducers](#18-combining-multiple-reducers)
     - [19. Understanding State Types](#19-understanding-state-types)
     - [19.1 state-types.pdf.pdf](#191-state-typespdfpdf)
     - [20. Time to Practice - Redux Basics.html](#20-time-to-practice---redux-basicshtml)
@@ -436,6 +435,14 @@
     - [22. Useful Resources & Links.html](#22-useful-resources--linkshtml)
   - [18. Adding Authentication to our Burger Project](#18-adding-authentication-to-our-burger-project)
     - [1. Module Introduction](#1-module-introduction-15)
+    - [2. Understanding Authentication in Single Page Applications](#2-understanding-authentication-in-single-page-applications)
+    - [3. Required App Adjustments](#3-required-app-adjustments)
+    - [4. Adding an Auth Form](#4-adding-an-auth-form)
+    - [5. Adding Actions](#5-adding-actions)
+    - [6. Getting a Token from the Backend](#6-getting-a-token-from-the-backend)
+    - [7. Adding Sign-In](#7-adding-sign-in)
+    - [8. Storing the Token](#8-storing-the-token)
+    - [9. Adding a Spinner](#9-adding-a-spinner)
     - [10. Logging Users Out](#10-logging-users-out)
     - [11. Accessing Protected Resources](#11-accessing-protected-resources)
     - [12. Updating the UI Depending on Auth State](#12-updating-the-ui-depending-on-auth-state)
@@ -446,17 +453,9 @@
     - [17. Fixing Connect + Routing Errors](#17-fixing-connect--routing-errors)
     - [18. Ensuring App Security](#18-ensuring-app-security)
     - [19. Guarding Routes](#19-guarding-routes)
-    - [2. Understanding Authentication in Single Page Applications](#2-understanding-authentication-in-single-page-applications)
     - [20. Displaying User Specific Orders](#20-displaying-user-specific-orders)
     - [21. Wrap Up](#21-wrap-up-1)
     - [22. Useful Resources & Links.html](#22-useful-resources--linkshtml-1)
-    - [3. Required App Adjustments](#3-required-app-adjustments)
-    - [4. Adding an Auth Form](#4-adding-an-auth-form)
-    - [5. Adding Actions](#5-adding-actions)
-    - [6. Getting a Token from the Backend](#6-getting-a-token-from-the-backend)
-    - [7. Adding Sign-In](#7-adding-sign-in)
-    - [8. Storing the Token](#8-storing-the-token)
-    - [9. Adding a Spinner](#9-adding-a-spinner)
   - [19. Improving our Burger Project](#19-improving-our-burger-project)
     - [1. Module Introduction](#1-module-introduction-16)
     - [2. Fixing the Redirect to the Frontpage](#2-fixing-the-redirect-to-the-frontpage)
@@ -469,9 +468,7 @@
     - [9. Useful Resources & Links.html](#9-useful-resources--linkshtml)
   - [20. Testing](#20-testing)
     - [1. Module Introduction](#1-module-introduction-17)
-    - [10. How to Test Redux](#10-how-to-test-redux)
-    - [11. Wrap Up](#11-wrap-up-1)
-    - [12. Useful Resources & Links.html](#12-useful-resources--linkshtml-1)
+    - [](#-3)
     - [2. What is Testing](#2-what-is-testing)
     - [3. Required Testing Tools](#3-required-testing-tools)
     - [4. What To Test](#4-what-to-test)
@@ -480,6 +477,9 @@
     - [7. Jest and Enzyme Documentations](#7-jest-and-enzyme-documentations)
     - [8. Testing Components Correctly](#8-testing-components-correctly)
     - [9. Testing Containers](#9-testing-containers)
+    - [10. How to Test Redux](#10-how-to-test-redux)
+    - [11. Wrap Up](#11-wrap-up-1)
+    - [12. Useful Resources & Links.html](#12-useful-resources--linkshtml-1)
   - [21. Deploying the App to the Web](#21-deploying-the-app-to-the-web)
     - [1. Module Introduction](#1-module-introduction-18)
     - [2. Deployment Steps](#2-deployment-steps)
@@ -489,6 +489,14 @@
     - [6. Useful Resources & Links.html](#6-useful-resources--linkshtml)
   - [22. Bonus Working with Webpack](#22-bonus-working-with-webpack)
     - [1. Module Introduction](#1-module-introduction-19)
+    - [2. Important Use Webpack 3.html](#2-important-use-webpack-3html)
+    - [3. Introducing Webpack](#3-introducing-webpack)
+    - [4. How Webpack works](#4-how-webpack-works)
+    - [5. Basic Workflow Requirements](#5-basic-workflow-requirements)
+    - [6. Project & npm Setup](#6-project--npm-setup)
+    - [7. Creating a Basic Folder & File Structure](#7-creating-a-basic-folder--file-structure)
+    - [8. Creating the Basic React Application](#8-creating-the-basic-react-application)
+    - [9. Installing Production Dependencies](#9-installing-production-dependencies)
     - [10. Setting Up the Basic Webpack Config](#10-setting-up-the-basic-webpack-config)
     - [11. Adding File Rules](#11-adding-file-rules)
     - [12. Introducing Babel](#12-introducing-babel)
@@ -499,20 +507,17 @@
     - [16. Injecting the Script into the index.html File.vtt](#16-injecting-the-script-into-the-indexhtml-filevtt)
     - [17. Creating the Production Workflow](#17-creating-the-production-workflow)
     - [18. Wrap Up](#18-wrap-up)
+  - [**Webpack 4 gần như không cần cấu hình module bundler**](#webpack-4-g%e1%ba%a7n-nh%c6%b0-kh%c3%b4ng-c%e1%ba%a7n-c%e1%ba%a5u-h%c3%acnh-module-bundler)
+  - [**Webpack 4: production và development mode**](#webpack-4-production-v%c3%a0-development-mode)
+  - [**Resources**](#resources)
     - [19. Adding babel-polyfill.html](#19-adding-babel-polyfillhtml)
-    - [2. Important Use Webpack 3.html](#2-important-use-webpack-3html)
     - [20. Useful Resources & Links.html](#20-useful-resources--linkshtml)
-    - [3. Introducing Webpack](#3-introducing-webpack)
-    - [4. How Webpack works](#4-how-webpack-works)
-    - [5. Basic Workflow Requirements](#5-basic-workflow-requirements)
-    - [6. Project & npm Setup](#6-project--npm-setup)
-    - [7. Creating a Basic Folder & File Structure](#7-creating-a-basic-folder--file-structure)
-    - [8. Creating the Basic React Application](#8-creating-the-basic-react-application)
-    - [9. Installing Production Dependencies](#9-installing-production-dependencies)
   - [23. Bonus Next.js](#23-bonus-nextjs)
     - [1. Module Introduction](#1-module-introduction-20)
     - [10. Useful Resources & Links.html](#10-useful-resources--linkshtml-3)
     - [2. Understanding Server Side Rendering](#2-understanding-server-side-rendering)
+  - [Getting Started](#getting-started)
+  - [Documentation](#documentation)
     - [3. Setting Up a Project](#3-setting-up-a-project)
     - [4. Understanding the Basics](#4-understanding-the-basics)
     - [5. Next.js & Components & Pages](#5-nextjs--components--pages)
@@ -522,13 +527,6 @@
     - [9. Deploying our App](#9-deploying-our-app)
   - [24. Bonus Animations in React Apps](#24-bonus-animations-in-react-apps)
     - [1. Module Introduction](#1-module-introduction-21)
-    - [10. Transition Events](#10-transition-events)
-    - [11. The CSSTransition Component](#11-the-csstransition-component)
-    - [12. Customizing CSS Classnames](#12-customizing-css-classnames)
-    - [13. Animating Lists](#13-animating-lists)
-    - [14. Alternative Animation Packages](#14-alternative-animation-packages)
-    - [15. Wrap Up](#15-wrap-up-1)
-    - [16. Useful Resources & Links.html](#16-useful-resources--linkshtml-1)
     - [2. Preparing the Demo Project](#2-preparing-the-demo-project)
     - [3. Using CSS Transitions](#3-using-css-transitions)
     - [4. Using CSS Animations](#4-using-css-animations)
@@ -537,12 +535,15 @@
     - [7. Using the Transition Component](#7-using-the-transition-component)
     - [8. Wrapping the Transition Component](#8-wrapping-the-transition-component)
     - [9. Animation Timings](#9-animation-timings)
+    - [10. Transition Events](#10-transition-events)
+    - [11. The CSSTransition Component](#11-the-csstransition-component)
+    - [12. Customizing CSS Classnames](#12-customizing-css-classnames)
+    - [13. Animating Lists](#13-animating-lists)
+    - [14. Alternative Animation Packages](#14-alternative-animation-packages)
+    - [15. Wrap Up](#15-wrap-up-1)
+    - [16. Useful Resources & Links.html](#16-useful-resources--linkshtml-1)
   - [25. Bonus A Brief Introduction to Redux Saga](#25-bonus-a-brief-introduction-to-redux-saga)
     - [1. Module Introduction](#1-module-introduction-22)
-    - [10. Moving the Orders Side Effects into Sagas](#10-moving-the-orders-side-effects-into-sagas)
-    - [11. Why Sagas can be Helpful](#11-why-sagas-can-be-helpful)
-    - [12. Diving Deeper into Sagas](#12-diving-deeper-into-sagas)
-    - [13. Useful Resources & Links.html](#13-useful-resources--linkshtml-1)
     - [2. Installing Redux Saga](#2-installing-redux-saga)
     - [3. Creating our First Saga](#3-creating-our-first-saga)
     - [4. Hooking the Saga Up (to the Store and Actions)](#4-hooking-the-saga-up-to-the-store-and-actions)
@@ -551,8 +552,20 @@
     - [7. Handling Authentication with a Saga](#7-handling-authentication-with-a-saga)
     - [8. Handling Auto-Sign-In with a Saga](#8-handling-auto-sign-in-with-a-saga)
     - [9. Moving the BurgerBuilder Side Effects into a Saga](#9-moving-the-burgerbuilder-side-effects-into-a-saga)
+    - [10. Moving the Orders Side Effects into Sagas](#10-moving-the-orders-side-effects-into-sagas)
+    - [11. Why Sagas can be Helpful](#11-why-sagas-can-be-helpful)
+    - [12. Diving Deeper into Sagas](#12-diving-deeper-into-sagas)
+    - [13. Useful Resources & Links.html](#13-useful-resources--linkshtml-1)
   - [26. React Hooks](#26-react-hooks)
     - [1. Introduction](#1-introduction-1)
+    - [2. What are Hooks](#2-what-are-hooks)
+    - [3. Enabling Hooks](#3-enabling-hooks)
+    - [4. The useState() Hook](#4-the-usestate-hook)
+    - [5. Adding Array Destructuring](#5-adding-array-destructuring)
+    - [6. Using Multiple State](#6-using-multiple-state)
+    - [7. Using One State Instead](#7-using-one-state-instead)
+    - [8. The Rules of Hooks](#8-the-rules-of-hooks)
+    - [9. Sending Data via Http](#9-sending-data-via-http)
     - [10. The useEffect() Hook](#10-the-useeffect-hook)
     - [11. Controlling Effect Execution](#11-controlling-effect-execution)
     - [12. Effect Cleanup](#12-effect-cleanup)
@@ -563,24 +576,13 @@
     - [17. useReducer() vs useState()](#17-usereducer-vs-usestate)
     - [18. Working with References and useRef()](#18-working-with-references-and-useref)
     - [19. Preparing & Optimizing](#19-preparing--optimizing)
-    - [2. What are Hooks](#2-what-are-hooks)
+    - [](#-4)
     - [20. Avoiding Unnecessary Re-Rendering](#20-avoiding-unnecessary-re-rendering)
     - [21. How to think about Functional Components with Hooks](#21-how-to-think-about-functional-components-with-hooks)
     - [22. Creating a Custom Hook](#22-creating-a-custom-hook)
     - [23. Wrap Up](#23-wrap-up-1)
-    - [3. Enabling Hooks](#3-enabling-hooks)
-    - [4. The useState() Hook](#4-the-usestate-hook)
-    - [5. Adding Array Destructuring](#5-adding-array-destructuring)
-    - [6. Using Multiple State](#6-using-multiple-state)
-    - [7. Using One State Instead](#7-using-one-state-instead)
-    - [8. The Rules of Hooks](#8-the-rules-of-hooks)
-    - [9. Sending Data via Http](#9-sending-data-via-http)
   - [27. Using Hooks in the Burger Builder](#27-using-hooks-in-the-burger-builder)
     - [1. Introduction](#1-introduction-2)
-    - [10. Using React.memo() & More!](#10-using-reactmemo--more)
-    - [11. Adding a Custom Error Handling Hook](#11-adding-a-custom-error-handling-hook)
-    - [12. Wrap Up](#12-wrap-up)
-    - [13. Useful Resources & Links.html](#13-useful-resources--linkshtml-2)
     - [2. Converting App](#2-converting-app)
     - [3. Routing with React.lazy()](#3-routing-with-reactlazy)
     - [4. Converting the Layout Component](#4-converting-the-layout-component)
@@ -589,6 +591,10 @@
     - [7. Add Hooks to ContactData](#7-add-hooks-to-contactdata)
     - [8. Converting the BurgerBuilder Container](#8-converting-the-burgerbuilder-container)
     - [9. Adjusting Auth & Logout Components](#9-adjusting-auth--logout-components)
+    - [10. Using React.memo() & More!](#10-using-reactmemo--more)
+    - [11. Adding a Custom Error Handling Hook](#11-adding-a-custom-error-handling-hook)
+    - [12. Wrap Up](#12-wrap-up)
+    - [13. Useful Resources & Links.html](#13-useful-resources--linkshtml-2)
   - [28. Bonus Building the Burger CSS](#28-bonus-building-the-burger-css)
     - [1. Building the Burger CSS Code](#1-building-the-burger-css-code)
     - [1.1 burger-css.pdf.pdf](#11-burger-csspdfpdf)
@@ -16277,18 +16283,239 @@ Từ version 16.8
 ### 3. Enabling Hooks
 
 ### 4. The useState() Hook
+useState trả về 1 array, tham số thứ nhất sẽ là state và tham số thứ 2 sẽ là function để update state đó
+
+Todo.js
+
+```js
+import React, { useState } from 'react';
+
+const todo = props => {
+    // const inputState = useState('');
+  const [todoName, setTodoName] = useState('');
+
+  const inputChangeHandler = event => {
+      // inputState[1]
+    setTodoName(event.target.value);
+  };
+
+  return (
+    <React.Fragment>
+      <input
+        type="text"
+        placeholder="Todo"
+        onChange={inputChangeHandler}
+        value={todoName}
+      />
+      <button type="button">Add</button>
+      <ul />
+    </React.Fragment>
+  );
+};
+
+export default todo;
+
+```
 
 
 
 ### 5. Adding Array Destructuring
 
+
+```js
+import React, { useState } from 'react';
+
+const todo = props => {
+  const [todoName, setTodoName] = useState('');
+    // 6
+  const [todoList, setTodoList] = useState([]);
+
+    // add
+  const inputChangeHandler = event => {
+    setTodoName(event.target.value);
+  };
+
+    // 6
+  const todoAddHandler = () => {
+    setTodoList(todoList.concat(todoName));
+  };
+
+  return (
+    <React.Fragment>
+      <input
+        type="text"
+        placeholder="Todo"
+        onChange={inputChangeHandler}
+        value={todoName}
+      />
+            
+      // 6
+      <button type="button" onClick={todoAddHandler}>
+        Add
+      </button>
+      <ul>
+        {todoList.map(todo => (
+          <li key={todo}>{todo}</li>
+        ))}
+      </ul>
+    </React.Fragment>
+  );
+};
+
+export default todo;
+
+```
+
+
 ### 6. Using Multiple State
+
+```js
+
+const todo = props => {
+  const [todoName, setTodoName] = useState('');
+  const [todoList, setTodoList] = useState([]);
+
+  const inputChangeHandler = event => {
+    setTodoName(event.target.value);
+  };
+
+  const todoAddHandler = () => {
+    setTodoList(todoList.concat(todoName));
+  };
+
+  return (
+    <React.Fragment>
+      <input
+        type="text"
+        placeholder="Todo"
+        onChange={inputChangeHandler}
+        value={todoName}
+      />
+      <button type="button" onClick={todoAddHandler}>
+        Add
+      </button>
+      <ul>
+        {todoList.map(todo => (
+          <li key={todo}>{todo}</li>
+        ))}
+      </ul>
+    </React.Fragment>
+  );
+};
+
+export default todo;
+
+```
+
+
 
 ### 7. Using One State Instead
 
+
+```js
+
+const todo = props => {
+  //   const [todoName, setTodoName] = useState('');
+  //   const [todoList, setTodoList] = useState([]);
+  const [todoState, setTodoState] = useState({ userInput: '', todoList: [] });
+
+  const inputChangeHandler = event => {
+    setTodoState({
+      userInput: event.target.value,
+      todoList: todoState.todoList
+    });
+  };
+
+  const todoAddHandler = () => {
+    setTodoState({
+      userInput: todoState.userInput,
+      todoList: todoState.todoList.concat(todoState.userInput)
+    });
+  };
+    
+ return (
+    <React.Fragment>
+      <input
+        type="text"
+        placeholder="Todo"
+        onChange={inputChangeHandler}
+// replace
+        value={todoState.userInput}
+      />
+      <button type="button" onClick={todoAddHandler}>
+        Add
+      </button>
+// replace
+      <ul>
+        {todoState.todoList.map(todo => (
+          <li key={todo}>{todo}</li>
+        ))}
+      </ul>
+    </React.Fragment>
+  );
+```
+
+Lưu ý: nó sẽ không merge state như class mà replace
+
 ### 8. The Rules of Hooks
+Important is that it has to be a component function
+
 
 ### 9. Sending Data via Http
+
+Sử dụng firebase => reala time database
+
+Set rule là true hết
+
+```js
+
+  useEffect(() => {
+    axios.get('https://test-3e15a.firebaseio.com/todos.json').then(result => {
+      console.log(result);
+      const todoData = result.data;
+      const todos = [];
+      for (const key in todoData) {
+        todos.push({id: key, name: todoData[key].name})
+      }
+      setTodoList(todos);
+    });
+  });
+  const inputChangeHandler = event => {
+    // setTodoState({
+    //   userInput: event.target.value,
+    //   todoList: todoState.todoList
+    // });
+    setTodoName(event.target.value);
+  };
+
+// add
+  const todoAddHandler = () => {
+    // setTodoState({
+    //   userInput: todoState.userInput,
+    //   todoList: todoState.todoList.concat(todoState.userInput)
+    // });
+    setTodoList(todoList.concat(todoName));
+    axios
+      .post('https://test-3e15a.firebaseio.com/todos.json', { name: todoName })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+
+<ul>
+        {todoList.map(todo => (
+          <li key={todo.id}>{todo.name}</li>
+        ))}
+      </ul>
+```
+
+useEffect run every render cycle, Tham số thử 2 quyết định sẽ render khi nào
+
+If you want to replicate componentDidMount => tham số thứ 2 là []
 
 ### 10. The useEffect() Hook
 
@@ -16296,19 +16523,330 @@ Từ version 16.8
 
 ### 12. Effect Cleanup
 
+Khi unmount
+
+```js
+const mouseMoveHandler = event => {
+    console.log(event.clientX, event.clientY);
+  };
+
+// khi nhập thì có ngày càng nhiều event listener => awful
+  useEffect(() => {
+    document.addEventListener('mousemove', mouseMoveHandler);
+    return () => {
+      document.removeEventListener('mousemove', mouseMoveHandler);
+    };
+  }, []);
+```
+
+
 ### 13. Converting the App Component
+
+Create new Header.js
+
+```js
+import React, { useContext } from 'react';
+
+import AuthContext from '../auth-context';
+
+const header = props => {
+  const auth = useContext(AuthContext);
+  return (
+    <header>
+      {auth.status ? (
+        <button onClick={props.onLoadTodos}>Todo List</button>
+      ) : null}
+      <button onClick={props.onLoadAuth}>Auth</button>
+    </header>
+  );
+};
+
+export default header;
+
+```
+
+Auth.js
+
+```js
+import React, { useContext } from 'react';
+
+import AuthContext from '../auth-context';
+
+const auth = props => {
+  const auth = useContext(AuthContext);
+
+  return <button onClick={auth.login}>Log in!</button>;
+};
+
+export default auth;
+
+```
+
+App.js
+
+```js
+import React, { useState } from 'react';
+
+import Todo from './components/Todo';
+import Header from './components/Header';
+import Auth from './components/Auth';
+import AuthContext from './auth-context';
+
+const app = props => {
+  const [page, setPage] = useState('auth');
+  const [authStatus, setAuthStatus] = useState(false);
+
+  const switchPage = pageName => {
+    setPage(pageName);
+  };
+
+  const login = () => {
+    setAuthStatus(true);
+  };
+
+  return (
+    <div className="App">
+      <AuthContext.Provider value={{ status: authStatus, login: login }}>
+        <Header
+          onLoadTodos={switchPage.bind(this, 'todos')}
+          onLoadAuth={switchPage.bind(this, 'auth')}
+        />
+        <hr />
+        {page === 'auth' ? <Auth /> : <Todo />}
+      </AuthContext.Provider>
+    </div>
+  );
+};
+
+export default app;
+
+```
+
+auth-context.js
+
+```js
+import React from 'react';
+
+// trong hàm createContext có thể nhận tất cả các kiểu dữ liệu
+const authContext = React.createContext({ status: false, login: () => {} });
+
+export default authContext;
+
+```
 
 ### 14. The useContext() Hook
 
 ### 15. State and Effects Gotchas
 
+Khi nhập name rồi ấn nút add => tab console hiển thị error
+
+Fix thêm: `const todoItem = { id: res.data.name, name: todoName };`
+
+New issue: time for response is 3000 => add new err
+
+Todo.js
+
+```js
+
+  // const [submittedTodo, setSubmittedTodo] = useState(null);
+  // const [todoList, setTodoList] = useState([]);
+  //   const [todoState, setTodoState] = useState({ userInput: '', todoList: [] });
+
+
+  // useEffect(
+  //   () => {
+  //     if (submittedTodo) {
+  //      // setTodoList(todoList.concat(submittedTodo));
+  //       dispatch({ type: 'ADD', payload: submittedTodo });
+  //     }
+  //   },
+  //   [submittedTodo]
+  // );
+
+  const todoAddHandler = () => {
+    // setTodoState({
+    //   userInput: todoState.userInput,
+    //   todoList: todoState.todoList.concat(todoState.userInput)
+    // });
+
+    axios
+      .post('https://test-3e15a.firebaseio.com/todos.json', { name: todoName })
+      .then(res => {
+        setTimeout(() => {
+          const todoItem = { id: res.data.name, name: todoName };
+            // setSubmittedTodo(todoItem)
+          dispatch({ type: 'ADD', payload: todoItem });
+        }, 3000);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+```
+
+Fix bug bằng cách thêm `setSubmittedTodo(todoItem)` và use useEffect để set lại concat todoList
+
 ### 16. The useReducer() Hook
+
+Todo.js
+
+```js
+import React, { useState, useEffect, useReducer } from 'react';
+
+  // const [todoList, setTodoList] = useState([]);
+  //   const [todoState, setTodoState] = useState({ userInput: '', todoList: [] });
+
+  const todoListReducer = (state, action) => {
+    switch (action.type) {
+      case 'ADD':
+        return state.concat(action.payload);
+      case 'SET':
+        return action.payload;
+      case 'REMOVE':
+        return state.filter(todo => todo.id !== action.payload);
+      default:
+        return state;
+    }
+  };
+
+// tham số thứ 2 của useReducer là starting state
+  const [todoList, dispatch] = useReducer(todoListReducer, []);
+
+  const todoRemoveHandler = todoId => {
+    axios
+      .delete(`https://test-3e15a.firebaseio.com/todos/${todoId}.json`)
+      .then(res => {
+        dispatch({ type: 'REMOVE', payload: todoId });
+      })
+      .catch(err => console.log(err));
+  };
+
+
+  useEffect(() => {
+    axios.get('https://test-3e15a.firebaseio.com/todos.json').then(result => {
+      console.log(result);
+      const todoData = result.data;
+      const todos = [];
+      for (const key in todoData) {
+        todos.push({ id: key, name: todoData[key].name });
+      }
+        // add
+      dispatch({ type: 'SET', payload: todos });
+    });
+    return () => {
+      console.log('Cleanup');
+    };
+  }, []);
+```
 
 ### 17. useReducer() vs useState()
 
+Todo.js
+
+```js
+
+      <ul>
+        {todoList.map(todo => (
+          <li key={todo.id} onClick={todoRemoveHandler.bind(this, todo.id)}>
+            {todo.name}
+          </li>
+        ))}
+      </ul>
+```
+
 ### 18. Working with References and useRef()
 
+```js
+import React, { useEffect, useReducer, useRef } from 'react';
+import axios from 'axios';
+
+const todo = props => {
+    // add
+    // const [todoName, setTodoName] = useState('');
+  const todoInputRef = useRef();
+
+    
+ 
+  const todoAddHandler = () => {
+    // setTodoState({
+    //   userInput: todoState.userInput,
+    //   todoList: todoState.todoList.concat(todoState.userInput)
+    // });
+
+    const todoName = todoInputRef.current.value;
+    
+    ...
+      
+    <React.Fragment>
+      <input
+        type="text"
+        placeholder="Todo"
+        ref={todoInputRef}
+      />
+```
+
+comment *inputChangeHandler*
+
 ### 19. Preparing & Optimizing
+
+
+List.js
+
+```js
+import React from 'react';
+
+const list = props => {
+  console.log('Rendering the list...');
+
+  return (
+    <ul>
+      {props.items.map(item => (
+        <li key={item.id} onClick={props.onClick.bind(this, item.id)}>
+          {item.name}
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+export default list;
+
+```
+
+todo.js
+
+```js
+  const [inputIsValid, setInputIsValid] = useState(false);
+
+
+  const inputValidationHandler = event => {
+    if (event.target.value.trim() === '') {
+      setInputIsValid(false);
+    } else {
+      setInputIsValid(true);
+    }
+  };
+
+  return (
+    <React.Fragment>
+      <input
+        type="text"
+        placeholder="Todo"
+        ref={todoInputRef}
+        onChange={inputValidationHandler}
+        style={{ backgroundColor: inputIsValid ? 'transparent' : 'red' }} 
+
+        
+// check todoList  change sẽ get in React memory
+      {useMemo(
+        () => (
+          <List items={todoList} onClick={todoRemoveHandler} />
+        ),
+        [todoList]
+      )}
+```
+
+Khi nhập input List bị re-render => ảnh hưởng
 
 ### 
 
@@ -16318,41 +16856,447 @@ Từ version 16.8
 
 ### 22. Creating a Custom Hook
 
+hooks/forms.js
+
+```js
+import { useState } from 'react';
+
+export const useFormInput = () => {
+  const [value, setValue] = useState('');
+  const [validity, setValidity] = useState(false);
+
+  const inputChangeHandler = event => {
+    setValue(event.target.value);
+    if (event.target.value.trim() === '') {
+      setValidity(false);
+    } else {
+      setValidity(true);
+    }
+  };
+
+  return { value: value, onChange: inputChangeHandler, validity };
+};
+
+```
+
+Todo.js
+
+```js
+  const todoInput = useFormInput();
+
+
+  const todoAddHandler = () => {
+      // add
+    const todoName = todoInput.value;
+      ...
+
+  return (
+    <React.Fragment>
+      <input
+        type="text"
+        placeholder="Todo"
+        onChange={todoInput.onChange}
+        value={todoInput.value}
+        style={{ backgroundColor: todoInput.validity === true ? 'transparent' : 'red' }}
+      />
+```
+
 ### 23. Wrap Up
 
 ## 27. Using Hooks in the Burger Builder
 
 ### 1. Introduction
 
-### 10. Using React.memo() & More!
-
-### 11. Adding a Custom Error Handling Hook
-
-### 12. Wrap Up
-
-### 13. Useful Resources & Links.html
 
 ### 2. Converting App
 
+App.js
+
+```js
+// convert
+const app = props => {
+  useEffect(() => {
+    props.onTryAutoSignup();
+  }, []);
+};
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(app)
+);
+
+```
+
+And if you pass an empty array, it essentially means this will only run once when the component is mounted essentially and that is exactly what I want here and therefore I pass this empty array.
+
 ### 3. Routing with React.lazy()
 
+Delete folder asyncComponent
+
+App.js
+
+```js
+import React, { useEffect, Suspense } from 'react';
+
+const Checkout = React.lazy(() => {
+  return import('./containers/Checkout/Checkout');
+});
+
+const Orders = React.lazy(() => {
+  return import('./containers/Orders/Orders');
+});
+
+const Auth = React.lazy(() => {
+  return import('./containers/Auth/Auth');
+});
+
+// Thay component trong Route bằng render
+let routes = (
+    <Switch>
+      <Route path="/auth" render={() => <Auth />} />
+      <Route path="/" exact component={BurgerBuilder} />
+      <Redirect to="/" />
+    </Switch>
+  );
+
+  if (props.isAuthenticated) {
+    routes = (
+      <Switch>
+        <Route path="/checkout" render={() => <Checkout />} />
+        <Route path="/orders" render={() => <Orders />} />
+        <Route path="/logout" component={Logout} />
+        <Route path="/auth" render={() => <Auth />} />
+      
+// add Suspense
+return (
+    <div>
+      <Layout>
+        <Suspense fallback={<p>Loading...</p>}>{routes}</Suspense>
+      </Layout>
+    </div>
+  );
+```
+
+Có từ React 16.6
+
+I will wrap this place here with suspense, so put the closing tag after routes here and suspense takes a **fallback** property which defines what to render whilst we're waiting for one of these lazy loaded components to load and there, I'll render a paragraph where I say loading, you could render anything here, you could render a spinner, whatever you prefer.
+
 ### 4. Converting the Layout Component
+
+Layout.js
+
+```js
+// convert
+const layout = props => {
+    // add
+  const [sideDrawerIsVisible, setSideDrawerIsVisible] = useState(false);
+    
+    // add const
+  const sideDrawerClosedHandler = () => {
+    setSideDrawerIsVisible(false);
+  };
+
+  const sideDrawerToggleHandler = () => {
+    setSideDrawerIsVisible(!sideDrawerIsVisible);
+  };
+// this.props thay bằng props
+// open={sideDrawerIsVisible}
+
+    
+    export default connect(mapStateToProps)(layout);
+
+```
+
+withErrorHandler.js
+
+```js
+
+const withErrorHandler = (WrappedComponent, axios) => {
+  return props => {
+    const [error, setError] = useState(null);
+
+// thay this.reqInterceptor bằng const reqInterceptor
+      
+   // thay cho componentWillUnmount
+   useEffect(() => {
+      return () => {
+        axios.interceptors.request.eject(reqInterceptor);
+        axios.interceptors.response.eject(resInterceptor);
+      };
+    }, [reqInterceptor, resInterceptor]);
+      
+// add const 
+       const errorConfirmedHandler = () => {
+      setError(null);
+    };
+
+    return (
+      <Aux>
+        // thay this.state.error, this.errorConfirmedHandler
+        <Modal show={error} modalClosed={errorConfirmedHandler}>
+          {error ? error.message : null}
+        </Modal>
+        <WrappedComponent {...props} />
+      </Aux>
+    );
+```
 
 ### 5. Converting withErrorHandler HOC
 
 ### 6. Adjusting the Order & Checkout Containers
 
+Orders.js
+
+```js
+
+const orders = props => {
+    // thay componentDidMount
+  useEffect(() => {
+    // thay this.props
+    props.onFetchOrders(props.token, props.userId);
+  }, []);
+    
+ 
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withErrorHandler(orders, axios));
+    
+```
+
+Checkout.js
+
+thay this.props, hàm thì thêm const
+
+App.js
+
+```js
+// thêm props trong Router để fix bug
+  let routes = (
+    <Switch>
+      <Route path="/auth" render={props => <Auth {...props} />} />
+      <Route path="/" exact component={BurgerBuilder} />
+      <Redirect to="/" />
+    </Switch>
+  );
+
+  if (props.isAuthenticated) {
+    routes = (
+      <Switch>
+        <Route path="/checkout" render={props => <Checkout {...props} />} />
+        <Route path="/orders" render={props => <Orders {...props} />} />
+        <Route path="/logout" component={Logout} />
+        <Route path="/auth" render={props => <Auth {...props} />} />
+        <Route path="/" exact component={BurgerBuilder} />
+        <Redirect to="/" />
+      </Switch>
+    );
+  }
+```
+
 ### 7. Add Hooks to ContactData
+
+ContactData.js
+
+```js
+
+const contactData = props => {
+  const [orderForm, setOrderForm] = useState({
+      ...
+      // tách ra 2 state và thay this.state
+});
+  const [formIsValid, setFormIsValid] = useState(false);
+    
+// hàm thêm const, this.props => props
+// khi gọi hàm thì bỏ this đi
+        <form onSubmit={orderHandler}>
+
+
+```
 
 ### 8. Converting the BurgerBuilder Container
 
+BurgerBuilder.js
+
+```js
+const burgerBuilder = props => {
+  // constructor(props) {
+  //     super(props);
+  //     this.state = {...}
+  // }
+  const [purchasing, setPurchasing] = useState(false);
+// thay cho componentDidMount
+  useEffect(() => {
+    props.onInitIngredients();
+  }, []);
+    
+// hàm thêm const, this.props => props
+// khi gọi hàm thì bỏ this đi
+```
+
 ### 9. Adjusting Auth & Logout Components
+
+Auth.js
+
+```js
+// hàm thêm const, this.props => props
+// khi gọi hàm thì bỏ this đi
+
+const auth = props => {
+  const [authForm, setAuthForm] = useState({
+      ...
+      
+      });
+  const [isSignup, setIsSignup] = useState(true);
+
+ // thay cho componentDidMount
+  useEffect(() => {
+    if (!props.buildingBurger && props.authRedirectPath !== '/') {
+      props.onSetAuthRedirectPath();
+    }
+  }, []);
+  
+  // thay hết this.state.controls bằng authForm
+```
+
+Logout.js
+
+```js
+ // thay cho componentDidMount
+const logout = props => {
+  useEffect(() => {
+    props.onLogout();
+  }, []);
+```
+
+
+### 10. Using React.memo() & More!
+
+BurgerIngredient.js
+
+```js
+const burgerIngredient = props => {
+  let ingredient = null;
+
+    // Tương tự với OrderSummary, Modal
+```
+
+Modal.js
+
+```js
+// comment shouldComponentUpdate
+
+const modal = props => {
+  // shouldComponentUpdate ( nextProps, nextState ) {
+  //     return nextProps.show !== this.props.show || nextProps.children !== this.props.children;
+  // }
+
+  return (
+    <Aux>
+      <Backdrop show={props.show} clicked={props.modalClosed} />
+      <div
+        className={classes.Modal}
+        style={{
+          transform: props.show ? 'translateY(0)' : 'translateY(-100vh)',
+          opacity: props.show ? '1' : '0'
+        }}
+      >
+        {props.children}
+      </div>
+    </Aux>
+  );
+};
+
+// add
+export default React.memo(
+  modal,
+  (prevProps, nextProps) =>
+    nextProps.show === prevProps.show &&
+    nextProps.children === prevProps.children
+);
+
+// thay this.props
+```
+
+### 11. Adding a Custom Error Handling Hook
+
+hook-error-handler.js copy từ withErrorHandle qua
+
+```js
+import { useState, useEffect } from 'react';
+
+export default httpClient => {
+    const [error, setError] = useState(null);
+
+    const reqInterceptor = httpClient.interceptors.request.use(req => {
+      setError(null);
+      return req;
+    });
+    const resInterceptor = httpClient.interceptors.response.use(
+      res => res,
+      err => {
+        setError(err);
+      }
+    );
+
+    useEffect(() => {
+      return () => {
+        httpClient.interceptors.request.eject(reqInterceptor);
+        httpClient.interceptors.response.eject(resInterceptor);
+      };
+    }, [reqInterceptor, resInterceptor]);
+
+    const errorConfirmedHandler = () => {
+      setError(null);
+    };
+
+    return [error, errorConfirmedHandler];
+}
+```
+
+withErrorHandle.js
+
+```js
+import useHttpErrorHandler from '../../hooks/http-error-handler';
+
+const withErrorHandler = (WrappedComponent, axios) => {
+  return props => {
+    const [error, clearError] = useHttpErrorHandler(axios);
+      
+       return (
+      <Aux>
+           // add
+        <Modal show={error} modalClosed={clearError}>
+          {error ? error.message : null}
+        </Modal>
+        <WrappedComponent {...props} />
+      </Aux>
+    );
+  };
+};
+
+export default withErrorHandler;
+
+```
+
+Useful Resources:
+
+- Official Hooks Docs: https://reactjs.org/docs/hooks-intro.html
+
+### 12. Wrap Up
+
+### 13. Useful Resources & Links.html
 
 ## 28. Bonus Building the Burger CSS
 
 ### 1. Building the Burger CSS Code
 
 ### 1.1 burger-css.pdf.pdf
+
+Link to the finished burger (on codepen.io): https://codepen.io/anon/pen/PJrgga  
+
 
 ## 29. Next Steps and Course Roundup
 
@@ -16362,21 +17306,69 @@ Từ version 16.8
 
 ### 2. React Rocks! Where to find more Examples
 
+React-rock: https://react.rocks/
+
+You can also search for certain things there, for keywords like redux for example and then you'll find some react projects you can check out. These are all open source
+
 ### 3. More Inspiration Real-World Projects Built with React
+
+gg: build with react 
+
+site using react
+
+https://madewithreact.com/
 
 ### 4. Static React Apps with Gatsby.js
 
+https://www.gatsbyjs.org/
+
+Now gatsbyjs is actually a library building up on react, just like nextjs did, gatsbyjs serves a different purpose though and it's a pretty exciting library
+
+Gatsbyjs is a library that allows you to build static web sites with react.
+
+Now what's a static website? A static website is a page which uses only html, javascript and css, well that's true for normal, react single page application too but a static site also has one special thing going for it, you normally don't use react router there, you don't use it directly at least,
+
+instead what you have is you have a folder structure where each folder has an index.html file, and the according assets belonging to the file in it.
+
 ### 5. Introducing React Native
+
+with react native, you use javascript and react and another library, react native to build mobile apps. You still write javascript code but then react native will compile that to code that runs on iOS or Android devices
 
 ### 6. Component Libraries (Example Material UI)
 
+https://material-ui.com/
+
+https://react-bootstrap.github.io/
+
+Pagination: https://morioh.com/p/66918873ff30?fbclid=IwAR3uKX8cy8_ogYFPnBmNqllqlmS6zuAN-7sK6nEjHfHtVa72rZI5sz6iW3k
+
 ### 7. Smaller Apps with Preact
+
+
+https://preactjs.com/
+
+Fast 3kB alternative to React with the same modern API.
+
+https://github.com/preactjs/preact-cli
 
 ### 8. Comparing React with Preact
 
+https://preactjs.com/guide/v10/differences-to-react
+
+
 ### 9. Congratulations
 
+I got a lot of **other high-quality & bestselling courses** you might be interested in: https://academind.com/learn/our-courses/
 
+I'd love to welcome you on board of any of these courses! :-)
+
+Also don't forget to **subscribe to my newsletter** on https://academind.com/ to receive the latest updates and exclusive offers!
+
+And in case you didn't know: On the same page as well as on my [YouTube channel](http://youtube.com/c/academind) I got loads of **additional tutorials**.
+
+Last but not least - I **tweet on** [@maxedapps](https://twitter.com/maxedapps) and on [@academind_real](https://twitter.com/academind_real), would love to see you there!
+
+---
 
 Hook
 
