@@ -1,5 +1,6 @@
-[TOC]  
+[TOC]
 
+---
 
 - [React - The Complete Guide (incl Hooks, React Router, Redux)](#react---the-complete-guide-incl-hooks-react-router-redux)
   - [1. Getting Started](#1-getting-started)
@@ -245,7 +246,6 @@
     - [41. Useful Resources & Links.html](#41-useful-resources--linkshtml)
   - [9. Reaching out to the Web (Http Ajax)](#9-reaching-out-to-the-web-http-ajax)
     - [1. Module Introduction](#1-module-introduction-6)
-    - [](#)
     - [2. Understanding Http Requests in React](#2-understanding-http-requests-in-react)
     - [3. Understanding our Project and Introducing Axios](#3-understanding-our-project-and-introducing-axios)
     - [4. Creating a Http Request to GET Data](#4-creating-a-http-request-to-get-data)
@@ -316,7 +316,6 @@
     - [34. Useful Resources & Links.html](#34-useful-resources--linkshtml)
   - [12. Adding Routing to our Burger Project](#12-adding-routing-to-our-burger-project)
     - [1. Module Introduction](#1-module-introduction-9)
-    - [](#-1)
     - [2. Building the Checkout Container](#2-building-the-checkout-container)
     - [3. Setting Up Routing & Routes](#3-setting-up-routing--routes)
     - [4. Navigating to the Checkout Page](#4-navigating-to-the-checkout-page)
@@ -332,7 +331,6 @@
     - [14. Useful Resources & Links.html](#14-useful-resources--linkshtml)
   - [13. Forms and Form Validation](#13-forms-and-form-validation)
     - [1. Module Introduction](#1-module-introduction-10)
-    - [](#-2)
     - [2. Analyzing the App](#2-analyzing-the-app)
     - [3. Creating a Custom Dynamic Input Component](#3-creating-a-custom-dynamic-input-component)
     - [4. Setting Up a JS Config for the Form](#4-setting-up-a-js-config-for-the-form)
@@ -468,7 +466,6 @@
     - [9. Useful Resources & Links.html](#9-useful-resources--linkshtml)
   - [20. Testing](#20-testing)
     - [1. Module Introduction](#1-module-introduction-17)
-    - [](#-3)
     - [2. What is Testing](#2-what-is-testing)
     - [3. Required Testing Tools](#3-required-testing-tools)
     - [4. What To Test](#4-what-to-test)
@@ -576,7 +573,6 @@
     - [17. useReducer() vs useState()](#17-usereducer-vs-usestate)
     - [18. Working with References and useRef()](#18-working-with-references-and-useref)
     - [19. Preparing & Optimizing](#19-preparing--optimizing)
-    - [](#-4)
     - [20. Avoiding Unnecessary Re-Rendering](#20-avoiding-unnecessary-re-rendering)
     - [21. How to think about Functional Components with Hooks](#21-how-to-think-about-functional-components-with-hooks)
     - [22. Creating a Custom Hook](#22-creating-a-custom-hook)
@@ -616,6 +612,8 @@
     - [b. useReducer](#b-usereducer)
     - [c. useEffect](#c-useeffect)
 
+---
+
 C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Source_All/python/Test/readfile.py
 ======== name dir ========
 
@@ -633,7 +631,7 @@ https://academind.com/learn/javascript/reference-vs-primitive-values/
 
 React is a js library for building user interface (include many Components)
 
-Run on browser => ngay lập tức xảy ra trên browser mà không phải đợi server return 
+Run on browser => ngay lập tức xảy ra trên browser mà không phải đợi server return
 
 Chia thành nhiều components => dễ bảo trì, tái SD, quản lí
 
@@ -648,6 +646,20 @@ You shouldn't need it right now - but in case you ever want to dive in, here's t
 Had issues with the Codepen demo? Here's the finished source code: https://codepen.io/anon/pen/MELQaQ
 
 Xem link codepen ở trên:
+
+In the next lecture we will be creating a very small and quick app using Codepen. There will be a link to a project boilerplate URL shown in the video here: https://codepen.io/sgrider/pen/yRWZEq
+
+Codepen has made a change that requires a preprocessor setting that is causing many student's projects to fail. We updated the boilerplate project to reflect this change, however, for whatever reason, the project is only showing this update for **some** students.
+
+To make sure your preprocessor is set to Babel do the following:
+
+**1. Click the settings 'gear' icon to the left of JS:**
+
+![img](https://udemy-images.s3.amazonaws.com:443/redactor/raw/2019-03-27_20-12-54-a1c52c66710ba158917543ac3be9dcdd.png)
+
+**2. Change the Preprocessor from 'None' to 'Babel':**
+
+![img](https://udemy-images.s3.amazonaws.com:443/redactor/raw/2019-03-27_20-13-33-0d45dbdbf9ed01ad755c3919879c2182.png)
 
 Vào tab js: ấn setting và search react, react-dom
 
@@ -713,8 +725,8 @@ Had issues with the Codepen demo? Here's the finished source code: https://codep
 At the top level of programs and functions, **`let`**, unlike **`var`**, does not create a property on the global object. For example:
 
 ```js
-var x = 'global';
-let y = 'global';
+var x = "global";
+let y = "global";
 console.log(this.x); // "global"
 console.log(this.y); // undefined
 ```
@@ -734,11 +746,11 @@ https://jsbin.com/komifafifu/edit?js,console
 
 ![image-20200214220115303](./react-maximilan.assets/image-20200214220115303.png)
 
-![image-20200214220350341](./react-maximilan.assets/image-20200214220350341.png)  
+![image-20200214220350341](./react-maximilan.assets/image-20200214220350341.png)
 
 Class kế thừa trong constructor phải có super(); nếu không sẽ báo lỗi
 
-![](./root/img/2020-01-19-15-50-03.png)  
+![](./root/img/2020-01-19-15-50-03.png)
 
 Cú pháp mới không cần constructor:
 
@@ -746,7 +758,7 @@ Cú pháp mới không cần constructor:
 
 ### 7. The Spread & Rest Operator
 
-![](./root/img/2020-01-19-15-53-42.png)  
+![](./root/img/2020-01-19-15-53-42.png)
 
 ![image-20200214220834325](./react-maximilan.assets/image-20200214220834325.png)
 
@@ -758,7 +770,7 @@ const abc = (...args) => {
 
 ### 8. Destructuring
 
-![](./root/img/2020-01-19-16-00-23.png)  
+![](./root/img/2020-01-19-16-00-23.png)
 
 ![image-20200214221128199](./react-maximilan.assets/image-20200214221128199.png)
 
@@ -774,7 +786,7 @@ Nếu sử dụng copy con trỏ khi thay đổi giá trị của person nó s�
 
 ```js
 const num = [1, 2, 3];
-const doubleArr = num.map((x) => {
+const doubleArr = num.map(x => {
   return 2 * x;
 });
 ```
@@ -804,7 +816,7 @@ Arrow functions are a different way of creating functions in JavaScript. Besides
 Arrow function syntax may look strange but it's actually simple.
 
 ```
-function callMe(name) { 
+function callMe(name) {
     console.log(name);
 }
 ```
@@ -812,25 +824,25 @@ function callMe(name) {
 which you could also write as:
 
 ```
-const callMe = function(name) { 
+const callMe = function(name) {
     console.log(name);
 }
 ```
 
-becomes: 
+becomes:
 
 ```
-const callMe = (name) => { 
+const callMe = (name) => {
     console.log(name);
 }
 ```
 
-**Important:** 
+**Important:**
 
 When having **no arguments**, you have to use empty parentheses in the function declaration:
 
 ```
-const callMe = () => { 
+const callMe = () => {
     console.log('Max!');
 }
 ```
@@ -838,7 +850,7 @@ const callMe = () => {
 When having **exactly one argument**, you may omit the parentheses:
 
 ```
-const callMe = name => { 
+const callMe = name => {
     console.log(name);
 }
 ```
@@ -852,7 +864,7 @@ const returnMe = name => name
 That's equal to:
 
 ```
-const returnMe = name => { 
+const returnMe = name => {
     return name;
 }
 ```
@@ -865,9 +877,9 @@ To still access functionality in another file, you need `export` (to make it ava
 
 You got two different types of exports: **default** (unnamed) and **named** exports:
 
-**default** => `export default ...;` 
+**default** => `export default ...;`
 
-**named** => `export const someData = ...;` 
+**named** => `export const someData = ...;`
 
 You can import **default exports** like this:
 
@@ -895,7 +907,7 @@ import * as upToYou from './path/to/file.js';
 
 #### **Classes**
 
-Classes are a feature which basically replace constructor functions and prototypes. You can define blueprints for JavaScript objects with them. 
+Classes are a feature which basically replace constructor functions and prototypes. You can define blueprints for JavaScript objects with them.
 
 Like this:
 
@@ -972,7 +984,7 @@ console.log(person.species); // prints 'human'
 
 #### **Spread & Rest Operator**
 
-The spread and rest operators actually use the same syntax: `...` 
+The spread and rest operators actually use the same syntax: `...`
 
 Yes, that is the operator - just three dots. It's usage determines whether you're using it as the spread or rest operator.
 
@@ -1006,7 +1018,7 @@ const newObject = {
 }
 ```
 
-The spread operator is extremely useful for cloning arrays and objects. Since both are [reference types (and not primitives)](https://youtu.be/9ooYYRLdg_g), copying them safely (i.e. preventing future mutation of the copied original) can be tricky. With the spread operator you have an easy way of creating a (shallow!) clone of the object or array. 
+The spread operator is extremely useful for cloning arrays and objects. Since both are [reference types (and not primitives)](https://youtu.be/9ooYYRLdg_g), copying them safely (i.e. preventing future mutation of the copied original) can be tricky. With the spread operator you have an easy way of creating a (shallow!) clone of the object or array.
 
 #### **Destructuring**
 
@@ -1169,10 +1181,7 @@ class App extends Component {
 }
 
 export default App;
-
 ```
-
-
 
 Ex: SD thay phần return html trong ham render de test
 
@@ -1203,7 +1212,7 @@ You can use JSX to write code html in .js file
 
 ### 8. Creating a Functional Component
 
-Create class Person in folder Person 
+Create class Person in folder Person
 
 ```js
 import React from "react";
@@ -1264,7 +1273,7 @@ Each component needs to return/ render some **JSX** code - it defines which HTML
 When creating components, you have the choice between **two different ways:**
 
 1. **Functional components** (also referred to as "presentational", "dumb" or "stateless" components - more about this later in the course) => `const cmp = () => { return some JSX }` (using ES6 arrow functions as shown here is recommended but optional)
-2. **class-based components** (also referred to as "containers", "smart" or "stateful" components) => `class Cmp extends Component { render () { return some JSX } }` 
+2. **class-based components** (also referred to as "containers", "smart" or "stateful" components) => `class Cmp extends Component { render () { return some JSX } }`
 
 We'll of course dive into the difference throughout this course, you can already note that you should use 1) as often as possible though. It's the best-practice.
 
@@ -1290,15 +1299,15 @@ Khi có code js cần xử lý thì đặt trong dấu {}; đây là cú pháp c
 
 ### 13. Understanding the Children Property
 
-props.children print value in the middle of tag: 
+props.children print value in the middle of tag:
 
 - ví dụ như My Hobbies: Racing
 
-Ex: ` <Person name="Manu" age="29" >My Hobbies: Racing</Person>`
+Ex: `<Person name="Manu" age="29" >My Hobbies: Racing</Person>`
 
 ### 14. Understanding & Using State
 
-State is managed inside the Component,  
+State is managed inside the Component,
 
 Từ react 16.8 có react-hook
 
@@ -1358,7 +1367,7 @@ class App extends Component {
   }
 }
 
-export default App;  
+export default App;
 ```
 
 Đối với function không thể define properties trong func components: person
@@ -1377,12 +1386,12 @@ export default App;
 
 ```js
 const posts = () => {
-    return (
-        <div>
-            <Post title="My first Post" />
-        </div>
-    );
-}
+  return (
+    <div>
+      <Post title="My first Post" />
+    </div>
+  );
+};
 ```
 
 Here, `title` is the custom property (`prop` ) set up on the custom `Post` component. We basically replicate the default HTML attribute behavior we already know (e.g. `` informs the browser about how to handle that input).
@@ -1390,20 +1399,18 @@ Here, `title` is the custom property (`prop` ) set up on the custom `Post` compo
 **Post Component:**
 
 ```js
-const post = (props) => {
-    return (
-        <div>
-            <h1>{props.title}</h1>
-        </div>
-    );
-}
+const post = props => {
+  return (
+    <div>
+      <h1>{props.title}</h1>
+    </div>
+  );
+};
 ```
 
 The `Post` component receives the `props` argument. You can of course name this argument whatever you want - it's your function definition, React doesn't care! But React will pass one argument to your component function => An object, which contains all properties you set up on `` .
 
 `{props.title}` then dynamically outputs the `title` property of the `props` object - which is available since we set the `title` property inside `AllPosts` component (see above).
-
-
 
 **State**
 
@@ -1414,16 +1421,16 @@ Whilst props allow you to pass data down the component tree (and hence trigger a
 **NewPost Component:**
 
 ```js
-class NewPost extends Component { // state can only be accessed in class-based components!
-    state = {
-        counter: 1
-    };  
+class NewPost extends Component {
+  // state can only be accessed in class-based components!
+  state = {
+    counter: 1
+  };
 
-    render () { // Needs to be implemented in class-based components! Needs to return some JSX!
-        return (
-            <div>{this.state.counter}</div>
-        );
-    }
+  render() {
+    // Needs to be implemented in class-based components! Needs to return some JSX!
+    return <div>{this.state.counter}</div>;
+  }
 }
 ```
 
@@ -1439,7 +1446,7 @@ Whenever `state` changes (taught over the next lectures), the component will re-
 
 ### 16. Handling Events with Methods
 
- `<button onClick={this.switchNameHandler}>Switch Name</button>`
+`<button onClick={this.switchNameHandler}>Switch Name</button>`
 
 Đối với hàm không có tham số không được gọi this.switchNameHandler() mà nên sử dụng như trên
 
@@ -1786,7 +1793,7 @@ export default app;
 Stateful is a component that manage state
 Stateless is a component that doesn’t manage state
 
-=> func presentation component than stateful component => easy to maintain and manage 
+=> func presentation component than stateful component => easy to maintain and manage
 
 ### 22. Passing Method References Between Components
 
@@ -1899,7 +1906,7 @@ add person.css
 
 thanks to webpack you can import css file in js file
 
-> class => className 
+> class => className
 
 ### 25. Working with Inline Styles
 
@@ -2041,28 +2048,30 @@ class App extends Component {
 export default App;
 ```
 
-// Cach 2: dùng code js trong dấu  {}
+// Cach 2: dùng code js trong dấu {}
 
 ```js
 {
-this.state.showPersons === true ? <div>
-          <Person
-            name={this.state.persons[0].name}
-            age={this.state.persons[0].age}
-          />
-          <Person
-            name={this.state.persons[1].name}
-            age={this.state.persons[1].age}
-            click={this.switchNameHandler.bind(this, "Max!")}
-            changed={this.nameChangedHandler}
-          >
-            My Hobbies: Racing
-          </Person>
-          <Person
-            name={this.state.persons[2].name}
-            age={this.state.persons[2].age}
-          />
-        </div> : null
+  this.state.showPersons === true ? (
+    <div>
+      <Person
+        name={this.state.persons[0].name}
+        age={this.state.persons[0].age}
+      />
+      <Person
+        name={this.state.persons[1].name}
+        age={this.state.persons[1].age}
+        click={this.switchNameHandler.bind(this, "Max!")}
+        changed={this.nameChangedHandler}
+      >
+        My Hobbies: Racing
+      </Person>
+      <Person
+        name={this.state.persons[2].name}
+        age={this.state.persons[2].age}
+      />
+    </div>
+  ) : null;
 }
 ```
 
@@ -2073,29 +2082,33 @@ Nó sẽ tự động merge state
 ### 3. Handling Dynamic Content The JavaScript Way
 
 ```js
- let persons = null;
+let persons = null;
 
-    if ( this.state.showPersons ) {
-      persons = (
-        <div>
-          <Person
-            name={this.state.persons[0].name}
-            age={this.state.persons[0].age} />
-          <Person
-            name={this.state.persons[1].name}
-            age={this.state.persons[1].age}
-            click={this.switchNameHandler.bind( this, 'Max!' )}
-            changed={this.nameChangedHandler} >My Hobbies: Racing</Person>
-          <Person
-            name={this.state.persons[2].name}
-            age={this.state.persons[2].age} />
-        </div>
-      );
-    }
-
+if (this.state.showPersons) {
+  persons = (
+    <div>
+      <Person
+        name={this.state.persons[0].name}
+        age={this.state.persons[0].age}
+      />
+      <Person
+        name={this.state.persons[1].name}
+        age={this.state.persons[1].age}
+        click={this.switchNameHandler.bind(this, "Max!")}
+        changed={this.nameChangedHandler}
+      >
+        My Hobbies: Racing
+      </Person>
+      <Person
+        name={this.state.persons[2].name}
+        age={this.state.persons[2].age}
+      />
+    </div>
+  );
+}
 ```
 
-Refactor 
+Refactor
 
 ### 4. Outputting Lists (Intro)
 
@@ -2196,44 +2209,47 @@ Call
 App.js
 
 ```ts
-import React, { Component } from 'react';
-import './App.css';
-import Validation from './Validation/Validation';
-import Char from './Char/Char';
+import React, { Component } from "react";
+import "./App.css";
+import Validation from "./Validation/Validation";
+import Char from "./Char/Char";
 
 class App extends Component {
   state = {
-    userInput: ''
-  }
+    userInput: ""
+  };
 
-  inputChangedHandler = ( event ) => {
-    this.setState( { userInput: event.target.value } );
-  }
+  inputChangedHandler = event => {
+    this.setState({ userInput: event.target.value });
+  };
 
-  deleteCharHandler = ( index ) => {
-    const text = this.state.userInput.split('');
+  deleteCharHandler = index => {
+    const text = this.state.userInput.split("");
     text.splice(index, 1);
-    const updatedText = text.join('');
-    this.setState({userInput: updatedText});
-  }
+    const updatedText = text.join("");
+    this.setState({ userInput: updatedText });
+  };
 
-  render () {
-    const charList = this.state.userInput.split('').map((ch, index) => {
-      return <Char 
-        character={ch} 
-        key={index}
-        clicked={() => this.deleteCharHandler(index)} />;
+  render() {
+    const charList = this.state.userInput.split("").map((ch, index) => {
+      return (
+        <Char
+          character={ch}
+          key={index}
+          clicked={() => this.deleteCharHandler(index)}
+        />
+      );
     });
 
     return (
       <div className="App">
-        
         <p>Hint: Keep in mind that JavaScript strings are basically arrays!</p>
         <hr />
         <input
           type="text"
           onChange={this.inputChangedHandler}
-          value={this.state.userInput} />
+          value={this.state.userInput}
+        />
         <p>{this.state.userInput}</p>
         <Validation inputLength={this.state.userInput.length} />
         {charList}
@@ -2243,7 +2259,6 @@ class App extends Component {
 }
 
 export default App;
-
 ```
 
 Validation
@@ -2291,7 +2306,6 @@ const char = props => {
 
 export default char;
 ```
-
 
 ### 13. Useful Resources & Links.html
 
@@ -2463,7 +2477,7 @@ import Radium from "radium";
 import "./Person.css";
 
 const person = props => {
-    // add
+  // add
   const style = {
     "@media (min-width: 500px)": {
       width: "450px"
@@ -2528,8 +2542,6 @@ return (
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
   }
 ```
-
-
 
 ### 7. MUST READ Enabling CSS Modules.html
 
@@ -2612,8 +2624,6 @@ const person = props => {
 export default person;
 ```
 
-
-
 Xoa Radium in App.js
 
 - Remove Radium and style
@@ -2640,7 +2650,7 @@ test: /\.css$/,
                    modules: true,
       				localIdentName: 	         '[name]__[local]__[hash:base64:5]'
                 },
-              },      
+              },
 
 ```
 
@@ -2777,7 +2787,6 @@ className={btnClass}
 App.css add
 
 ```css
-
 .App button {
   border: 1px solid blue;
   padding: 16px;
@@ -2806,13 +2815,13 @@ App.js
 
 ```js
 // btnClass = classes.Red;
-<button
-            className={btnClass}
-            onClick={this.togglePersonsHandler}>Toggle Persons</button>
-          {persons}
+<button className={btnClass} onClick={this.togglePersonsHandler}>
+  Toggle Persons
+</button>;
+{
+  persons;
+}
 ```
-
-
 
 ### 11. Working with Media Queries
 
@@ -2826,6 +2835,7 @@ Person.css
   }
 }
 ```
+
 ### 12. Useful Resources & Links.html
 
 Using CSS Modules in create-react-app Projects: https://medium.com/nulogy/how-to-use-css-modules-with-create-react-app-9e44bec2b5c2
@@ -2963,8 +2973,8 @@ App.js
 
       btnClass = classes.Red;
     }
- */   
-    
+ */
+
 if (this.state.showPersons) {
   persons = (
     <Persons
@@ -3206,7 +3216,7 @@ class Persons extends Component {
     return true;
   }
 
-    // send snapshot to componentDidUpdate
+  // send snapshot to componentDidUpdate
   getSnapshotBeforeUpdate(prevProps, prevState) {
     console.log("[Persons.js] getSnapshotBeforeUpdate");
     return { message: "Snapshot!" };
@@ -3216,10 +3226,10 @@ class Persons extends Component {
 
   // }
 
-//   componentDidUpdate() {
-//    console.log("[Persons.js] componentDidUpdate");
-//  }
-    
+  //   componentDidUpdate() {
+  //    console.log("[Persons.js] componentDidUpdate");
+  //  }
+
   componentDidUpdate(prevProps, prevState, snapshot) {
     console.log("[Persons.js] componentDidUpdate");
     console.log(snapshot);
@@ -3316,7 +3326,7 @@ persons.js
   componentWillUnmount() {
     console.log('[Persons.js] componentWillUnmount');
   }
-// Khi click button toggle sẽ gọi useEffect 
+// Khi click button toggle sẽ gọi useEffect
 ```
 
 Cockpit
@@ -3327,11 +3337,11 @@ useEffect(() => {
   console.log("[Cockpit.js] useEffect");
   // Http request...
   setTimeout(() => {
-      // lần đầu khi load lên
+    // lần đầu khi load lên
     alert("Saved data to cloud!");
   }, 1000);
   return () => {
-      // lần ấn remove
+    // lần ấn remove
     console.log("[Cockpit.js] cleanup work in useEffect");
   };
 }, []);
@@ -3384,7 +3394,7 @@ useEffect(() => {
     alert("Saved data to cloud!");
   }, 1000);
   return () => {
-      clearTimeout(timer);
+    clearTimeout(timer);
     console.log("[Cockpit.js] cleanup work in useEffect");
   };
 }, []);
@@ -3412,7 +3422,7 @@ shouldComponentUpdate(nextProps, nextState) {
 
 Xem lại có sử dụng tool
 
-![image-20200215155543924](react-maximilan.assets/image-20200215155543924.png)  
+![image-20200215155543924](react-maximilan.assets/image-20200215155543924.png)
 
 enable paint flashing
 
@@ -3423,8 +3433,6 @@ https://viblo.asia/p/tim-hieu-ve-hooks-trong-react-Ljy5VzGG5ra
 https://viblo.asia/p/tim-hieu-ve-hooks-trong-react-p2-GrLZDkyEKk0
 
 https://viblo.asia/p/tim-hieu-ve-hooks-trong-react-p3-m68Z07g2KkG?fbclid=IwAR2zq7MEfttB7VsFS0LBY-gHG2JKPUYTm78mPzzGVDb3uIS0ZNg_EPxHad4
-
-
 
 ### 14.1 Reference vs Primitive Types.html
 
@@ -3446,18 +3454,20 @@ export default React.memo(cockpit);
 App.js add personsLength để nó không liên quan gì đến person nên khi change input sẽ không còn in ra log
 
 ```js
-{this.state.showCockpit ? (
-          <Cockpit
-            title={this.props.appTitle}
-            showPersons={this.state.showPersons}
-            personsLength={this.state.persons.length}
-            clicked={this.togglePersonsHandler}
-          />
-        ) : null}
+{
+  this.state.showCockpit ? (
+    <Cockpit
+      title={this.props.appTitle}
+      showPersons={this.state.showPersons}
+      personsLength={this.state.persons.length}
+      clicked={this.togglePersonsHandler}
+    />
+  ) : null;
+}
 // Không phụ thuộc gì của persons nên Cockpit sẽ không gọi lại useEffect nếu có memo
 ```
 
-nếu không thêm thì nó sẽ phụ thuộc vào person nếu truyền person vào như cũ  => re-render khi bấm vào button sẽ gọi useEffect
+nếu không thêm thì nó sẽ phụ thuộc vào person nếu truyền person vào như cũ => re-render khi bấm vào button sẽ gọi useEffect
 
 Kết quả là khi thay đổi input nó sẽ không gọi lại hàm useEffect
 
@@ -3471,18 +3481,18 @@ Person.js
 
 ```js
 // shouldComponentUpdate(nextProps, nextState) {
-  //   console.log('[Persons.js] shouldComponentUpdate');
-  //   if (
-  //     nextProps.persons !== this.props.persons ||
-  //     nextProps.changed !== this.props.changed ||
-  //     nextProps.clicked !== this.props.clicked
-  //   ) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  //   // return true;
-  // }
+//   console.log('[Persons.js] shouldComponentUpdate');
+//   if (
+//     nextProps.persons !== this.props.persons ||
+//     nextProps.changed !== this.props.changed ||
+//     nextProps.clicked !== this.props.clicked
+//   ) {
+//     return true;
+//   } else {
+//     return false;
+//   }
+//   // return true;
+// }
 ```
 
 Cách 2: extends PureComponent
@@ -3497,26 +3507,23 @@ import Person from './Person/Person';
 class Persons extends PureComponent {
 ```
 
-
-
 ### 18. How React Updates the DOM
 
 render rất dễ bị gọi dẫn đến hiển thị the same => nên mới có shouldComponentUpdate
 
 ![image-20200215172628432](react-maximilan.assets/image-20200215172628432.png)
 
-
-
 ### 19. Rendering Adjacent JSX Elements
+
 Cách 1: warp all elements in a div
 
-Cách 2: return an array with id 
+Cách 2: return an array with id
 
 ```js
 class Person extends Component {
   render() {
     console.log('[Person.js] rendering...');
-    return 
+    return
       [
         <p onClick={this.props.click}>
           I'm {this.props.name} and I am {this.props.age} years old!
@@ -3566,13 +3573,12 @@ export default Person;
 Create two file in folder hoc/
 
 ```js
-Aux.js
+Aux.js;
 const aux = props => props.children;
 
 export default aux;
 
----------------
-Auxiliary.js
+---------------Auxiliary.js;
 const aux = props => props.children;
 
 export default aux;
@@ -3596,6 +3602,7 @@ const heading = props => (
 );
 export default heading;
 ```
+
 This is NOT allowed because it would be translated to:
 
 ```js
@@ -3613,15 +3620,13 @@ b) return a single `React.createElement()` call that wraps the other two
 a)
 
 ```js
-import React from 'react';
+import React from "react";
 const heading = props => [
-React.createElement('h1', {key: 'i1'}, props.title),
-React.createElement('h2', {key: 'i2'}, props.subtitle)
+  React.createElement("h1", { key: "i1" }, props.title),
+  React.createElement("h2", { key: "i2" }, props.subtitle)
 ];
 export default heading;
 ```
-
-
 
 This is equivalent to returning an array of keyed JSX elements.
 b)
@@ -3639,10 +3644,8 @@ export default heading;
 This is equivalent to using <Aux>.
 ```
 
-
-
 b) works because we can pass as many children (third argument to
-React.createElement()) as we want.  
+React.createElement()) as we want.
 
 ### 20. Windows Users Must Read.html
 
@@ -3670,17 +3673,17 @@ Thực hiện giống như Aux
 
 ```js
 <React.Fragment>
-        <p onClick={this.props.click}>
-          I'm {this.props.name} and I am {this.props.age} years old!
-        </p>
-        <p key="i2">{this.props.children}</p>
-        <input
-          key="i3"
-          type="text"
-          onChange={this.props.changed}
-          value={this.props.name}
-        />
-      </React.Fragment>
+  <p onClick={this.props.click}>
+    I'm {this.props.name} and I am {this.props.age} years old!
+  </p>
+  <p key="i2">{this.props.children}</p>
+  <input
+    key="i3"
+    type="text"
+    onChange={this.props.changed}
+    value={this.props.name}
+  />
+</React.Fragment>
 ```
 
 hay import { Fragment} from 'react';
@@ -3690,58 +3693,51 @@ hay import { Fragment} from 'react';
 Create file WithClass.js
 
 ```js
-import React from 'react';
+import React from "react";
 
 const withClass = props => (
   <div className={props.classes}>{props.children}</div>
 );
 
 export default withClass;
-
 ```
 
 App.js wrap WithClass
 
 ```js
-import WithClass from '../hoc/WithClass';
+import WithClass from "../hoc/WithClass";
 
 return (
-      <WithClass classes={classes.App}>
-        <button
-          onClick={() => {
-            this.setState({ showCockpit: false });
-          }}
-        >
-          Remove Cockpit
-        </button>
-        {this.state.showCockpit ? (
-          <Cockpit
-            title={this.props.appTitle}
-            showPersons={this.state.showPersons}
-            personsLength={this.state.persons.length}
-            clicked={this.togglePersonsHandler}
-          />
-        ) : null}
-        {persons}
-      </WithClass>
-    );
+  <WithClass classes={classes.App}>
+    <button
+      onClick={() => {
+        this.setState({ showCockpit: false });
+      }}
+    >
+      Remove Cockpit
+    </button>
+    {this.state.showCockpit ? (
+      <Cockpit
+        title={this.props.appTitle}
+        showPersons={this.state.showPersons}
+        personsLength={this.state.persons.length}
+        clicked={this.togglePersonsHandler}
+      />
+    ) : null}
+    {persons}
+  </WithClass>
+);
 ```
-
-
-
-
-
-
 
 ### 23. Another Form of HOCs
 
 withClass.js
 
 ```js
-import React from 'react';
+import React from "react";
 
 const withClass = (WrappedComponent, className) => {
-    // return a functional component
+  // return a functional component
   return props => (
     <div className={className}>
       <WrappedComponent />
@@ -3751,7 +3747,6 @@ const withClass = (WrappedComponent, className) => {
 
 export default withClass;
 // Tham số đầu WrappedComponent là 1 Components
-
 ```
 
 App.js
@@ -3786,8 +3781,6 @@ return (
 export default withClass(App, classes.App);
 ```
 
-
-
 ### 24. Passing Unknown Props
 
 Thực hiện tương tự với class Person
@@ -3797,32 +3790,31 @@ Ban đầu sẽ không hiển thị data tương ứng vì withClass không có 
 withClass.js
 
 ```js
-import React from 'react';
+import React from "react";
 
 const withClass = (WrappedComponent, className) => {
   return props => (
     <div className={className}>
-      <WrappedComponent {...props}/>
+      <WrappedComponent {...props} />
     </div>
   );
 };
 
 export default withClass;
-
 ```
 
 Person.js
 
 ```js
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import Aux from '../../../hoc/Aux';
-import withClass from '../../../hoc/withClass';
-import classes from './Person.css';
+import Aux from "../../../hoc/Aux";
+import withClass from "../../../hoc/withClass";
+import classes from "./Person.css";
 
 class Person extends Component {
   render() {
-    console.log('[Person.js] rendering...');
+    console.log("[Person.js] rendering...");
     return (
       <Aux>
         <p onClick={this.props.click}>
@@ -3841,10 +3833,7 @@ class Person extends Component {
 }
 
 export default withClass(Person, classes.Person);
-
 ```
-
-
 
 ### 25. Setting State Correctly
 
@@ -3860,32 +3849,34 @@ this.setState({
     );
 // wrong bởi vì nó cannot be previous state
 ```
+
 Sửa thành
+
 ```js
 nameChangedHandler = (event, id) => {
-    const personIndex = this.state.persons.findIndex(p => {
-      return p.id === id;
-    });
+  const personIndex = this.state.persons.findIndex(p => {
+    return p.id === id;
+  });
 
-    const person = {
-      ...this.state.persons[personIndex]
-    };
-
-    // const person = Object.assign({}, this.state.persons[personIndex]);
-
-    person.name = event.target.value;
-
-    const persons = [...this.state.persons];
-    persons[personIndex] = person;
-
-    // Add new
-    this.setState((prevState, props) => {
-      return {
-        persons: persons,
-        changeCounter: prevState.changeCounter + 1
-      };
-    });
+  const person = {
+    ...this.state.persons[personIndex]
   };
+
+  // const person = Object.assign({}, this.state.persons[personIndex]);
+
+  person.name = event.target.value;
+
+  const persons = [...this.state.persons];
+  persons[personIndex] = person;
+
+  // Add new
+  this.setState((prevState, props) => {
+    return {
+      persons: persons,
+      changeCounter: prevState.changeCounter + 1
+    };
+  });
+};
 // wrong bởi vì nó cannot be previous state
 // Vào F12/ React để xem thay đổi khi sửa input
 ```
@@ -3897,16 +3888,16 @@ nameChangedHandler = (event, id) => {
 Person.js
 
 ```js
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
-import Aux from '../../../hoc/Aux';
-import withClass from '../../../hoc/withClass';
-import classes from './Person.css';
+import Aux from "../../../hoc/Aux";
+import withClass from "../../../hoc/withClass";
+import classes from "./Person.css";
 
 class Person extends Component {
   render() {
-    console.log('[Person.js] rendering...');
+    console.log("[Person.js] rendering...");
     return (
       <Aux>
         <p onClick={this.props.click}>
@@ -3933,7 +3924,6 @@ Person.propTypes = {
 };
 
 export default withClass(Person, classes.Person);
-
 ```
 
 Xuất hiên warning nếu truyền sai kiểu data
@@ -3943,12 +3933,12 @@ Xuất hiên warning nếu truyền sai kiểu data
 Person.js sử dụng từ khóa ref và chuẩn bị làm để focus vào thẻ input cuối
 
 ```js
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
-import Aux from '../../../hoc/Aux';
-import withClass from '../../../hoc/withClass';
-import classes from './Person.css';
+import Aux from "../../../hoc/Aux";
+import withClass from "../../../hoc/withClass";
+import classes from "./Person.css";
 
 class Person extends Component {
   // react 16.3 cách 2 to access element
@@ -3957,9 +3947,9 @@ class Person extends Component {
     this.inputElementRef = React.createRef();
   }
 
-    // add
+  // add
   componentDidMount() {
-    // document.querySelector('input').focus(); 
+    // document.querySelector('input').focus();
     // focus vào input đầu
     // inputElement là thuộc tính của class
     // Cách 1
@@ -3968,7 +3958,7 @@ class Person extends Component {
   }
 
   render() {
-    console.log('[Person.js] rendering...');
+    console.log("[Person.js] rendering...");
     return (
       <Aux>
         <p onClick={this.props.click}>
@@ -3996,10 +3986,7 @@ Person.propTypes = {
 };
 
 export default withClass(Person, classes.Person);
-
 ```
-
-
 
 ### 28. Refs with React Hooks
 
@@ -4130,13 +4117,13 @@ return (
           isAuth={this.props.isAuthenticated}
         />
       );
-      
+
 --------------------- Person
 return (
       <Aux>
-        {this.props.isAuth ? 
+        {this.props.isAuth ?
          <p>Authenticated!</p>
-         : 
+         :
           <p>Please log in</p>
         }
 ```
@@ -4150,7 +4137,7 @@ create folder context/
 create file auth-context
 
 ```js
-import React from 'react';
+import React from "react";
 
 const authContext = React.createContext({
   authenticated: false,
@@ -4158,7 +4145,6 @@ const authContext = React.createContext({
 });
 
 export default authContext;
-
 ```
 
 Note: it can be an arr or string, object,...
@@ -4166,36 +4152,36 @@ Note: it can be an arr or string, object,...
 App.js thêm wrap by AuthContext.Provider
 
 ```js
-import AuthContext from '../context/auth-context';
+import AuthContext from "../context/auth-context";
 
 return (
-      <Aux>
-        <button
-          onClick={() => {
-            this.setState({ showCockpit: false });
-          }}
-        >
-          Remove Cockpit
-        </button>
-// add
-        <AuthContext.Provider
-          value={{
-            authenticated: this.state.authenticated,
-            login: this.loginHandler
-          }}
-        >
-          {this.state.showCockpit ? (
-            <Cockpit
-              title={this.props.appTitle}
-              showPersons={this.state.showPersons}
-              personsLength={this.state.persons.length}
-              clicked={this.togglePersonsHandler}
-            />
-          ) : null}
-          {persons}
-        </AuthContext.Provider>
-      </Aux>
-    );
+  <Aux>
+    <button
+      onClick={() => {
+        this.setState({ showCockpit: false });
+      }}
+    >
+      Remove Cockpit
+    </button>
+    // add
+    <AuthContext.Provider
+      value={{
+        authenticated: this.state.authenticated,
+        login: this.loginHandler
+      }}
+    >
+      {this.state.showCockpit ? (
+        <Cockpit
+          title={this.props.appTitle}
+          showPersons={this.state.showPersons}
+          personsLength={this.state.persons.length}
+          clicked={this.togglePersonsHandler}
+        />
+      ) : null}
+      {persons}
+    </AuthContext.Provider>
+  </Aux>
+);
 ```
 
 Person.js
@@ -4209,14 +4195,13 @@ componentDidMount() {
 render() {
 return (
       <Aux>
-       <AuthContext.Consumer> { context => context.authenticated ? 
+       <AuthContext.Consumer> { context => context.authenticated ?
           <p>Authenticated!</p>
-         : 
+         :
           <p>Please log in</p>
         }
        </AuthContext.Consumer>
 ```
-
 
 Cockpit.js
 
@@ -4225,12 +4210,11 @@ Cockpit.js
 render() {
 return (
       <Aux>
-       <AuthContext.Consumer> { context =>  
+       <AuthContext.Consumer> { context =>
           <button onClick={context.login}></button>
         }
         </AuthContext.Consumer>
 ```
-
 
 ### 31. contextType & useContext()
 
@@ -4283,11 +4267,9 @@ const cockpit = props => {
       <button onClick={authContext.login}>Log in</button>
     </div>
   );
-    
-    
+
+
 ```
-
-
 
 ### 32. Wrap Up
 
@@ -4318,18 +4300,22 @@ You can skip all remaining lectures in this module (i.e. the lectures with **"[L
 Persons.js
 
 ```js
-import React from 'react';
+import React from "react";
 
-import Person from './Person/Person';
+import Person from "./Person/Person";
 
-const persons = (props) => props.persons.map( ( person, index ) => {
-        return <Person
-          click={() => props.clicked( index )}
-          name={person.name}
-          age={person.age}
-          key={person.id}
-          changed={( event ) => props.changed( event, person.id )} />
-      } );
+const persons = props =>
+  props.persons.map((person, index) => {
+    return (
+      <Person
+        click={() => props.clicked(index)}
+        name={person.name}
+        age={person.age}
+        key={person.id}
+        changed={event => props.changed(event, person.id)}
+      />
+    );
+  });
 
 export default persons;
 ```
@@ -4364,143 +4350,152 @@ App.js
 Cockpit.ts
 
 ```js
-import React from 'react';
+import React from "react";
 
-import classes from './Cockpit.css';
+import classes from "./Cockpit.css";
 
-const cockpit = ( props ) => {
-    const assignedClasses = [];
-    let btnClass = '';
-    if (props.showPersons) {
-        btnClass = classes.Red;
-    }
+const cockpit = props => {
+  const assignedClasses = [];
+  let btnClass = "";
+  if (props.showPersons) {
+    btnClass = classes.Red;
+  }
 
-    if ( props.persons.length <= 2 ) {
-      assignedClasses.push( classes.red ); // classes = ['red']
-    }
-    if ( props.persons.length <= 1 ) {
-      assignedClasses.push( classes.bold ); // classes = ['red', 'bold']
-    }
+  if (props.persons.length <= 2) {
+    assignedClasses.push(classes.red); // classes = ['red']
+  }
+  if (props.persons.length <= 1) {
+    assignedClasses.push(classes.bold); // classes = ['red', 'bold']
+  }
 
-    return (
-        <div className={classes.Cockpit}>
-            <h1>{ props.appTitle }</h1>
-            <p className={assignedClasses.join( ' ' )}>This is really working!</p>
-            <button
-                className={btnClass}
-                onClick={props.clicked}>Toggle Persons</button>
-        </div>
-    );
+  return (
+    <div className={classes.Cockpit}>
+      <h1>{props.appTitle}</h1>
+      <p className={assignedClasses.join(" ")}>This is really working!</p>
+      <button className={btnClass} onClick={props.clicked}>
+        Toggle Persons
+      </button>
+    </div>
+  );
 };
 
 export default cockpit;
 ```
 
-
-
 ### 36. [LEGACY] Comparing Stateless and Stateful Components
 
-Cố gắng create nhiều functional component càng  nhiều càng tốt bởi vì these component have a narow focus and clear responsibility => present something
+Cố gắng create nhiều functional component càng nhiều càng tốt bởi vì these component have a narow focus and clear responsibility => present something
 
-Khi ứng dụng lớn => vấn đề về manage state, quản lý state từng component khó track 
+Khi ứng dụng lớn => vấn đề về manage state, quản lý state từng component khó track
 
-![image-20200217230951177](./react-maximilan.assets/image-20200217230951177.png)  
+![image-20200217230951177](./react-maximilan.assets/image-20200217230951177.png)
 
 index.js
 
 ```js
-ReactDOM.render(<App title="Relevant Persons" />, document.getElementById('root'));
+ReactDOM.render(
+  <App title="Relevant Persons" />,
+  document.getElementById("root")
+);
 // add title
 ```
-
-
 
 ### 37. [LEGACY] Understanding the Component Lifecycle
 
 Chỉ có những method này được chạy khi create
 
-![image-20200217231629913](./react-maximilan.assets/image-20200217231629913.png)  
+![image-20200217231629913](./react-maximilan.assets/image-20200217231629913.png)
 
-Creation call super constructor of parent in constructor 
+Creation call super constructor of parent in constructor
 
 render => how component look like, chỉ update những gì thay đổi vào real DOM
-
-
 
 ### 38. [LEGACY] Converting Stateless to Stateful Components
 
 Person.js convert to class-base component
 
 ```js
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import classes from './Person.css';
+import classes from "./Person.css";
 
 class Person extends Component {
-    render () {
-        console.log( '[Person.js] Inside render()' );
-        return (
-            <div className={classes.Person}>
-                <p onClick={this.props.click}>I'm {this.props.name} and I am {this.props.age} years old!</p>
-                <p>{this.props.children}</p>
-                <input type="text" onChange={this.props.changed} value={this.props.name} />
-            </div>
-        )
-    }
+  render() {
+    console.log("[Person.js] Inside render()");
+    return (
+      <div className={classes.Person}>
+        <p onClick={this.props.click}>
+          I'm {this.props.name} and I am {this.props.age} years old!
+        </p>
+        <p>{this.props.children}</p>
+        <input
+          type="text"
+          onChange={this.props.changed}
+          value={this.props.name}
+        />
+      </div>
+    );
+  }
 }
 
 export default Person;
 ```
-
-
 
 ### 39. [LEGACY] Component Creation Lifecycle in Action
 
 App.js
 
 ```js
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import classes from './App.css';
-import Persons from '../components/Persons/Persons';
-import Cockpit from '../components/Cockpit/Cockpit';
+import classes from "./App.css";
+import Persons from "../components/Persons/Persons";
+import Cockpit from "../components/Cockpit/Cockpit";
 
 class App extends Component {
-    // Add
-  constructor( props ) {
-    super( props );
-    console.log( '[App.js] Inside Constructor', props );
-      // cách cũ
+  // Add
+  constructor(props) {
+    super(props);
+    console.log("[App.js] Inside Constructor", props);
+    // cách cũ
     this.state = {
       persons: [
-        { id: 'asfa1', name: 'Max', age: 28 },
-        { id: 'vasdf1', name: 'Manu', age: 29 },
-        { id: 'asdf11', name: 'Stephanie', age: 26 }
+        { id: "asfa1", name: "Max", age: 28 },
+        { id: "vasdf1", name: "Manu", age: 29 },
+        { id: "asdf11", name: "Stephanie", age: 26 }
       ],
-      otherState: 'some other value',
+      otherState: "some other value",
       showPersons: false
     };
   }
 
-  componentWillMount () {
-    console.log( '[App.js] Inside componentWillMount()' );
+  componentWillMount() {
+    console.log("[App.js] Inside componentWillMount()");
   }
 
-  componentDidMount () {
-    console.log( '[App.js] Inside componentDidMount()' );
+  componentDidMount() {
+    console.log("[App.js] Inside componentDidMount()");
   }
 
-  shouldComponentUpdate ( nextProps, nextState ) {
-    console.log( '[UPDATE App.js] Inside shouldComponentUpdate', nextProps, nextState );
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log(
+      "[UPDATE App.js] Inside shouldComponentUpdate",
+      nextProps,
+      nextState
+    );
     return true;
   }
 
-  componentWillUpdate ( nextProps, nextState ) {
-    console.log( '[UPDATE App.js] Inside componentWillUpdate', nextProps, nextState );
+  componentWillUpdate(nextProps, nextState) {
+    console.log(
+      "[UPDATE App.js] Inside componentWillUpdate",
+      nextProps,
+      nextState
+    );
   }
 
-  componentDidUpdate () {
-    console.log( '[UPDATE App.js] Inside componentDidUpdate' );
+  componentDidUpdate() {
+    console.log("[UPDATE App.js] Inside componentDidUpdate");
   }
 
   // state = {
@@ -4513,10 +4508,10 @@ class App extends Component {
   //   showPersons: false
   // }
 
-  nameChangedHandler = ( event, id ) => {
-    const personIndex = this.state.persons.findIndex( p => {
+  nameChangedHandler = (event, id) => {
+    const personIndex = this.state.persons.findIndex(p => {
       return p.id === id;
-    } );
+    });
 
     const person = {
       ...this.state.persons[personIndex]
@@ -4529,30 +4524,33 @@ class App extends Component {
     const persons = [...this.state.persons];
     persons[personIndex] = person;
 
-    this.setState( { persons: persons } );
-  }
+    this.setState({ persons: persons });
+  };
 
-  deletePersonHandler = ( personIndex ) => {
+  deletePersonHandler = personIndex => {
     // const persons = this.state.persons.slice();
     const persons = [...this.state.persons];
-    persons.splice( personIndex, 1 );
-    this.setState( { persons: persons } );
-  }
+    persons.splice(personIndex, 1);
+    this.setState({ persons: persons });
+  };
 
   togglePersonsHandler = () => {
     const doesShow = this.state.showPersons;
-    this.setState( { showPersons: !doesShow } );
-  }
+    this.setState({ showPersons: !doesShow });
+  };
 
-  render () {
-    console.log( '[App.js] Inside render()' );
+  render() {
+    console.log("[App.js] Inside render()");
     let persons = null;
 
-    if ( this.state.showPersons ) {
-      persons = <Persons
-        persons={this.state.persons}
-        clicked={this.deletePersonHandler}
-        changed={this.nameChangedHandler} />;
+    if (this.state.showPersons) {
+      persons = (
+        <Persons
+          persons={this.state.persons}
+          clicked={this.deletePersonHandler}
+          changed={this.nameChangedHandler}
+        />
+      );
     }
 
     return (
@@ -4561,7 +4559,8 @@ class App extends Component {
           appTitle={this.props.title}
           showPersons={this.state.showPersons}
           persons={this.state.persons}
-          clicked={this.togglePersonsHandler} />
+          clicked={this.togglePersonsHandler}
+        />
         {persons}
       </div>
     );
@@ -4570,14 +4569,13 @@ class App extends Component {
 }
 
 export default App;
-
 ```
 
-![image-20200217233410546](./react-maximilan.assets/image-20200217233410546.png)  
+![image-20200217233410546](./react-maximilan.assets/image-20200217233410546.png)
 
 thêm các hàm ở Person.js
 
-![image-20200217233546090](./react-maximilan.assets/image-20200217233546090.png)    
+![image-20200217233546090](./react-maximilan.assets/image-20200217233546090.png)
 
 ### 39.1 lifecycle-creation-learning-card.pdf.pdf
 
@@ -4585,11 +4583,11 @@ thêm các hàm ở Person.js
 
 ### 40. [LEGACY] componentWillUnmount().html
 
-We saw the Component Lifecycle during Component Creation in Action. 
+We saw the Component Lifecycle during Component Creation in Action.
 
 There also is one Lifecycle method which gets executed (when implemented) **right before** a Component is **removed** from the DOM: `componentWillUnmount()` .
 
-*Here's an Example:*
+_Here's an Example:_
 
 **App.js** (using `class App extends Component` )
 
@@ -4625,13 +4623,7 @@ In the above example, the User component is removed upon a button click (due to 
 
 ### 41. [LEGACY] Component Updating Lifecycle Hooks
 
-![image-20200217234533194](./react-maximilan.assets/image-20200217234533194.png)  
-
-
-
-
-
-
+![image-20200217234533194](./react-maximilan.assets/image-20200217234533194.png)
 
 ### 42. [LEGACY] Component Updating Lifecycle in Action
 
@@ -4639,7 +4631,7 @@ Persons.js (khi delete person)
 
 ```js
 
-// Add 
+// Add
 componentWillReceiveProps ( nextProps ) {
         console.log( '[UPDATE Persons.js] Inside componentWillReceiveProps', nextProps );
     }
@@ -4688,24 +4680,27 @@ App.js khi ấn button thì state change => update
 
 ### 43.1 lifecycle-update-internal-learning-card.pdf.pdf
 
-![image-20200218000554445](./react-maximilan.assets/image-20200218000554445.png)  
-
-
+![image-20200218000554445](./react-maximilan.assets/image-20200218000554445.png)
 
 ### 44. [LEGACY] Performance Gains with PureComponents
 
 App.js add button show
 
 ```js
-<button onClick={() => { this.setState( { showPersons: true } ) }}>Show Persons</button>
-
+<button
+  onClick={() => {
+    this.setState({ showPersons: true });
+  }}
+>
+  Show Persons
+</button>
 ```
 
-Khi click show liên tiếp 2 lần mặc dù k thay đổi gì nó vẫn render full lại 
+Khi click show liên tiếp 2 lần mặc dù k thay đổi gì nó vẫn render full lại
 
-![image-20200218002212440](./react-maximilan.assets/image-20200218002212440.png)  
+![image-20200218002212440](./react-maximilan.assets/image-20200218002212440.png)
 
-![image-20200218002244856](./react-maximilan.assets/image-20200218002244856.png)  
+![image-20200218002244856](./react-maximilan.assets/image-20200218002244856.png)
 
 Khi test thấy không render real DOM nhưng k có gì thay đổi mà gọi method render => performance issue
 
@@ -4738,7 +4733,7 @@ Nên hạn chế SD vì prevent update child component and performance
 
 ### 45. [LEGACY] How React Updates the App & Component Tree
 
-![image-20200218003926467](./react-maximilan.assets/image-20200218003926467.png)  
+![image-20200218003926467](./react-maximilan.assets/image-20200218003926467.png)
 
 Vì có check ở trên cùng rồi
 
@@ -4773,12 +4768,10 @@ Simply name both differently. For example, you may create an `Auxiliary` folder 
 WithClass.js
 
 ```js
-import React from 'react';
+import React from "react";
 
-const withClass = (props) => (
-    <div className={props.classes}>
-        {props.children}
-    </div>
+const withClass = props => (
+  <div className={props.classes}>{props.children}</div>
 );
 
 export default withClass;
@@ -4796,7 +4789,7 @@ render () {
                 <input type="text" onChange={this.props.changed} value={this.props.name} />
             </WithClass>
         )
-        
+
         // cach 1: Nếu trả về array phải có tt key!!
         // return [
         //     <p key="1" onClick={this.props.click}>I'm {this.props.name} and I am {this.props.age} years old!</p>,
@@ -4809,28 +4802,28 @@ render () {
 Cockpit.css sửa lại tên class css
 
 ```css
-.Button { 
-    border: 1px solid blue;
-    padding: 16px;
-    background-color: green;
-    font: inherit;
-    color: white;
-    cursor: pointer;
-  }
-  
-  .Button:hover {
-    background-color: lightgreen;
-    color: black;
-  }
-  
-  .Button.Red {
-    background-color: red;
-  }
-  
-  .Button.Red:hover {
-    background-color: salmon;
-    color: black;
-  }
+.Button {
+  border: 1px solid blue;
+  padding: 16px;
+  background-color: green;
+  font: inherit;
+  color: white;
+  cursor: pointer;
+}
+
+.Button:hover {
+  background-color: lightgreen;
+  color: black;
+}
+
+.Button.Red {
+  background-color: red;
+}
+
+.Button.Red:hover {
+  background-color: salmon;
+  color: black;
+}
 ```
 
 Cockpit.js
@@ -4843,7 +4836,7 @@ const cockpit = ( props ) => {
     if ( props.showPersons ) {
         btnClass = [classes.Button, classes.Red].join( ' ' );
     }
-    
+
     // Sau đó có thẻ remove className trong thẻ div cha
      return (
         <Aux>
@@ -4859,14 +4852,10 @@ const cockpit = ( props ) => {
 Aux.js
 
 ```js
-const aux = (props) => props.children;
+const aux = props => props.children;
 
 export default aux;
 ```
-
-
-
-
 
 ### 49. [LEGACY] React 16.2 Feature Fragments.html
 
@@ -4932,9 +4921,10 @@ return (
 export default withClass( App, classes.App );
 ```
 
-![image-20200218010859299](./react-maximilan.assets/image-20200218010859299.png)  
+![image-20200218010859299](./react-maximilan.assets/image-20200218010859299.png)
 
 WithClass.js
+
 ```js
 import React, { Component } from 'react';
 
@@ -4951,15 +4941,14 @@ import React, { Component } from 'react';
 export default withClass;
 ```
 
-
-
-
 ### 51. [LEGACY] A Different Approach to HOCs
 
 ### 52. [LEGACY] Passing Unknown Props
+
 WithClass.js
+
 ```js
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 // const withClass = (WrappedComponent, className) => {
 //     return (props) => (
@@ -4970,16 +4959,16 @@ import React, { Component } from 'react';
 // }
 
 const withClass = (WrappedComponent, className) => {
-    return class extends Component {
-        render () {
-            return (
-                <div className={className}>
-                    <WrappedComponent {...this.props} />
-                </div>
-            )
-        }
+  return class extends Component {
+    render() {
+      return (
+        <div className={className}>
+          <WrappedComponent {...this.props} />
+        </div>
+      );
     }
-}
+  };
+};
 // dùng class
 
 export default withClass;
@@ -4991,14 +4980,14 @@ counter App.js
 
 ```js
 togglePersonsHandler = () => {
-    const doesShow = this.state.showPersons;
-    this.setState( ( prevState, props ) => {
-      return {
-        showPersons: !doesShow,
-        toggleClicked: prevState.toggleClicked + 1
-      }
-    } );
-  }
+  const doesShow = this.state.showPersons;
+  this.setState((prevState, props) => {
+    return {
+      showPersons: !doesShow,
+      toggleClicked: prevState.toggleClicked + 1
+    };
+  });
+};
 ```
 
 Get prevState, vào tab react để xem state => nên sử dụng cách này
@@ -5010,13 +4999,13 @@ Get prevState, vào tab react để xem state => nên sử dụng cách này
 Person.js
 
 ```js
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 Person.propTypes = {
-    click: PropTypes.func,
-    name: PropTypes.string,
-    age: PropTypes.number,
-    changed: PropTypes.func 
+  click: PropTypes.func,
+  name: PropTypes.string,
+  age: PropTypes.number,
+  changed: PropTypes.func
 };
 ```
 
@@ -5063,71 +5052,72 @@ export default Persons;
 Person
 
 ```js
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
-import classes from './Person.css';
-import withClass from '../../../hoc/WithClass';
-import Aux from '../../../hoc/Aux';
+import classes from "./Person.css";
+import withClass from "../../../hoc/WithClass";
+import Aux from "../../../hoc/Aux";
 
 class Person extends Component {
-    constructor( props ) {
-        super( props );
-        console.log( '[Person.js] Inside Constructor', props );
-        this.inputElement = React.createRef();
-    }
+  constructor(props) {
+    super(props);
+    console.log("[Person.js] Inside Constructor", props);
+    this.inputElement = React.createRef();
+  }
 
-    componentWillMount () {
-        console.log( '[Person.js] Inside componentWillMount()' );
-    }
+  componentWillMount() {
+    console.log("[Person.js] Inside componentWillMount()");
+  }
 
-    componentDidMount () {
-        console.log( '[Person.js] Inside componentDidMount()' );
-        // add
-        if ( this.props.position === 0 ) {
-            this.inputElement.current.focus();
-        }
+  componentDidMount() {
+    console.log("[Person.js] Inside componentDidMount()");
+    // add
+    if (this.props.position === 0) {
+      this.inputElement.current.focus();
     }
+  }
 
-    focus() {
-        this.inputElement.current.focus();
-    }
+  focus() {
+    this.inputElement.current.focus();
+  }
 
-    render () {
-        console.log( '[Person.js] Inside render()' );
-        return (
-            <Aux>
-                <p onClick={this.props.click}>I'm {this.props.name} and I am {this.props.age} years old!</p>
-                <p>{this.props.children}</p>
-                <input
-// add
-                    ref={this.inputElement}
-                    type="text"
-                    onChange={this.props.changed}
-                    value={this.props.name} />
-            </Aux>
-        )
-    }
+  render() {
+    console.log("[Person.js] Inside render()");
+    return (
+      <Aux>
+        <p onClick={this.props.click}>
+          I'm {this.props.name} and I am {this.props.age} years old!
+        </p>
+        <p>{this.props.children}</p>
+        <input
+          // add
+          ref={this.inputElement}
+          type="text"
+          onChange={this.props.changed}
+          value={this.props.name}
+        />
+      </Aux>
+    );
+  }
 }
 
 Person.propTypes = {
-    click: PropTypes.func,
-    name: PropTypes.string,
-    age: PropTypes.number,
-    changed: PropTypes.func
+  click: PropTypes.func,
+  name: PropTypes.string,
+  age: PropTypes.number,
+  changed: PropTypes.func
 };
 
-export default withClass( Person, classes.Person );
+export default withClass(Person, classes.Person);
 ```
-
-
 
 ### 55. [LEGACY] Available PropTypes.html
 
 Source: https://reactjs.org/docs/typechecking-with-proptypes.html
 
 ```js
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 MyComponent.propTypes = {
   // You can declare that a prop is a specific JS primitive. By default, these
@@ -5153,7 +5143,7 @@ MyComponent.propTypes = {
 
   // You can ensure that your prop is limited to specific values by treating
   // it as an enum.
-  optionalEnum: PropTypes.oneOf(['News', 'Photos']),
+  optionalEnum: PropTypes.oneOf(["News", "Photos"]),
 
   // An object that could be one of many types
   optionalUnion: PropTypes.oneOfType([
@@ -5187,8 +5177,12 @@ MyComponent.propTypes = {
   customProp: function(props, propName, componentName) {
     if (!/matchme/.test(props[propName])) {
       return new Error(
-        'Invalid prop `' + propName + '` supplied to' +
-        ' `' + componentName + '`. Validation failed.'
+        "Invalid prop `" +
+          propName +
+          "` supplied to" +
+          " `" +
+          componentName +
+          "`. Validation failed."
       );
     }
   },
@@ -5198,11 +5192,21 @@ MyComponent.propTypes = {
   // will be called for each key in the array or object. The first two
   // arguments of the validator are the array or object itself, and the
   // current item's key.
-  customArrayProp: PropTypes.arrayOf(function(propValue, key, componentName, location, propFullName) {
+  customArrayProp: PropTypes.arrayOf(function(
+    propValue,
+    key,
+    componentName,
+    location,
+    propFullName
+  ) {
     if (!/matchme/.test(propValue[key])) {
       return new Error(
-        'Invalid prop `' + propFullName + '` supplied to' +
-        ' `' + componentName + '`. Validation failed.'
+        "Invalid prop `" +
+          propFullName +
+          "` supplied to" +
+          " `" +
+          componentName +
+          "`. Validation failed."
       );
     }
   })
@@ -5214,17 +5218,13 @@ MyComponent.propTypes = {
 With `PropTypes.element` you can specify that only a single child can be passed to a component as children.
 
 ```js
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 class MyComponent extends React.Component {
   render() {
     // This must be exactly one element or it will warn.
     const children = this.props.children;
-    return (
-      <div>
-        {children}
-      </div>
-    );
+    return <div>{children}</div>;
   }
 }
 
@@ -5240,22 +5240,17 @@ You can define default values for your `props` by assigning to the special `defa
 ```js
 class Greeting extends React.Component {
   render() {
-    return (
-      <h1>Hello, {this.props.name}</h1>
-    );
+    return <h1>Hello, {this.props.name}</h1>;
   }
 }
 
 // Specifies the default values for props:
 Greeting.defaultProps = {
-  name: 'Stranger'
+  name: "Stranger"
 };
 
 // Renders "Hello, Stranger":
-ReactDOM.render(
-  <Greeting />,
-  document.getElementById('example')
-);
+ReactDOM.render(<Greeting />, document.getElementById("example"));
 ```
 
 The `defaultProps` will be used to ensure that `this.props.name` will have a value if it was not specified by the parent component. The `propTypes` typechecking happens after `defaultProps` are resolved, so typechecking will also apply to the `defaultProps`.
@@ -5273,7 +5268,7 @@ class Person extends Component {
     console.log("[Person.js] Inside Constructor", props);
     this.inputElement = React.createRef();
   }
-    
+
 componentDidMount () {
         console.log( '[Person.js] Inside componentDidMount()' );
     // focus first element
@@ -5294,8 +5289,6 @@ focus() {
                     value={this.props.name} />
 ```
 
-
-
 ### 57. [LEGACY] More on the React ref API (16.3)
 
 xem lại
@@ -5308,8 +5301,6 @@ focus() {
     this.inputElement.current.focus();
   }
 ```
-
-
 
 Person.js, Persons.js call focus từ cha
 
@@ -5354,31 +5345,26 @@ export default Persons;
 Từ react 16 có cách fix
 
 ```js
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 const withClass = (WrappedComponent, className) => {
-    const WithClass = class extends Component {
-        render () {
-            return (
-                <div className={className}>
-                    <WrappedComponent ref={this.props.forwardedRef} {...this.props} />
-                </div>
-            )
-        }
+  const WithClass = class extends Component {
+    render() {
+      return (
+        <div className={className}>
+          <WrappedComponent ref={this.props.forwardedRef} {...this.props} />
+        </div>
+      );
     }
+  };
 
-    return React.forwardRef((props, ref) => {
-        return <WithClass {...props} forwardedRef={ref} />
-    });
-}
-
+  return React.forwardRef((props, ref) => {
+    return <WithClass {...props} forwardedRef={ref} />;
+  });
+};
 
 export default withClass;
 ```
-
-
-
-
 
 ### 58. [LEGACY] The Context API (React 16.3)
 
@@ -5387,57 +5373,55 @@ Tạo button Login in Cockpit
 ```js
 <button onClick={props.login}>Log in</button>
 ```
+
 Cách 1: truyền thủ công qua hàm LoginHandler
 
 App.js thêm wrap by AuthContext.Provider
 
 ```js
-import AuthContext from '../context/auth-context';
+import AuthContext from "../context/auth-context";
 
 const authContext = React.createContext(false);
 
 loginHandler = () => {
-    this.setState({ authenticated: true });
-  };
-
+  this.setState({ authenticated: true });
+};
 
 if (this.state.showPersons) {
-      persons = (
-        <Persons
-          persons={this.state.persons}
-          clicked={this.deletePersonHandler}
-          changed={this.nameChangedHandler}
-// add
-          isAuthenticated={this.state.authenticated}
-        />
-      );
-    }
-    
+  persons = (
+    <Persons
+      persons={this.state.persons}
+      clicked={this.deletePersonHandler}
+      changed={this.nameChangedHandler}
+      // add
+      isAuthenticated={this.state.authenticated}
+    />
+  );
+}
+
 return (
-      <Aux>
-        <button
-          onClick={() => {
-            this.setState({ showCockpit: false });
-          }}
-        >
-          Remove Cockpit
-        </button>
-        
-          {this.state.showCockpit ? (
-            <Cockpit
-              title={this.props.appTitle}
-              showPersons={this.state.showPersons}
-              personsLength={this.state.persons.length}
-              clicked={this.togglePersonsHandler}
-            />
-          ) : null}
-          // add
-          <AuthContext.Provider
-          value={this.state.authenticated} >
-          {persons}
-        </AuthContext.Provider>
-      </Aux>
-    );
+  <Aux>
+    <button
+      onClick={() => {
+        this.setState({ showCockpit: false });
+      }}
+    >
+      Remove Cockpit
+    </button>
+    {this.state.showCockpit ? (
+      <Cockpit
+        title={this.props.appTitle}
+        showPersons={this.state.showPersons}
+        personsLength={this.state.persons.length}
+        clicked={this.togglePersonsHandler}
+      />
+    ) : null}
+    // add
+    <AuthContext.Provider value={this.state.authenticated}>
+      {persons}
+    </AuthContext.Provider>
+  </Aux>
+);
 ```
 
 Person.js
@@ -5451,13 +5435,13 @@ componentDidMount() {
 render() {
 return (
       <Aux>
-       <AuthContext.Consumer> { auth => auth ? 
+       <AuthContext.Consumer> { auth => auth ?
           <p>Authenticated!</p>
-         : 
+         :
           <p>Please log in</p>
         }
        </AuthContext.Consumer>
-    
+
 // đây là cách 2, có thể xem lại cách 1 truyền thủ công
 ```
 
@@ -5468,11 +5452,11 @@ New sample
 App.js
 
 ```js
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import Login from './components/Login';
-import Profile from './components/Profile';
-import AuthContext from './auth-context';
+import Login from "./components/Login";
+import Profile from "./components/Profile";
+import AuthContext from "./auth-context";
 
 class App extends Component {
   state = {
@@ -5500,15 +5484,14 @@ class App extends Component {
 }
 
 export default App;
-
 ```
 
 Login.js
 
 ```js
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import AuthContext from '../auth-context';
+import AuthContext from "../auth-context";
 
 class Login extends Component {
   static contextType = AuthContext;
@@ -5520,7 +5503,7 @@ class Login extends Component {
   render() {
     return (
       <button onClick={this.context.toggleAuth}>
-        {this.context.isAuth ? 'Logout' : 'Login'}
+        {this.context.isAuth ? "Logout" : "Login"}
       </button>
     );
   }
@@ -5528,34 +5511,32 @@ class Login extends Component {
 
 export default Login;
 // Không cần dùng Consumer mà truy cập bằng this.context
-
 ```
 
 Profile.js
 
 ```js
-import React from 'react';
+import React from "react";
 
-import AuthContext from '../auth-context';
+import AuthContext from "../auth-context";
 
 const profile = props => (
   <AuthContext.Consumer>
     {authContext => {
       return (
-        <h1>{authContext.isAuth ? 'You are logged in!' : 'Not logged in!'}</h1>
+        <h1>{authContext.isAuth ? "You are logged in!" : "Not logged in!"}</h1>
       );
     }}
   </AuthContext.Consumer>
 );
 
 export default profile;
-
 ```
 
 auth-context.js
 
 ```js
-import React from 'react';
+import React from "react";
 
 export default React.createContext({
   isAuth: false,
@@ -5563,8 +5544,6 @@ export default React.createContext({
 });
 // Fix lỗi import từ App.js
 ```
-
-
 
 ### 60. [LEGACY] Updated Lifecycle Hooks (React 16.3)
 
@@ -5590,9 +5569,9 @@ static getDerivedStateFromProps(nextProps, prevState) {
   }
 ```
 
-![image-20200222114423992](./react-maximilan.assets/image-20200222114423992.png)  
+![image-20200222114423992](./react-maximilan.assets/image-20200222114423992.png)
 
-![image-20200222114605448](./react-maximilan.assets/image-20200222114605448.png)  
+![image-20200222114605448](./react-maximilan.assets/image-20200222114605448.png)
 
 Lưu lại vị trí scroll trước khi update, ấn buton để check
 
@@ -5621,35 +5600,40 @@ As mentioned before, we'll build the course project **without React Hooks for no
 
 Towards the end of the course, we'll have an entire module where we convert it to use React Hooks though (after having yet another Hooks deep-dive module of course).
 
-
 ### 2. Module Introduction
+
 Build a burger app
 
 ### 3. Planning an App in React - Core Steps
 
-![image-20200218230946207](./react-maximilan.assets/image-20200218230946207.png)  
+![image-20200218230946207](./react-maximilan.assets/image-20200218230946207.png)
 
 Xác định ở bước 3 cái nào là stateless stateful
 
 ### 4. Planning our App - Layout and Component Tree
 
 Xem lại
+
 ### 5. Planning the State
+
 ![image-20200218231727724](./react-maximilan.assets/image-20200218231727724.png)
 
 ### 6. Setting up the Project
 
-enable css modules: npm run eject 
+enable css modules: npm run eject
 
-Vào google font, Vào tab CUSTOMIZE chọn bold 
+Vào google font, Vào tab CUSTOMIZE chọn bold
 
-![image-20200218232741079](./react-maximilan.assets/image-20200218232741079.png)  
+![image-20200218232741079](./react-maximilan.assets/image-20200218232741079.png)
 
 index.html
 
 ```html
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
-    <title>MyBurger</title>
+<link
+  href="https://fonts.googleapis.com/css?family=Open+Sans:400,700"
+  rel="stylesheet"
+/>
+<title>MyBurger</title>
 <!-- add new -->
 ```
 
@@ -5661,8 +5645,8 @@ body {
   padding: 0;
   font-family: "Open Sans", sans-serif;
 }
-
 ```
+
 ### 7. Creating a Layout Component
 
 Create folder Layout
@@ -5670,7 +5654,7 @@ Create folder Layout
 Aux.js
 
 ```js
-const aux = (props) => props.children;
+const aux = props => props.children;
 
 export default aux;
 ```
@@ -5678,18 +5662,16 @@ export default aux;
 Layout.js, css
 
 ```js
-import React from 'react';
+import React from "react";
 
-import Aux from '../../hoc/Aux';
-import classes from './Layout.css';
+import Aux from "../../hoc/Aux";
+import classes from "./Layout.css";
 
-const layout = ( props ) => (
-    <Aux>
-        <div>Toolbar, SideDrawer, Backdrop</div>
-        <main className={classes.Content}>
-            {props.children}
-        </main>
-    </Aux>
+const layout = props => (
+  <Aux>
+    <div>Toolbar, SideDrawer, Backdrop</div>
+    <main className={classes.Content}>{props.children}</main>
+  </Aux>
 );
 
 export default layout;
@@ -5698,13 +5680,13 @@ export default layout;
 App.js
 
 ```js
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import Layout from './components/Layout/Layout';
-import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
+import Layout from "./components/Layout/Layout";
+import BurgerBuilder from "./containers/BurgerBuilder/BurgerBuilder";
 
 class App extends Component {
-  render () {
+  render() {
     return (
       <div>
         <Layout>
@@ -5716,7 +5698,6 @@ class App extends Component {
 }
 
 export default App;
-
 ```
 
 ### 8. Starting Implementation of The Burger Builder Container
@@ -5724,28 +5705,27 @@ export default App;
 BurgerBuilder
 
 ```js
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import Aux from '../../hoc/Aux';
-import Burger from '../../components/Burger/Burger';
+import Aux from "../../hoc/Aux";
+import Burger from "../../components/Burger/Burger";
 
 class BurgerBuilder extends Component {
-    
-
-    render () {
-        return (
-            <Aux>
-                <div>Burger</div>
-                <div>Build Controls</div>
-
-            </Aux>
-        );
-    }
+  render() {
+    return (
+      <Aux>
+        <div>Burger</div>
+        <div>Build Controls</div>
+      </Aux>
+    );
+  }
 }
 
 export default BurgerBuilder;
 ```
+
 ### 9. Adding a Dynamic Ingredient Component
+
 BurgerIngredient.js , .css
 
 ```js
@@ -5798,33 +5778,29 @@ BurgerIngredient.propTypes = {
 export default BurgerIngredient;
 ```
 
-
-
 ### 10. Adding Prop Type Validation
 
 Khi xài phải convert qua class-based component
-
 
 ### 11. Starting the Burger Component
 
 Add Burger.js ,.css
 
 ```js
-import React from 'react';
+import React from "react";
 
-import classes from './Burger.css';
-import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
+import classes from "./Burger.css";
+import BurgerIngredient from "./BurgerIngredient/BurgerIngredient";
 
-const burger = ( props ) => {
-    
-    return (
-        <div className={classes.Burger}>
-            <BurgerIngredient type="bread-top" />
-            <BurgerIngredient type="cheese" />
-            <BurgerIngredient type="meat" />
-            <BurgerIngredient type="bread-bottom" />
-        </div>
-    );
+const burger = props => {
+  return (
+    <div className={classes.Burger}>
+      <BurgerIngredient type="bread-top" />
+      <BurgerIngredient type="cheese" />
+      <BurgerIngredient type="meat" />
+      <BurgerIngredient type="bread-bottom" />
+    </div>
+  );
 };
 
 export default burger;
@@ -5834,34 +5810,34 @@ Burger.css
 
 ```css
 .Burger {
-    width: 100%;
-    margin: auto;
-    height: 250px;
-    overflow: scroll;
-    text-align: center;
-    font-weight: bold;
-    font-size: 1.2rem;
+  width: 100%;
+  margin: auto;
+  height: 250px;
+  overflow: scroll;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2rem;
 }
 
 @media (min-width: 500px) and (min-height: 400px) {
-    .Burger {
-        width: 350px;
-        height: 300px;
-    }
+  .Burger {
+    width: 350px;
+    height: 300px;
+  }
 }
 
 @media (min-width: 500px) and (min-height: 401px) {
-    .Burger {
-        width: 450px;
-        height: 400px;
-    }
+  .Burger {
+    width: 450px;
+    height: 400px;
+  }
 }
 
 @media (min-width: 1000px) and (min-height: 700px) {
-    .Burger {
-        width: 700px;
-        height: 600px;
-    }
+  .Burger {
+    width: 700px;
+    height: 600px;
+  }
 }
 ```
 
@@ -5869,57 +5845,51 @@ BurgerBuilder.js sửa thành
 
 ```js
 class BurgerBuilder extends Component {
-    
-
-    render () {
-        return (
-            <Aux>
-                <Burger />
-                <div>Build Controls</div>
-
-            </Aux>
-        );
-    }
+  render() {
+    return (
+      <Aux>
+        <Burger />
+        <div>Build Controls</div>
+      </Aux>
+    );
+  }
 }
 
 export default BurgerBuilder;
 ```
-
-
-
 
 ### 12. Outputting Burger Ingredients Dynamically
 
 BurgerBuilder.js
 
 ```js
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import Aux from '../../hoc/Aux';
-import Burger from '../../components/Burger/Burger';
+import Aux from "../../hoc/Aux";
+import Burger from "../../components/Burger/Burger";
 
 class BurgerBuilder extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {...}
-    // }
-    state = {
-        ingredients: {
-            salad: 0,
-            bacon: 0,
-            cheese: 0,
-            meat: 0
-        }
+  // constructor(props) {
+  //     super(props);
+  //     this.state = {...}
+  // }
+  state = {
+    ingredients: {
+      salad: 0,
+      bacon: 0,
+      cheese: 0,
+      meat: 0
     }
+  };
 
-    render () {
-        return (
-            <Aux>
-                <Burger ingredients={this.state.ingredients} />
-                <div>Build Controls</div>
-            </Aux>
-        );
-    }
+  render() {
+    return (
+      <Aux>
+        <Burger ingredients={this.state.ingredients} />
+        <div>Build Controls</div>
+      </Aux>
+    );
+  }
 }
 
 export default BurgerBuilder;
@@ -6009,85 +5979,82 @@ console.log(transformedIngredients);
 
 ```
 
-
-
 ```js
-import React from 'react';
+import React from "react";
 
-import classes from './Burger.css';
-import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
+import classes from "./Burger.css";
+import BurgerIngredient from "./BurgerIngredient/BurgerIngredient";
 
-const burger = ( props ) => {
-    let transformedIngredients = Object.keys( props.ingredients )
-        .map( igKey => {
-            return [...Array( props.ingredients[igKey] )].map( ( _, i ) => {
-                return <BurgerIngredient key={igKey + i} type={igKey} />;
-            } );
-        } )
-        .reduce((arr, el) => {
-            return arr.concat(el)
-        }, []);
-    // # 13
-    if (transformedIngredients.length === 0) {
-        transformedIngredients = <p>Please start adding ingredients!</p>;
-    }
-    return (
-        <div className={classes.Burger}>
-            <BurgerIngredient type="bread-top" />
-            {transformedIngredients}
-            <BurgerIngredient type="bread-bottom" />
-        </div>
-    );
+const burger = props => {
+  let transformedIngredients = Object.keys(props.ingredients)
+    .map(igKey => {
+      return [...Array(props.ingredients[igKey])].map((_, i) => {
+        return <BurgerIngredient key={igKey + i} type={igKey} />;
+      });
+    })
+    .reduce((arr, el) => {
+      return arr.concat(el);
+    }, []);
+  // # 13
+  if (transformedIngredients.length === 0) {
+    transformedIngredients = <p>Please start adding ingredients!</p>;
+  }
+  return (
+    <div className={classes.Burger}>
+      <BurgerIngredient type="bread-top" />
+      {transformedIngredients}
+      <BurgerIngredient type="bread-bottom" />
+    </div>
+  );
 };
 
 export default burger;
 ```
 
-_ : không care about itself
+\_ : không care about itself
 
 ### 13. Calculating the Ingredient Sum Dynamically
 
-![image-20200222131833225](./react-maximilan.assets/image-20200222131833225.png)  
+![image-20200222131833225](./react-maximilan.assets/image-20200222131833225.png)
 
 (arr, el): arr là previous value, el là current value
 
 [] is initial value of the reduce value
-
 
 ### 14. Adding the Build Control Component
 
 BuildControls.js
 
 ```js
-import React from 'react';
+import React from "react";
 
-import classes from './BuildControls.css';
-import BuildControl from './BuildControl/BuildControl';
+import classes from "./BuildControls.css";
+import BuildControl from "./BuildControl/BuildControl";
 
 const controls = [
-    { label: 'Salad', type: 'salad' },
-    { label: 'Bacon', type: 'bacon' },
-    { label: 'Cheese', type: 'cheese' },
-    { label: 'Meat', type: 'meat' },
+  { label: "Salad", type: "salad" },
+  { label: "Bacon", type: "bacon" },
+  { label: "Cheese", type: "cheese" },
+  { label: "Meat", type: "meat" }
 ];
 
-const buildControls = (props) => (
-    <div className={classes.BuildControls}>
-        <p>Current Price: <strong>{props.price.toFixed(2)}</strong></p>
-        {controls.map(ctrl => (
-            <BuildControl 
-                key={ctrl.label} 
-                label={ctrl.label}
-                 />
-        ))}
-        <button 
-            className={classes.OrderButton}
-            disabled={!props.purchasable}>ORDER NOW</button>
-    </div>
+const buildControls = props => (
+  <div className={classes.BuildControls}>
+    <p>
+      Current Price: <strong>{props.price.toFixed(2)}</strong>
+    </p>
+    {controls.map(ctrl => (
+      <BuildControl key={ctrl.label} label={ctrl.label} />
+    ))}
+    <button className={classes.OrderButton} disabled={!props.purchasable}>
+      ORDER NOW
+    </button>
+  </div>
 );
 
 export default buildControls;
 ```
+
 BuildControls.css
 
 https://www.w3schools.com/css/tryit.asp?filename=trycss3_flexbox_flex-flow_row_wrap
@@ -6096,75 +6063,81 @@ https://www.w3schools.com/css/css3_flexbox.asp
 
 ```css
 .BuildControls {
-    width: 100%;
-    background-color: #CF8F2E;
-    display: flex;
-    flex-flow: column; // nếu muốn nằm ngang thay bằng row wrap
-    
-    align-items: center;
-    box-shadow: 0 2px 1px #ccc;
-    margin: auto;
-    padding: 10px 0;
+  width: 100%;
+  background-color: #cf8f2e;
+  display: flex;
+  flex-flow: column; // nếu muốn nằm ngang thay bằng row wrap
+
+  align-items: center;
+  box-shadow: 0 2px 1px #ccc;
+  margin: auto;
+  padding: 10px 0;
 }
 
 .OrderButton {
-    background-color: #DAD735;
-    outline: none;
-    cursor: pointer;
-    border: 1px solid #966909;
-    color: #966909;
-    font-family: inherit;
-    font-size: 1.2em;
-    padding: 15px 30px;
-    box-shadow: 2px 2px 2px #966909;
+  background-color: #dad735;
+  outline: none;
+  cursor: pointer;
+  border: 1px solid #966909;
+  color: #966909;
+  font-family: inherit;
+  font-size: 1.2em;
+  padding: 15px 30px;
+  box-shadow: 2px 2px 2px #966909;
 }
 
-.OrderButton:hover, .OrderButton:active {
-    background-color: #A0DB41;
-    border: 1px solid #966909;
-    color: #966909;
+.OrderButton:hover,
+.OrderButton:active {
+  background-color: #a0db41;
+  border: 1px solid #966909;
+  color: #966909;
 }
 
 .OrderButton:disabled {
-    background-color: #C7C6C6;
-    cursor: not-allowed;
-    border: 1px solid #ccc;
-    color: #888888;
+  background-color: #c7c6c6;
+  cursor: not-allowed;
+  border: 1px solid #ccc;
+  color: #888888;
 }
 
 .OrderButton:not(:disabled) {
-    animation: enable 0.3s linear;
+  animation: enable 0.3s linear;
 }
 
 @keyframes enable {
-    0% {
-        transform: scale(1);
-    }
-    60% {
-        transform: scale(1.1);
-    }
-    100% {
-        transform: scale(1);
-    }
+  0% {
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 ```
+
 BuildControl.js
+
 ```js
-import React from 'react';
+import React from "react";
 
-import classes from './BuildControl.css';
+import classes from "./BuildControl.css";
 
-const buildControl = (props) => (
-    <div className={classes.BuildControl}>
-        <div className={classes.Label}>{props.label}</div>
-        <button 
-            className={classes.Less} 
-            onClick={props.removed} 
-            disabled={props.disabled}>Less</button>
-        <button 
-            className={classes.More} 
-            onClick={props.added}>More</button>
-    </div>
+const buildControl = props => (
+  <div className={classes.BuildControl}>
+    <div className={classes.Label}>{props.label}</div>
+    <button
+      className={classes.Less}
+      onClick={props.removed}
+      disabled={props.disabled}
+    >
+      Less
+    </button>
+    <button className={classes.More} onClick={props.added}>
+      More
+    </button>
+  </div>
 );
 
 export default buildControl;
@@ -6176,61 +6149,62 @@ https://www.w3schools.com/css/tryit.asp?filename=trycss3_flexbox_justify-content
 
 ```css
 .BuildControl {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 5px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px 0;
 }
 
 .BuildControl button {
-    display: block;
-    font: inherit;
-    padding: 5px;
-    margin: 0 5px;
-    width: 80px;
-    border: 1px solid #AA6817;
-    cursor: pointer;
-    outline: none;
+  display: block;
+  font: inherit;
+  padding: 5px;
+  margin: 0 5px;
+  width: 80px;
+  border: 1px solid #aa6817;
+  cursor: pointer;
+  outline: none;
 }
 
-
 .BuildControl button:disabled {
-    background-color: #AC9980;
-    border: 1px solid #7E7365;
-    color: #ccc;
-    cursor: default;
+  background-color: #ac9980;
+  border: 1px solid #7e7365;
+  color: #ccc;
+  cursor: default;
 }
 
 .BuildControl button:hover:disabled {
-    background-color: #AC9980;
-    color: #ccc;
-    cursor: not-allowed;
+  background-color: #ac9980;
+  color: #ccc;
+  cursor: not-allowed;
 }
 
 .Label {
-    padding: 10px;
-    font-weight: bold;
-    width: 80px;
+  padding: 10px;
+  font-weight: bold;
+  width: 80px;
 }
 
-.BuildControl .Less {  
-    background-color: #D39952;
-    color: white;
+.BuildControl .Less {
+  background-color: #d39952;
+  color: white;
 }
 
 .BuildControl .More {
-    background-color: #8F5E1E;
-    color: white;
+  background-color: #8f5e1e;
+  color: white;
 }
 
-.BuildControl .Less:hover, .BuildControl .Less:active {  
-    background-color: #DAA972;
-    color: white;
+.BuildControl .Less:hover,
+.BuildControl .Less:active {
+  background-color: #daa972;
+  color: white;
 }
 
-.BuildControl .More:hover,.BuildControl .More:active {
-    background-color: #99703F;
-    color: white;
+.BuildControl .More:hover,
+.BuildControl .More:active {
+  background-color: #99703f;
+  color: white;
 }
 ```
 
@@ -6268,11 +6242,9 @@ document.getElementById("demo").innerHTML = "The car type is " + sum[0];
 // test
 ```
 
-
-
 ### 16. Connecting State to Build Controls
 
-BurgerBuilder.js 
+BurgerBuilder.js
 
 ```js
 const INGREDIENT_PRICES = {
@@ -6343,10 +6315,6 @@ const INGREDIENT_PRICES = {
 export default BurgerBuilder;
 ```
 
-
-
-
-
 ### 17. Removing Ingredients Safely
 
 ### 18. Displaying and Updating the Burger Price
@@ -6358,35 +6326,34 @@ BuildControls.js
 const buildControls = (props) => (
     <div className={classes.BuildControls}>
         <p>Current Price: <strong>{props.price.toFixed(2)}</strong></p>
-            
+
 
 ```
-
-
 
 ### 19. Adding the Order Button
 
 BuildControls.js add props purchasable
 
 ```js
-
-const buildControls = (props) => (
-    <div className={classes.BuildControls}>
-        <p>Current Price: <strong>{props.price.toFixed(2)}</strong></p>
-        {controls.map(ctrl => (
-            <BuildControl 
-                key={ctrl.label} 
-                label={ctrl.label}
-                added={() => props.ingredientAdded(ctrl.type)}
-                removed={() => props.ingredientRemoved(ctrl.type)}
-                disabled={props.disabled[ctrl.type]} />
-        ))}
-        
-        // Add new button here
-        <button 
-            className={classes.OrderButton}
-            disabled={!props.purchasable}>ORDER NOW</button>
-    </div>
+const buildControls = props => (
+  <div className={classes.BuildControls}>
+    <p>
+      Current Price: <strong>{props.price.toFixed(2)}</strong>
+    </p>
+    {controls.map(ctrl => (
+      <BuildControl
+        key={ctrl.label}
+        label={ctrl.label}
+        added={() => props.ingredientAdded(ctrl.type)}
+        removed={() => props.ingredientRemoved(ctrl.type)}
+        disabled={props.disabled[ctrl.type]}
+      />
+    ))}
+    // Add new button here
+    <button className={classes.OrderButton} disabled={!props.purchasable}>
+      ORDER NOW
+    </button>
+  </div>
 );
 ```
 
@@ -6416,13 +6383,14 @@ Add folder UI/
 Backdrop.js, css create new in session 22
 
 ```js
-import React from 'react';
+import React from "react";
 
-import classes from './Backdrop.css';
+import classes from "./Backdrop.css";
 
-const backdrop = (props) => (
-    props.show ? <div className={classes.Backdrop} onClick={props.clicked}></div> : null
-);
+const backdrop = props =>
+  props.show ? (
+    <div className={classes.Backdrop} onClick={props.clicked}></div>
+  ) : null;
 
 export default backdrop;
 ```
@@ -6430,24 +6398,25 @@ export default backdrop;
 Modal.js, css create new
 
 ```js
-import React from 'react';
+import React from "react";
 
-import classes from './Modal.css';
-import Aux from '../../../hoc/Aux';
-import Backdrop from '../Backdrop/Backdrop';
+import classes from "./Modal.css";
+import Aux from "../../../hoc/Aux";
+import Backdrop from "../Backdrop/Backdrop";
 
-const modal = ( props ) => (
-    <Aux>
-        <Backdrop show={props.show} clicked={props.modalClosed} />
-        <div
-            className={classes.Modal}
-            style={{
-                transform: props.show ? 'translateY(0)' : 'translateY(-100vh)',
-                opacity: props.show ? '1' : '0'
-            }}>
-            {props.children}
-        </div>
-    </Aux>
+const modal = props => (
+  <Aux>
+    <Backdrop show={props.show} clicked={props.modalClosed} />
+    <div
+      className={classes.Modal}
+      style={{
+        transform: props.show ? "translateY(0)" : "translateY(-100vh)",
+        opacity: props.show ? "1" : "0"
+      }}
+    >
+      {props.children}
+    </div>
+  </Aux>
 );
 
 export default modal;
@@ -6457,57 +6426,62 @@ BurgerBuilder.js create new
 
 ```js
 return (
-            <Aux>
+  <Aux>
     // add
-                <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
-                    <OrderSummary 
-                        ingredients={this.state.ingredients}
-                        purchaseCancelled={this.purchaseCancelHandler}
-                        purchaseContinued={this.purchaseContinueHandler} />
-                </Modal>
-                <Burger ingredients={this.state.ingredients} />
-                ....
-            </Aux>
-        );
+    <Modal
+      show={this.state.purchasing}
+      modalClosed={this.purchaseCancelHandler}
+    >
+      <OrderSummary
+        ingredients={this.state.ingredients}
+        purchaseCancelled={this.purchaseCancelHandler}
+        purchaseContinued={this.purchaseContinueHandler}
+      />
+    </Modal>
+    <Burger ingredients={this.state.ingredients} />
+    ....
+  </Aux>
+);
 ```
 
 OrderSummary.js create new
 
 ```js
-import React from 'react';
+import React from "react";
 
-import Aux from '../../../hoc/Aux';
-import Button from '../../UI/Button/Button';
+import Aux from "../../../hoc/Aux";
+import Button from "../../UI/Button/Button";
 
-const orderSummary = ( props ) => {
-    const ingredientSummary = Object.keys( props.ingredients )
-        .map( igKey => {
-            return (
-                <li key={igKey}>
-                    <span style={{ textTransform: 'capitalize' }}>{igKey}</span>: {props.ingredients[igKey]}
-                </li> );
-        } );
-
+const orderSummary = props => {
+  const ingredientSummary = Object.keys(props.ingredients).map(igKey => {
     return (
-        <Aux>
-            <h3>Your Order</h3>
-            <p>A delicious burger with the following ingredients:</p>
-            <ul>
-                {ingredientSummary}
-            </ul>
-            <p>Continue to Checkout?</p>
-            <Button btnType="Danger" clicked={props.purchaseCancelled}>CANCEL</Button>
-            <Button btnType="Success" clicked={props.purchaseContinued}>CONTINUE</Button>
-        </Aux>
+      <li key={igKey}>
+        <span style={{ textTransform: "capitalize" }}>{igKey}</span>:{" "}
+        {props.ingredients[igKey]}
+      </li>
     );
+  });
+
+  return (
+    <Aux>
+      <h3>Your Order</h3>
+      <p>A delicious burger with the following ingredients:</p>
+      <ul>{ingredientSummary}</ul>
+      <p>Continue to Checkout?</p>
+      <Button btnType="Danger" clicked={props.purchaseCancelled}>
+        CANCEL
+      </Button>
+      <Button btnType="Success" clicked={props.purchaseContinued}>
+        CONTINUE
+      </Button>
+    </Aux>
+  );
 };
 
 export default orderSummary;
 ```
 
 ![image-20200303210745211](./react-maximilan.assets/image-20200303210745211.png)
-
-
 
 ### 21. Showing & Hiding the Modal (with Animation!)
 
@@ -6521,7 +6495,7 @@ purchaseHandler = () => {
 ...
 // Add show or hide
 <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
-                    <OrderSummary 
+                    <OrderSummary
                         ingredients={this.state.ingredients}
                         purchaseCancelled={this.purchaseCancelHandler}
                         purchaseContinued={this.purchaseContinueHandler} />
@@ -6540,26 +6514,30 @@ purchaseHandler = () => {
 BuildControls.js
 
 ```js
-<button 
-            className={classes.OrderButton}
-            disabled={!props.purchasable}
-            onClick={props.ordered}>ORDER NOW</button>
+<button
+  className={classes.OrderButton}
+  disabled={!props.purchasable}
+  onClick={props.ordered}
+>
+  ORDER NOW
+</button>
 ```
 
 Modal.js add style
 
 ```js
-  <div
-            className={classes.Modal}
-            style={{
-                transform: props.show ? 'translateY(0)' : 'translateY(-100vh)',
-                opacity: props.show ? '1' : '0'
-            }}>
-            {props.children}
-        </div>
+<div
+  className={classes.Modal}
+  style={{
+    transform: props.show ? "translateY(0)" : "translateY(-100vh)",
+    opacity: props.show ? "1" : "0"
+  }}
+>
+  {props.children}
+</div>
 ```
 
-![image-20200219213331213](./react-maximilan.assets/image-20200219213331213.png)  
+![image-20200219213331213](./react-maximilan.assets/image-20200219213331213.png)
 
 https://www.w3schools.com/cssref/css3_pr_transform.asp
 
@@ -6573,20 +6551,21 @@ BurgerBuilder.js
 
 ```js
 purchaseCancelHandler = () => {
-        this.setState({purchasing: false});
-    }
+  this.setState({ purchasing: false });
+};
 ```
 
 BackDrop.js
 
 ```js
-import React from 'react';
+import React from "react";
 
-import classes from './Backdrop.css';
+import classes from "./Backdrop.css";
 
-const backdrop = (props) => (
-    props.show ? <div className={classes.Backdrop} onClick={props.clicked}></div> : null
-);
+const backdrop = props =>
+  props.show ? (
+    <div className={classes.Backdrop} onClick={props.clicked}></div>
+  ) : null;
 
 export default backdrop;
 ```
@@ -6594,19 +6573,20 @@ export default backdrop;
 Modal.js
 
 ```js
-const modal = ( props ) => (
-    <Aux>
+const modal = props => (
+  <Aux>
     // add
-        <Backdrop show={props.show} clicked={props.modalClosed} />
-        <div
-            className={classes.Modal}
-            style={{
-                transform: props.show ? 'translateY(0)' : 'translateY(-100vh)',
-                opacity: props.show ? '1' : '0'
-            }}>
-            {props.children}
-        </div>
-    </Aux>
+    <Backdrop show={props.show} clicked={props.modalClosed} />
+    <div
+      className={classes.Modal}
+      style={{
+        transform: props.show ? "translateY(0)" : "translateY(-100vh)",
+        opacity: props.show ? "1" : "0"
+      }}
+    >
+      {props.children}
+    </div>
+  </Aux>
 );
 ```
 
@@ -6626,8 +6606,6 @@ purchaseCancelHandler = () => {
                 <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
 ```
 
-
-
 ### 23. Adding a Custom Button Component
 
 OrderSummary.js
@@ -6641,24 +6619,23 @@ OrderSummary.js
 Button.js
 
 ```js
-import React from 'react';
+import React from "react";
 
-import classes from './Button.css';
+import classes from "./Button.css";
 
-const button = (props) => (
-    <button
-        className={[classes.Button, classes[props.btnType]].join(' ')}
-        onClick={props.clicked}>
-            {props.children}
-	</button>
+const button = props => (
+  <button
+    className={[classes.Button, classes[props.btnType]].join(" ")}
+    onClick={props.clicked}
+  >
+    {props.children}
+  </button>
 );
 
 export default button;
 ```
 
 OrderSummary được gọi trong BurgerBuilder
-
-
 
 ### 24. Implementing the Button Component
 
@@ -6676,7 +6653,7 @@ BurgerBuilder.js
 ....
 
 <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
-                    <OrderSummary 
+                    <OrderSummary
                         ingredients={this.state.ingredients}
 /// add
                         purchaseCancelled={this.purchaseCancelHandler}
@@ -6684,30 +6661,29 @@ BurgerBuilder.js
                 </Modal>
 ```
 
-
-
 ### 25. Adding the Price to the Order Summary
 
 OrderSummary.js add
 
 ```js
-<p><strong>Total Price: {props.price.toFixed(2)}</strong></p>
+<p>
+  <strong>Total Price: {props.price.toFixed(2)}</strong>
+</p>
 ```
 
 BurgerBuilder.js thêm total
 
 ```js
 <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
-                    <OrderSummary 
-                        ingredients={this.state.ingredients}
-  						// add
-						price={this.state.totalPrice}
-                        purchaseCancelled={this.purchaseCancelHandler}
-                        purchaseContinued={this.purchaseContinueHandler} />
-                </Modal>
+  <OrderSummary
+    ingredients={this.state.ingredients}
+    // add
+    price={this.state.totalPrice}
+    purchaseCancelled={this.purchaseCancelHandler}
+    purchaseContinued={this.purchaseContinueHandler}
+  />
+</Modal>
 ```
-
-
 
 ### 26. Adding a Toolbar
 
@@ -6716,25 +6692,19 @@ Add components/Navigation/
 ToolBar.js
 
 ```js
-import React from 'react';
+import React from "react";
 
-import classes from './Toolbar.css';
-import Logo from '../../Logo/Logo';
-import NavigationItems from '../NavigationItems/NavigationItems';
-import DrawerToggle from '../SideDrawer/DrawerToggle/DrawerToggle';
+import classes from "./Toolbar.css";
+import Logo from "../../Logo/Logo";
+import NavigationItems from "../NavigationItems/NavigationItems";
+import DrawerToggle from "../SideDrawer/DrawerToggle/DrawerToggle";
 
-const toolbar = ( props ) => (
-    <header className={classes.Toolbar}>
-         <div>
-    		MENU
-		</div>
-        <div>
-            Logo
-        </div>
-        <nav className={classes.DesktopOnly}>
-            NavigationItems
-        </nav>
-    </header>
+const toolbar = props => (
+  <header className={classes.Toolbar}>
+    <div>MENU</div>
+    <div>Logo</div>
+    <nav className={classes.DesktopOnly}>NavigationItems</nav>
+  </header>
 );
 
 export default toolbar;
@@ -6744,51 +6714,49 @@ ToolBar.css
 
 ```css
 .Toolbar {
-    height: 56px;
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: #703B09;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    box-sizing: border-box;
-    z-index: 90;
+  height: 56px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #703b09;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+  z-index: 90;
 }
 
 .Toolbar nav {
-    height: 100%;
+  height: 100%;
 }
 
 .Logo {
-    height: 80%;
+  height: 80%;
 }
 
 @media (max-width: 499px) {
-    .DesktopOnly {
-        display: none;
-    }
+  .DesktopOnly {
+    display: none;
+  }
 }
 ```
 
 Vào Layout.js add và cập nhật lại css cho Layout.css
 
 ```js
-import React from 'react';
+import React from "react";
 
-import Aux from '../../hoc/Aux';
-import classes from './Layout.css';
+import Aux from "../../hoc/Aux";
+import classes from "./Layout.css";
 
-const layout = ( props ) => (
-    <Aux>
+const layout = props => (
+  <Aux>
     // add
-        <Toolbar />
-        <main className={classes.Content}>
-            {props.children}
-        </main>
-    </Aux>
+    <Toolbar />
+    <main className={classes.Content}>{props.children}</main>
+  </Aux>
 );
 
 export default layout;
@@ -6798,7 +6766,7 @@ Layout.css
 
 ```css
 .Content {
-    margin-top: 72px;
+  margin-top: 72px;
 }
 ```
 
@@ -6809,15 +6777,15 @@ Layout.css
 Logo.js
 
 ```js
-import React from 'react';
+import React from "react";
 
-import burgerLogo from '../../assets/images/burger-logo.png';
-import classes from './Logo.css';
+import burgerLogo from "../../assets/images/burger-logo.png";
+import classes from "./Logo.css";
 
-const logo = (props) => (
-    <div className={classes.Logo} >
-        <img src={burgerLogo} alt="MyBurger" />
-    </div>
+const logo = props => (
+  <div className={classes.Logo}>
+    <img src={burgerLogo} alt="MyBurger" />
+  </div>
 );
 
 export default logo;
@@ -6829,39 +6797,36 @@ Sau đó vào ToolBar.js thêm `<Logo />`, hình thì được load như trên v
 ToolBar.js
 
 ```js
-
-const toolbar = ( props ) => (
-    <header className={classes.Toolbar}>
-        Menu
-        <div className={classes.Logo}>
-            <Logo />
-        </div>
-        <nav className={classes.DesktopOnly}>
-            NavigationItems
-        </nav>
-    </header>
+const toolbar = props => (
+  <header className={classes.Toolbar}>
+    Menu
+    <div className={classes.Logo}>
+      <Logo />
+    </div>
+    <nav className={classes.DesktopOnly}>NavigationItems</nav>
+  </header>
 );
 
 export default toolbar;
 ```
-
-
 
 ### 28. Adding Reusable Navigation Items
 
 NavigationItems.js
 
 ```js
-import React from 'react';
+import React from "react";
 
-import classes from './NavigationItems.css';
-import NavigationItem from './NavigationItem/NavigationItem';
+import classes from "./NavigationItems.css";
+import NavigationItem from "./NavigationItem/NavigationItem";
 
 const navigationItems = () => (
-    <ul className={classes.NavigationItems}>
-        <NavigationItem link="/" active>Burger Builder</NavigationItem>
-        <NavigationItem link="/">Checkout</NavigationItem>
-    </ul>
+  <ul className={classes.NavigationItems}>
+    <NavigationItem link="/" active>
+      Burger Builder
+    </NavigationItem>
+    <NavigationItem link="/">Checkout</NavigationItem>
+  </ul>
 );
 
 export default navigationItems;
@@ -6870,16 +6835,16 @@ export default navigationItems;
 NavigationItem.js
 
 ```js
-import React from 'react';
+import React from "react";
 
-import classes from './NavigationItem.css';
+import classes from "./NavigationItem.css";
 
-const navigationItem = ( props ) => (
-    <li className={classes.NavigationItem}>
-        <a 
-            href={props.link} 
-            className={props.active ? classes.active : null}>{props.children}</a>
-    </li>
+const navigationItem = props => (
+  <li className={classes.NavigationItem}>
+    <a href={props.link} className={props.active ? classes.active : null}>
+      {props.children}
+    </a>
+  </li>
 );
 
 export default navigationItem;
@@ -6889,107 +6854,102 @@ NavigationItem.css
 
 ```css
 .NavigationItem {
-    margin: 10px 0;
-    box-sizing: border-box;
-    display: block;
-    width: 100%;
+  margin: 10px 0;
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
 }
 
 .NavigationItem a {
-    color: #8F5C2C;
-    text-decoration: none;
-    width: 100%;
-    box-sizing: border-box;
-    display: block;
+  color: #8f5c2c;
+  text-decoration: none;
+  width: 100%;
+  box-sizing: border-box;
+  display: block;
 }
 
 .NavigationItem a:hover,
 .NavigationItem a:active,
 .NavigationItem a.active {
-    color: #40A4C8;
+  color: #40a4c8;
 }
 
 @media (min-width: 500px) {
-    .NavigationItem {
-        margin: 0;
-        display: flex;
-        height: 100%;
-        width: auto;
-        align-items: center;
-    }
-    
-    .NavigationItem a {
-        color: white;
-        height: 100%;
-        padding: 16px 10px;
-        border-bottom: 4px solid transparent;
-    }
-    
-    .NavigationItem a:hover,
-    .NavigationItem a:active,
-    .NavigationItem a.active {
-        background-color: #8F5C2C;
-        border-bottom: 4px solid #40A4C8;
-        color: white;
-    }
+  .NavigationItem {
+    margin: 0;
+    display: flex;
+    height: 100%;
+    width: auto;
+    align-items: center;
+  }
+
+  .NavigationItem a {
+    color: white;
+    height: 100%;
+    padding: 16px 10px;
+    border-bottom: 4px solid transparent;
+  }
+
+  .NavigationItem a:hover,
+  .NavigationItem a:active,
+  .NavigationItem a.active {
+    background-color: #8f5c2c;
+    border-bottom: 4px solid #40a4c8;
+    color: white;
+  }
 }
 ```
-
-
 
 Vào ToolBar.js add `<NavigationItems />`
 
 ```js
-
-const toolbar = ( props ) => (
-    <header className={classes.Toolbar}>
-        <DrawerToggle clicked={props.drawerToggleClicked} />
-        <div className={classes.Logo}>
-            <Logo />
-        </div>
-        <nav className={classes.DesktopOnly}>
-            <NavigationItems />
-        </nav>
-    </header>
+const toolbar = props => (
+  <header className={classes.Toolbar}>
+    <DrawerToggle clicked={props.drawerToggleClicked} />
+    <div className={classes.Logo}>
+      <Logo />
+    </div>
+    <nav className={classes.DesktopOnly}>
+      <NavigationItems />
+    </nav>
+  </header>
 );
 
 export default toolbar;
 ```
-
-
 
 ### 29. Creating a Responsive Sidedrawer
 
 SideDrawer.js
 
 ```js
-import React from 'react';
+import React from "react";
 
-import Logo from '../../Logo/Logo';
-import NavigationItems from '../NavigationItems/NavigationItems';
-import classes from './SideDrawer.css';
-import Backdrop from '../../UI/Backdrop/Backdrop';
-import Aux from '../../../hoc/Aux';
+import Logo from "../../Logo/Logo";
+import NavigationItems from "../NavigationItems/NavigationItems";
+import classes from "./SideDrawer.css";
+import Backdrop from "../../UI/Backdrop/Backdrop";
+import Aux from "../../../hoc/Aux";
 
-const sideDrawer = ( props ) => {
-    let attachedClasses = [classes.SideDrawer, classes.Close];
-    if (props.open) {
-        attachedClasses = [classes.SideDrawer, classes.Open];
-    }
-    return (
-        <Aux>
-            <Backdrop show={props.open} clicked={props.closed}/>
-            <div className={attachedClasses.join(' ')}>
-                // # 30
-                <div className={classes.Logo}>
-                    <Logo />
-                </div>
-                <nav>
-                    <NavigationItems />
-                </nav>
-            </div>
-        </Aux>
-    );
+const sideDrawer = props => {
+  let attachedClasses = [classes.SideDrawer, classes.Close];
+  if (props.open) {
+    attachedClasses = [classes.SideDrawer, classes.Open];
+  }
+  return (
+    <Aux>
+      <Backdrop show={props.open} clicked={props.closed} />
+      <div className={attachedClasses.join(" ")}>
+        // # 30
+        <div className={classes.Logo}>
+          <Logo />
+        </div>
+        <nav>
+          <NavigationItems />
+        </nav>
+      </div>
+    </Aux>
+  );
 };
 
 export default sideDrawer;
@@ -6998,28 +6958,25 @@ export default sideDrawer;
 Layout.js
 
 ```js
- return (
-            <Aux>
-                <Toolbar drawerToggleClicked={this.sideDrawerToggleHandler} />
-                <SideDrawer
-                    open={this.state.showSideDrawer}
-                    closed={this.sideDrawerClosedHandler} />
-                <main className={classes.Content}>
-                    {this.props.children}
-                </main>
-            </Aux>
-        )
+return (
+  <Aux>
+    <Toolbar drawerToggleClicked={this.sideDrawerToggleHandler} />
+    <SideDrawer
+      open={this.state.showSideDrawer}
+      closed={this.sideDrawerClosedHandler}
+    />
+    <main className={classes.Content}>{this.props.children}</main>
+  </Aux>
+);
 ```
-
-
 
 Logo.js add style
 
 ```js
-const logo = (props) => (
-    <div className={classes.Logo} style={{height: props.height}}>
-        <img src={burgerLogo} alt="MyBurger" />
-    </div>
+const logo = props => (
+  <div className={classes.Logo} style={{ height: props.height }}>
+    <img src={burgerLogo} alt="MyBurger" />
+  </div>
 );
 ```
 
@@ -7027,64 +6984,57 @@ SideDrawer.css
 
 ```css
 .SideDrawer {
-    position: fixed;
-    width: 280px;
-    max-width: 70%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    z-index: 200;
-    background-color: white;
-    padding: 32px 16px;
-    box-sizing: border-box;
-    transition: transform 0.3s ease-out;
+  position: fixed;
+  width: 280px;
+  max-width: 70%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 200;
+  background-color: white;
+  padding: 32px 16px;
+  box-sizing: border-box;
+  transition: transform 0.3s ease-out;
 }
 
 @media (min-width: 500px) {
-    .SideDrawer {
-        display: none;
-    }
+  .SideDrawer {
+    display: none;
+  }
 }
 
 .Open {
-    transform: translateX(0);
+  transform: translateX(0);
 }
 
 .Close {
-    transform: translateX(-100%);
+  transform: translateX(-100%);
 }
 
-
-// add 
+// add
 .Logo {
-    height: 11%;
-    margin-bottom: 32px;
+  height: 11%;
+  margin-bottom: 32px;
 }
 ```
-
-
-
-
 
 ### 30. Working on Responsive Adjustments
 
-Toolbar.js ADD CLASS  Logo
+Toolbar.js ADD CLASS Logo
 
 ```js
-const toolbar = ( props ) => (
-    <header className={classes.Toolbar}>
-        <DrawerToggle clicked={props.drawerToggleClicked} />
-        <div className={classes.Logo}>
-            <Logo />
-        </div>
-        <nav className={classes.DesktopOnly}>
-            <NavigationItems />
-        </nav>
-    </header>
+const toolbar = props => (
+  <header className={classes.Toolbar}>
+    <DrawerToggle clicked={props.drawerToggleClicked} />
+    <div className={classes.Logo}>
+      <Logo />
+    </div>
+    <nav className={classes.DesktopOnly}>
+      <NavigationItems />
+    </nav>
+  </header>
 );
 ```
-
-
 
 ### 31. More about Responsive Adjustments
 
@@ -7100,14 +7050,14 @@ navigationItem.css
         width: auto;
         align-items: center;
     }
-    
+
     .NavigationItem a {
         color: white;
         height: 100%;
         padding: 16px 10px;
         border-bottom: 4px solid transparent;
     }
-    
+
     .NavigationItem a:hover,
     .NavigationItem a:active,
     .NavigationItem a.active {
@@ -7115,21 +7065,17 @@ navigationItem.css
         border-bottom: 4px solid #40A4C8;
         color: white;
     }
-    
+
     /// mobile
 ```
-
 
 ToolBar.js add css class
 
 ```js
 <nav className={classes.DesktopOnly}>
-            <NavigationItems />
-        </nav>
+  <NavigationItems />
+</nav>
 ```
-
-
-
 
 ### 32. Reusing the Backdrop
 
@@ -7142,7 +7088,7 @@ const sideDrawer = ( props ) => {
     if (props.open) {
         attachedClasses = [classes.SideDrawer, classes.Open];
     }
-    
+
 return (
         <Aux>
             <Backdrop show={props.open} clicked={props.closed}/>
@@ -7185,24 +7131,22 @@ render () {
                     closed={this.sideDrawerClosedHandler} />
 ```
 
-
-
 ### 33. Adding a Sidedrawer Toggle Button
 
 DrawToggle.js
 
 ```js
-import React from 'react';
+import React from "react";
 
-import classes from './DrawerToggle.css';
+import classes from "./DrawerToggle.css";
 
-const drawerToggle = (props) => (
-    <div className={classes.DrawerToggle} onClick={props.clicked}>
+const drawerToggle = props => (
+  <div className={classes.DrawerToggle} onClick={props.clicked}>
     // # 34
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
 );
 
 export default drawerToggle;
@@ -7211,7 +7155,7 @@ export default drawerToggle;
 ToolBar.js
 
 ```js
- <DrawerToggle clicked={props.drawerToggleClicked} />
+<DrawerToggle clicked={props.drawerToggleClicked} />
 ```
 
 Truyền từ Layout.js vào
@@ -7228,8 +7172,6 @@ sideDrawerToggleHandler = () => {
             <Aux>
                 <Toolbar drawerToggleClicked={this.sideDrawerToggleHandler} />
 ```
-
-
 
 ### 34. Adding a Hamburger Icon
 
@@ -7249,7 +7191,7 @@ class Modal extends Component {
     shouldComponentUpdate ( nextProps, nextState ) {
         return nextProps.show !== this.props.show;
     }
-    
+
     componentWillUpdate () {
         console.log('[Modal] WillUpdate');
     }
@@ -7265,25 +7207,21 @@ class OrderSummary extends Component {
     }
 ```
 
-
-
 ### 38. Using Component Lifecycle Methods
 
 ### 39. Changing the Folder Structure
 
 move Layout in hoc/ folder
 
-
 ### 40. Wrap Up
 
 ### 41. Useful Resources & Links.html
-
 
 ## 9. Reaching out to the Web (Http Ajax)
 
 ### 1. Module Introduction
 
-### 
+###
 
 ### 2. Understanding Http Requests in React
 
@@ -7291,7 +7229,7 @@ move Layout in hoc/ folder
 
 ### 3. Understanding our Project and Introducing Axios
 
-![image-20200219234310890](./react-maximilan.assets/image-20200219234310890.png)  
+![image-20200219234310890](./react-maximilan.assets/image-20200219234310890.png)
 
 https://jsonplaceholder.typicode.com/
 
@@ -7302,62 +7240,62 @@ Install axios: `npm install axios --save`
 Blog.js
 
 ```js
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { Component } from "react";
+import axios from "axios";
 
-import Post from '../../components/Post/Post';
-import FullPost from '../../components/FullPost/FullPost';
-import NewPost from '../../components/NewPost/NewPost';
-import './Blog.css';
+import Post from "../../components/Post/Post";
+import FullPost from "../../components/FullPost/FullPost";
+import NewPost from "../../components/NewPost/NewPost";
+import "./Blog.css";
 
 class Blog extends Component {
-    state = {
-        posts: [],
-        selectedPostId: null
-    }
+  state = {
+    posts: [],
+    selectedPostId: null
+  };
 
-    componentDidMount () {
-        axios.get( 'https://jsonplaceholder.typicode.com/posts' )
-            .then( response => {
-                const posts = response.data.slice(0, 4);
-                const updatedPosts = posts.map(post => {
-                    return {
-                        ...post,
-                        author: 'Max'
-                    }
-                });
-                this.setState({posts: updatedPosts});
-                // console.log( response );
-            } );
-    }
+  componentDidMount() {
+    axios.get("https://jsonplaceholder.typicode.com/posts").then(response => {
+      const posts = response.data.slice(0, 4);
+      const updatedPosts = posts.map(post => {
+        return {
+          ...post,
+          author: "Max"
+        };
+      });
+      this.setState({ posts: updatedPosts });
+      // console.log( response );
+    });
+  }
 
-    postSelectedHandler = (id) => {
-        this.setState({selectedPostId: id});
-    }
+  postSelectedHandler = id => {
+    this.setState({ selectedPostId: id });
+  };
 
-    render () {
-        const posts = this.state.posts.map(post => {
-            return <Post 
-                key={post.id} 
-                title={post.title} 
-                author={post.author}
-                clicked={() => this.postSelectedHandler(post.id)} />;
-        });
+  render() {
+    const posts = this.state.posts.map(post => {
+      return (
+        <Post
+          key={post.id}
+          title={post.title}
+          author={post.author}
+          clicked={() => this.postSelectedHandler(post.id)}
+        />
+      );
+    });
 
-        return (
-            <div>
-                <section className="Posts">
-                    {posts}
-                </section>
-                <section>
-                    <FullPost id={this.state.selectedPostId} />
-                </section>
-                <section>
-                    <NewPost />
-                </section>
-            </div>
-        );
-    }
+    return (
+      <div>
+        <section className="Posts">{posts}</section>
+        <section>
+          <FullPost id={this.state.selectedPostId} />
+        </section>
+        <section>
+          <NewPost />
+        </section>
+      </div>
+    );
+  }
 }
 
 export default Blog;
@@ -7366,23 +7304,21 @@ export default Blog;
 Post.js
 
 ```js
-import React from 'react';
+import React from "react";
 
-import './Post.css';
+import "./Post.css";
 
-const post = (props) => (
-    <article className="Post" onClick={props.clicked}>
-        <h1>{props.title}</h1>
-        <div className="Info">
-            <div className="Author">{props.author}</div>
-        </div>
-    </article>
+const post = props => (
+  <article className="Post" onClick={props.clicked}>
+    <h1>{props.title}</h1>
+    <div className="Info">
+      <div className="Author">{props.author}</div>
+    </div>
+  </article>
 );
 
 export default post;
 ```
-
-
 
 ### 5. Rendering Fetched Data to the Screen
 
@@ -7399,9 +7335,9 @@ postSelectedHandler = (id) => {
 
 render () {
         const posts = this.state.posts.map(post => {
-            return <Post 
-                key={post.id} 
-                title={post.title} 
+            return <Post
+                key={post.id}
+                title={post.title}
                 author={post.author}
                 clicked={() => this.postSelectedHandler(post.id)} />;
         });
@@ -7410,55 +7346,56 @@ render () {
 <FullPost id={this.state.selectedPostId} />
 ```
 
-
-
 ### 8. Fetching Data on Update (without Creating Infinite Loops)
 
 FullPost.js
 
 ```js
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { Component } from "react";
+import axios from "axios";
 
-import './FullPost.css';
+import "./FullPost.css";
 
 class FullPost extends Component {
-    state = {
-        loadedPost: null
-    }
+  state = {
+    loadedPost: null
+  };
 
-    componentDidUpdate () {
-        if ( this.props.id ) {
-        // Nếu k check => loop vì gọi setState thì component sẽ update
-            if ( !this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.id) ) {
-                axios.get( 'https://jsonplaceholder.typicode.com/posts/' + this.props.id )
-                    .then( response => {
-                        // console.log(response);
-                        this.setState( { loadedPost: response.data } );
-                    } );
-            }
-        }
+  componentDidUpdate() {
+    if (this.props.id) {
+      // Nếu k check => loop vì gọi setState thì component sẽ update
+      if (
+        !this.state.loadedPost ||
+        (this.state.loadedPost && this.state.loadedPost.id !== this.props.id)
+      ) {
+        axios
+          .get("https://jsonplaceholder.typicode.com/posts/" + this.props.id)
+          .then(response => {
+            // console.log(response);
+            this.setState({ loadedPost: response.data });
+          });
+      }
     }
+  }
 
-    render () {
-        let post = <p style={{ textAlign: 'center' }}>Please select a Post!</p>;
-        if ( this.props.id ) {
-            post = <p style={{ textAlign: 'center' }}>Loading...!</p>;
-        }
-        if ( this.state.loadedPost ) {
-            post = (
-                <div className="FullPost">
-                    <h1>{this.state.loadedPost.title}</h1>
-                    <p>{this.state.loadedPost.body}</p>
-                    <div className="Edit">
-                        <button className="Delete">Delete</button>
-                    </div>
-                </div>
-
-            );
-        }
-        return post;
+  render() {
+    let post = <p style={{ textAlign: "center" }}>Please select a Post!</p>;
+    if (this.props.id) {
+      post = <p style={{ textAlign: "center" }}>Loading...!</p>;
     }
+    if (this.state.loadedPost) {
+      post = (
+        <div className="FullPost">
+          <h1>{this.state.loadedPost.title}</h1>
+          <p>{this.state.loadedPost.body}</p>
+          <div className="Edit">
+            <button className="Delete">Delete</button>
+          </div>
+        </div>
+      );
+    }
+    return post;
+  }
 }
 
 export default FullPost;
@@ -7536,8 +7473,6 @@ FullPost.js
     }
 ```
 
-
-
 ### 11. Fixing a Bug
 
 sửa .content thành body như trên
@@ -7571,16 +7506,14 @@ render () {
         let posts = <p style={{textAlign: 'center'}}>Something went wrong!</p>;
         if (!this.state.error) {
             posts = this.state.posts.map(post => {
-                return <Post 
-                    key={post.id} 
-                    title={post.title} 
+                return <Post
+                    key={post.id}
+                    title={post.title}
                     author={post.author}
                     clicked={() => this.postSelectedHandler(post.id)} />;
             });
         }
 ```
-
-
 
 ### 13. Adding Interceptors to Execute Code Globally
 
@@ -7624,14 +7557,14 @@ registerServiceWorker();
 
 ```
 
-
-
 ### 14. Removing Interceptors.html
 
 You learned how to add an interceptor, getting rid of one is also easy. Simply store the reference to the interceptor in a variable and call `eject` with that reference as an argument, to remove it (more info: https://github.com/axios/axios#interceptors):
 
 ```js
-var myInterceptor = axios.interceptors.request.use(function () {/*...*/});
+var myInterceptor = axios.interceptors.request.use(function() {
+  /*...*/
+});
 axios.interceptors.request.eject(myInterceptor);
 ```
 
@@ -7644,13 +7577,13 @@ Sau đó sửa lại các url để gọi
 Create file axios.js
 
 ```js
-import axios from 'axios';
+import axios from "axios";
 
 const instance = axios.create({
-    baseURL: 'https://jsonplaceholder.typicode.com'
+  baseURL: "https://jsonplaceholder.typicode.com"
 });
 
-instance.defaults.headers.common['Authorization'] = 'AUTH TOKEN FROM INSTANCE';
+instance.defaults.headers.common["Authorization"] = "AUTH TOKEN FROM INSTANCE";
 
 // instance.interceptors.request...
 // Nếu  muốn SD
@@ -7662,21 +7595,16 @@ comment baseURL ở index.js
 
 ```js
 // axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com';
-
 ```
-
-
 
 Blog.js
 
 ```js
 // import axios from 'axios';
-import axios from '../../axios';
+import axios from "../../axios";
 
 // Thay đoạn import
 ```
-
-
 
 Xem lại
 
@@ -7700,21 +7628,21 @@ The Firebase Database console - which we'll see in the next lecture - changed vi
 
 ### 3. Creating the Firebase Project
 
-![image-20200222225849287](./react-maximilan.assets/image-20200222225849287.png)  
+![image-20200222225849287](./react-maximilan.assets/image-20200222225849287.png)
 
 Click Go to console
 
-![image-20200222230548393](./react-maximilan.assets/image-20200222230548393.png)  
+![image-20200222230548393](./react-maximilan.assets/image-20200222230548393.png)
 
 Add Project
 
-![image-20200222230801750](./react-maximilan.assets/image-20200222230801750.png)  
+![image-20200222230801750](./react-maximilan.assets/image-20200222230801750.png)
 
 Database
 
 Vào database thêm /rules
 
-![image-20200222232009009](./react-maximilan.assets/image-20200222232009009.png)  
+![image-20200222232009009](./react-maximilan.assets/image-20200222232009009.png)
 
 Set rules là true rồi chọn PUBLISH; có thể set là "true " đặt trong dấu ""
 
@@ -7725,10 +7653,10 @@ Set rules là true rồi chọn PUBLISH; có thể set là "true " đặt trong 
 create file axios-orders.js
 
 ```js
-import axios from 'axios';
+import axios from "axios";
 
 const instance = axios.create({
-    baseURL: 'https://react-my-burger.firebaseio.com/'
+  baseURL: "https://react-my-burger.firebaseio.com/"
 });
 
 export default instance;
@@ -7740,31 +7668,31 @@ BurgerBuilder.js khi ấn nút CONTINUE
 
 ```js
 purchaseContinueHandler = () => {
-        // alert('You continue!');
-        this.setState( { loading: true } );
-        const order = {
-            ingredients: this.state.ingredients,
-            price: this.state.totalPrice,
-            customer: {
-                name: 'Max Schwarzmüller',
-                address: {
-                    street: 'Teststreet 1',
-                    zipCode: '41351',
-                    country: 'Germany'
-                },
-                email: 'test@test.com'
-            },
-            deliveryMethod: 'fastest'
-        }
-        // bất kì tên + .json 
-        // axios.post( '/orders.json', order )
-        //     .then( response => {
-        //         this.setState({ loading: false, purchasing: false });
-        //     } )
-        //     .catch( error => {
-        //         this.setState({ loading: false, purchasing: false });
-        //     } );
-    }
+  // alert('You continue!');
+  this.setState({ loading: true });
+  const order = {
+    ingredients: this.state.ingredients,
+    price: this.state.totalPrice,
+    customer: {
+      name: "Max Schwarzmüller",
+      address: {
+        street: "Teststreet 1",
+        zipCode: "41351",
+        country: "Germany"
+      },
+      email: "test@test.com"
+    },
+    deliveryMethod: "fastest"
+  };
+  // bất kì tên + .json
+  // axios.post( '/orders.json', order )
+  //     .then( response => {
+  //         this.setState({ loading: false, purchasing: false });
+  //     } )
+  //     .catch( error => {
+  //         this.setState({ loading: false, purchasing: false });
+  //     } );
+};
 ```
 
 ![image-20200222233546403](./react-maximilan.assets/image-20200222233546403.png)
@@ -7775,16 +7703,14 @@ Create Spinner when loading;
 
 code pen io
 
-Search gg  css spinner: https://projects.lukehaas.me/css-loaders/
+Search gg css spinner: https://projects.lukehaas.me/css-loaders/
 
 ```js
-import React from 'react';
+import React from "react";
 
-import classes from './Spinner.css';
+import classes from "./Spinner.css";
 
-const spinner = () => (
-    <div className={classes.Loader}>Loading...</div>
-);
+const spinner = () => <div className={classes.Loader}>Loading...</div>;
 
 export default spinner;
 ```
@@ -7813,7 +7739,7 @@ Spinner.css
 .Loader:before,
 .Loader:after {
   position: absolute;
-  content: '';
+  content: "";
 }
 .Loader:before {
   width: 5.2em;
@@ -7899,46 +7825,50 @@ Thêm nextProps.children !== this.props.children
 withErrorHandler.js
 
 ```js
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import Modal from '../../components/UI/Modal/Modal';
-import Aux from '../Aux/Aux';
+import Modal from "../../components/UI/Modal/Modal";
+import Aux from "../Aux/Aux";
 
-const withErrorHandler = ( WrappedComponent, axios ) => {
-    return class extends Component {
-        state = {
-            error: null
+const withErrorHandler = (WrappedComponent, axios) => {
+  return class extends Component {
+    state = {
+      error: null
+    };
+
+    // video đang SD componentDidMount => sau này xài constructor
+    componentWillMount() {
+      axios.interceptors.request.use(req => {
+        this.setState({ error: null });
+        return req;
+      });
+      axios.interceptors.response.use(
+        res => res,
+        error => {
+          this.setState({ error: error });
         }
-
-    // video đang SD componentDidMount => sau này xài constructor 
-        componentWillMount () {
-            axios.interceptors.request.use(req => {
-                this.setState({error: null});
-                return req;
-            });
-            axios.interceptors.response.use(res => res, error => {
-                this.setState({error: error});
-            });
-        }
-
-        errorConfirmedHandler = () => {
-            this.setState({error: null});
-        }
-
-        render () {
-            return (
-                <Aux>
-                    <Modal 
-                        show={this.state.error}
-                        modalClosed={this.errorConfirmedHandler}>
-                        {this.state.error ? this.state.error.message : null}
-                    </Modal>
-                    <WrappedComponent {...this.props} />
-                </Aux>
-            );
-        }
+      );
     }
-}
+
+    errorConfirmedHandler = () => {
+      this.setState({ error: null });
+    };
+
+    render() {
+      return (
+        <Aux>
+          <Modal
+            show={this.state.error}
+            modalClosed={this.errorConfirmedHandler}
+          >
+            {this.state.error ? this.state.error.message : null}
+          </Modal>
+          <WrappedComponent {...this.props} />
+        </Aux>
+      );
+    }
+  };
+};
 
 export default withErrorHandler;
 ```
@@ -7946,12 +7876,11 @@ export default withErrorHandler;
 BurgerBuilder.js
 
 ```js
-                <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
-                    {orderSummary}
-                </Modal>
+<Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
+  {orderSummary}
+</Modal>;
 
-
-export default withErrorHandler( BurgerBuilder, axios );
+export default withErrorHandler(BurgerBuilder, axios);
 ```
 
 Xem lại Modal .js
@@ -7962,9 +7891,9 @@ Xem lại Modal .js
 
 ### 8. Retrieving Data from the Backend
 
-![image-20200223003030262](./react-maximilan.assets/image-20200223003030262.png)  
+![image-20200223003030262](./react-maximilan.assets/image-20200223003030262.png)
 
-Add ingredients 
+Add ingredients
 
 BurgerBuilder.js
 
@@ -8002,7 +7931,7 @@ render () {
         for ( let key in disabledInfo ) {
             disabledInfo[key] = disabledInfo[key] <= 0
         }
-        
+
 // Add new
     let orderSummary = null;
         let burger = this.state.error ? <p>Ingredients can't be loaded!</p> : <Spinner />;
@@ -8026,7 +7955,7 @@ render () {
                 purchaseCancelled={this.purchaseCancelHandler}
                 purchaseContinued={this.purchaseContinueHandler} />;
         }
-	
+
        if ( this.state.loading ) {
             orderSummary = <Spinner />;
         }
@@ -8061,13 +7990,11 @@ Khi nào không cần BurgerBuilder nó sẽ clean up
 
 ### 10. Useful Resources & Links.html
 
-
-
 ## 11. Multi-Page-Feeling in a Single-Page-App Routing
 
 ### 1. Module Introduction
 
-![image-20200223011501290](./react-maximilan.assets/image-20200223011501290.png)  
+![image-20200223011501290](./react-maximilan.assets/image-20200223011501290.png)
 
 ![image-20200223011652350](./react-maximilan.assets/image-20200223011652350.png)
 
@@ -8096,30 +8023,28 @@ Chỉnh Blog.css cho link
 
 ```css
 .Blog ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    text-align: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  text-align: center;
 }
 
 .Blog li {
-    display: inline-block;
-    margin: 20px;
+  display: inline-block;
+  margin: 20px;
 }
 
 .Blog a {
-    text-decoration: none;
-    color: black;
+  text-decoration: none;
+  color: black;
 }
 
 .Blog a:hover,
 .Blog a:active {
-    color: #fa923f;
+  color: #fa923f;
 }
 ```
-
-
 
 ### 4. Setting Up the Router Package
 
@@ -8130,13 +8055,13 @@ Tại Blog.js xóa FullPost and NewPost
 App.js
 
 ```js
-import React, { Component } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import React, { Component } from "react";
+import { BrowserRouter } from "react-router-dom";
 
-import Blog from './containers/Blog/Blog';
+import Blog from "./containers/Blog/Blog";
 
 class App extends Component {
-  render () {
+  render() {
     return (
       // now we can use routing
       <BrowserRouter>
@@ -8149,14 +8074,13 @@ class App extends Component {
 }
 
 export default App;
-
 ```
 
 Chỉnh sửa lại cấu trúc folder Post, Blog
 
 ### 5. react-router vs react-router-dom.html
 
-We installed both `react-router` and `react-router-dom` . **Technically, only `react-router-dom` is required for web development**. It wraps `react-router` and therefore uses it as a dependency. 
+We installed both `react-router` and `react-router-dom` . **Technically, only `react-router-dom` is required for web development**. It wraps `react-router` and therefore uses it as a dependency.
 
 We **don't need to install** `react-router` on our own for it to work. You can omit this installation step, I left it in there for historic reasons and because I like to emphasize that the main package is named react-router. If you ever search for assistance, you probably want to search for "react router" - that's the name of the package.
 
@@ -8165,65 +8089,63 @@ We **don't need to install** `react-router` on our own for it to work. You can o
 Create Post Component.js tách từ blog ra, copy cả css
 
 ```js
-import React, { Component } from 'react';
-import axios from '../../../axios';
+import React, { Component } from "react";
+import axios from "../../../axios";
 
-import Post from '../../../components/Post/Post';
-import './Posts.css';
+import Post from "../../../components/Post/Post";
+import "./Posts.css";
 
 class Posts extends Component {
-    state = {
-        posts: []
-    }
+  state = {
+    posts: []
+  };
 
-    componentDidMount () {
-        console.log(this.props);
-        axios.get( '/posts' )
-            .then( response => {
-                const posts = response.data.slice(0, 4);
-                const updatedPosts = posts.map(post => {
-                    return {
-                        ...post,
-                        author: 'Max'
-                    }
-                });
-                this.setState({posts: updatedPosts});
-                // console.log( response );
-            } )
-            .catch(error => {
-                console.log(error);
-                // this.setState({error: true});
-            });
-    }
+  componentDidMount() {
+    console.log(this.props);
+    axios
+      .get("/posts")
+      .then(response => {
+        const posts = response.data.slice(0, 4);
+        const updatedPosts = posts.map(post => {
+          return {
+            ...post,
+            author: "Max"
+          };
+        });
+        this.setState({ posts: updatedPosts });
+        // console.log( response );
+      })
+      .catch(error => {
+        console.log(error);
+        // this.setState({error: true});
+      });
+  }
 
-    postSelectedHandler = (id) => {
-        this.setState({selectedPostId: id});
-    }
-    
-    render () {
-        let posts = <p style={{textAlign: 'center'}}>Something went wrong!</p>;
-        if (!this.state.error) {
-            posts = this.state.posts.map(post => {
-                return <Post 
-                    key={post.id} 
-                    title={post.title} 
-                    author={post.author}
-                    clicked={() => this.postSelectedHandler(post.id)} />;
-            });
-        }
+  postSelectedHandler = id => {
+    this.setState({ selectedPostId: id });
+  };
 
+  render() {
+    let posts = <p style={{ textAlign: "center" }}>Something went wrong!</p>;
+    if (!this.state.error) {
+      posts = this.state.posts.map(post => {
         return (
-            <section className="Posts">
-                {posts}
-            </section>
+          <Post
+            key={post.id}
+            title={post.title}
+            author={post.author}
+            clicked={() => this.postSelectedHandler(post.id)}
+          />
         );
+      });
     }
+
+    return <section className="Posts">{posts}</section>;
+  }
 }
 
 export default Posts;
 ```
-
-
 
 ### 7. Setting Up and Rendering Routes
 
@@ -8256,20 +8178,26 @@ Blog.js
 
 ```js
 <header>
-                    <nav>
-                        <ul>
-                            <li><Link to="/">Home</Link></li>
-                            <li><Link to={{
-                                pathname: '/new-post',
-                                hash: '#submit',
-                                search: '?quick-submit=true'
-                            }}>New Post</Link></li>
-                        </ul>
-                    </nav>
-                </header>
+  <nav>
+    <ul>
+      <li>
+        <Link to="/">Home</Link>
+      </li>
+      <li>
+        <Link
+          to={{
+            pathname: "/new-post",
+            hash: "#submit",
+            search: "?quick-submit=true"
+          }}
+        >
+          New Post
+        </Link>
+      </li>
+    </ul>
+  </nav>
+</header>
 ```
-
-
 
 ### 11. Using Routing-Related Props
 
@@ -8287,57 +8215,57 @@ componentDidMount () {
 Post.js
 
 ```js
-import React from 'react';
+import React from "react";
 
-import './Post.css';
+import "./Post.css";
 
-const post = (props) => {
-    // Add
-    console.log(props);
-    return  (
+const post = props => {
+  // Add
+  console.log(props);
+  return (
     <article className="Post" onClick={props.clicked}>
-        <h1>{props.title}</h1>
-        <div className="Info">
-            <div className="Author">{props.author}</div>
-        </div>
+      <h1>{props.title}</h1>
+      <div className="Info">
+        <div className="Author">{props.author}</div>
+      </div>
     </article>
-);
-}
+  );
+};
 
 export default post;
 ```
 
 Khi console.log(props); Không có loaction, history and match
 
-![image-20200223095508332](./react-maximilan.assets/image-20200223095508332.png)  
+![image-20200223095508332](./react-maximilan.assets/image-20200223095508332.png)
 
 Post.js get info of nearest routes => nên sẽ get giống như Posts
 
-Get access to routing relative props 
+Get access to routing relative props
 
 ```js
-import React from 'react';
-import { withRouter } from 'react-router-dom';
+import React from "react";
+import { withRouter } from "react-router-dom";
 
-import './Post.css';
+import "./Post.css";
 
-const post = (props) => {
-    console.log(props);
-    return  (
+const post = props => {
+  console.log(props);
+  return (
     <article className="Post" onClick={props.clicked}>
-        <h1>{props.title}</h1>
-        <div className="Info">
-            <div className="Author">{props.author}</div>
-        </div>
+      <h1>{props.title}</h1>
+      <div className="Info">
+        <div className="Author">{props.author}</div>
+      </div>
     </article>
-);
-}
+  );
+};
 
 // add
 export default withRouter(post);
 ```
 
-![image-20200223095857964](./react-maximilan.assets/image-20200223095857964.png)  
+![image-20200223095857964](./react-maximilan.assets/image-20200223095857964.png)
 
 Sau đó revert file này lại như ban đầu
 
@@ -8350,30 +8278,38 @@ Blog.js
 
 ```js
 <header>
-                    <nav>
-                        <ul>
-                            <li><Link to="/">Home</Link></li>
-                            <li><Link to={{
-                                // add dynamic path để test => nhớ revert
-                                // pathname: '/new-post',
-                                pathname: this.props.match.url + '/new-post',
-                                hash: '#submit',
-                                search: '?quick-submit=true'
-                            }}>New Post</Link></li>
-                        </ul>
-                    </nav>
-                </header>
+  <nav>
+    <ul>
+      <li>
+        <Link to="/">Home</Link>
+      </li>
+      <li>
+        <Link
+          to={{
+            // add dynamic path để test => nhớ revert
+            // pathname: '/new-post',
+            pathname: this.props.match.url + "/new-post",
+            hash: "#submit",
+            search: "?quick-submit=true"
+          }}
+        >
+          New Post
+        </Link>
+      </li>
+    </ul>
+  </nav>
+</header>
 ```
 
 ### 14. Absolute vs Relative Paths (Article).html
 
 You learned about `Link` , you learned about the `to` property it uses.
 
-The path you can use in to can be either **absolute** or **relative**. 
+The path you can use in to can be either **absolute** or **relative**.
 
 #### **Absolute Paths**
 
-By default, if you just enter `to="/some-path"` or `to="some-path"` , that's an **absolute path**. 
+By default, if you just enter `to="/some-path"` or `to="some-path"` , that's an **absolute path**.
 
 **Absolute path** means that it's **always appended right after your domain**. Therefore, both syntaxes (with and without leading slash) lead to `example.com/some-path` .
 
@@ -8381,7 +8317,7 @@ By default, if you just enter `to="/some-path"` or `to="some-path"` , that's an 
 
 Sometimes, you might want to create a relative path instead. This is especially useful, if your component is already loaded given a specific path (e.g. `posts` ) and you then want to append something to that existing path (so that you, for example, get `/posts/new` ).
 
-If you're on a component loaded via `/posts` , `to="new"` would lead to `example.com/new` , **NOT** `example.com/posts/new` . 
+If you're on a component loaded via `/posts` , `to="new"` would lead to `example.com/new` , **NOT** `example.com/posts/new` .
 
 To change this behavior, you have to find out which path you're on and add the new fragment to that existing path. You can do that with the `url` property of `props.match` :
 
@@ -8433,7 +8369,7 @@ Blog.css
 .Blog a:hover,
 .Blog a:active,
 .Blog a.active {
-    color: #fa923f;
+  color: #fa923f;
 }
 ```
 
@@ -8447,17 +8383,15 @@ Posts.js click => show FullPost
 // #17 full
 ```
 
-
-
 ### 17. Extracting Route Parameters
 
-Posts.js cách 1 
+Posts.js cách 1
 
-![image-20200223104434672](./react-maximilan.assets/image-20200223104434672.png)  
+![image-20200223104434672](./react-maximilan.assets/image-20200223104434672.png)
 
 Blog.js
 
-![image-20200223104702533](./react-maximilan.assets/image-20200223104702533.png)  
+![image-20200223104702533](./react-maximilan.assets/image-20200223104702533.png)
 
 FullPost.js
 
@@ -8478,7 +8412,7 @@ class FullPost extends Component {
     }
 
 	loadData () {
-        // sua thanh this.props.match.params.id 
+        // sua thanh this.props.match.params.id
         if ( this.props.match.params.id ) {
             if ( !this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== +this.props.match.params.id) ) {
                 axios.get( '/posts/' + this.props.match.params.id )
@@ -8491,7 +8425,7 @@ class FullPost extends Component {
     }
 ```
 
-![image-20200223105040777](./react-maximilan.assets/image-20200223105040777.png)  
+![image-20200223105040777](./react-maximilan.assets/image-20200223105040777.png)
 
 Khi click newPost vẫn hiện FullPost và NewPost=> bug
 
@@ -8499,7 +8433,7 @@ Khi click newPost vẫn hiện FullPost và NewPost=> bug
 
 ### 18. Parsing Query Parameters & the Fragment.html
 
-You learned how to extract route parameters (=> `:id` etc). 
+You learned how to extract route parameters (=> `:id` etc).
 
 But how do you extract **search** (also referred to as "**query**") **parameters** (=> `?something=somevalue` at the end of the URL)? How do you extract the **fragment** (=> `#something` at the end of the URL)?
 
@@ -8508,24 +8442,25 @@ But how do you extract **search** (also referred to as "**query**") **parameters
 You can pass them easily like this:
 
 ```js
-<Link to="/my-path?start=5">Go to Start</Link> 
-
+<Link to="/my-path?start=5">Go to Start</Link>
 ```
 
 or
 
 ```js
-<Link 
-    to={{
-        pathname: '/my-path',
-        search: '?start=5'
-    }}
-    >Go to Start</Link>
+<Link
+  to={{
+    pathname: "/my-path",
+    search: "?start=5"
+  }}
+>
+  Go to Start
+</Link>
 ```
 
 React router makes it easy to get access to the search string: `props.location.search` .
 
-But that will only give you something like `?start=5` 
+But that will only give you something like `?start=5`
 
 You probably want to get the key-value pair, without the `?` and the `=` . Here's a snippet which allows you to easily extract that information:
 
@@ -8547,14 +8482,13 @@ When looping through `query.entries()` , you get **arrays** where the first elem
 You can pass it easily like this:
 
 ```js
-<Link to="/my-path#start-position">Go to Start</Link> 
-
+<Link to="/my-path#start-position">Go to Start</Link>
 ```
 
 or
 
 ```
-<Link 
+<Link
     to={{
         pathname: '/my-path',
         hash: 'start-position'
@@ -8569,15 +8503,15 @@ React router makes it easy to extract the fragment. You can simply access `props
 Blog.js
 
 ```js
-import { Route, NavLink, Switch } from 'react-router-dom';
+import { Route, NavLink, Switch } from "react-router-dom";
 
 <Switch>
-       <Route path="/new-post" component={NewPost} />
-       <Route path="/posts" component={Posts} />
-</Switch>
+  <Route path="/new-post" component={NewPost} />
+  <Route path="/posts" component={Posts} />
+</Switch>;
 ```
 
-![image-20200223110112496](./react-maximilan.assets/image-20200223110112496.png)  
+![image-20200223110112496](./react-maximilan.assets/image-20200223110112496.png)
 
 Nếu để thứ tự như trên sẽ báo lỗi id không hợp lệ nên phải đưa :id xuống dưới cùng
 
@@ -8590,8 +8524,6 @@ Blog.js
         <Route path="/:id" exact component={FullPost} />
 </Switch>
 ```
-
-
 
 ### 2.1 routing-learning-card.pdf.pdf
 
@@ -8622,21 +8554,24 @@ postSelectedHandler = ( id ) => {
         }
 ```
 
-
-
 ### 21. Additional Information Regarding Active Links
 
 Blog.js bỏ exact đi vì có :id nó k active
 
 ```js
-<li><NavLink
-                                to="/"
-                                // exact
-                                activeClassName="my-active"
-                                activeStyle={{
-                                    color: '#fa923f',
-                                    textDecoration: 'underline'
-                                }}>Posts</NavLink></li>
+<li>
+  <NavLink
+    to="/"
+    // exact
+    activeClassName="my-active"
+    activeStyle={{
+      color: "#fa923f",
+      textDecoration: "underline"
+    }}
+  >
+    Posts
+  </NavLink>
+</li>
 ```
 
 Sau này chỉnh lại url nên revert file lại
@@ -8669,37 +8604,33 @@ Blog.js
 
 ```js
 <Switch>
-        <Route path="/new-post" component={NewPost} />
-        <Route path="/posts" component={Posts} />
- </Switch>
+  <Route path="/new-post" component={NewPost} />
+  <Route path="/posts" component={Posts} />
+</Switch>
 ```
 
 => load FullPost dưới Posts
 
-![image-20200223112048562](./react-maximilan.assets/image-20200223112048562.png)  
+![image-20200223112048562](./react-maximilan.assets/image-20200223112048562.png)
 
 Sửa lại urls path="/posts" and NavLink trong Blog.js
 
 Posts.js cũng sửa lại
 
 ```js
-postSelectedHandler = ( id ) => {
-        // this.props.history.push({pathname: '/posts/' + id});
-        this.props.history.push( '/posts/' + id );
-    }
+postSelectedHandler = id => {
+  // this.props.history.push({pathname: '/posts/' + id});
+  this.props.history.push("/posts/" + id);
+};
 
 return (
-            <div>
-                <section className="Posts">
-                    {posts}
-                </section>
-// add dynamic url
-                <Route path={this.props.match.url + '/:id'} exact component={FullPost} />
-            </div>
-        );
+  <div>
+    <section className="Posts">{posts}</section>
+    // add dynamic url
+    <Route path={this.props.match.url + "/:id"} exact component={FullPost} />
+  </div>
+);
 ```
-
-
 
 ### 23. Creating Dynamic Nested Routes
 
@@ -8718,7 +8649,7 @@ FullPost.js add
         this.loadData();
     }
 
-// thay this.props.id bằng this.props.match.params.id để k lặp 
+// thay this.props.id bằng this.props.match.params.id để k lặp
 loadData () {
         if ( this.props.match.params.id ) {
             if ( !this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== +this.props.match.params.id) ) {
@@ -8755,14 +8686,12 @@ Blog.js
 
 ```js
 <Switch>
-           <Route path="/new-post" component={NewPost} />
-           <Route path="/posts" component={Posts} />
-           <Redirect from="/" to="/posts" />
-           {/* <Route path="/" component={Posts} /> */}
+  <Route path="/new-post" component={NewPost} />
+  <Route path="/posts" component={Posts} />
+  <Redirect from="/" to="/posts" />
+  {/* <Route path="/" component={Posts} /> */}
 </Switch>
 ```
-
-
 
 ### 25. Conditional Redirects
 
@@ -8794,27 +8723,24 @@ postDataHandler = () => {
                 {redirect}
 ```
 
-
-
 ### 26. Using the History Prop to Redirect (Replace)
 
 NewPost
 
 ```js
 postDataHandler = () => {
-        const data = {
-            title: this.state.title,
-            body: this.state.content,
-            author: this.state.author
-        };
-        axios.post( '/posts', data )
-            .then( response => {
-                console.log( response );
-            // Khi ấn back thì sẽ vẫn ở lại trang này => push để back
-                this.props.history.replace('/posts');
-                // this.setState( { submitted: true } );
-            } );
-    }
+  const data = {
+    title: this.state.title,
+    body: this.state.content,
+    author: this.state.author
+  };
+  axios.post("/posts", data).then(response => {
+    console.log(response);
+    // Khi ấn back thì sẽ vẫn ở lại trang này => push để back
+    this.props.history.replace("/posts");
+    // this.setState( { submitted: true } );
+  });
+};
 ```
 
 Cách này khi ấn nút back nó sẽ về lại trang trước vì được push vào stack `this.props.history.push('/posts');`
@@ -8828,11 +8754,11 @@ Blog.js
 ```js
 // thêm state auth: flase nó sẽ redirect về posts
 <Switch>
-      { this.state.auth ? <Route path="/new-post" component={NewPost} /> : null}
-                    <Route path="/posts" component={Posts} />
-                    <Redirect from="/" to="/posts" />
-                    {/* <Route path="/" component={Posts} /> */}
-                </Switch>
+  {this.state.auth ? <Route path="/new-post" component={NewPost} /> : null}
+  <Route path="/posts" component={Posts} />
+  <Redirect from="/" to="/posts" />
+  {/* <Route path="/" component={Posts} /> */}
+</Switch>
 ```
 
 Cách 2: thêm check unauth và replace
@@ -8867,35 +8793,31 @@ Nó sẽ không hoạt đông cùng với Redirect nên phải comment đoạn n
 
 Vào tab network thấy load rất nhiều, khi cần mới download những thứ cần ví dụ ở file Posts thì không cần load newPost
 
-bundle.js chưa resource 
+bundle.js chưa resource
 
 Create file hoc/asynComponent.js
 
-![image-20200223133629463](./react-maximilan.assets/image-20200223133629463.png)  
+![image-20200223133629463](./react-maximilan.assets/image-20200223133629463.png)
 
-![image-20200223133742338](./react-maximilan.assets/image-20200223133742338.png)  
+![image-20200223133742338](./react-maximilan.assets/image-20200223133742338.png)
 
 Webpack will to prepare extra bundle for this potentially loaded code
 
-![image-20200223134303260](./react-maximilan.assets/image-20200223134303260.png)  
+![image-20200223134303260](./react-maximilan.assets/image-20200223134303260.png)
 
 Sau đó thay cho NewPost trong Route tag => load asyn chỉ cs thêm 1 file chunk load thêm
-
-
-
-
 
 ### 30. Lazy Loading with React Suspense (16.6)
 
 App.js start
 
 ```js
-import React, { Component } from 'react';
-import { BrowserRouter, Route, NavLink } from 'react-router-dom';
+import React, { Component } from "react";
+import { BrowserRouter, Route, NavLink } from "react-router-dom";
 
-import Posts from './containers/Posts';
-import User from './containers/User';
-import Welcome from './containers/Welcome';
+import Posts from "./containers/Posts";
+import User from "./containers/User";
+import Welcome from "./containers/Welcome";
 
 class App extends Component {
   render() {
@@ -8916,19 +8838,18 @@ class App extends Component {
 }
 
 export default App;
-
 ```
 
 App.js end
 
 ```js
-import React, { Component, Suspense } from 'react';
-import { BrowserRouter, Route, NavLink } from 'react-router-dom';
+import React, { Component, Suspense } from "react";
+import { BrowserRouter, Route, NavLink } from "react-router-dom";
 
-import User from './containers/User';
-import Welcome from './containers/Welcome';
+import User from "./containers/User";
+import Welcome from "./containers/Welcome";
 
-const Posts = React.lazy(() => import('./containers/Posts'));
+const Posts = React.lazy(() => import("./containers/Posts"));
 
 class App extends Component {
   state = { showPosts: false };
@@ -8952,7 +8873,7 @@ class App extends Component {
         )}
       </React.Fragment>
 
-// Step 1
+      // Step 1
       // <BrowserRouter>
       //   <React.Fragment>
       //     <nav>
@@ -8976,22 +8897,17 @@ class App extends Component {
 }
 
 export default App;
-
 ```
-
-
 
 ### 31. Routing and Server Deployment
 
-![image-20200223150541057](./react-maximilan.assets/image-20200223150541057.png)  
+![image-20200223150541057](./react-maximilan.assets/image-20200223150541057.png)
 
 App.js của Post
 
 `<BrowserRouter basename="/my-app">`
 
 ### 32. Time to Practice - Routing.html
-
-
 
 ### 33. Wrap Up
 
@@ -9003,34 +8919,34 @@ React Router Docs: https://reacttraining.com/react-router/web/guides/philosophy
 
 ### 1. Module Introduction
 
-### 
+###
 
 ### 2. Building the Checkout Container
 
 Create file CheckOut.js
 
 ```js
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
+import CheckoutSummary from "../../components/Order/CheckoutSummary/CheckoutSummary";
 
 class Checkout extends Component {
-    state = {
-        ingredients: {
-            salad: 1,
-            meat: 1,
-            cheese: 1,
-            bacon: 1
-        }
+  state = {
+    ingredients: {
+      salad: 1,
+      meat: 1,
+      cheese: 1,
+      bacon: 1
     }
+  };
 
-    render() {
-        return (
-            <div>
-                <CheckoutSummary ingredients={this.state.ingredients}/>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <CheckoutSummary ingredients={this.state.ingredients} />
+      </div>
+    );
+  }
 }
 
 export default Checkout;
@@ -9039,28 +8955,28 @@ export default Checkout;
 CheckoutSummary.js, .css
 
 ```js
-import React from 'react';
+import React from "react";
 
-import Burger from '../../Burger/Burger';
-import Button from '../../UI/Button/Button';
-import classes from './CheckoutSummary.css';
+import Burger from "../../Burger/Burger";
+import Button from "../../UI/Button/Button";
+import classes from "./CheckoutSummary.css";
 
-const checkoutSummary = (props) => {
-    return (
-        <div className={classes.CheckoutSummary}>
-            <h1>We hope it tastes well!</h1>
-            <div style={{width: '100%', margin: 'auto'}}>
-                <Burger ingredients={props.ingredients}/>
-            </div>
-            <Button 
-                btnType="Danger"
-                clicked>CANCEL</Button>
-            <Button 
-                btnType="Success"
-                clicked>CONTINUE</Button>
-        </div>
-    );
-}
+const checkoutSummary = props => {
+  return (
+    <div className={classes.CheckoutSummary}>
+      <h1>We hope it tastes well!</h1>
+      <div style={{ width: "100%", margin: "auto" }}>
+        <Burger ingredients={props.ingredients} />
+      </div>
+      <Button btnType="Danger" clicked>
+        CANCEL
+      </Button>
+      <Button btnType="Success" clicked>
+        CONTINUE
+      </Button>
+    </div>
+  );
+};
 
 export default checkoutSummary;
 ```
@@ -9074,38 +8990,37 @@ Vào file app.js thêm Checkout tag
 index.js
 
 ```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
 
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import "./index.css";
+import App from "./App";
+import registerServiceWorker from "./registerServiceWorker";
 
 // add
 const app = (
-    <BrowserRouter>
-        <App />
-    </BrowserRouter>
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
 );
 
-ReactDOM.render( app, document.getElementById( 'root' ) );
+ReactDOM.render(app, document.getElementById("root"));
 registerServiceWorker();
-
 ```
 
 App.js
 
 ```js
-import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import React, { Component } from "react";
+import { Route, Switch } from "react-router-dom";
 
-import Layout from './hoc/Layout/Layout';
-import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
-import Checkout from './containers/Checkout/Checkout';
+import Layout from "./hoc/Layout/Layout";
+import BurgerBuilder from "./containers/BurgerBuilder/BurgerBuilder";
+import Checkout from "./containers/Checkout/Checkout";
 
 class App extends Component {
-  render () {
+  render() {
     return (
       <div>
         <Layout>
@@ -9120,10 +9035,7 @@ class App extends Component {
 }
 
 export default App;
-
 ```
-
-
 
 ### 4. Navigating to the Checkout Page
 
@@ -9133,13 +9045,13 @@ BurgerBuilder.js
 
 ```js
 purchaseContinueHandler = () => {
-        // add start
-        this.props.history.push('/checkout');
-        // add end
-    }
+  // add start
+  this.props.history.push("/checkout");
+  // add end
+};
 ```
 
-khi in props ở Burger sẽ không có các thuộc tính như match vì nó k nằm  trong Route tag
+khi in props ở Burger sẽ không có các thuộc tính như match vì nó k nằm trong Route tag
 
 Phải import withRouter và gọi `export default withRouter(burger);`
 
@@ -9154,22 +9066,22 @@ Thêm để khi ấn nút cancel hay continue sẽ go back or next
 CheckoutSummary.js
 
 ```js
-const checkoutSummary = (props) => {
-    return (
-        <div className={classes.CheckoutSummary}>
-            <h1>We hope it tastes well!</h1>
-            <div style={{width: '100%', margin: 'auto'}}>
-                <Burger ingredients={props.ingredients}/>
-            </div>
-            <Button 
-                btnType="Danger"
-                clicked={props.checkoutCancelled}>CANCEL</Button>
-            <Button 
-                btnType="Success"
-                clicked={props.checkoutContinued}>CONTINUE</Button>
-        </div>
-    );
-}
+const checkoutSummary = props => {
+  return (
+    <div className={classes.CheckoutSummary}>
+      <h1>We hope it tastes well!</h1>
+      <div style={{ width: "100%", margin: "auto" }}>
+        <Burger ingredients={props.ingredients} />
+      </div>
+      <Button btnType="Danger" clicked={props.checkoutCancelled}>
+        CANCEL
+      </Button>
+      <Button btnType="Success" clicked={props.checkoutContinued}>
+        CONTINUE
+      </Button>
+    </div>
+  );
+};
 
 export default checkoutSummary;
 // add event
@@ -9178,7 +9090,7 @@ export default checkoutSummary;
 Checkout.js
 
 ```js
- 
+
 // add new
 checkoutCancelledHandler = () => {
         this.props.history.goBack();
@@ -9191,7 +9103,7 @@ checkoutCancelledHandler = () => {
     render() {
         return (
             <div>
-                <CheckoutSummary 
+                <CheckoutSummary
                     ingredients={this.state.ingredients}
                     checkoutCancelled={this.checkoutCancelledHandler}
                     checkoutContinued={this.checkoutContinuedHandler}/>
@@ -9200,28 +9112,30 @@ checkoutCancelledHandler = () => {
     }
 ```
 
-
-
 ### 6. Passing Ingredients via Query Params
 
 BurgerBuilder.js
 
 ```js
- purchaseContinueHandler = () => {
-        // alert('You continue!');
-        // add new
-        const queryParams = [];
-     
-     // i là porperty name
-        for (let i in this.state.ingredients) {
-            queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
-        }
-        const queryString = queryParams.join('&');
-        this.props.history.push({
-            pathname: '/checkout',
-            search: '?' + queryString
-        });
-    }
+purchaseContinueHandler = () => {
+  // alert('You continue!');
+  // add new
+  const queryParams = [];
+
+  // i là porperty name
+  for (let i in this.state.ingredients) {
+    queryParams.push(
+      encodeURIComponent(i) +
+        "=" +
+        encodeURIComponent(this.state.ingredients[i])
+    );
+  }
+  const queryString = queryParams.join("&");
+  this.props.history.push({
+    pathname: "/checkout",
+    search: "?" + queryString
+  });
+};
 ```
 
 Checkout.js
@@ -9238,81 +9152,102 @@ componentDidMount() {
     }
 ```
 
-
-
 ### 7. Navigating to the Contact Data Component
 
 Create Checkout/ContactData/ContactData.js , .css
 
 ```js
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import Button from '../../../components/UI/Button/Button';
-import Spinner from '../../../components/UI/Spinner/Spinner';
-import classes from './ContactData.css';
-import axios from '../../../axios-orders';
+import Button from "../../../components/UI/Button/Button";
+import Spinner from "../../../components/UI/Spinner/Spinner";
+import classes from "./ContactData.css";
+import axios from "../../../axios-orders";
 
 class ContactData extends Component {
-    state = {
-        name: '',
-        email: '',
+  state = {
+    name: "",
+    email: "",
+    address: {
+      street: "",
+      postalCode: ""
+    },
+    loading: false
+  };
+
+  // # 8
+  orderHandler = event => {
+    event.preventDefault(); // ngăn load lại
+    this.setState({ loading: true });
+    const order = {
+      ingredients: this.props.ingredients,
+      price: this.props.price,
+      customer: {
+        name: "Max Schwarzmüller",
         address: {
-            street: '',
-            postalCode: ''
+          street: "Teststreet 1",
+          zipCode: "41351",
+          country: "Germany"
         },
-        loading: false
-    }
+        email: "test@test.com"
+      },
+      deliveryMethod: "fastest"
+    };
+    axios
+      .post("/orders.json", order)
+      .then(response => {
+        this.setState({ loading: false });
 
-// # 8
-    orderHandler = ( event ) => {
-        event.preventDefault(); // ngăn load lại
-        this.setState( { loading: true } );
-        const order = {
-            ingredients: this.props.ingredients,
-            price: this.props.price,
-            customer: {
-                name: 'Max Schwarzmüller',
-                address: {
-                    street: 'Teststreet 1',
-                    zipCode: '41351',
-                    country: 'Germany'
-                },
-                email: 'test@test.com'
-            },
-            deliveryMethod: 'fastest'
-        }
-        axios.post( '/orders.json', order )
-            .then( response => {
-                this.setState( { loading: false } );
-            
-            // fix ở checkout truyền vào ...props mới có thể push do chưa có history
-                this.props.history.push('/');
-            } )
-            .catch( error => {
-                this.setState( { loading: false } );
-            } );
-    }
+        // fix ở checkout truyền vào ...props mới có thể push do chưa có history
+        this.props.history.push("/");
+      })
+      .catch(error => {
+        this.setState({ loading: false });
+      });
+  };
 
-    render () {
-        let form = (
-            <form>
-                <input className={classes.Input} type="text" name="name" placeholder="Your Name" />
-                <input className={classes.Input} type="email" name="email" placeholder="Your Mail" />
-                <input className={classes.Input} type="text" name="street" placeholder="Street" />
-                <input className={classes.Input} type="text" name="postal" placeholder="Postal Code" />
-                <Button btnType="Success" clicked={this.orderHandler}>ORDER</Button>
-            </form>
-        );
-        if ( this.state.loading ) {
-            form = <Spinner />;
-        }
-        return (
-            <div className={classes.ContactData}>
-                <h4>Enter your Contact Data</h4>
-                {form}
-            </div>
-        );
+  render() {
+    let form = (
+      <form>
+        <input
+          className={classes.Input}
+          type="text"
+          name="name"
+          placeholder="Your Name"
+        />
+        <input
+          className={classes.Input}
+          type="email"
+          name="email"
+          placeholder="Your Mail"
+        />
+        <input
+          className={classes.Input}
+          type="text"
+          name="street"
+          placeholder="Street"
+        />
+        <input
+          className={classes.Input}
+          type="text"
+          name="postal"
+          placeholder="Postal Code"
+        />
+        <Button btnType="Success" clicked={this.orderHandler}>
+          ORDER
+        </Button>
+      </form>
+    );
+    if (this.state.loading) {
+      form = <Spinner />;
     }
+    return (
+      <div className={classes.ContactData}>
+        <h4>Enter your Contact Data</h4>
+        {form}
+      </div>
+    );
+  }
 }
 
 export default ContactData;
@@ -9329,8 +9264,8 @@ render () {
                     checkoutCancelled={this.checkoutCancelledHandler}
                     checkoutContinued={this.checkoutContinuedHandler} />
                  // add start
-                <Route 
-                    path={this.props.match.path + '/contact-data'} 
+                <Route
+                    path={this.props.match.path + '/contact-data'}
                     render={(props) => (<ContactData ingredients={this.state.ingredients} price={this.state.totalPrice} {...props} />)} />
                 // add end
             </div>
@@ -9342,23 +9277,23 @@ Add css cho Contact.css
 
 ```css
 .ContactData {
-    margin: 20px auto;
-    width: 80%;
-    text-align: center;
-    box-shadow: 0 2px 3px #ccc;
-    border: 1px solid #eee;
-    padding: 10px;
-    box-sizing: border-box;
+  margin: 20px auto;
+  width: 80%;
+  text-align: center;
+  box-shadow: 0 2px 3px #ccc;
+  border: 1px solid #eee;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .Input {
-    display: block;
+  display: block;
 }
 
 @media (min-width: 600px) {
-    .ContactData {
-        width: 500px;
-    }
+  .ContactData {
+    width: 500px;
+  }
 }
 ```
 
@@ -9372,27 +9307,31 @@ BurgerBuilder.js
 
 ```js
 purchaseContinueHandler = () => {
-        // alert('You continue!');
-        
-        const queryParams = [];
-        for (let i in this.state.ingredients) {
-            queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
-        }
-    // add price
-        queryParams.push('price=' + this.state.totalPrice);
-        const queryString = queryParams.join('&');
-        this.props.history.push({
-            pathname: '/checkout',
-            search: '?' + queryString
-        });
-    }
+  // alert('You continue!');
+
+  const queryParams = [];
+  for (let i in this.state.ingredients) {
+    queryParams.push(
+      encodeURIComponent(i) +
+        "=" +
+        encodeURIComponent(this.state.ingredients[i])
+    );
+  }
+  // add price
+  queryParams.push("price=" + this.state.totalPrice);
+  const queryString = queryParams.join("&");
+  this.props.history.push({
+    pathname: "/checkout",
+    search: "?" + queryString
+  });
+};
 ```
 
 CheckOut.js
 
 ```js
 class Checkout extends Component {
-    // fix  
+    // fix
     state = {
         ingredients: null,
         price: 0
@@ -9459,7 +9398,7 @@ class Orders extends Component {
             <div>
             // # 12
                 {this.state.orders.map(order => (
-                    <Order 
+                    <Order
                         key={order.id}
                         ingredients={order.ingredients}
                         price={order.price} />
@@ -9494,7 +9433,7 @@ const order = ( props ) => {
     }
 
     const ingredientOutput = ingredients.map(ig => {
-        return <span 
+        return <span
             style={{
                 textTransform: 'capitalize',
                 display: 'inline-block',
@@ -9520,15 +9459,13 @@ App.js
 
 ```js
 <Layout>
-          <Switch>
-            <Route path="/checkout" component={Checkout} />
-            <Route path="/orders" component={Orders} />
-          <Route path="/" exact component={BurgerBuilder} />
-          </Switch>
-        </Layout>
+  <Switch>
+    <Route path="/checkout" component={Checkout} />
+    <Route path="/orders" component={Orders} />
+    <Route path="/" exact component={BurgerBuilder} />
+  </Switch>
+</Layout>
 ```
-
-
 
 ### 10. Implementing Navigation Links
 
@@ -9536,36 +9473,39 @@ NavigationItems.js
 
 ```js
 const navigationItems = () => (
-    <ul className={classes.NavigationItems}>
-        <NavigationItem link="/" exact>Burger Builder</NavigationItem>
-/// add
-        <NavigationItem link="/orders">Orders</NavigationItem>
-    </ul>
+  <ul className={classes.NavigationItems}>
+    <NavigationItem link="/" exact>
+      Burger Builder
+    </NavigationItem>
+    /// add
+    <NavigationItem link="/orders">Orders</NavigationItem>
+  </ul>
 );
 ```
 
 NavigationItem.js
 
 ```js
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React from "react";
+import { NavLink } from "react-router-dom";
 
-import classes from './NavigationItem.css';
+import classes from "./NavigationItem.css";
 
-const navigationItem = ( props ) => (
-    <li className={classes.NavigationItem}>
+const navigationItem = props => (
+  <li className={classes.NavigationItem}>
     // add NavLink
-        <NavLink 
-            to={props.link}
-            exact={props.exact}
-            activeClassName={classes.active}>{props.children}</NavLink>
-    </li>
+    <NavLink
+      to={props.link}
+      exact={props.exact}
+      activeClassName={classes.active}
+    >
+      {props.children}
+    </NavLink>
+  </li>
 );
 
 export default navigationItem;
 ```
-
-
 
 ### 11. Fetching Orders
 
@@ -9600,8 +9540,6 @@ class Orders extends Component {
 // #11 end
 ```
 
-
-
 ### 12. Outputting the Orders
 
 ![image-20200223170603877](./react-maximilan.assets/image-20200223170603877.png)
@@ -9614,51 +9552,42 @@ class Orders extends Component {
 
 ### 1. Module Introduction
 
-### 
+###
 
 ### 2. Analyzing the App
 
 Input.js
 
 ```js
-import React from 'react';
+import React from "react";
 
-import classes from './Input.css';
+import classes from "./Input.css";
 
-const input = ( props ) => {
-    let inputElement = null;
+const input = props => {
+  let inputElement = null;
 
-    // Nếu để inputType nó sẽ báo error vì react 16
-    switch ( props.inputtype ) {
-        case ( 'input' ):
-            inputElement = <input
-                className={classes.InputElement}
-                {...props} />;
-            break;
-        case ( 'textarea' ):
-            inputElement = <textarea
-                className={classes.InputElement}
-                {...props}/>;
-            break;
-        default:
-            inputElement = <input
-                className={classes.InputElement}
-                {...props} />;
-    }
+  // Nếu để inputType nó sẽ báo error vì react 16
+  switch (props.inputtype) {
+    case "input":
+      inputElement = <input className={classes.InputElement} {...props} />;
+      break;
+    case "textarea":
+      inputElement = <textarea className={classes.InputElement} {...props} />;
+      break;
+    default:
+      inputElement = <input className={classes.InputElement} {...props} />;
+  }
 
-    return (
-        <div className={classes.Input}>
-            <label className={classes.Label}>{props.label}</label>
-            {inputElement}
-        </div>
-    );
-
+  return (
+    <div className={classes.Input}>
+      <label className={classes.Label}>{props.label}</label>
+      {inputElement}
+    </div>
+  );
 };
 
 export default input;
 ```
-
-
 
 ![image-20200311222924383](./react-maximilan.assets/image-20200311222924383.png)
 
@@ -9666,31 +9595,31 @@ Input.css
 
 ```css
 .Input {
-    width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .Label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 8px;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8px;
 }
 
 .InputElement {
-    outline: none;
-    border: 1px solid #ccc;
-    background-color: white;
-    font: inherit;
-    padding: 6px 10px;
-    display: block;
-    width: 100%;
-    box-sizing: border-box;
+  outline: none;
+  border: 1px solid #ccc;
+  background-color: white;
+  font: inherit;
+  padding: 6px 10px;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .InputElement:focus {
-    outline: none;
-    background-color: #ccc;
+  outline: none;
+  background-color: #ccc;
 }
 ```
 
@@ -9698,75 +9627,94 @@ Contact.js
 
 ```js
 let form = (
-            <form>
-                <Input inputtype="input" type="text" name="name" placeholder="Your Name" />
-                <Input inputtype="input" type="email" name="email" placeholder="Your Mail" />
-                <Input inputtype="input" type="text" name="street" placeholder="Street" />
-                <Input inputtype="input" type="text" name="postal" placeholder="Postal Code" />
-                <Button btnType="Success" clicked={this.orderHandler}>ORDER</Button>
-            </form>
-        );
+  <form>
+    <Input inputtype="input" type="text" name="name" placeholder="Your Name" />
+    <Input
+      inputtype="input"
+      type="email"
+      name="email"
+      placeholder="Your Mail"
+    />
+    <Input inputtype="input" type="text" name="street" placeholder="Street" />
+    <Input
+      inputtype="input"
+      type="text"
+      name="postal"
+      placeholder="Postal Code"
+    />
+    <Button btnType="Success" clicked={this.orderHandler}>
+      ORDER
+    </Button>
+  </form>
+);
 ```
-
-
 
 ### 3. Creating a Custom Dynamic Input Component
 
 Create Input in folder UI, input.css
 
 ```js
-import React from 'react';
+import React from "react";
 
-import classes from './Input.css';
+import classes from "./Input.css";
 
-const input = ( props ) => {
-    let inputElement = null;
+const input = props => {
+  let inputElement = null;
 
-    switch ( props.elementType ) {
-        case ( 'input' ):
-            inputElement = <input
-                className={classes.InputElement}
-                {...props.elementConfig}
-                value={props.value}
-                onChange={props.changed} />;
-            break;
-        case ( 'textarea' ):
-            inputElement = <textarea
-                className={classes.InputElement}
-                {...props.elementConfig}
-                value={props.value}
-                onChange={props.changed} />;
-            break;
-        // add in part 6
-        case ( 'select' ):
-            inputElement = (
-                <select
-                    className={classes.InputElement}
-                    value={props.value}
-                    onChange={props.changed}>
-                    {props.elementConfig.options.map(option => (
-                        <option key={option.value} value={option.value}>
-                            {option.displayValue}
-                        </option>
-                    ))}
-                </select>
-            );
-            break;
-        default:
-            inputElement = <input
-                className={classes.InputElement}
-                {...props.elementConfig}
-                value={props.value}
-                onChange={props.changed} />;
-    }
+  switch (props.elementType) {
+    case "input":
+      inputElement = (
+        <input
+          className={classes.InputElement}
+          {...props.elementConfig}
+          value={props.value}
+          onChange={props.changed}
+        />
+      );
+      break;
+    case "textarea":
+      inputElement = (
+        <textarea
+          className={classes.InputElement}
+          {...props.elementConfig}
+          value={props.value}
+          onChange={props.changed}
+        />
+      );
+      break;
+    // add in part 6
+    case "select":
+      inputElement = (
+        <select
+          className={classes.InputElement}
+          value={props.value}
+          onChange={props.changed}
+        >
+          {props.elementConfig.options.map(option => (
+            <option key={option.value} value={option.value}>
+              {option.displayValue}
+            </option>
+          ))}
+        </select>
+      );
+      break;
+    default:
+      inputElement = (
+        <input
+          className={classes.InputElement}
+          {...props.elementConfig}
+          value={props.value}
+          onChange={props.changed}
+        />
+      );
+  }
 
-    return (
-        <div className={classes.Input}>
-            <label className={classes.Label}>{props.label}</label>
-            {inputElement}
-        </div>
-    );
-
+  return (
+    <div className={classes.Input}>
+      <label className={classes.Label}>{props.label}</label>
+      {inputElement}
+    </div>
+  );
 };
 
 export default input;
@@ -9845,8 +9793,6 @@ class ContactData extends Component {
 
 ```
 
-
-
 ### 4. Setting Up a JS Config for the Form
 
 Sửa lại Input.js
@@ -9864,11 +9810,11 @@ render () {
                 config: this.state.orderForm[key]
             });
         }
-    
+
 		let form = (
             <form onSubmit={this.orderHandler}>
                 {formElementsArray.map(formElement => (
-                    <Input 
+                    <Input
                         key={formElement.id}
                         elementType={formElement.config.elementType}
                         elementConfig={formElement.config.elementConfig}
@@ -9879,8 +9825,6 @@ render () {
             </form>
         );
 ```
-
-
 
 ### 6. Adding a Dropdown Component
 
@@ -9901,8 +9845,6 @@ case ( 'select' ):
             break;
 ```
 
-
-
 ### 7. Handling User Input
 
 ContactData thêm hàm onChange
@@ -9912,7 +9854,7 @@ inputChangedHandler = (event, inputIdentifier) => {
         const updatedOrderForm = {
             ...this.state.orderForm
         };
-        const updatedFormElement = { 
+        const updatedFormElement = {
             ...updatedOrderForm[inputIdentifier]
         };
         updatedFormElement.value = event.target.value;
@@ -9924,7 +9866,7 @@ inputChangedHandler = (event, inputIdentifier) => {
 let form = (
             <form onSubmit={this.orderHandler}>
                 {formElementsArray.map(formElement => (
-                    <Input 
+                    <Input
                         key={formElement.id}
                         elementType={formElement.config.elementType}
                         elementConfig={formElement.config.elementConfig}
@@ -9937,36 +9879,37 @@ let form = (
         );
 ```
 
-
-
 ### 8. Handling Form Submission
 
 ContactData.js
 
 ```js
-orderHandler = ( event ) => {
-        event.preventDefault();
-        this.setState( { loading: true } );
+orderHandler = event => {
+  event.preventDefault();
+  this.setState({ loading: true });
+  // add
+  const formData = {};
+  for (let formElementIdentifier in this.state.orderForm) {
+    formData[formElementIdentifier] = this.state.orderForm[
+      formElementIdentifier
+    ].value;
+  }
+  const order = {
+    ingredients: this.props.ingredients,
+    price: this.props.price,
     // add
-        const formData = {};
-        for (let formElementIdentifier in this.state.orderForm) {
-            formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
-        }
-        const order = {
-            ingredients: this.props.ingredients,
-            price: this.props.price,
-            // add
-            orderData: formData
-        }
-        axios.post( '/orders.json', order )
-            .then( response => {
-                this.setState( { loading: false } );
-                this.props.history.push( '/' );
-            } )
-            .catch( error => {
-                this.setState( { loading: false } );
-            } );
-    }
+    orderData: formData
+  };
+  axios
+    .post("/orders.json", order)
+    .then(response => {
+      this.setState({ loading: false });
+      this.props.history.push("/");
+    })
+    .catch(error => {
+      this.setState({ loading: false });
+    });
+};
 ```
 
 ![image-20200311233743058](./react-maximilan.assets/image-20200311233743058.png)
@@ -10064,7 +10007,7 @@ state = {
 
 checkValidity(value, rules) {
         let isValid = true;
-        
+
         if (rules.required) {
             isValid = value.trim() !== '' && isValid;
         }
@@ -10084,7 +10027,7 @@ checkValidity(value, rules) {
         const updatedOrderForm = {
             ...this.state.orderForm
         };
-        const updatedFormElement = { 
+        const updatedFormElement = {
             ...updatedOrderForm[inputIdentifier]
         };
         updatedFormElement.value = event.target.value;
@@ -10092,7 +10035,7 @@ checkValidity(value, rules) {
         updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
         updatedFormElement.touched = true;
         updatedOrderForm[inputIdentifier] = updatedFormElement;
-        
+
         let formIsValid = true;
         for (let inputIdentifier in updatedOrderForm) {
             formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
@@ -10100,8 +10043,6 @@ checkValidity(value, rules) {
         this.setState({orderForm: updatedOrderForm, formIsValid: formIsValid});
     }
 ```
-
-
 
 ### 10. Fixing a Common Validation Gotcha
 
@@ -10124,27 +10065,28 @@ props invalid truyền vào trong
 ContactData.js
 
 ```js
- let form = (
-            <form onSubmit={this.orderHandler}>
-                {formElementsArray.map(formElement => (
-                    <Input 
-                        key={formElement.id}
-                        elementType={formElement.config.elementType}
-                        elementConfig={formElement.config.elementConfig}
-                        value={formElement.config.value}
-// add start
-                        invalid={!formElement.config.valid}
-                        shouldValidate={formElement.config.validation}
-                        touched={formElement.config.touched}
-// add end
-                        changed={(event) => this.inputChangedHandler(event, formElement.id)} />
-                ))}
-                <Button btnType="Success" disabled={!this.state.formIsValid}>ORDER</Button>
-            </form>
-        );
+let form = (
+  <form onSubmit={this.orderHandler}>
+    {formElementsArray.map(formElement => (
+      <Input
+        key={formElement.id}
+        elementType={formElement.config.elementType}
+        elementConfig={formElement.config.elementConfig}
+        value={formElement.config.value}
+        // add start
+        invalid={!formElement.config.valid}
+        shouldValidate={formElement.config.validation}
+        touched={formElement.config.touched}
+        // add end
+        changed={event => this.inputChangedHandler(event, formElement.id)}
+      />
+    ))}
+    <Button btnType="Success" disabled={!this.state.formIsValid}>
+      ORDER
+    </Button>
+  </form>
+);
 ```
-
-
 
 ### 12. Improving Visual Feedback
 
@@ -10152,28 +10094,29 @@ ContactData.js
 
 ```js
 inputChangedHandler = (event, inputIdentifier) => {
-        const updatedOrderForm = {
-            ...this.state.orderForm
-        };
-        const updatedFormElement = { 
-            ...updatedOrderForm[inputIdentifier]
-        };
-        updatedFormElement.value = event.target.value;
-        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
-    // add start
-        updatedFormElement.touched = true;
-    // add end
-        updatedOrderForm[inputIdentifier] = updatedFormElement;
-        
-        let formIsValid = true;
-        for (let inputIdentifier in updatedOrderForm) {
-            formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
-        }
-        this.setState({orderForm: updatedOrderForm, formIsValid: formIsValid});
-    }
+  const updatedOrderForm = {
+    ...this.state.orderForm
+  };
+  const updatedFormElement = {
+    ...updatedOrderForm[inputIdentifier]
+  };
+  updatedFormElement.value = event.target.value;
+  updatedFormElement.valid = this.checkValidity(
+    updatedFormElement.value,
+    updatedFormElement.validation
+  );
+  // add start
+  updatedFormElement.touched = true;
+  // add end
+  updatedOrderForm[inputIdentifier] = updatedFormElement;
+
+  let formIsValid = true;
+  for (let inputIdentifier in updatedOrderForm) {
+    formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
+  }
+  this.setState({ orderForm: updatedOrderForm, formIsValid: formIsValid });
+};
 ```
-
-
 
 ### 13. Showing Error Messages.html
 
@@ -10188,16 +10131,16 @@ For example (inside `` component function):
 
 let validationError = null;
 if (props.invalid && props.touched) {
-    validationError = <p>Please enter a valid value!</p>;
+  validationError = <p>Please enter a valid value!</p>;
 }
 
 return (
-     <div className={classes.Input}>
-         <label className={classes.Label}>{props.label}</label>
-         {inputElement}
-         {validationError}
-     </div>
- );
+  <div className={classes.Input}>
+    <label className={classes.Label}>{props.label}</label>
+    {inputElement}
+    {validationError}
+  </div>
+);
 ```
 
 This could of course be finetuned. You could also pass the value type (e.g. `"email address"` ) as a prop:
@@ -10222,9 +10165,9 @@ In your CSS file, you could have:
 
 ```css
 .ValidationError {
-    color: red;
-    margin: 5px 0;
-} 
+  color: red;
+  margin: 5px 0;
+}
 ```
 
 ### 14. Handling Overall Form Validity
@@ -10236,14 +10179,14 @@ inputChangedHandler = (event, inputIdentifier) => {
         const updatedOrderForm = {
             ...this.state.orderForm
         };
-        const updatedFormElement = { 
+        const updatedFormElement = {
             ...updatedOrderForm[inputIdentifier]
         };
         updatedFormElement.value = event.target.value;
         updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
         updatedFormElement.touched = true;
         updatedOrderForm[inputIdentifier] = updatedFormElement;
-        
+
     // Add
         let formIsValid = true;
         for (let inputIdentifier in updatedOrderForm) {
@@ -10288,8 +10231,6 @@ checkValidity(value, rules) {
  // cách 1: chỉnh sửa obj có thêm tt validation: {}
 ```
 
-
-
 Đối với combobox thêm validation: {} để tránh lỗi
 
 Cách 2:
@@ -10333,28 +10274,28 @@ State quyết định cái gì được hiển thị lên màn hình
 Create file redux-basic.js
 
 ```js
-const redux = require('redux');
+const redux = require("redux");
 const createStore = redux.createStore;
 
 const initialState = {
-    counter: 0
-}
+  counter: 0
+};
 
 // Reducer
 const rootReducer = (state = initialState, action) => {
-    if (action.type === 'INC_COUNTER') {
-        return {
-            ...state,
-            counter: state.counter + 1
-        };
-    }
-    if (action.type === 'ADD_COUNTER') {
-        return {
-            ...state,
-            counter: state.counter + action.value
-        };
-    }
-    return state;
+  if (action.type === "INC_COUNTER") {
+    return {
+      ...state,
+      counter: state.counter + 1
+    };
+  }
+  if (action.type === "ADD_COUNTER") {
+    return {
+      ...state,
+      counter: state.counter + action.value
+    };
+  }
+  return state;
 };
 
 // Store
@@ -10363,14 +10304,13 @@ console.log(store.getState());
 
 // Subscription
 store.subscribe(() => {
-    console.log('[Subscription]', store.getState());
+  console.log("[Subscription]", store.getState());
 });
 
 // Dispatching Action
-store.dispatch({type: 'INC_COUNTER'});
-store.dispatch({type: 'ADD_COUNTER', value: 10});
+store.dispatch({ type: "INC_COUNTER" });
+store.dispatch({ type: "ADD_COUNTER", value: 10 });
 console.log(store.getState());
-
 ```
 
 Lưu ý : reducer chỉ có 1, test bằng node js
@@ -10381,8 +10321,6 @@ Lệnh node filename.js
 
 ### 6. Dispatching Actions
 
-
-
 ### 7. Adding Subscriptions
 
 ### 8. Connecting React to Redux
@@ -10390,72 +10328,76 @@ Lệnh node filename.js
 index.js
 
 ```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
+import React from "react";
+import ReactDOM from "react-dom";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
 
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
-import reducer from './store/reducer';
+import "./index.css";
+import App from "./App";
+import registerServiceWorker from "./registerServiceWorker";
+import reducer from "./store/reducer";
 
 const store = createStore(reducer);
-// # 9 
-ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
+// # 9
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
 registerServiceWorker();
-
 ```
 
 Create file store/reducer.js
 
 ```js
 const initialState = {
-    counter: 0
-}
+  counter: 0
+};
 
 const reducer = (state = initialState, action) => {
-    // # 10
-    if (action.type === 'INCREMENT') {
-        return {
-            counter: state.counter + 1
-        }
-    }
-    return state;
+  // # 10
+  if (action.type === "INCREMENT") {
+    return {
+      counter: state.counter + 1
+    };
+  }
+  return state;
 };
 
 export default reducer;
 ```
 
-
-
 ### 9. Connecting the Store to React
 
 `npm install --save react-redux`
 
-Tại index.js thêm `ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));`  
+Tại index.js thêm `ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));`
 
 index.js
 
 ```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
+import React from "react";
+import ReactDOM from "react-dom";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
 
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
-import reducer from './store/reducer';
+import "./index.css";
+import App from "./App";
+import registerServiceWorker from "./registerServiceWorker";
+import reducer from "./store/reducer";
 
 const store = createStore(reducer);
 // add
-ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
 registerServiceWorker();
-
 ```
-
-
 
 Provider is a component inject store to react component
 
@@ -10466,59 +10408,75 @@ connect is a func return HOC
 Counter.js
 
 ```js
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
-import CounterControl from '../../components/CounterControl/CounterControl';
-import CounterOutput from '../../components/CounterOutput/CounterOutput';
+import CounterControl from "../../components/CounterControl/CounterControl";
+import CounterOutput from "../../components/CounterOutput/CounterOutput";
 
 class Counter extends Component {
-    state = {
-        counter: 0
-    }
+  state = {
+    counter: 0
+  };
 
-    counterChangedHandler = ( action, value ) => {
-        switch ( action ) {
-            case 'inc':
-                this.setState( ( prevState ) => { return { counter: prevState.counter + 1 } } )
-                break;
-            case 'dec':
-                this.setState( ( prevState ) => { return { counter: prevState.counter - 1 } } )
-                break;
-            case 'add':
-                this.setState( ( prevState ) => { return { counter: prevState.counter + value } } )
-                break;
-            case 'sub':
-                this.setState( ( prevState ) => { return { counter: prevState.counter - value } } )
-                break;
-        }
+  counterChangedHandler = (action, value) => {
+    switch (action) {
+      case "inc":
+        this.setState(prevState => {
+          return { counter: prevState.counter + 1 };
+        });
+        break;
+      case "dec":
+        this.setState(prevState => {
+          return { counter: prevState.counter - 1 };
+        });
+        break;
+      case "add":
+        this.setState(prevState => {
+          return { counter: prevState.counter + value };
+        });
+        break;
+      case "sub":
+        this.setState(prevState => {
+          return { counter: prevState.counter - value };
+        });
+        break;
     }
+  };
 
-    render () {
-        return (
-            <div>
-            // add props get from state redux
-                <CounterOutput value={this.props.ctr} />
-
-                <CounterControl label="Increment" clicked={this.props.onIncrementCounter} />
-                <CounterControl label="Decrement" clicked={() => this.counterChangedHandler( 'dec' )}  />
-                <CounterControl label="Add 5" clicked={() => this.counterChangedHandler( 'add', 5 )}  />
-                <CounterControl label="Subtract 5" clicked={() => this.counterChangedHandler( 'sub', 5 )}  />
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        // add props get from state redux
+        <CounterOutput value={this.props.ctr} />
+        <CounterControl
+          label="Increment"
+          clicked={this.props.onIncrementCounter}
+        />
+        <CounterControl
+          label="Decrement"
+          clicked={() => this.counterChangedHandler("dec")}
+        />
+        <CounterControl
+          label="Add 5"
+          clicked={() => this.counterChangedHandler("add", 5)}
+        />
+        <CounterControl label="Subtract 5" clicked={() => this.counterChangedHandler("sub", 5)} />
+      </div>
+    );
+  }
 }
 // add
 const mapStateToProps = state => {
-    return {
-        ctr: state.counter
-    };
+  return {
+    ctr: state.counter
+  };
 };
 
 const mapDispatchToProps = dispatch => {
-    return {
-        onIncrementCounter: () => dispatch({type: 'INCREMENT'})
-    };
+  return {
+    onIncrementCounter: () => dispatch({ type: "INCREMENT" })
+  };
 };
 // add
 export default connect(mapStateToProps, mapDispatchToProps)(Counter);
@@ -10540,45 +10498,62 @@ Counter.js thêm tham số để pass to reducer
 
 ```js
 class Counter extends Component {
-    render () {
-        return (
-            <div>
-                <CounterOutput value={this.props.ctr} />
-                <CounterControl label="Increment" clicked={this.props.onIncrementCounter} />
-                <CounterControl label="Decrement" clicked={this.props.onDecrementCounter}  />
-                <CounterControl label="Add 10" clicked={this.props.onAddCounter}  />
-                <CounterControl label="Subtract 15" clicked={this.props.onSubtractCounter}  />
-                <hr />
-                <button onClick={() => this.props.onStoreResult(this.props.ctr)}>Store Result</button>
-                <ul>
-                    {this.props.storedResults.map(strResult => (
-                        <li key={strResult.id} onClick={() => this.props.onDeleteResult(strResult.id)}>{strResult.value}</li>
-                    ))}
-                </ul>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <CounterOutput value={this.props.ctr} />
+        <CounterControl
+          label="Increment"
+          clicked={this.props.onIncrementCounter}
+        />
+        <CounterControl
+          label="Decrement"
+          clicked={this.props.onDecrementCounter}
+        />
+        <CounterControl label="Add 10" clicked={this.props.onAddCounter} />
+        <CounterControl
+          label="Subtract 15"
+          clicked={this.props.onSubtractCounter}
+        />
+        <hr />
+        <button onClick={() => this.props.onStoreResult(this.props.ctr)}>
+          Store Result
+        </button>
+        <ul>
+          {this.props.storedResults.map(strResult => (
+            <li
+              key={strResult.id}
+              onClick={() => this.props.onDeleteResult(strResult.id)}
+            >
+              {strResult.value}
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = state => {
-    return {
-
-        ctr: state.ctr.counter,
-        storedResults: state.res.results
-    }
+  return {
+    ctr: state.ctr.counter,
+    storedResults: state.res.results
+  };
 };
 
 const mapDispatchToProps = dispatch => {
-    return {
-        onIncrementCounter: () => dispatch({type: actionTypes.INCREMENT}),
-        onDecrementCounter: () => dispatch({type: actionTypes.DECREMENT}),
-        // add start
-        onAddCounter: () => dispatch({type: actionTypes.ADD, val: 10}),
-        onSubtractCounter: () => dispatch({type: actionTypes.SUBTRACT, val: 15}),
-        // add end
-        onStoreResult: (result) => dispatch({type: actionTypes.STORE_RESULT, result: result}),
-        onDeleteResult: (id) => dispatch({type: actionTypes.DELETE_RESULT, resultElId: id})
-    }
+  return {
+    onIncrementCounter: () => dispatch({ type: actionTypes.INCREMENT }),
+    onDecrementCounter: () => dispatch({ type: actionTypes.DECREMENT }),
+    // add start
+    onAddCounter: () => dispatch({ type: actionTypes.ADD, val: 10 }),
+    onSubtractCounter: () => dispatch({ type: actionTypes.SUBTRACT, val: 15 }),
+    // add end
+    onStoreResult: result =>
+      dispatch({ type: actionTypes.STORE_RESULT, result: result }),
+    onDeleteResult: id =>
+      dispatch({ type: actionTypes.DELETE_RESULT, resultElId: id })
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Counter);
@@ -10587,35 +10562,33 @@ export default connect(mapStateToProps, mapDispatchToProps)(Counter);
 reducer.js
 
 ```js
-const reducer = ( state = initialState, action ) => {
-    // 13 chuyển if thành switch
-    switch ( action.type ) {
-        case actionTypes.INCREMENT:
-            const newState = Object.assign({}, state);
-            newState.counter = state.counter + 1;
-            return newState;
-        case actionTypes.DECREMENT:
-            return {
-                ...state,
-                counter: state.counter - 1
-            }
-            // add action.val to pass data to reducer
-        case actionTypes.ADD:
-            return {
-                ...state,
-                counter: state.counter + action.val
-            }
-        case actionTypes.SUBTRACT:
-            return {
-                ...state,
-                counter: state.counter - action.val
-            }
-    }
-    return state;
+const reducer = (state = initialState, action) => {
+  // 13 chuyển if thành switch
+  switch (action.type) {
+    case actionTypes.INCREMENT:
+      const newState = Object.assign({}, state);
+      newState.counter = state.counter + 1;
+      return newState;
+    case actionTypes.DECREMENT:
+      return {
+        ...state,
+        counter: state.counter - 1
+      };
+    // add action.val to pass data to reducer
+    case actionTypes.ADD:
+      return {
+        ...state,
+        counter: state.counter + action.val
+      };
+    case actionTypes.SUBTRACT:
+      return {
+        ...state,
+        counter: state.counter - action.val
+      };
+  }
+  return state;
 };
 ```
-
-
 
 ### 13. Switch-Case in the Reducer
 
@@ -10661,74 +10634,76 @@ const mapDispatchToProps = dispatch => {
 result.js hiện tại chưa tách file thêm vào results ở file reducer.js
 
 ```js
-import * as actionTypes from '../actions';
+import * as actionTypes from "../actions";
 
 const initialState = {
-    results: []
+  results: []
 };
 
-const reducer = ( state = initialState, action ) => {
-    switch ( action.type ) {
-        case actionTypes.STORE_RESULT:
-            return {
-                ...state,
-                // sử dụng concat thay vì push để tránh ảnh hưởng tới state vì nó là kiểu dl tham chiếu
-                // concat will return new array
-                results: state.results.concat({id: new Date(), value: action.result})
-            }
-            // # 15 thêm delete 
-        case actionTypes.DELETE_RESULT:
-            // const id = 2;
-            // const newArray = [...state.results];
-            // newArray.splice(id, 1)
-            const updatedArray = state.results.filter(result => result.id !== action.resultElId);
-            return {
-                ...state,
-                results: updatedArray
-            }
-    }
-    return state;
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case actionTypes.STORE_RESULT:
+      return {
+        ...state,
+        // sử dụng concat thay vì push để tránh ảnh hưởng tới state vì nó là kiểu dl tham chiếu
+        // concat will return new array
+        results: state.results.concat({ id: new Date(), value: action.result })
+      };
+    // # 15 thêm delete
+    case actionTypes.DELETE_RESULT:
+      // const id = 2;
+      // const newArray = [...state.results];
+      // newArray.splice(id, 1)
+      const updatedArray = state.results.filter(
+        result => result.id !== action.resultElId
+      );
+      return {
+        ...state,
+        results: updatedArray
+      };
+  }
+  return state;
 };
 
 export default reducer;
 ```
 
- ...state: để giữ lại state, copy state
+...state: để giữ lại state, copy state
 
 counter.js
 
 ```js
-import * as actionTypes from '../actions';
+import * as actionTypes from "../actions";
 
 const initialState = {
-    counter: 0
+  counter: 0
 };
 
-const reducer = ( state = initialState, action ) => {
-    switch ( action.type ) {
-            // add copy state
-        case actionTypes.INCREMENT:
-            // add new
-            const newState = Object.assign({}, state);
-            newState.counter = state.counter + 1;
-            return newState;
-        case actionTypes.DECREMENT:
-            return {
-                ...state, // add new
-                counter: state.counter - 1
-            }
-        case actionTypes.ADD:
-            return {
-                ...state,
-                counter: state.counter + action.val
-            }
-        case actionTypes.SUBTRACT:
-            return {
-                ...state,
-                counter: state.counter - action.val
-            }
-    }
-    return state;
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    // add copy state
+    case actionTypes.INCREMENT:
+      // add new
+      const newState = Object.assign({}, state);
+      newState.counter = state.counter + 1;
+      return newState;
+    case actionTypes.DECREMENT:
+      return {
+        ...state, // add new
+        counter: state.counter - 1
+      };
+    case actionTypes.ADD:
+      return {
+        ...state,
+        counter: state.counter + action.val
+      };
+    case actionTypes.SUBTRACT:
+      return {
+        ...state,
+        counter: state.counter - action.val
+      };
+  }
+  return state;
 };
 
 export default reducer;
@@ -10736,13 +10711,13 @@ export default reducer;
 
 Hiện tại chưa tách file
 
-![image-20200313213007632](./react-maximilan.assets/image-20200313213007632.png)  
+![image-20200313213007632](./react-maximilan.assets/image-20200313213007632.png)
 
-Thay                 results: state.results.concat({id: new Date(), value: action.counter}) để test, ấn nút STORE RESULT thì sẽ lưu lại ấn nút ADD rồi ấn STORE tiếp tục để kiểm tra
+Thay results: state.results.concat({id: new Date(), value: action.counter}) để test, ấn nút STORE RESULT thì sẽ lưu lại ấn nút ADD rồi ấn STORE tiếp tục để kiểm tra
 
 ### 15. Updating Arrays Immutably
 
-Cách 1: copy array use ... 
+Cách 1: copy array use ...
 
 Cách 2: Nên xài cách này
 
@@ -10758,18 +10733,18 @@ The key to updating nested data is **that \*every\* level of nesting must be cop
 
 ##### Common Mistake #1: New variables that point to the same objects
 
-Defining a new variable does *not* create a new actual object - it only creates another reference to the same object. An example of this error would be:
+Defining a new variable does _not_ create a new actual object - it only creates another reference to the same object. An example of this error would be:
 
 ```js
 function updateNestedState(state, action) {
-    let nestedState = state.nestedState;
-    // ERROR: this directly modifies the existing object reference - don't do this!
-    nestedState.nestedField = action.data;
+  let nestedState = state.nestedState;
+  // ERROR: this directly modifies the existing object reference - don't do this!
+  nestedState.nestedField = action.data;
 
-    return {
-        ...state,
-        nestedState
-    };
+  return {
+    ...state,
+    nestedState
+  };
 }
 ```
 
@@ -10781,17 +10756,17 @@ Another common version of this error looks like this:
 
 ```js
 function updateNestedState(state, action) {
-    // Problem: this only does a shallow copy!
-    let newState = {...state};
+  // Problem: this only does a shallow copy!
+  let newState = { ...state };
 
-    // ERROR: nestedState is still the same object!
-    newState.nestedState.nestedField = action.data;
+  // ERROR: nestedState is still the same object!
+  newState.nestedState.nestedField = action.data;
 
-    return newState;
+  return newState;
 }
 ```
 
-Doing a shallow copy of the top level is *not* sufficient - the `nestedState` object should be copied as well.
+Doing a shallow copy of the top level is _not_ sufficient - the `nestedState` object should be copied as well.
 
 ##### Correct Approach: Copying All Levels of Nested Data
 
@@ -10799,19 +10774,19 @@ Unfortunately, the process of correctly applying immutable updates to deeply nes
 
 ```js
 function updateVeryNestedField(state, action) {
-    return {
-        ...state,
-        first : {
-            ...state.first,
-            second : {
-                ...state.first.second,
-                [action.someId] : {
-                    ...state.first.second[action.someId],
-                    fourth : action.someValue
-                }
-            }
+  return {
+    ...state,
+    first: {
+      ...state.first,
+      second: {
+        ...state.first.second,
+        [action.someId]: {
+          ...state.first.second[action.someId],
+          fourth: action.someValue
         }
+      }
     }
+  };
 }
 ```
 
@@ -10823,36 +10798,33 @@ Normally, a Javascript array's contents are modified using mutative functions li
 
 ```js
 function insertItem(array, action) {
-    return [
-        ...array.slice(0, action.index),
-        action.item,
-        ...array.slice(action.index)
-    ]
+  return [
+    ...array.slice(0, action.index),
+    action.item,
+    ...array.slice(action.index)
+  ];
 }
 
 function removeItem(array, action) {
-    return [
-        ...array.slice(0, action.index),
-        ...array.slice(action.index + 1)
-    ];
+  return [...array.slice(0, action.index), ...array.slice(action.index + 1)];
 }
 ```
 
-However, remember that the key is that the *original in-memory reference* is not modified. **As long as we make a copy first, we can safely mutate the copy**. Note that this is true for both arrays and objects, but nested values still must be updated using the same rules.
+However, remember that the key is that the _original in-memory reference_ is not modified. **As long as we make a copy first, we can safely mutate the copy**. Note that this is true for both arrays and objects, but nested values still must be updated using the same rules.
 
 This means that we could also write the insert and remove functions like this:
 
 ```js
 function insertItem(array, action) {
-    let newArray = array.slice();
-    newArray.splice(action.index, 0, action.item);
-    return newArray;
+  let newArray = array.slice();
+  newArray.splice(action.index, 0, action.item);
+  return newArray;
 }
 
 function removeItem(array, action) {
-    let newArray = array.slice();
-    newArray.splice(action.index, 1);
-    return newArray;
+  let newArray = array.slice();
+  newArray.splice(action.index, 1);
+  return newArray;
 }
 ```
 
@@ -10860,7 +10832,7 @@ The remove function could also be implemented as:
 
 ```js
 function removeItem(array, action) {
-    return array.filter( (item, index) => index !== action.index);
+  return array.filter((item, index) => index !== action.index);
 }
 ```
 
@@ -10870,18 +10842,18 @@ Updating one item in an array can be accomplished by using `Array.map`, returnin
 
 ```js
 function updateObjectInArray(array, action) {
-    return array.map( (item, index) => {
-        if(index !== action.index) {
-            // This isn't the item we care about - keep it as-is
-            return item;
-        }
+  return array.map((item, index) => {
+    if (index !== action.index) {
+      // This isn't the item we care about - keep it as-is
+      return item;
+    }
 
-        // Otherwise, this is the one we want - return an updated value
-        return {
-            ...item,
-            ...action.item
-        };    
-    });
+    // Otherwise, this is the one we want - return an updated value
+    return {
+      ...item,
+      ...action.item
+    };
+  });
 }
 ```
 
@@ -10896,8 +10868,10 @@ state = dotProp.set(state, `todos.${index}.complete`, true)
 Others, like [immutability-helper](https://github.com/kolodny/immutability-helper) (a fork of the now-deprecated React Immutability Helpers addon), use nested values and helper functions:
 
 ```js
-var collection = [1, 2, {a: [12, 17, 15]}];
-var newCollection = update(collection, {2: {a: {$splice: [[1, 1, 13, 14]]}}});
+var collection = [1, 2, { a: [12, 17, 15] }];
+var newCollection = update(collection, {
+  2: { a: { $splice: [[1, 1, 13, 14]] } }
+});
 ```
 
 They can provide a useful alternative to writing manual immutable update logic.
@@ -10909,15 +10883,15 @@ They can provide a useful alternative to writing manual immutable update logic.
 Create file actions.js
 
 ```js
-export const INCREMENT = 'INCREMENT';
-export const DECREMENT = 'DECREMENT';
-export const ADD = 'ADD';
-export const SUBTRACT = 'SUBTRACT';
-export const STORE_RESULT = 'STORE_RESULT';
-export const DELETE_RESULT = 'DELETE_RESULT';
+export const INCREMENT = "INCREMENT";
+export const DECREMENT = "DECREMENT";
+export const ADD = "ADD";
+export const SUBTRACT = "SUBTRACT";
+export const STORE_RESULT = "STORE_RESULT";
+export const DELETE_RESULT = "DELETE_RESULT";
 ```
 
-Ở file khác import: `import * as actionTypes from '../actions';
+Ở file khác import: `import \* as actionTypes from '../actions';
 
 Counter.js and 2 file reducer
 
@@ -10926,28 +10900,32 @@ Tách file
 index.js
 
 ```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore, combineReducers } from 'redux';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { createStore, combineReducers } from "redux";
 
-import counterReducer from './store/reducers/counter';
-import resultReducer from './store/reducers/result';
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import counterReducer from "./store/reducers/counter";
+import resultReducer from "./store/reducers/result";
+import "./index.css";
+import App from "./App";
+import registerServiceWorker from "./registerServiceWorker";
 
 // add new
 const rootReducer = combineReducers({
-    ctr: counterReducer,
-    res: resultReducer
+  ctr: counterReducer,
+  res: resultReducer
 });
 
 const store = createStore(rootReducer);
 
-ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
 registerServiceWorker();
-
 ```
 
 Sửa lại file Counter.js xóa state trong class Counter
@@ -10981,8 +10959,6 @@ const reducer = ( state = initialState, action ) => {
             }
 ```
 
-
-
 ### 19. Understanding State Types
 
 Xem lại
@@ -11000,31 +10976,31 @@ npm install --save redux react-redux
 reducer.js
 
 ```js
-import * as actionTypes from './actions';
+import * as actionTypes from "./actions";
 
 const initialState = {
-    persons: []
+  persons: []
 };
 
-const reducer = ( state = initialState, action ) => {
-    switch ( action.type ) {
-        case actionTypes.ADD_PERSON:
-            const newPerson = {
-                id: Math.random(), // not really unique but good enough here!
-                name: 'Max',
-                age: Math.floor( Math.random() * 40 )
-            }
-            return {
-                ...state,
-                persons: state.persons.concat( newPerson )
-            }
-        case actionTypes.REMOVE_PERSON:
-            return {
-                ...state,
-                persons: state.persons.filter(person => person.id !== action.personId)
-            }
-    }
-    return state;
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case actionTypes.ADD_PERSON:
+      const newPerson = {
+        id: Math.random(), // not really unique but good enough here!
+        name: "Max",
+        age: Math.floor(Math.random() * 40)
+      };
+      return {
+        ...state,
+        persons: state.persons.concat(newPerson)
+      };
+    case actionTypes.REMOVE_PERSON:
+      return {
+        ...state,
+        persons: state.persons.filter(person => person.id !== action.personId)
+      };
+  }
+  return state;
 };
 
 export default reducer;
@@ -11033,69 +11009,73 @@ export default reducer;
 index.js
 
 ```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
+import React from "react";
+import ReactDOM from "react-dom";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
 
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
-import reducer from './store/reducer';
+import "./index.css";
+import App from "./App";
+import registerServiceWorker from "./registerServiceWorker";
+import reducer from "./store/reducer";
 
 const store = createStore(reducer);
 
-ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
 registerServiceWorker();
-
 ```
 
 Person.js
 
 ```js
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
-import Person from '../components/Person/Person';
-import AddPerson from '../components/AddPerson/AddPerson';
-import * as actionTypes from '../store/actions';
+import Person from "../components/Person/Person";
+import AddPerson from "../components/AddPerson/AddPerson";
+import * as actionTypes from "../store/actions";
 
 class Persons extends Component {
-    // di chuyen cac ham add delete to reducer
-    
-    render () {
-        return (
-            <div>
-                <AddPerson personAdded={this.props.onAddedPerson} />
-                {this.props.prs.map(person => (
-                    <Person 
-                        key={person.id}
-                        name={person.name} 
-                        age={person.age} 
-                        clicked={() => this.props.onRemovedPerson(person.id)}/>
-                ))}
-            </div>
-        );
-    }
+  // di chuyen cac ham add delete to reducer
+
+  render() {
+    return (
+      <div>
+        <AddPerson personAdded={this.props.onAddedPerson} />
+        {this.props.prs.map(person => (
+          <Person
+            key={person.id}
+            name={person.name}
+            age={person.age}
+            clicked={() => this.props.onRemovedPerson(person.id)}
+          />
+        ))}
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = state => {
-    return {
-        prs: state.persons
-    };
+  return {
+    prs: state.persons
+  };
 };
 
 const mapDispatchToProps = dispatch => {
-    return {
-        onAddedPerson: () => dispatch({type: actionTypes.ADD_PERSON}),
-        onRemovedPerson: (id) => dispatch({type: actionTypes.REMOVE_PERSON, personId: id})
-    }
+  return {
+    onAddedPerson: () => dispatch({ type: actionTypes.ADD_PERSON }),
+    onRemovedPerson: id =>
+      dispatch({ type: actionTypes.REMOVE_PERSON, personId: id })
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Persons);
 ```
-
-
 
 ### 22. Combining Local UI State and Redux
 
@@ -11108,8 +11088,6 @@ xem lại bài 22 có thêm xử lý
 ### 23. Wrap Up
 
 ### 24. Useful Resources & Links.html
-
-
 
 - Redux Docs: http://redux.js.org/
 - Core Concepts: http://redux.js.org/docs/introduction/CoreConcepts.html
@@ -11130,25 +11108,21 @@ Define state to manage in burgerBuilder.js
 create file action.js
 
 ```js
-export const ADD_INGREDIENT = 'ADD_INGREDIENT';
-export const REMOVE_INGREDIENT = 'REMOVE_INGREDIENT';
+export const ADD_INGREDIENT = "ADD_INGREDIENT";
+export const REMOVE_INGREDIENT = "REMOVE_INGREDIENT";
 ```
-
-
 
 reducer.js
 
 ```js
-import * as actionTypes from './actions';
+import * as actionTypes from "./actions";
 
 const initialState = {
-    ingredients: null,
-    totalPrice: 4
+  ingredients: null,
+  totalPrice: 4
 };
 
-const reducer = (state = initialState, action) => {
-
-};
+const reducer = (state = initialState, action) => {};
 
 export default reducer;
 ```
@@ -11156,33 +11130,30 @@ export default reducer;
 index.js
 
 ```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
 
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
-import reducer from './store/reducer';
+import "./index.css";
+import App from "./App";
+import registerServiceWorker from "./registerServiceWorker";
+import reducer from "./store/reducer";
 
 const store = createStore(reducer);
 
 const app = (
-    <Provider store={store}>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
-    </Provider>
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>
 );
 
-ReactDOM.render( app, document.getElementById( 'root' ) );
+ReactDOM.render(app, document.getElementById("root"));
 registerServiceWorker();
-
 ```
-
-
 
 ### 3. Basic Redux Setup
 
@@ -11193,51 +11164,51 @@ Sửa index.js
 reducer.js
 
 ```js
-import * as actionTypes from './actions';
+import * as actionTypes from "./actions";
 
 const initialState = {
-    ingredients: {
-        salad: 0,
-        bacon: 0,
-        cheese: 0,
-        meat: 0
-    },
-    totalPrice: 4
+  ingredients: {
+    salad: 0,
+    bacon: 0,
+    cheese: 0,
+    meat: 0
+  },
+  totalPrice: 4
 };
 
 const INGREDIENT_PRICES = {
-    salad: 0.5,
-    cheese: 0.4,
-    meat: 1.3,
-    bacon: 0.7
+  salad: 0.5,
+  cheese: 0.4,
+  meat: 1.3,
+  bacon: 0.7
 };
 
-const reducer = ( state = initialState, action ) => {
-    switch ( action.type ) {
-        case actionTypes.ADD_INGREDIENT:
-            return {
-                ...state,
-                ingredients: {
-                    ...state.ingredients,
-                    // cú pháp es6 cho phép override property of the object
-                    [action.ingredientName]: state.ingredients[action.ingredientName] + 1
-                },
-                // # 6 add
-                totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
-            };
-        case actionTypes.REMOVE_INGREDIENT:
-            return {
-                ...state,
-                ingredients: {
-                    ...state.ingredients,
-                    [action.ingredientName]: state.ingredients[action.ingredientName] - 1
-                },
-                // # 6 add
-                totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName]
-            };
-        default:
-            return state;
-    }
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case actionTypes.ADD_INGREDIENT:
+      return {
+        ...state,
+        ingredients: {
+          ...state.ingredients,
+          // cú pháp es6 cho phép override property of the object
+          [action.ingredientName]: state.ingredients[action.ingredientName] + 1
+        },
+        // # 6 add
+        totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
+      };
+    case actionTypes.REMOVE_INGREDIENT:
+      return {
+        ...state,
+        ingredients: {
+          ...state.ingredients,
+          [action.ingredientName]: state.ingredients[action.ingredientName] - 1
+        },
+        // # 6 add
+        totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName]
+      };
+    default:
+      return state;
+  }
 };
 
 export default reducer;
@@ -11258,8 +11229,6 @@ componentDidMount () {
     }
 ```
 
-
-
 ### 5. Connecting the Burger Builder Container to our Store
 
 BurgerBuilder.js
@@ -11276,9 +11245,9 @@ state = {
         purchasing: false,
         loading: false,
         error:
-    
+
 // Thay hết this.state.ingredients => this.props.ings
-    
+
     <BuildControls
     // add start
                         ingredientAdded={this.props.onIngredientAdded}
@@ -11288,9 +11257,9 @@ state = {
                         purchasable={this.updatePurchaseState(this.props.ings)}
                         ordered={this.purchaseHandler}
                         price={this.props.price} />
-    
-    
-    
+
+
+
 const mapStateToProps = state => {
     return {
         ings: state.ingredients,
@@ -11356,16 +11325,14 @@ Xóa hàm add and remove in BurgerBuilder.js
 
 // thay state.totalPrice thành this.props.price
 const mapStateToProps = state => {
-    return {
-        ings: state.ingredients,
-        // add
-        price: state.totalPrice
-    };
-}
+  return {
+    ings: state.ingredients,
+    // add
+    price: state.totalPrice
+  };
+};
 // sau đó replace state
 ```
-
-
 
 ### 7. Redux & UI State
 
@@ -11400,18 +11367,15 @@ burger = (
             );
 ```
 
-
-
 ### 8. Adjusting Checkout and Contact Data
 
 modify purchaseContinueHandler in BurgerBuilder
 
 ```js
+purchaseContinueHandler = () => {
+  // alert('You continue!');
 
-    purchaseContinueHandler = () => {
-        // alert('You continue!');
-        
-        /* comment
+  /* comment
         const queryParams = [];
         for (let i in this.state.ingredients) {
             queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
@@ -11423,24 +11387,24 @@ modify purchaseContinueHandler in BurgerBuilder
             search: '?' + queryString
         });
         */
-        this.props.history.push('/checkout');
-    }
+  this.props.history.push("/checkout");
+};
 ```
 
 Checkout.js
 
 ```js
 // xóa componentWillMount and remove state
-import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { Route } from "react-router-dom";
+import { connect } from "react-redux";
 
-import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
-import ContactData from './ContactData/ContactData';
+import CheckoutSummary from "../../components/Order/CheckoutSummary/CheckoutSummary";
+import ContactData from "./ContactData/ContactData";
 
 class Checkout extends Component {
-// remove start
-    /*
+  // remove start
+  /*
      state = {
         ingredients: null,
         price: 0
@@ -11462,44 +11426,52 @@ class Checkout extends Component {
     }
     */
 
-// remove end
-    
-    checkoutCancelledHandler = () => {
-        this.props.history.goBack();
-    }
+  // remove end
 
-    checkoutContinuedHandler = () => {
-        this.props.history.replace( '/checkout/contact-data' );
-    }
+  checkoutCancelledHandler = () => {
+    this.props.history.goBack();
+  };
 
-    render () {
-        return (
-            <div>
-                <CheckoutSummary
-            // chuyển state thành props
-                    ingredients={this.props.ings}
-                    checkoutCancelled={this.checkoutCancelledHandler}
-                    checkoutContinued={this.checkoutContinuedHandler} />
-//                 remove start
-                <Route 
-                    path={this.props.match.path + '/contact-data'} 
-                    render={(props) => (<ContactData ingredients={this.state.ingredients} price={this.state.totalPrice} {...props} />)} />
-// 				remove end
-                        
-                <Route 
-                    path={this.props.match.path + '/contact-data'} 
-// thay render thành component
-                    component={ContactData} />
-            </div>
-        );
-    }
+  checkoutContinuedHandler = () => {
+    this.props.history.replace("/checkout/contact-data");
+  };
+
+  render() {
+    return (
+      <div>
+        <CheckoutSummary
+          // chuyển state thành props
+          ingredients={this.props.ings}
+          checkoutCancelled={this.checkoutCancelledHandler}
+          checkoutContinued={this.checkoutContinuedHandler}
+        />
+        // remove start
+        <Route
+          path={this.props.match.path + "/contact-data"}
+          render={props => (
+            <ContactData
+              ingredients={this.state.ingredients}
+              price={this.state.totalPrice}
+              {...props}
+            />
+          )}
+        />
+        // remove end
+        <Route
+          path={this.props.match.path + "/contact-data"}
+          // thay render thành component
+          component={ContactData}
+        />
+      </div>
+    );
+  }
 }
 
 // add
 const mapStateToProps = state => {
-    return {
-        ings: state.ingredients
-    }
+  return {
+    ings: state.ingredients
+  };
 };
 
 export default connect(mapStateToProps)(Checkout);
@@ -11514,10 +11486,10 @@ ContactData.js
             price: this.props.price,
             orderData: formData
         }
-        
-        
+
+
         ...
-        
+
 const mapStateToProps = state => {
     return {
         ings: state.ingredients, // nhớ thay thành this.props.ings
@@ -11528,8 +11500,6 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps)(ContactData);
 ```
 
-
-
 ### 9. Wrap Up
 
 ### 10. Useful Resources & Links.html
@@ -11538,29 +11508,26 @@ export default connect(mapStateToProps)(ContactData);
 
 ### 1. Module Introduction
 
-
-
 ### 2. Adding Middleware
 
-Middleware is term used for function or the code general you hook into a process which then get executed as part of  that process without stopping it
+Middleware is term used for function or the code general you hook into a process which then get executed as part of that process without stopping it
 
-![image-20200225203849602](./react-maximilan.assets/image-20200225203849602.png)  
+![image-20200225203849602](./react-maximilan.assets/image-20200225203849602.png)
 
 index.js: connect middleware to store
 
 ```js
-
 // add
 const logger = store => {
-    // next is a middleware
-    return next => {
-        return action => {
-            console.log('[Middleware] Dispatching', action);
-            const result = next(action);
-            console.log('[Middleware] next state', store.getState());
-            return result;
-        }
-    }
+  // next is a middleware
+  return next => {
+    return action => {
+      console.log("[Middleware] Dispatching", action);
+      const result = next(action);
+      console.log("[Middleware] next state", store.getState());
+      return result;
+    };
+  };
 };
 
 // # 3
@@ -11570,7 +11537,6 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(rootReducer, applyMiddleware(logger));
 
 // sau đó run npm start
-
 ```
 
 ![image-20200225210018306](./react-maximilan.assets/image-20200225210018306.png)
@@ -11585,72 +11551,72 @@ index.js setup base on github
 
 ```js
 // add
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(logger)));
-
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(logger))
+);
 ```
 
 Trong file READMe.md có HD
 
-![image-20200225211147576](./react-maximilan.assets/image-20200225211147576.png)  
-
-
+![image-20200225211147576](./react-maximilan.assets/image-20200225211147576.png)
 
 ### 4. Executing Asynchronous Code - Introduction
 
 ### 5. Introducing Action Creators
 
-create folder actions/ .  Sửa file action.js
+create folder actions/ . Sửa file action.js
 
 ```js
-export const INCREMENT = 'INCREMENT';
-export const DECREMENT = 'DECREMENT';
-export const ADD = 'ADD';
-export const SUBTRACT = 'SUBTRACT';
-export const STORE_RESULT = 'STORE_RESULT';
-export const DELETE_RESULT = 'DELETE_RESULT';
+export const INCREMENT = "INCREMENT";
+export const DECREMENT = "DECREMENT";
+export const ADD = "ADD";
+export const SUBTRACT = "SUBTRACT";
+export const STORE_RESULT = "STORE_RESULT";
+export const DELETE_RESULT = "DELETE_RESULT";
 
 export const increment = () => {
-    return {
-        type: INCREMENT
-    };
+  return {
+    type: INCREMENT
+  };
 };
 
 export const decrement = () => {
-    return {
-        type: DECREMENT
-    };
+  return {
+    type: DECREMENT
+  };
 };
 
-export const add = (value) => {
-    return {
-        type: ADD,
-        val: value
-    };
+export const add = value => {
+  return {
+    type: ADD,
+    val: value
+  };
 };
 
-export const subtract = (value) => {
-    return {
-        type: SUBTRACT,
-        val: value
-    };
+export const subtract = value => {
+  return {
+    type: SUBTRACT,
+    val: value
+  };
 };
 
-export const storeResult = (res) => {
-    return {
-        type: STORE_RESULT,
-        result: res
-    };
+export const storeResult = res => {
+  return {
+    type: STORE_RESULT,
+    result: res
+  };
 };
 
-export const deleteResult = (resElId) => {
-    return {
-        type: DELETE_RESULT,
-        resultElId: resElId
-    };
+export const deleteResult = resElId => {
+  return {
+    type: DELETE_RESULT,
+    resultElId: resElId
+  };
 };
 ```
 
@@ -11661,18 +11627,17 @@ It is a func return an action or create an action
 Counter.js
 
 ```js
-import * as actionCreators from '../../store/actions/actions';
-
+import * as actionCreators from "../../store/actions/actions";
 
 const mapDispatchToProps = dispatch => {
-    return {
-        onIncrementCounter: () => dispatch(actionCreators.increment()),
-        onDecrementCounter: () => dispatch(actionCreators.decrement()),
-        onAddCounter: () => dispatch(actionCreators.add(10)),
-        onSubtractCounter: () => dispatch(actionCreators.subtract(15)),
-        onStoreResult: (result) => dispatch(actionCreators.storeResult(result)),
-        onDeleteResult: (id) => dispatch(actionCreators.deleteResult(id))
-    }
+  return {
+    onIncrementCounter: () => dispatch(actionCreators.increment()),
+    onDecrementCounter: () => dispatch(actionCreators.decrement()),
+    onAddCounter: () => dispatch(actionCreators.add(10)),
+    onSubtractCounter: () => dispatch(actionCreators.subtract(15)),
+    onStoreResult: result => dispatch(actionCreators.storeResult(result)),
+    onDeleteResult: id => dispatch(actionCreators.deleteResult(id))
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Counter);
@@ -11695,31 +11660,31 @@ not return an action => return dispatch action
 index.js
 
 ```js
-import thunk from 'redux-thunk';
+import thunk from "redux-thunk";
 
-
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(logger, thunk)));
-
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(logger, thunk))
+);
 ```
 
 action.js chuyển hàm storeResult thành saveResult và gọi lại
 
 ```js
-export const saveResult = ( res ) => {
-    return {
-        type: STORE_RESULT,
-        result: res
-    };
-}
-
-export const storeResult = ( res ) => {
-    return dispatch => {
-        setTimeout( () => {
-            dispatch(saveResult(res));
-        }, 2000 );
-    }
+export const saveResult = res => {
+  return {
+    type: STORE_RESULT,
+    result: res
+  };
 };
 
+export const storeResult = res => {
+  return dispatch => {
+    setTimeout(() => {
+      dispatch(saveResult(res));
+    }, 2000);
+  };
+};
 ```
 
 npm start rồi mở redux tool, xem action là console
@@ -11731,29 +11696,21 @@ Sửa lại folder actions
 actionTypes.js
 
 ```js
-export const INCREMENT = 'INCREMENT';
-export const DECREMENT = 'DECREMENT';
-export const ADD = 'ADD';
-export const SUBTRACT = 'SUBTRACT';
-export const STORE_RESULT = 'STORE_RESULT';
-export const DELETE_RESULT = 'DELETE_RESULT';
+export const INCREMENT = "INCREMENT";
+export const DECREMENT = "DECREMENT";
+export const ADD = "ADD";
+export const SUBTRACT = "SUBTRACT";
+export const STORE_RESULT = "STORE_RESULT";
+export const DELETE_RESULT = "DELETE_RESULT";
 
-// tách ra 2 file nữa actions vs result 
+// tách ra 2 file nữa actions vs result
 ```
 
 index.js trong folder action
 
 ```js
-export {
-    add,
-    subtract,
-    increment,
-    decrement
-} from './counter';
-export {
-    storeResult,
-    deleteResult
-} from './result';
+export { add, subtract, increment, decrement } from "./counter";
+export { storeResult, deleteResult } from "./result";
 ```
 
 Sửa lại import counter.js, result.js trong folder action và reducer, Counter.js
@@ -11761,57 +11718,55 @@ Sửa lại import counter.js, result.js trong folder action và reducer, Counte
 counter.js
 
 ```js
-import * as actionTypes from './actionTypes';
+import * as actionTypes from "./actionTypes";
 
 export const increment = () => {
-    return {
-        type: actionTypes.INCREMENT
-    };
+  return {
+    type: actionTypes.INCREMENT
+  };
 };
 
 export const decrement = () => {
-    return {
-        type: actionTypes.DECREMENT
-    };
+  return {
+    type: actionTypes.DECREMENT
+  };
 };
 
-export const add = ( value ) => {
-    return {
-        type: actionTypes.ADD,
-        val: value
-    };
+export const add = value => {
+  return {
+    type: actionTypes.ADD,
+    val: value
+  };
 };
 
-export const subtract = ( value ) => {
-    return {
-        type: actionTypes.SUBTRACT,
-        val: value
-    };
+export const subtract = value => {
+  return {
+    type: actionTypes.SUBTRACT,
+    val: value
+  };
 };
 ```
-
-
 
 ### 9. Where to Put Data Transforming Logic
 
 result.js
 
 ```js
-export const saveResult = ( res ) => {
-    // chỉnh sửa k nên đặt ở đây
-    // const updatedResult = res * 2;
-    return {
-        type: actionTypes.STORE_RESULT,
-        result: res
-    };
-}
+export const saveResult = res => {
+  // chỉnh sửa k nên đặt ở đây
+  // const updatedResult = res * 2;
+  return {
+    type: actionTypes.STORE_RESULT,
+    result: res
+  };
+};
 
-export const storeResult = ( res ) => {
-    return (dispatch, getState) => {
-        setTimeout( () => {
-            dispatch(saveResult(res));
-        }, 2000 );
-    }
+export const storeResult = res => {
+  return (dispatch, getState) => {
+    setTimeout(() => {
+      dispatch(saveResult(res));
+    }, 2000);
+  };
 };
 ```
 
@@ -11820,36 +11775,35 @@ Nên update logic in reducer thay vì action creator
 result.js
 
 ```js
-
 const initialState = {
-    results: []
+  results: []
 };
 
-const reducer = ( state = initialState, action ) => {
-    switch ( action.type ) {
-        case actionTypes.STORE_RESULT:
-            // Change here
-            return {
-                ...state,
-                results: state.results.concat({id: new Date(), value: action.result})
-            }
-        case actionTypes.DELETE_RESULT:
-            // const id = 2;
-            // const newArray = [...state.results];
-            // newArray.splice(id, 1)
-            const updatedArray = state.results.filter(result => result.id !== action.resultElId);
-            return {
-                ...state,
-                results: updatedArray
-            }
-    }
-    return state;
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case actionTypes.STORE_RESULT:
+      // Change here
+      return {
+        ...state,
+        results: state.results.concat({ id: new Date(), value: action.result })
+      };
+    case actionTypes.DELETE_RESULT:
+      // const id = 2;
+      // const newArray = [...state.results];
+      // newArray.splice(id, 1)
+      const updatedArray = state.results.filter(
+        result => result.id !== action.resultElId
+      );
+      return {
+        ...state,
+        results: updatedArray
+      };
+  }
+  return state;
 };
 
 export default reducer;
 ```
-
-
 
 ![image-20200225221753848](./react-maximilan.assets/image-20200225221753848.png)
 
@@ -11858,56 +11812,53 @@ export default reducer;
 result.js nhờ tham số thứ 2 trong redux-thunk getState current
 
 ```js
-
-export const storeResult = ( res ) => {
-	// thêm tham số thứ 2
-    return (dispatch, getState) => {
-        setTimeout( () => {
-            // add
-            // const oldCounter = getState().ctr.counter;
-            // console.log(oldCounter);
-            dispatch(saveResult(res));
-        }, 2000 );
-    }
+export const storeResult = res => {
+  // thêm tham số thứ 2
+  return (dispatch, getState) => {
+    setTimeout(() => {
+      // add
+      // const oldCounter = getState().ctr.counter;
+      // console.log(oldCounter);
+      dispatch(saveResult(res));
+    }, 2000);
+  };
 };
-
 ```
 
 ctr xem trong index.js
 
 ### 11. Using Utility Functions
 
-optional way you don't have to do 
+optional way you don't have to do
 
 create file utility.js
 
 ```js
 export const updateObject = (oldObject, updatedValues) => {
-    return {
-        ...oldObject,
-        ...updatedValues
-    }
+  return {
+    ...oldObject,
+    ...updatedValues
+  };
 };
 ```
 
 counter.js
 
 ```js
+import { updateObject } from "../utility";
 
-import { updateObject } from '../utility';
-
-const reducer = ( state = initialState, action ) => {
-    switch ( action.type ) {
-        case actionTypes.INCREMENT:
-            return updateObject(state, {counter: state.counter + 1});
-        case actionTypes.DECREMENT:
-            return updateObject(state, {counter: state.counter - 1});
-        case actionTypes.ADD:
-            return updateObject(state, {counter: state.counter + action.val});
-        case actionTypes.SUBTRACT:
-            return updateObject(state, {counter: state.counter - action.val});
-    }
-    return state;
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case actionTypes.INCREMENT:
+      return updateObject(state, { counter: state.counter + 1 });
+    case actionTypes.DECREMENT:
+      return updateObject(state, { counter: state.counter - 1 });
+    case actionTypes.ADD:
+      return updateObject(state, { counter: state.counter + action.val });
+    case actionTypes.SUBTRACT:
+      return updateObject(state, { counter: state.counter - action.val });
+  }
+  return state;
 };
 
 export default reducer;
@@ -11917,23 +11868,30 @@ result.js
 
 ```js
 // 12
-const deleteResult = ( state, action ) => {
-    const updatedArray = state.results.filter( result => result.id !== action.resultElId );
-    return updateObject( state, { results: updatedArray } );
+const deleteResult = (state, action) => {
+  const updatedArray = state.results.filter(
+    result => result.id !== action.resultElId
+  );
+  return updateObject(state, { results: updatedArray });
 };
 
-const reducer = ( state = initialState, action ) => {
-    switch ( action.type ) {
-        case actionTypes.STORE_RESULT : return updateObject( state, { results: state.results.concat( { id: new Date(), value: action.result * 2 } ) } );
-        case actionTypes.DELETE_RESULT : return deleteResult(state, action);
-    }
-    return state;
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case actionTypes.STORE_RESULT:
+      return updateObject(state, {
+        results: state.results.concat({
+          id: new Date(),
+          value: action.result * 2
+        })
+      });
+    case actionTypes.DELETE_RESULT:
+      return deleteResult(state, action);
+  }
+  return state;
 };
 
 export default reducer;
 ```
-
-
 
 ### 12. A Leaner Switch Case Statement
 
@@ -11941,21 +11899,28 @@ tách hàm để làm code gọn hơn trong switch
 
 ```js
 // tách hàm delete ra
-const deleteResult = ( state, action ) => {
-    const updatedArray = state.results.filter( result => result.id !== action.resultElId );
-    return updateObject( state, { results: updatedArray } );
+const deleteResult = (state, action) => {
+  const updatedArray = state.results.filter(
+    result => result.id !== action.resultElId
+  );
+  return updateObject(state, { results: updatedArray });
 };
 
-const reducer = ( state = initialState, action ) => {
-    switch ( action.type ) {
-        case actionTypes.STORE_RESULT : return updateObject( state, { results: state.results.concat( { id: new Date(), value: action.result * 2 } ) } );
-        case actionTypes.DELETE_RESULT : return deleteResult(state, action);
-    }
-    return state;
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case actionTypes.STORE_RESULT:
+      return updateObject(state, {
+        results: state.results.concat({
+          id: new Date(),
+          value: action.result * 2
+        })
+      });
+    case actionTypes.DELETE_RESULT:
+      return deleteResult(state, action);
+  }
+  return state;
 };
 ```
-
-
 
 ### 13. An Alternative Folder Structure
 
@@ -11977,8 +11942,6 @@ xem lại mục Immutable update patterns in trang chủ redux
 
 ### 1. Module Introduction
 
-
-
 ### 2. Installing the Redux Devtools
 
 clean db, xóa orders đi chỉ để lại ingredients
@@ -11988,17 +11951,19 @@ clean db, xóa orders đi chỉ để lại ingredients
 index.js
 
 ```js
-
-const store = createStore (reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const store = createStore(
+  reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 ```
 
 For a basic [Redux store](https://redux.js.org/api/createstore#createstorereducer-preloadedstate-enhancer) simply add:
 
 ```js
- const store = createStore(
-   reducer, /* preloadedState, */
-window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
- );
+const store = createStore(
+  reducer /* preloadedState, */,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 ```
 
 ### 3. Preparing the Folder Structure
@@ -12009,100 +11974,102 @@ In **store** folder create **actions** and **reducer** folder and file in this
 
 rename file action.js to actionTypes
 
-Trong folder action tạo file order.js để chứa action creator và burgerBuilder.js 
+Trong folder action tạo file order.js để chứa action creator và burgerBuilder.js
 
 Trong folder reducer tạo file order.js và rename reducer.js file to burgerBuilder.js chứa các xử lý liên quan đến burger
-
-
 
 ### 4. Creating Action Creators
 
 BurgerBuilder.js in action dựa vào file BurgerBuilder các hàm dispatch ở đó
 
 ```js
-import * as actionTypes from './actionTypes';
-import axios from '../../axios-orders';
+import * as actionTypes from "./actionTypes";
+import axios from "../../axios-orders";
 
-export const addIngredient = ( name ) => {
-    return {
-        type: actionTypes.ADD_INGREDIENT,
-        ingredientName: name
-    };
+export const addIngredient = name => {
+  return {
+    type: actionTypes.ADD_INGREDIENT,
+    ingredientName: name
+  };
 };
 
-export const removeIngredient = ( name ) => {
-    return {
-        type: actionTypes.REMOVE_INGREDIENT,
-        ingredientName: name
-    };
+export const removeIngredient = name => {
+  return {
+    type: actionTypes.REMOVE_INGREDIENT,
+    ingredientName: name
+  };
 };
 // # 6
-export const setIngredients = ( ingredients ) => {
-    return {
-        type: actionTypes.SET_INGREDIENTS,
-        ingredients: ingredients
-    };
+export const setIngredients = ingredients => {
+  return {
+    type: actionTypes.SET_INGREDIENTS,
+    ingredients: ingredients
+  };
 };
 
 /// # 6
 export const fetchIngredientsFailed = () => {
-    return {
-        type: actionTypes.FETCH_INGREDIENTS_FAILED
-    };
+  return {
+    type: actionTypes.FETCH_INGREDIENTS_FAILED
+  };
 };
 
-// # 6 
+// # 6
 export const initIngredients = () => {
-    return dispatch => {
-        axios.get( 'https://react-my-burger.firebaseio.com/ingredients.json' )
-            .then( response => {
-               dispatch(setIngredients(response.data));
-            } )
-            .catch( error => {
-                dispatch(fetchIngredientsFailed());
-            } );
-    };
+  return dispatch => {
+    axios
+      .get("https://react-my-burger.firebaseio.com/ingredients.json")
+      .then(response => {
+        dispatch(setIngredients(response.data));
+      })
+      .catch(error => {
+        dispatch(fetchIngredientsFailed());
+      });
+  };
 };
 ```
 
 sau đó vào index.js import lại reducer
 
 ```js
-import burgerBuilderReducer from './store/reducers/burgerBuilder';
+import burgerBuilderReducer from "./store/reducers/burgerBuilder";
 
-const store = createStore (burgerBuilderReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const store = createStore(
+  burgerBuilderReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 ```
-
-
 
 container BurgerBuilder.js
 
 ```js
-import * as burgerBuilderActions from '../../store/actions/index';
+import * as burgerBuilderActions from "../../store/actions/index";
 
 const mapDispatchToProps = dispatch => {
-    return {
-        onIngredientAdded: (ingName) => dispatch(burgerBuilderActions.addIngredient(ingName)),
-        onIngredientRemoved: (ingName) => dispatch(burgerBuilderActions.removeIngredient(ingName)),
-        onInitIngredients: () => dispatch(burgerBuilderActions.initIngredients())
-    }
-}
+  return {
+    onIngredientAdded: ingName =>
+      dispatch(burgerBuilderActions.addIngredient(ingName)),
+    onIngredientRemoved: ingName =>
+      dispatch(burgerBuilderActions.removeIngredient(ingName)),
+    onInitIngredients: () => dispatch(burgerBuilderActions.initIngredients())
+  };
+};
 ```
 
 index.js
 
 ```js
 export {
-// add start
-    addIngredient,
-    removeIngredient,
-// add end
-    initIngredients
-} from './burgerBuilder';
-export { } from './order';
+  // add start
+  addIngredient,
+  removeIngredient,
+  // add end
+  initIngredients
+} from "./burgerBuilder";
+export {} from "./order";
 ```
 
-Hàm initIngredients  hiện tại chưa sử dụng ở các bài tiếp theo mới làm
+Hàm initIngredients hiện tại chưa sử dụng ở các bài tiếp theo mới làm
 
 ### 5. Executing Asynchronous Code
 
@@ -12111,55 +12078,51 @@ Hàm initIngredients  hiện tại chưa sử dụng ở các bài tiếp theo m
 index.js
 
 ```js
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
+import { createStore, applyMiddleware, compose } from "redux";
+import thunk from "redux-thunk";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(burgerBuilderReducer, composeEnhancers(
-    applyMiddleware(thunk)
-));
-
+const store = createStore(
+  burgerBuilderReducer,
+  composeEnhancers(applyMiddleware(thunk))
+);
 ```
-
-
 
 ### 6. Fetching Ingredients Asynchronously
 
 BurgerBuilder.js
 
 ```js
-
 // # 6
-export const setIngredients = ( ingredients ) => {
-    return {
-        type: actionTypes.SET_INGREDIENTS,
-        ingredients: ingredients
-    };
+export const setIngredients = ingredients => {
+  return {
+    type: actionTypes.SET_INGREDIENTS,
+    ingredients: ingredients
+  };
 };
 
 /// # 6
 export const fetchIngredientsFailed = () => {
-    return {
-        type: actionTypes.FETCH_INGREDIENTS_FAILED
-    };
+  return {
+    type: actionTypes.FETCH_INGREDIENTS_FAILED
+  };
 };
 
-// # 6 
+// # 6
 export const initIngredients = () => {
-    return dispatch => {
-        axios.get( 'https://react-my-burger.firebaseio.com/ingredients.json' )
-            .then( response => {
-               dispatch(setIngredients(response.data));
-            } )
-            .catch( error => {
-                dispatch(fetchIngredientsFailed());
-            } );
-    };
+  return dispatch => {
+    axios
+      .get("https://react-my-burger.firebaseio.com/ingredients.json")
+      .then(response => {
+        dispatch(setIngredients(response.data));
+      })
+      .catch(error => {
+        dispatch(fetchIngredientsFailed());
+      });
+  };
 };
 ```
-
-
 
 Copy hàm trong BurgerBuilder.js componentDidMount và xóa state error chỉ để lại purchasing
 
@@ -12188,16 +12151,13 @@ thay this.state.error thành this.prop.error
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler( BurgerBuilder, axios ));
 ```
 
-
-
 reducer/burgerBuilder.js
 
 ```js
-
 const initialState = {
-    ingredients: null,  // change vì sẽ fetch new
-    totalPrice: 4,
-    error: false // add
+  ingredients: null, // change vì sẽ fetch new
+  totalPrice: 4,
+  error: false // add
 };
 ```
 
@@ -12215,7 +12175,7 @@ reducer/burgerBuilder.js
             return {
                 ...state,
                 ingredients: {
-                    // # 8  
+                    // # 8
                     salad: action.ingredients.salad,
                     bacon: action.ingredients.bacon,
                     cheese: action.ingredients.cheese,
@@ -12238,7 +12198,7 @@ BurgerBuilder.js
 
 ```js
 	componentDidMount () {
-        console.log(this.props); 
+        console.log(this.props);
     // add
         this.props.onInitIngredients();
     }
@@ -12273,59 +12233,55 @@ Vì lấy từ firebase nên salad sẽ ở dưới dùng nên set thủ công l
 actionTypes.js
 
 ```js
-
-export const PURCHASE_BURGER_START = 'PURCHASE_BURGER_START';
-export const PURCHASE_BURGER_SUCCESS = 'PURCHASE_BURGER_SUCCESS';
-export const PURCHASE_BURGER_FAIL = 'PURCHASE_BURGER_FAIL';
-export const PURCHASE_INIT = 'PURCHASE_INIT';
-
+export const PURCHASE_BURGER_START = "PURCHASE_BURGER_START";
+export const PURCHASE_BURGER_SUCCESS = "PURCHASE_BURGER_SUCCESS";
+export const PURCHASE_BURGER_FAIL = "PURCHASE_BURGER_FAIL";
+export const PURCHASE_INIT = "PURCHASE_INIT";
 ```
 
 order.js
 
 ```js
-import * as actionTypes from './actionTypes';
-import axios from '../../axios-orders';
+import * as actionTypes from "./actionTypes";
+import axios from "../../axios-orders";
 
-export const purchaseBurgerSuccess = ( id, orderData ) => {
-    return {
-        type: actionTypes.PURCHASE_BURGER_SUCCESS,
-        orderId: id,
-        orderData: orderData
-    };
+export const purchaseBurgerSuccess = (id, orderData) => {
+  return {
+    type: actionTypes.PURCHASE_BURGER_SUCCESS,
+    orderId: id,
+    orderData: orderData
+  };
 };
 
-export const purchaseBurgerFail = ( error ) => {
-    return {
-        type: actionTypes.PURCHASE_BURGER_FAIL,
-        error: error
-    };
-}
+export const purchaseBurgerFail = error => {
+  return {
+    type: actionTypes.PURCHASE_BURGER_FAIL,
+    error: error
+  };
+};
 
 export const purchaseBurgerStart = () => {
-    return {
-        type: actionTypes.PURCHASE_BURGER_START
-    };
+  return {
+    type: actionTypes.PURCHASE_BURGER_START
+  };
 };
 
-
-export const purchaseBurger = ( orderData ) => {
-    // copy từ ContactData qua
-    return dispatch => {
-        dispatch( purchaseBurgerStart() ); // # 12
-        axios.post( '/orders.json', orderData )
-            .then( response => {
-                console.log( response.data );
-                dispatch( purchaseBurgerSuccess( response.data.name, orderData ) );
-            } )
-            .catch( error => {
-                dispatch( purchaseBurgerFail( error ) );
-            } );
-    };
+export const purchaseBurger = orderData => {
+  // copy từ ContactData qua
+  return dispatch => {
+    dispatch(purchaseBurgerStart()); // # 12
+    axios
+      .post("/orders.json", orderData)
+      .then(response => {
+        console.log(response.data);
+        dispatch(purchaseBurgerSuccess(response.data.name, orderData));
+      })
+      .catch(error => {
+        dispatch(purchaseBurgerFail(error));
+      });
+  };
 };
 ```
-
-
 
 ### 10. Connecting Contact Data Container & Actions
 
@@ -12335,11 +12291,11 @@ ContactData.js
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler'
 import * as actions from '../../../store/actions/index';
 
-// Sửa hàm orderHandler thành 
+// Sửa hàm orderHandler thành
 
     orderHandler = ( event ) => {
         event.preventDefault();
-  
+
         const formData = {};
         for (let formElementIdentifier in this.state.orderForm) {
             formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
@@ -12349,14 +12305,14 @@ import * as actions from '../../../store/actions/index';
             price: this.props.price,
             orderData: formData
         }
-        
+
 // add
         this.props.onOrderBurger(order);
-        
+
     }
 
 
-    
+
 const mapStateToProps = state => {
     return {
         ings: state.burgerBuilder.ingredients,
@@ -12379,116 +12335,112 @@ index.js
 
 ```js
 export {
-    addIngredient,
-    removeIngredient,
-    initIngredients
-} from './burgerBuilder';
+  addIngredient,
+  removeIngredient,
+  initIngredients
+} from "./burgerBuilder";
 export {
-// add and rename in 12
-    purchaseBurger,
-// add end
-    purchaseInit,
-    fetchOrders
-} from './order';
+  // add and rename in 12
+  purchaseBurger,
+  // add end
+  purchaseInit,
+  fetchOrders
+} from "./order";
 ```
-
-
 
 ### 11. The Order Reducer
 
 reducer/order.js
 
 ```js
-import * as actionTypes from '../actions/actionTypes';
-import { updateObject } from '../utility';
+import * as actionTypes from "../actions/actionTypes";
+import { updateObject } from "../utility";
 
 const initialState = {
-    orders: [],
-    loading: false
+  orders: [],
+  loading: false
 };
 
-
-const purchaseInit = ( state, action ) => {
-    return updateObject( state, { purchased: false } );
+const purchaseInit = (state, action) => {
+  return updateObject(state, { purchased: false });
 };
 
-const purchaseBurgerStart = ( state, action ) => {
-    return updateObject( state, { loading: false } );
+const purchaseBurgerStart = (state, action) => {
+  return updateObject(state, { loading: false });
 };
 
 // add start
-const purchaseBurgerSuccess = ( state, action ) => {
-    // xem từ action creator 
-    const newOrder = updateObject( action.orderData, { id: action.orderId } );
-    return updateObject( state, {
-        loading: false,
-        // purchased: true, // thêm sau
-        orders: state.orders.concat( newOrder )
-    } );
+const purchaseBurgerSuccess = (state, action) => {
+  // xem từ action creator
+  const newOrder = updateObject(action.orderData, { id: action.orderId });
+  return updateObject(state, {
+    loading: false,
+    // purchased: true, // thêm sau
+    orders: state.orders.concat(newOrder)
+  });
 };
 
-const purchaseBurgerFail = ( state, action ) => {
-    return updateObject( state, { loading: false } );
+const purchaseBurgerFail = (state, action) => {
+  return updateObject(state, { loading: false });
 };
 // add end
 
-const reducer = ( state = initialState, action ) => {
-    switch ( action.type ) {
-        case actionTypes.PURCHASE_INIT: return purchaseInit( state, action );
-        // 12
-        case actionTypes.PURCHASE_BURGER_START: return purchaseBurgerStart( state, action );
-        case actionTypes.PURCHASE_BURGER_SUCCESS: return purchaseBurgerSuccess( state, action )
-        case actionTypes.PURCHASE_BURGER_FAIL: return purchaseBurgerFail( state, action );
-        default: return state;
-    }
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case actionTypes.PURCHASE_INIT:
+      return purchaseInit(state, action);
+    // 12
+    case actionTypes.PURCHASE_BURGER_START:
+      return purchaseBurgerStart(state, action);
+    case actionTypes.PURCHASE_BURGER_SUCCESS:
+      return purchaseBurgerSuccess(state, action);
+    case actionTypes.PURCHASE_BURGER_FAIL:
+      return purchaseBurgerFail(state, action);
+    default:
+      return state;
+  }
 };
 
 export default reducer;
 ```
-
-
 
 ### 12. Working on Order Actions
 
 order.js
 
 ```js
-
 export const purchaseBurgerStart = () => {
-    return {
-        type: actionTypes.PURCHASE_BURGER_START
-    };
+  return {
+    type: actionTypes.PURCHASE_BURGER_START
+  };
 };
 
 // thêm dispatch to the store
-dispatch( purchaseBurgerStart() ); // # 12
+dispatch(purchaseBurgerStart()); // # 12
 ```
 
 Sau đó xóa state loading trong ContactData, thêm loading vào mapStateToProps
 
 ```js
-if ( this.props.loading ) { //
-            form = <Spinner />;
-        }
-
+if (this.props.loading) {
+  //
+  form = <Spinner />;
+}
 
 const mapStateToProps = state => {
-    return {
-        ings: state.burgerBuilder.ingredients,
-        price: state.burgerBuilder.totalPrice,
-        loading: state.order.loading //
-    }
+  return {
+    ings: state.burgerBuilder.ingredients,
+    price: state.burgerBuilder.totalPrice,
+    loading: state.order.loading //
+  };
 };
 
 const mapDispatchToProps = dispatch => {
-    return {
-        onOrderBurger: (orderData) => dispatch(actions.purchaseBurger(orderData)) //
-    };
+  return {
+    onOrderBurger: orderData => dispatch(actions.purchaseBurger(orderData)) //
+  };
 };
-
 ```
-
-
 
 ### 13. Redirect to Improve UX
 
@@ -12516,85 +12468,77 @@ Checkout.js
     }
 ```
 
-
-
 ### 14. Combining Reducers
 
 index.js
 
 ```js
+import { createStore, applyMiddleware, compose, combineReducers } from "redux";
+import thunk from "redux-thunk";
 
-import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
-import thunk from 'redux-thunk';
-
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
-import burgerBuilderReducer from './store/reducers/burgerBuilder';
-import orderReducer from './store/reducers/order';
+import "./index.css";
+import App from "./App";
+import registerServiceWorker from "./registerServiceWorker";
+import burgerBuilderReducer from "./store/reducers/burgerBuilder";
+import orderReducer from "./store/reducers/order";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 // add combine
 const rootReducer = combineReducers({
-    burgerBuilder: burgerBuilderReducer,
-    order: orderReducer
+  burgerBuilder: burgerBuilderReducer,
+  order: orderReducer
 });
 
-const store = createStore(rootReducer, composeEnhancers(
-    applyMiddleware(thunk)
-));
-
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk))
+);
 ```
 
 container/BurgerBuilder.js
 
 ```js
-
 const mapStateToProps = state => {
-    return {
-        // thêm .burgerBuilder
-        ings: state.burgerBuilder.ingredients,
-        price: state.burgerBuilder.totalPrice,
-        error: state.burgerBuilder.error
-    };
-}
+  return {
+    // thêm .burgerBuilder
+    ings: state.burgerBuilder.ingredients,
+    price: state.burgerBuilder.totalPrice,
+    error: state.burgerBuilder.error
+  };
+};
 ```
 
 contactData.js
 
 ```js
-
 const mapStateToProps = state => {
-    return {
-        ings: state.burgerBuilder.ingredients,
-        price: state.burgerBuilder.totalPrice,
-        loading: state.order.loading
-    }
+  return {
+    ings: state.burgerBuilder.ingredients,
+    price: state.burgerBuilder.totalPrice,
+    loading: state.order.loading
+  };
 };
 ```
 
-![image-20200314134444195](./react-maximilan.assets/image-20200314134444195.png)  
+![image-20200314134444195](./react-maximilan.assets/image-20200314134444195.png)
 
 name bị sai => fix
 
-![image-20200314134535986](./react-maximilan.assets/image-20200314134535986.png)  
+![image-20200314134535986](./react-maximilan.assets/image-20200314134535986.png)
 
 delivery method empty and no redirect => fix
 
-thêm `        value: 'fastest',` để fix trong contactData
+thêm `value: 'fastest',` để fix trong contactData
 
 action/order.js
 
 ```js
-axios.post( '/orders.json', orderData )
-            .then( response => {
-                console.log( response.data );
-                dispatch( purchaseBurgerSuccess( response.data.name, orderData ) ); // thêm .name
-            } )
+axios.post("/orders.json", orderData).then(response => {
+  console.log(response.data);
+  dispatch(purchaseBurgerSuccess(response.data.name, orderData)); // thêm .name
+});
 ```
-
-
 
 ### 15. Handling Purchases & Updating the UI
 
@@ -12603,36 +12547,33 @@ Khi load Checkout page thêm PURCHASE_INIT
 action/order.js
 
 ```js
-
 export const purchaseInit = () => {
-    return {
-        type: actionTypes.PURCHASE_INIT
-    };
+  return {
+    type: actionTypes.PURCHASE_INIT
+  };
 };
 ```
 
 order.js
 
 ```js
-
 const initialState = {
-    orders: [],
+  orders: [],
+  loading: false,
+  purchased: false
+};
+
+const purchaseInit = (state, action) => {
+  return updateObject(state, { purchased: false });
+};
+
+const purchaseBurgerSuccess = (state, action) => {
+  const newOrder = updateObject(action.orderData, { id: action.orderId });
+  return updateObject(state, {
     loading: false,
-    purchased: false
-};
-
-const purchaseInit = ( state, action ) => {
-    return updateObject( state, { purchased: false } );
-};
-
-
-const purchaseBurgerSuccess = ( state, action ) => {
-    const newOrder = updateObject( action.orderData, { id: action.orderId } );
-    return updateObject( state, {
-        loading: false,
-        purchased: true, // add
-        orders: state.orders.concat( newOrder )
-    } );
+    purchased: true, // add
+    orders: state.orders.concat(newOrder)
+  });
 };
 ```
 
@@ -12647,8 +12588,8 @@ Checkout.js
                     {purchasedRedirect} // add
                     <CheckoutSummary
      ...
-     
-     
+
+
 const mapStateToProps = state => {
     return {
         ings: state.burgerBuilder.ingredients,
@@ -12662,50 +12603,46 @@ const mapStateToProps = state => {
 
 Checkout.js thêm componentWillMounnt để call
 
-![image-20200314143104776](./react-maximilan.assets/image-20200314143104776.png)  
+![image-20200314143104776](./react-maximilan.assets/image-20200314143104776.png)
 
 Khi ấn order lần 2 bị redirect ?? => fix
 
-vì componentWillMounnt  check too late, nó k chặn old props render => xóa
+vì componentWillMounnt check too late, nó k chặn old props render => xóa
 
 BurgerBuilder.js
 
 ```js
-
-    purchaseContinueHandler = () => {
-        this.props.onInitPurchase(); // add
-        this.props.history.push('/checkout');
-    }
+purchaseContinueHandler = () => {
+  this.props.onInitPurchase(); // add
+  this.props.history.push("/checkout");
+};
 
 const mapDispatchToProps = dispatch => {
-    return {
-        onIngredientAdded: (ingName) => dispatch(actions.addIngredient(ingName)),
-        onIngredientRemoved: (ingName) => dispatch(actions.removeIngredient(ingName)),
-        onInitIngredients: () => dispatch(actions.initIngredients()),
-        onInitPurchase: () => dispatch(actions.purchaseInit()) // add
-    }
-}
+  return {
+    onIngredientAdded: ingName => dispatch(actions.addIngredient(ingName)),
+    onIngredientRemoved: ingName => dispatch(actions.removeIngredient(ingName)),
+    onInitIngredients: () => dispatch(actions.initIngredients()),
+    onInitPurchase: () => dispatch(actions.purchaseInit()) // add
+  };
+};
 ```
-
-
 
 ### 16. Resetting the Price after Purchases
 
 reducer.js
 
 ```js
-
 const setIngredients = (state, action) => {
-    return updateObject( state, {
-        ingredients: {
-            salad: action.ingredients.salad,
-            bacon: action.ingredients.bacon,
-            cheese: action.ingredients.cheese,
-            meat: action.ingredients.meat
-        },
-        totalPrice: 4, // reset price
-        error: false
-    } );
+  return updateObject(state, {
+    ingredients: {
+      salad: action.ingredients.salad,
+      bacon: action.ingredients.bacon,
+      cheese: action.ingredients.cheese,
+      meat: action.ingredients.meat
+    },
+    totalPrice: 4, // reset price
+    error: false
+  });
 };
 ```
 
@@ -12718,83 +12655,76 @@ Orders.js xóa axios get data
 order.js
 
 ```js
-
-export const fetchOrdersSuccess = ( orders ) => {
-    return {
-        type: actionTypes.FETCH_ORDERS_SUCCESS,
-        orders: orders
-    };
+export const fetchOrdersSuccess = orders => {
+  return {
+    type: actionTypes.FETCH_ORDERS_SUCCESS,
+    orders: orders
+  };
 };
 
-export const fetchOrdersFail = ( error ) => {
-    return {
-        type: actionTypes.FETCH_ORDERS_FAIL,
-        error: error
-    };
+export const fetchOrdersFail = error => {
+  return {
+    type: actionTypes.FETCH_ORDERS_FAIL,
+    error: error
+  };
 };
 
 export const fetchOrdersStart = () => {
-    return {
-        type: actionTypes.FETCH_ORDERS_START
-    };
+  return {
+    type: actionTypes.FETCH_ORDERS_START
+  };
 };
 
-
 export const fetchOrders = () => {
-    return dispatch => {
-        dispatch(fetchOrdersStart());
-        axios.get( '/orders.json' )
-            .then( res => {
-                const fetchedOrders = [];
-                for ( let key in res.data ) {
-                    fetchedOrders.push( {
-                        ...res.data[key],
-                        id: key
-                    } );
-                }
-                dispatch(fetchOrdersSuccess(fetchedOrders));
-            } )
-            .catch( err => {
-                dispatch(fetchOrdersFail(err));
-            } );
-    };
+  return dispatch => {
+    dispatch(fetchOrdersStart());
+    axios
+      .get("/orders.json")
+      .then(res => {
+        const fetchedOrders = [];
+        for (let key in res.data) {
+          fetchedOrders.push({
+            ...res.data[key],
+            id: key
+          });
+        }
+        dispatch(fetchOrdersSuccess(fetchedOrders));
+      })
+      .catch(err => {
+        dispatch(fetchOrdersFail(err));
+      });
+  };
 };
 ```
 
 order.js in reducer
 
 ```js
-
-const fetchOrdersStart = ( state, action ) => {
-    return updateObject( state, { loading: true } );
+const fetchOrdersStart = (state, action) => {
+  return updateObject(state, { loading: true });
 };
 
-const fetchOrdersSuccess = ( state, action ) => {
-    return updateObject( state, {
-        orders: action.orders,
-        loading: false
-    } );
+const fetchOrdersSuccess = (state, action) => {
+  return updateObject(state, {
+    orders: action.orders,
+    loading: false
+  });
 };
 
-const fetchOrdersFail = ( state, action ) => {
-    return updateObject( state, { loading: false } );
+const fetchOrdersFail = (state, action) => {
+  return updateObject(state, { loading: false });
 };
-
 ```
 
 index.js
 
 ```js
 export {
-    addIngredient,
-    removeIngredient,
-    initIngredients
-} from './burgerBuilder';
-export {
-    purchaseBurger,
-    purchaseInit,
-    fetchOrders
-} from './order';
+  addIngredient,
+  removeIngredient,
+  initIngredients
+} from "./burgerBuilder";
+export { purchaseBurger, purchaseInit, fetchOrders } from "./order";
 ```
 
 Orders.js
@@ -12822,8 +12752,8 @@ render () {
             </div>
         );
     }
-    
-    
+
+
 const mapStateToProps = state => {
     return {
         orders: state.order.orders,
@@ -12840,20 +12770,16 @@ const mapDispatchToProps = dispatch => {
 export default connect( mapStateToProps, mapDispatchToProps )( withErrorHandler( Orders, axios ) );
 ```
 
-
-
 ### 18. Checking our Implemented Functionalities
 
 order.js
 
 ```js
 // loading true mới đúng
-const purchaseBurgerStart = ( state, action ) => {
-    return updateObject( state, { loading: true } );
-}; 
+const purchaseBurgerStart = (state, action) => {
+  return updateObject(state, { loading: true });
+};
 ```
-
-
 
 ### 19. Refactoring Reducers
 
@@ -12867,11 +12793,9 @@ const purchaseBurgerStart = ( state, action ) => {
 
 ### 1. Module Introduction
 
-
-
 ### 2. Understanding Authentication in Single Page Applications
 
-![image-20200314163634561](./react-maximilan.assets/image-20200314163634561.png)  
+![image-20200314163634561](./react-maximilan.assets/image-20200314163634561.png)
 
 ![image-20200314163756208](./react-maximilan.assets/image-20200314163756208.png)
 
@@ -12884,135 +12808,142 @@ add container Auth folder
 Auth.js
 
 ```js
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
-import Input from '../../components/UI/Input/Input';
-import Button from '../../components/UI/Button/Button';
-import classes from './Auth.css';
-import * as actions from '../../store/actions/index';
+import Input from "../../components/UI/Input/Input";
+import Button from "../../components/UI/Button/Button";
+import classes from "./Auth.css";
+import * as actions from "../../store/actions/index";
 
 class Auth extends Component {
-    state = {
-        controls: {
-            email: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'email',
-                    placeholder: 'Mail Address'
-                },
-                value: '',
-                validation: {
-                    required: true,
-                    isEmail: true
-                },
-                valid: false,
-                touched: false
-            },
-            password: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'password',
-                    placeholder: 'Password'
-                },
-                value: '',
-                validation: {
-                    required: true,
-                    minLength: 6
-                },
-                valid: false,
-                touched: false
-            }
-        }
+  state = {
+    controls: {
+      email: {
+        elementType: "input",
+        elementConfig: {
+          type: "email",
+          placeholder: "Mail Address"
+        },
+        value: "",
+        validation: {
+          required: true,
+          isEmail: true
+        },
+        valid: false,
+        touched: false
+      },
+      password: {
+        elementType: "input",
+        elementConfig: {
+          type: "password",
+          placeholder: "Password"
+        },
+        value: "",
+        validation: {
+          required: true,
+          minLength: 6
+        },
+        valid: false,
+        touched: false
+      }
+    }
+  };
+
+  checkValidity(value, rules) {
+    let isValid = true;
+    if (!rules) {
+      return true;
     }
 
-    checkValidity(value, rules) {
-        let isValid = true;
-        if (!rules) {
-            return true;
-        }
-        
-        if (rules.required) {
-            isValid = value.trim() !== '' && isValid;
-        }
-
-        if (rules.minLength) {
-            isValid = value.length >= rules.minLength && isValid
-        }
-
-        if (rules.maxLength) {
-            isValid = value.length <= rules.maxLength && isValid
-        }
-
-        if (rules.isEmail) {
-            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-            isValid = pattern.test(value) && isValid
-        }
-
-        if (rules.isNumeric) {
-            const pattern = /^\d+$/;
-            isValid = pattern.test(value) && isValid
-        }
-
-        return isValid;
+    if (rules.required) {
+      isValid = value.trim() !== "" && isValid;
     }
 
-    inputChangedHandler = (event, controlName) => {
-        const updatedControls = {
-            ...this.state.controls,
-            [controlName]: {
-                ...this.state.controls[controlName],
-                value: event.target.value,
-                valid: this.checkValidity(event.target.value, this.state.controls[controlName].validation),
-                touched: true
-            }
-        };
-        this.setState({controls: updatedControls});
+    if (rules.minLength) {
+      isValid = value.length >= rules.minLength && isValid;
     }
 
-    // # 5
-    submitHandler = (event) => {
-        event.preventDefault();
-        this.props.onAuth(this.state.controls.email.value, this.state.controls.password.value);
+    if (rules.maxLength) {
+      isValid = value.length <= rules.maxLength && isValid;
     }
 
-    render () {
-        const formElementsArray = [];
-        for ( let key in this.state.controls ) {
-            formElementsArray.push( {
-                id: key,
-                config: this.state.controls[key]
-            } );
-        }
-
-        const form = formElementsArray.map( formElement => (
-            <Input
-                key={formElement.id}
-                elementType={formElement.config.elementType}
-                elementConfig={formElement.config.elementConfig}
-                value={formElement.config.value}
-                invalid={!formElement.config.valid}
-                shouldValidate={formElement.config.validation}
-                touched={formElement.config.touched}
-                changed={( event ) => this.inputChangedHandler( event, formElement.id )} />
-        ) );
-
-        return (
-            <div className={classes.Auth}>
-                <form onSubmit={this.submitHandler}>
-                    {form}
-                    <Button btnType="Success">SUBMIT</Button>
-                </form>
-            </div>
-        );
+    if (rules.isEmail) {
+      const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+      isValid = pattern.test(value) && isValid;
     }
+
+    if (rules.isNumeric) {
+      const pattern = /^\d+$/;
+      isValid = pattern.test(value) && isValid;
+    }
+
+    return isValid;
+  }
+
+  inputChangedHandler = (event, controlName) => {
+    const updatedControls = {
+      ...this.state.controls,
+      [controlName]: {
+        ...this.state.controls[controlName],
+        value: event.target.value,
+        valid: this.checkValidity(
+          event.target.value,
+          this.state.controls[controlName].validation
+        ),
+        touched: true
+      }
+    };
+    this.setState({ controls: updatedControls });
+  };
+
+  // # 5
+  submitHandler = event => {
+    event.preventDefault();
+    this.props.onAuth(
+      this.state.controls.email.value,
+      this.state.controls.password.value
+    );
+  };
+
+  render() {
+    const formElementsArray = [];
+    for (let key in this.state.controls) {
+      formElementsArray.push({
+        id: key,
+        config: this.state.controls[key]
+      });
+    }
+
+    const form = formElementsArray.map(formElement => (
+      <Input
+        key={formElement.id}
+        elementType={formElement.config.elementType}
+        elementConfig={formElement.config.elementConfig}
+        value={formElement.config.value}
+        invalid={!formElement.config.valid}
+        shouldValidate={formElement.config.validation}
+        touched={formElement.config.touched}
+        changed={event => this.inputChangedHandler(event, formElement.id)}
+      />
+    ));
+
+    return (
+      <div className={classes.Auth}>
+        <form onSubmit={this.submitHandler}>
+          {form}
+          <Button btnType="Success">SUBMIT</Button>
+        </form>
+      </div>
+    );
+  }
 }
 
 // #  5
 const mapDispatchToProps = dispatch => {
-    return {
-        onAuth: (email, password) => dispatch(actions.auth(email, password))
-    };
+  return {
+    onAuth: (email, password) => dispatch(actions.auth(email, password))
+  };
 };
 
 export default connect(null, mapDispatchToProps)(Auth);
@@ -13021,28 +12952,28 @@ export default connect(null, mapDispatchToProps)(Auth);
 App.js
 
 ```js
- <Layout>
-          <Switch>
-            <Route path="/checkout" component={Checkout} />
-            <Route path="/orders" component={Orders} />
-            <Route path="/auth" component={Auth} /> // add
-            <Route path="/" exact component={BurgerBuilder} />
-          </Switch>
-        </Layout>
+<Layout>
+  <Switch>
+    <Route path="/checkout" component={Checkout} />
+    <Route path="/orders" component={Orders} />
+    <Route path="/auth" component={Auth} /> // add
+    <Route path="/" exact component={BurgerBuilder} />
+  </Switch>
+</Layout>
 ```
 
 NavigationItems.js
 
 ```js
-
 const navigationItems = () => (
-    <ul className={classes.NavigationItems}>
-        <NavigationItem link="/" exact>Burger Builder</NavigationItem>
-        <NavigationItem link="/orders">Orders</NavigationItem>
-
-// add
-        <NavigationItem link="/auth">Authenticate</NavigationItem>
-    </ul>
+  <ul className={classes.NavigationItems}>
+    <NavigationItem link="/" exact>
+      Burger Builder
+    </NavigationItem>
+    <NavigationItem link="/orders">Orders</NavigationItem>
+    // add
+    <NavigationItem link="/auth">Authenticate</NavigationItem>
+  </ul>
 );
 ```
 
@@ -13053,60 +12984,54 @@ const navigationItems = () => (
 actionTypes.js
 
 ```js
-
-export const AUTH_START = 'AUTH_START';
-export const AUTH_SUCCESS = 'AUTH_SUCCESS';
-export const AUTH_FAIL = 'AUTH_FAIL';
+export const AUTH_START = "AUTH_START";
+export const AUTH_SUCCESS = "AUTH_SUCCESS";
+export const AUTH_FAIL = "AUTH_FAIL";
 ```
 
 auth.js
 
 ```js
-import * as actionTypes from './actionTypes';
+import * as actionTypes from "./actionTypes";
 
 export const authStart = () => {
-    return {
-        type: actionTypes.AUTH_START
-    };
+  return {
+    type: actionTypes.AUTH_START
+  };
 };
 
-export const authSuccess = (authData) => {
-    return {
-        type: actionTypes.AUTH_SUCCESS,
-        authData: authData
-    };
+export const authSuccess = authData => {
+  return {
+    type: actionTypes.AUTH_SUCCESS,
+    authData: authData
+  };
 };
 
-export const authFail = (error) => {
-    return {
-        type: actionTypes.AUTH_FAIL,
-        error: error
-    };
+export const authFail = error => {
+  return {
+    type: actionTypes.AUTH_FAIL,
+    error: error
+  };
 };
 
 export const auth = (email, password) => {
-    return dispatch => {
-        dispatch(authStart());
-    };
+  return dispatch => {
+    dispatch(authStart());
+  };
 };
 ```
 
 index.js
 
 ```js
-
-export {
-    auth
-} from './auth';
+export { auth } from "./auth";
 ```
-
-
 
 ### 6. Getting a Token from the Backend
 
-![image-20200314173525906](./react-maximilan.assets/image-20200314173525906.png)  
+![image-20200314173525906](./react-maximilan.assets/image-20200314173525906.png)
 
-![image-20200314173610158](./react-maximilan.assets/image-20200314173610158.png)  
+![image-20200314173610158](./react-maximilan.assets/image-20200314173610158.png)
 
 Enable email and password
 
@@ -13125,146 +13050,149 @@ https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=[AP
 store/auth.js
 
 ```js
-import axios from 'axios';
+import axios from "axios";
 
-import * as actionTypes from './actionTypes';
+import * as actionTypes from "./actionTypes";
 
 export const authStart = () => {
-    return {
-        type: actionTypes.AUTH_START
-    };
+  return {
+    type: actionTypes.AUTH_START
+  };
 };
 
 export const authSuccess = (token, userId) => {
-    return {
-        type: actionTypes.AUTH_SUCCESS,
-        idToken: token,
-        userId: userId
-    };
+  return {
+    type: actionTypes.AUTH_SUCCESS,
+    idToken: token,
+    userId: userId
+  };
 };
 
-export const authFail = (error) => {
-    return {
-        type: actionTypes.AUTH_FAIL,
-        error: error
-    };
+export const authFail = error => {
+  return {
+    type: actionTypes.AUTH_FAIL,
+    error: error
+  };
 };
 
 export const auth = (email, password, isSignup) => {
-    return dispatch => {
-        dispatch(authStart());
-        const authData = {
-            email: email,
-            password: password,
-            returnSecureToken: true
-        };
-        let url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyB5cHT6x62tTe-g27vBDIqWcwQWBSj3uiY';
-        
-        // # 7
-        if (!isSignup) {
-            url = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyB5cHT6x62tTe-g27vBDIqWcwQWBSj3uiY';
-        }
-        
-        axios.post(url, authData)
-            .then(response => {
-                console.log(response);
-                dispatch(authSuccess(response.data.idToken, response.data.localId));
-            })
-            .catch(err => {
-                console.log(err);
-                dispatch(authFail(err));
-            });
+  return dispatch => {
+    dispatch(authStart());
+    const authData = {
+      email: email,
+      password: password,
+      returnSecureToken: true
     };
+    let url =
+      "https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyB5cHT6x62tTe-g27vBDIqWcwQWBSj3uiY";
+
+    // # 7
+    if (!isSignup) {
+      url =
+        "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyB5cHT6x62tTe-g27vBDIqWcwQWBSj3uiY";
+    }
+
+    axios
+      .post(url, authData)
+      .then(response => {
+        console.log(response);
+        dispatch(authSuccess(response.data.idToken, response.data.localId));
+      })
+      .catch(err => {
+        console.log(err);
+        dispatch(authFail(err));
+      });
+  };
 };
 ```
 
 Copy web api key
 
-![image-20200314174433644](./react-maximilan.assets/image-20200314174433644.png)  
+![image-20200314174433644](./react-maximilan.assets/image-20200314174433644.png)
 
 Whether or not to return an ID and refresh token. Should always be true
 
 ![image-20200314174735421](./react-maximilan.assets/image-20200314174735421.png)
-
-
 
 ### 7. Adding Sign-In
 
 Auth.js
 
 ```js
+submitHandler = event => {
+  event.preventDefault();
+  // thêm isSignup
+  this.props.onAuth(
+    this.state.controls.email.value,
+    this.state.controls.password.value,
+    this.state.isSignup
+  );
+};
 
+switchAuthModeHandler = () => {
+  this.setState(prevState => {
+    return { isSignup: !prevState.isSignup };
+  });
+};
 
-    submitHandler = ( event ) => {
-        event.preventDefault();
-        // thêm isSignup
-        this.props.onAuth( this.state.controls.email.value, this.state.controls.password.value, this.state.isSignup );
-    }
-    
-    switchAuthModeHandler = () => {
-        this.setState(prevState => {
-            return {isSignup: !prevState.isSignup};
-        });
-    }
-
-<Button 
-                    clicked={this.switchAuthModeHandler}
-                    btnType="Danger">SWITCH TO {this.state.isSignup ? 'SIGNIN' : 'SIGNUP'}</Button>
-
+<Button clicked={this.switchAuthModeHandler} btnType="Danger">
+  SWITCH TO {this.state.isSignup ? "SIGNIN" : "SIGNUP"}
+</Button>;
 
 const mapDispatchToProps = dispatch => {
-    return {
-        onAuth: ( email, password, isSignup ) => dispatch( actions.auth( email, password, isSignup ) )
-    };
+  return {
+    onAuth: (email, password, isSignup) =>
+      dispatch(actions.auth(email, password, isSignup))
+  };
 };
 ```
-
-
 
 ### 8. Storing the Token
 
 create file reducer/auth.js
 
 ```js
-
-import * as actionTypes from '../actions/actionTypes';
-import { updateObject } from '../utility';
+import * as actionTypes from "../actions/actionTypes";
+import { updateObject } from "../utility";
 
 const initialState = {
-    token: null,
-    userId: null,
-    error: null,
-    loading: false
+  token: null,
+  userId: null,
+  error: null,
+  loading: false
 };
 
-const authStart = ( state, action ) => {
-    return updateObject( state, { error: null, loading: true } );
+const authStart = (state, action) => {
+  return updateObject(state, { error: null, loading: true });
 };
 
 const authSuccess = (state, action) => {
-    return updateObject( state, { 
-        token: action.idToken,
-        userId: action.userId,
-        error: null,
-        loading: false
-     } );
+  return updateObject(state, {
+    token: action.idToken,
+    userId: action.userId,
+    error: null,
+    loading: false
+  });
 };
 
 const authFail = (state, action) => {
-    return updateObject( state, {
-        error: action.error,
-        loading: false
-    });
-}
+  return updateObject(state, {
+    error: action.error,
+    loading: false
+  });
+};
 
-const reducer = ( state = initialState, action ) => {
-    switch ( action.type ) {
-        case actionTypes.AUTH_START: return authStart(state, action);
-        case actionTypes.AUTH_SUCCESS: return authSuccess(state, action);
-        case actionTypes.AUTH_FAIL: return authFail(state, action);
-        default:
-            return state;
-    }
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case actionTypes.AUTH_START:
+      return authStart(state, action);
+    case actionTypes.AUTH_SUCCESS:
+      return authSuccess(state, action);
+    case actionTypes.AUTH_FAIL:
+      return authFail(state, action);
+    default:
+      return state;
+  }
 };
 
 export default reducer;
@@ -13273,17 +13201,16 @@ export default reducer;
 index.js
 
 ```js
-
 const rootReducer = combineReducers({
-    burgerBuilder: burgerBuilderReducer,
-    order: orderReducer,
-    auth: authReducer
+  burgerBuilder: burgerBuilderReducer,
+  order: orderReducer,
+  auth: authReducer
 });
 
-const store = createStore(rootReducer, composeEnhancers(
-    applyMiddleware(thunk)
-));
-
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk))
+);
 ```
 
 action/auth.js
@@ -13326,9 +13253,7 @@ axios.post(url, authData)
             });
 ```
 
-![image-20200314213929228](./react-maximilan.assets/image-20200314213929228.png)  
-
-
+![image-20200314213929228](./react-maximilan.assets/image-20200314213929228.png)
 
 ### 9. Adding a Spinner
 
@@ -13337,25 +13262,24 @@ container/ Auth/ Auth.js
 ```js
 // add spinner
 if (this.props.loading) {
-            form = <Spinner />
-        }
+  form = <Spinner />;
+}
 
-        let errorMessage = null;
+let errorMessage = null;
 
-        if (this.props.error) {
-            errorMessage = (
-                // .message vì error từ firebase
-                <p>{this.props.error.message}</p>
-            );
-        }
-
+if (this.props.error) {
+  errorMessage = (
+    // .message vì error từ firebase
+    <p>{this.props.error.message}</p>
+  );
+}
 
 // add
 const mapStateToProps = state => {
-    return {
-        loading: state.auth.loading,
-        error: state.auth.error
-    };
+  return {
+    loading: state.auth.loading,
+    error: state.auth.error
+  };
 };
 ```
 
@@ -13366,17 +13290,18 @@ Khi nhập pass là 2 kí tự ấn đăng kí sẽ hiển thị để test
 action/auth.js
 
 ```js
-axios.post(url, authData)
-            .then(response => {
-                console.log(response);
-                dispatch(authSuccess(response.data.idToken, response.data.localId));
-               // # 10
+axios
+  .post(url, authData)
+  .then(response => {
+    console.log(response);
+    dispatch(authSuccess(response.data.idToken, response.data.localId));
+    // # 10
     dispatch(checkAuthTimeout(response.data.expiresIn));
-            })
-            .catch(err => {
+  })
+  .catch(err => {
     // add err.response.data.error
-                dispatch(authFail(err.response.data.error));
-            });
+    dispatch(authFail(err.response.data.error));
+  });
 ```
 
 Vd: invalid email or email exist, xem thêm err in docs firebase
@@ -13386,36 +13311,32 @@ Vd: invalid email or email exist, xem thêm err in docs firebase
 action/auth.js
 
 ```js
-
 export const logout = () => {
-    return {
-        type: actionTypes.AUTH_LOGOUT
-    };
+  return {
+    type: actionTypes.AUTH_LOGOUT
+  };
 };
 
-export const checkAuthTimeout = (expirationTime) => {
-    return dispatch => {
-        setTimeout(() => {
-            dispatch(logout());
-        }, expirationTime * 1000); // ms 3.6s
-    };
+export const checkAuthTimeout = expirationTime => {
+  return dispatch => {
+    setTimeout(() => {
+      dispatch(logout());
+    }, expirationTime * 1000); // ms 3.6s
+  };
 };
 ```
 
 reducer/auth
 
 ```js
-
 const authLogout = (state, action) => {
-    return updateObject(state, { token: null, userId: null });
+  return updateObject(state, { token: null, userId: null });
 };
 ```
 
-
-
 ### 11. Accessing Protected Resources
 
-![image-20200314220704425](./react-maximilan.assets/image-20200314220704425.png)  
+![image-20200314220704425](./react-maximilan.assets/image-20200314220704425.png)
 
 Nếu set như trên sẽ apply all database
 
@@ -13423,48 +13344,49 @@ Nhưng thực tế thì ingredients thì cần cho everyone access và order dà
 
 ![image-20200314221043778](./react-maximilan.assets/image-20200314221043778.png)
 
-![image-20200314221152358](./react-maximilan.assets/image-20200314221152358.png)  
+![image-20200314221152358](./react-maximilan.assets/image-20200314221152358.png)
 
 Sửa như bên trên thêm dấu ,
 
 action/order.js
 
 ```js
-
-export const purchaseBurger = ( orderData, token ) => {
-    return dispatch => {
-        dispatch( purchaseBurgerStart() );
-        // add token
-        axios.post( '/orders.json?auth=' + token, orderData )
-            .then( response => {
-                console.log( response.data );
-                dispatch( purchaseBurgerSuccess( response.data.name, orderData ) );
-            } )
-            .catch( error => {
-                dispatch( purchaseBurgerFail( error ) );
-            } );
-    };
+export const purchaseBurger = (orderData, token) => {
+  return dispatch => {
+    dispatch(purchaseBurgerStart());
+    // add token
+    axios
+      .post("/orders.json?auth=" + token, orderData)
+      .then(response => {
+        console.log(response.data);
+        dispatch(purchaseBurgerSuccess(response.data.name, orderData));
+      })
+      .catch(error => {
+        dispatch(purchaseBurgerFail(error));
+      });
+  };
 };
 
 // add token
-export const fetchOrders = (token) => {
-    return dispatch => {
-        dispatch(fetchOrdersStart());
-        axios.get( '/orders.json?auth=' + token)
-            .then( res => {
-                const fetchedOrders = [];
-                for ( let key in res.data ) {
-                    fetchedOrders.push( {
-                        ...res.data[key],
-                        id: key
-                    } );
-                }
-                dispatch(fetchOrdersSuccess(fetchedOrders));
-            } )
-            .catch( err => {
-                dispatch(fetchOrdersFail(err));
-            } );
-    };
+export const fetchOrders = token => {
+  return dispatch => {
+    dispatch(fetchOrdersStart());
+    axios
+      .get("/orders.json?auth=" + token)
+      .then(res => {
+        const fetchedOrders = [];
+        for (let key in res.data) {
+          fetchedOrders.push({
+            ...res.data[key],
+            id: key
+          });
+        }
+        dispatch(fetchOrdersSuccess(fetchedOrders));
+      })
+      .catch(err => {
+        dispatch(fetchOrdersFail(err));
+      });
+  };
 };
 ```
 
@@ -13477,8 +13399,8 @@ class Orders extends Component {
     componentDidMount () {
         this.props.onFetchOrders(this.props.token);
     }
-    
-   
+
+
 const mapStateToProps = state => {
     return {
         orders: state.order.orders,
@@ -13531,76 +13453,78 @@ hoc/Layout.js
 
 ```js
 <Toolbar
-// add props
-                    isAuth={this.props.isAuthenticated}
-                    drawerToggleClicked={this.sideDrawerToggleHandler} />
-                        
-                        
+  // add props
+  isAuth={this.props.isAuthenticated}
+  drawerToggleClicked={this.sideDrawerToggleHandler}
+/>;
+
 // add
 const mapStateToProps = state => {
-    return {
-        isAuthenticated: state.auth.token !== null
-    };
+  return {
+    isAuthenticated: state.auth.token !== null
+  };
 };
 
-export default connect( mapStateToProps )( Layout );
+export default connect(mapStateToProps)(Layout);
 ```
 
 ToolBar.js
 
 ```js
 <nav className={classes.DesktopOnly}>
-            <NavigationItems isAuthenticated={props.isAuth} />
-        </nav>
+  <NavigationItems isAuthenticated={props.isAuth} />
+</nav>
 ```
 
 NavigationItems.js
 
 ```js
-
-const navigationItems = ( props ) => (
-    <ul className={classes.NavigationItems}>
-        <NavigationItem link="/" exact>Burger Builder</NavigationItem>
-       // # 14
-       {props.isAuthenticated ? <NavigationItem link="/orders">Orders</NavigationItem> : null}
-        
-        /// add
-        {!props.isAuthenticated
-            ? <NavigationItem link="/auth">Authenticate</NavigationItem>
-            : <NavigationItem link="/logout">Logout</NavigationItem>}
-    </ul>
+const navigationItems = props => (
+  <ul className={classes.NavigationItems}>
+    <NavigationItem link="/" exact>
+      Burger Builder
+    </NavigationItem>
+    // # 14
+    {props.isAuthenticated ? (
+      <NavigationItem link="/orders">Orders</NavigationItem>
+    ) : null}
+    /// add
+    {!props.isAuthenticated ? (
+      <NavigationItem link="/auth">Authenticate</NavigationItem>
+    ) : (
+      <NavigationItem link="/logout">Logout</NavigationItem>
+    )}
+  </ul>
 );
 
 export default navigationItems;
 ```
-
-
 
 ### 13. Adding a Logout Link
 
 container/Logout/Logout.js create
 
 ```js
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 
-import * as actions from '../../../store/actions/index';
+import * as actions from "../../../store/actions/index";
 
 class Logout extends Component {
-    componentDidMount () {
-        this.props.onLogout();
-    }
+  componentDidMount() {
+    this.props.onLogout();
+  }
 
-    render () {
-        return <Redirect to="/"/>;
-    }
+  render() {
+    return <Redirect to="/" />;
+  }
 }
 
 const mapDispatchToProps = dispatch => {
-    return {
-        onLogout: () => dispatch(actions.logout())
-    };
+  return {
+    onLogout: () => dispatch(actions.logout())
+  };
 };
 
 export default connect(null, mapDispatchToProps)(Logout);
@@ -13609,16 +13533,14 @@ export default connect(null, mapDispatchToProps)(Logout);
 action/auth.js
 
 ```js
-
 export const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('expirationDate');
-    localStorage.removeItem('userId');
-    return {
-        type: actionTypes.AUTH_LOGOUT
-    };
+  localStorage.removeItem("token");
+  localStorage.removeItem("expirationDate");
+  localStorage.removeItem("userId");
+  return {
+    type: actionTypes.AUTH_LOGOUT
+  };
 };
-
 ```
 
 export logout in index.js
@@ -13627,41 +13549,45 @@ App.js
 
 ```js
 routes = (
-        <Switch>
-          <Route path="/checkout" component={Checkout} />
-          <Route path="/orders" component={Orders} />
-              // add
-          <Route path="/logout" component={Logout} />
-          <Route path="/" exact component={BurgerBuilder} />
-          <Redirect to="/" />
-        </Switch>
-      );
+  <Switch>
+    <Route path="/checkout" component={Checkout} />
+    <Route path="/orders" component={Orders} />
+    // add
+    <Route path="/logout" component={Logout} />
+    <Route path="/" exact component={BurgerBuilder} />
+    <Redirect to="/" />
+  </Switch>
+);
 ```
 
-
-
 ### 14. Forwarding Unauthenticated Users
+
 NavigationItems.js
 
 ```js
-
-const navigationItems = ( props ) => (
-    <ul className={classes.NavigationItems}>
-        <NavigationItem link="/" exact>Burger Builder</NavigationItem>
-        // add start
-        {props.isAuthenticated ? <NavigationItem link="/orders">Orders</NavigationItem> : null}
-        // add end
-        
-        {!props.isAuthenticated
-            ? <NavigationItem link="/auth">Authenticate</NavigationItem>
-            : <NavigationItem link="/logout">Logout</NavigationItem>}
-    </ul>
+const navigationItems = props => (
+  <ul className={classes.NavigationItems}>
+    <NavigationItem link="/" exact>
+      Burger Builder
+    </NavigationItem>
+    // add start
+    {props.isAuthenticated ? (
+      <NavigationItem link="/orders">Orders</NavigationItem>
+    ) : null}
+    // add end
+    {!props.isAuthenticated ? (
+      <NavigationItem link="/auth">Authenticate</NavigationItem>
+    ) : (
+      <NavigationItem link="/logout">Logout</NavigationItem>
+    )}
+  </ul>
 );
 
 export default navigationItems;
 ```
 
 container/Auth/Auth.js xem lại video chỗ check Redirect có khác
+
 ```js
 // add
         let authRedirect = null;
@@ -13673,7 +13599,7 @@ container/Auth/Auth.js xem lại video chỗ check Redirect có khác
          <div className={classes.Auth}>
                 {authRedirect}
         ....
-        
+
 const mapStateToProps = state => {
     return {
         loading: state.auth.loading,
@@ -13685,48 +13611,51 @@ const mapStateToProps = state => {
 
 
 ```
+
 Ấn vào thì sau khi login sẽ vào trang chủ
 
 burgerBuilder.js
-```js
 
-    purchaseHandler = () => {
-    // add
-        if (this.props.isAuthenticated) {
-            this.setState( { purchasing: true } );
-        } else {
-            this.props.onSetAuthRedirectPath('/checkout');
-            this.props.history.push('/auth');
-        }
-    }
-    
+```js
+purchaseHandler = () => {
+  // add
+  if (this.props.isAuthenticated) {
+    this.setState({ purchasing: true });
+  } else {
+    this.props.onSetAuthRedirectPath("/checkout");
+    this.props.history.push("/auth");
+  }
+};
+
 purchaseContinueHandler = () => {
-        this.props.onInitPurchase();
-        this.props.history.push('/checkout'); // add
-    }
-    
- <BuildControls
-                        ingredientAdded={this.props.onIngredientAdded}
-                        ingredientRemoved={this.props.onIngredientRemoved}
-                        disabled={disabledInfo}
-                        purchasable={this.updatePurchaseState(this.props.ings)}
-                        ordered={this.purchaseHandler}
-                        // add
-                        isAuth={this.props.isAuthenticated}
-                        price={this.props.price} />
-                        
-                        
+  this.props.onInitPurchase();
+  this.props.history.push("/checkout"); // add
+};
+
+<BuildControls
+  ingredientAdded={this.props.onIngredientAdded}
+  ingredientRemoved={this.props.onIngredientRemoved}
+  disabled={disabledInfo}
+  purchasable={this.updatePurchaseState(this.props.ings)}
+  ordered={this.purchaseHandler}
+  // add
+  isAuth={this.props.isAuthenticated}
+  price={this.props.price}
+/>;
+
 const mapStateToProps = state => {
-    return {
-        ings: state.burgerBuilder.ingredients,
-        price: state.burgerBuilder.totalPrice,
-        error: state.burgerBuilder.error,
-        // add
-        isAuthenticated: state.auth.token !== null
-    };
-}
+  return {
+    ings: state.burgerBuilder.ingredients,
+    price: state.burgerBuilder.totalPrice,
+    error: state.burgerBuilder.error,
+    // add
+    isAuthenticated: state.auth.token !== null
+  };
+};
 ```
+
 buildControls.js
+
 ```js
         <button
             className={classes.OrderButton}
@@ -13744,92 +13673,89 @@ export default buildControls;
 reducer/ BurgerBuilder.js add building
 
 ```js
-
 const initialState = {
-    ingredients: null,
-    totalPrice: 4,
-    error: false,
-    building: false // add
+  ingredients: null,
+  totalPrice: 4,
+  error: false,
+  building: false // add
 };
 
-
-const addIngredient = ( state, action ) => {
-    const updatedIngredient = { [action.ingredientName]: state.ingredients[action.ingredientName] + 1 }
-    const updatedIngredients = updateObject( state.ingredients, updatedIngredient );
-    const updatedState = {
-        ingredients: updatedIngredients,
-        totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName],
-        building: true // add
-    }
-    return updateObject( state, updatedState );
+const addIngredient = (state, action) => {
+  const updatedIngredient = {
+    [action.ingredientName]: state.ingredients[action.ingredientName] + 1
+  };
+  const updatedIngredients = updateObject(state.ingredients, updatedIngredient);
+  const updatedState = {
+    ingredients: updatedIngredients,
+    totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName],
+    building: true // add
+  };
+  return updateObject(state, updatedState);
 };
 
 const removeIngredient = (state, action) => {
-    const updatedIng = { [action.ingredientName]: state.ingredients[action.ingredientName] - 1 }
-    const updatedIngs = updateObject( state.ingredients, updatedIng );
-    const updatedSt = {
-        ingredients: updatedIngs,
-        totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName],
-        building: true // add
-    }
-    return updateObject( state, updatedSt );
+  const updatedIng = {
+    [action.ingredientName]: state.ingredients[action.ingredientName] - 1
+  };
+  const updatedIngs = updateObject(state.ingredients, updatedIng);
+  const updatedSt = {
+    ingredients: updatedIngs,
+    totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName],
+    building: true // add
+  };
+  return updateObject(state, updatedSt);
 };
 
 const setIngredients = (state, action) => {
-    return updateObject( state, {
-        ingredients: {
-            salad: action.ingredients.salad,
-            bacon: action.ingredients.bacon,
-            cheese: action.ingredients.cheese,
-            meat: action.ingredients.meat
-        },
-        totalPrice: 4,
-        error: false,
-        building: false // add
-    } );
+  return updateObject(state, {
+    ingredients: {
+      salad: action.ingredients.salad,
+      bacon: action.ingredients.bacon,
+      cheese: action.ingredients.cheese,
+      meat: action.ingredients.meat
+    },
+    totalPrice: 4,
+    error: false,
+    building: false // add
+  });
 };
 ```
 
 Auth.js
 
 ```js
-
-        let authRedirect = null;
-        if (this.props.isAuthenticated) {
-            // redirect
-            authRedirect = <Redirect to={this.props.authRedirectPath}/>
-        }
+let authRedirect = null;
+if (this.props.isAuthenticated) {
+  // redirect
+  authRedirect = <Redirect to={this.props.authRedirectPath} />;
+}
 ```
 
 reducer/ auth.js
 
 ```js
-
 const initialState = {
-    token: null,
-    userId: null,
-    error: null,
-    loading: false,
-    // add
-    authRedirectPath: '/'
+  token: null,
+  userId: null,
+  error: null,
+  loading: false,
+  // add
+  authRedirectPath: "/"
 };
 
-
 const setAuthRedirectPath = (state, action) => {
-    return updateObject(state, { authRedirectPath: action.path })
-}
-
+  return updateObject(state, { authRedirectPath: action.path });
+};
 ```
 
 action/ auth.js
 
 ```js
-
-export const setAuthRedirectPath = (path) => {
-    return {
-        type: actionTypes.SET_AUTH_REDIRECT_PATH,
-        path: path
-    };
+export const setAuthRedirectPath = path => {
+  return {
+    type: actionTypes.SET_AUTH_REDIRECT_PATH,
+    path: path
+  };
 };
 ```
 
@@ -13884,8 +13810,6 @@ const mapDispatchToProps = dispatch => {
 }
 ```
 
-
-
 ### 16. Persistent Auth State with localStorage
 
 Khi login xong reload page => mất auth
@@ -13893,49 +13817,53 @@ Khi login xong reload page => mất auth
 action/auth.js
 
 ```js
-axios.post(url, authData)
-            .then(response => {
-                console.log(response);
-                const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
-    // add
-                localStorage.setItem('token', response.data.idToken);
-                localStorage.setItem('expirationDate', expirationDate);
-                localStorage.setItem('userId', response.data.localId);
-                dispatch(authSuccess(response.data.idToken, response.data.localId));
-                dispatch(checkAuthTimeout(response.data.expiresIn));
-            })
-
+axios.post(url, authData).then(response => {
+  console.log(response);
+  const expirationDate = new Date(
+    new Date().getTime() + response.data.expiresIn * 1000
+  );
+  // add
+  localStorage.setItem("token", response.data.idToken);
+  localStorage.setItem("expirationDate", expirationDate);
+  localStorage.setItem("userId", response.data.localId);
+  dispatch(authSuccess(response.data.idToken, response.data.localId));
+  dispatch(checkAuthTimeout(response.data.expiresIn));
+});
 
 export const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('expirationDate');
-    localStorage.removeItem('userId');
-    return {
-        type: actionTypes.AUTH_LOGOUT
-    };
+  localStorage.removeItem("token");
+  localStorage.removeItem("expirationDate");
+  localStorage.removeItem("userId");
+  return {
+    type: actionTypes.AUTH_LOGOUT
+  };
 };
 
 // add
 export const authCheckState = () => {
-    return dispatch => {
-        const token = localStorage.getItem('token');
-        if (!token) {
-            dispatch(logout());
-        } else {
-            const expirationDate = new Date(localStorage.getItem('expirationDate'));
-            if (expirationDate <= new Date()) {
-                dispatch(logout());
-            } else {
-                const userId = localStorage.getItem('userId');
-                dispatch(authSuccess(token, userId));
-                dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000 ));
-            }   
-        }
-    };
+  return dispatch => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      dispatch(logout());
+    } else {
+      const expirationDate = new Date(localStorage.getItem("expirationDate"));
+      if (expirationDate <= new Date()) {
+        dispatch(logout());
+      } else {
+        const userId = localStorage.getItem("userId");
+        dispatch(authSuccess(token, userId));
+        dispatch(
+          checkAuthTimeout(
+            (expirationDate.getTime() - new Date().getTime()) / 1000
+          )
+        );
+      }
+    }
+  };
 };
 ```
 
-![image-20200315073201533](./react-maximilan.assets/image-20200315073201533.png)  
+![image-20200315073201533](./react-maximilan.assets/image-20200315073201533.png)
 
 Document firebase có get user info khi truyền vào user id
 
@@ -13947,7 +13875,7 @@ class App extends Component {
   componentDidMount () {
     this.props.onTryAutoSignup();
   }
-    
+
 ...
 
 const mapStateToProps = state => {
@@ -13969,21 +13897,19 @@ withRouter will enforce your props pass down component
 
 ### 17. Fixing Connect + Routing Errors
 
-Khi log in reload page 
+Khi log in reload page
 
-![image-20200315074911458](./react-maximilan.assets/image-20200315074911458.png)  
+![image-20200315074911458](./react-maximilan.assets/image-20200315074911458.png)
 
-if (expirationDate <= new Date()) 
+if (expirationDate <= new Date())
 
-![image-20200315075149626](./react-maximilan.assets/image-20200315075149626.png)  
+![image-20200315075149626](./react-maximilan.assets/image-20200315075149626.png)
 
 ### 18. Ensuring App Security
 
-![image-20200315080511543](./react-maximilan.assets/image-20200315080511543.png)  
+![image-20200315080511543](./react-maximilan.assets/image-20200315080511543.png)
 
-![image-20200315080610923](./react-maximilan.assets/image-20200315080610923.png)  
-
-
+![image-20200315080610923](./react-maximilan.assets/image-20200315080610923.png)
 
 https://firebase.google.com/docs/reference/rest/auth
 
@@ -14030,31 +13956,28 @@ render () {
     }
 ```
 
-
-
 ### 20. Displaying User Specific Orders
 
 ContactData.js
 
 ```js
+const order = {
+  ingredients: this.props.ings,
+  price: this.props.price,
+  orderData: formData,
+  userId: this.props.userId // add
+};
 
-        const order = {
-            ingredients: this.props.ings,
-            price: this.props.price,
-            orderData: formData,
-            userId: this.props.userId // add
-        }
-
-        this.props.onOrderBurger(order, this.props.token);
+this.props.onOrderBurger(order, this.props.token);
 
 const mapStateToProps = state => {
-    return {
-        ings: state.burgerBuilder.ingredients,
-        price: state.burgerBuilder.totalPrice,
-        loading: state.order.loading,
-        token: state.auth.token,
-        userId: state.auth.userId // add
-    }
+  return {
+    ings: state.burgerBuilder.ingredients,
+    price: state.burgerBuilder.totalPrice,
+    loading: state.order.loading,
+    token: state.auth.token,
+    userId: state.auth.userId // add
+  };
 };
 ```
 
@@ -14063,27 +13986,28 @@ we visit orders, you will get order of that user
 order.js
 
 ```js
-
 export const fetchOrders = (token, userId) => {
-    return dispatch => {
-        dispatch(fetchOrdersStart());
-        // add
-        const queryParams = '?auth=' + token + '&orderBy="userId"&equalTo="' + userId + '"';
-        axios.get( '/orders.json' + queryParams)
-            .then( res => {
-                const fetchedOrders = [];
-                for ( let key in res.data ) {
-                    fetchedOrders.push( {
-                        ...res.data[key],
-                        id: key
-                    } );
-                }
-                dispatch(fetchOrdersSuccess(fetchedOrders));
-            } )
-            .catch( err => {
-                dispatch(fetchOrdersFail(err));
-            } );
-    };
+  return dispatch => {
+    dispatch(fetchOrdersStart());
+    // add
+    const queryParams =
+      "?auth=" + token + '&orderBy="userId"&equalTo="' + userId + '"';
+    axios
+      .get("/orders.json" + queryParams)
+      .then(res => {
+        const fetchedOrders = [];
+        for (let key in res.data) {
+          fetchedOrders.push({
+            ...res.data[key],
+            id: key
+          });
+        }
+        dispatch(fetchOrdersSuccess(fetchedOrders));
+      })
+      .catch(err => {
+        dispatch(fetchOrdersFail(err));
+      });
+  };
 };
 ```
 
@@ -14104,7 +14028,7 @@ componentDidMount () {
 ### 22. Useful Resources & Links.html
 
 - SPA Authentication in general: https://stormpath.com/blog/token-auth-spa
-- Firebase authentication REST API: https://firebase.google.com/docs/reference/rest/auth/ 
+- Firebase authentication REST API: https://firebase.google.com/docs/reference/rest/auth/
 
 ## 19. Improving our Burger Project
 
@@ -14115,9 +14039,8 @@ componentDidMount () {
 reducer/ order.js
 
 ```js
-
-const fetchOrdersStart = ( state, action ) => {
-    return updateObject( state, { loading: true } );
+const fetchOrdersStart = (state, action) => {
+  return updateObject(state, { loading: true });
 };
 ```
 
@@ -14143,8 +14066,6 @@ SideDrawer.js
      <div className={attachedClasses.join(' ')} onClick={props.closed}>
 ```
 
-
-
 ### 3. Using updateObject in the Entire App
 
 create folder share/utility.js
@@ -14153,7 +14074,7 @@ ContactData.js sửa thành UpdateObject
 
 ```js
 inputChangedHandler = (event, inputIdentifier) => {
-        /*
+  /*
         const updatedOrderForm = {
             ...this.state.orderForm
         };
@@ -14165,22 +14086,27 @@ inputChangedHandler = (event, inputIdentifier) => {
         updatedFormElement.touched = true;
         updatedOrderForm[inputIdentifier] = updatedFormElement;
         */
-        const updatedFormElement = updateObject(this.state.orderForm[inputIdentifier], {
-            value: event.target.value,
-            valid: checkValidity(event.target.value, this.state.orderForm[inputIdentifier].validation),
-            touched: true
-        });
-        const updatedOrderForm = updateObject(this.state.orderForm, {
-            [inputIdentifier]: updatedFormElement
-        });
-        
-        let formIsValid = true;
-        for (let inputIdentifier in updatedOrderForm) {
-            formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
-        }
-        this.setState({orderForm: updatedOrderForm, formIsValid: formIsValid});
+  const updatedFormElement = updateObject(
+    this.state.orderForm[inputIdentifier],
+    {
+      value: event.target.value,
+      valid: checkValidity(
+        event.target.value,
+        this.state.orderForm[inputIdentifier].validation
+      ),
+      touched: true
     }
+  );
+  const updatedOrderForm = updateObject(this.state.orderForm, {
+    [inputIdentifier]: updatedFormElement
+  });
 
+  let formIsValid = true;
+  for (let inputIdentifier in updatedOrderForm) {
+    formIsValid = updatedOrderForm[inputIdentifier].valid && formIsValid;
+  }
+  this.setState({ orderForm: updatedOrderForm, formIsValid: formIsValid });
+};
 ```
 
 http://es6-features.org/#Constants
@@ -14203,20 +14129,20 @@ Auth.js
     
     */
 
-
-    inputChangedHandler = ( event, controlName ) => {
-        const updatedControls = updateObject( this.state.controls, {
-            [controlName]: updateObject( this.state.controls[controlName], {
-                value: event.target.value,
-                valid: checkValidity( event.target.value, this.state.controls[controlName].validation ),
-                touched: true
-            } )
-        } );
-        this.setState( { controls: updatedControls } );
-    }
+inputChangedHandler = (event, controlName) => {
+  const updatedControls = updateObject(this.state.controls, {
+    [controlName]: updateObject(this.state.controls[controlName], {
+      value: event.target.value,
+      valid: checkValidity(
+        event.target.value,
+        this.state.controls[controlName].validation
+      ),
+      touched: true
+    })
+  });
+  this.setState({ controls: updatedControls });
+};
 ```
-
-
 
 ### 4. Sharing the Validation Method
 
@@ -14224,22 +14150,20 @@ utility.js
 
 ```js
 
-export const checkValidity 
+export const checkValidity
 // copy hàm qua từ ContactData and Auth
 ```
-
-
 
 ### 5. Using Environment Variables
 
 index.js
 
 ```js
-const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
-
+const composeEnhancers =
+  process.env.NODE_ENV === "development"
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    : null || compose;
 ```
-
-
 
 ### 6. Removing console.log()s
 
@@ -14248,28 +14172,27 @@ const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX
 hoc/asyncComponent/asyncComponent.js
 
 ```js
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-const asyncComponent = (importComponent) => {
-    return class extends Component {
-        state = {
-            component: null
-        }
+const asyncComponent = importComponent => {
+  return class extends Component {
+    state = {
+      component: null
+    };
 
-        componentDidMount () {
-            importComponent()
-                .then(cmp => {
-                    this.setState({component: cmp.default});
-                });
-        }
-        
-        render () {
-            const C = this.state.component;
-
-            return C ? <C {...this.props} /> : null;
-        }
+    componentDidMount() {
+      importComponent().then(cmp => {
+        this.setState({ component: cmp.default });
+      });
     }
-}
+
+    render() {
+      const C = this.state.component;
+
+      return C ? <C {...this.props} /> : null;
+    }
+  };
+};
 
 export default asyncComponent;
 ```
@@ -14319,8 +14242,6 @@ const asyncAuth = asyncComponent(() => {
 
 ```
 
-
-
 ### 8. Wrap Up
 
 ### 9. Useful Resources & Links.html
@@ -14329,7 +14250,7 @@ const asyncAuth = asyncComponent(() => {
 
 ### 1. Module Introduction
 
-### 
+###
 
 ### 2. What is Testing
 
@@ -14380,11 +14301,11 @@ Bây giờ bạn sẽ có build folder
 
 ### 4. Example Deploying on Firebase
 
-![image-20200315143502000](./react-maximilan.assets/image-20200315143502000.png)  
+![image-20200315143502000](./react-maximilan.assets/image-20200315143502000.png)
 
 npm install -g firebase-tools
 
-![image-20200315143655433](./react-maximilan.assets/image-20200315143655433.png)  
+![image-20200315143655433](./react-maximilan.assets/image-20200315143655433.png)
 
 Khi init nhớ chọn hosting, ấn space to select
 
@@ -14406,7 +14327,7 @@ Pagination
 
 ### 2. Important Use Webpack 3.html
 
-Important: When installing Webpack (we'll do that in one of the next lectures), run `npm install --save-dev webpack@3` because the latest version (version 4) has a slightly different syntax. 
+Important: When installing Webpack (we'll do that in one of the next lectures), run `npm install --save-dev webpack@3` because the latest version (version 4) has a slightly different syntax.
 
 So for the same config & code as shown in the videos to work for you, you need version 3.
 
@@ -14414,9 +14335,7 @@ If you want to update to Webpack 4.x, the following migration guide should help:
 
 ### 3. Introducing Webpack
 
-![image-20200315223428242](./react-maximilan.assets/image-20200315223428242.png)  
-
-
+![image-20200315223428242](./react-maximilan.assets/image-20200315223428242.png)
 
 ### 4. How Webpack works
 
@@ -14441,7 +14360,7 @@ node_modules
 RUN
 
 ```shell
-npm init 
+npm init
 # Tạo ra file package.json
 npm install --save-dev webpack webpack-dev-server
 ```
@@ -14457,15 +14376,15 @@ https://toidicode.com/hoc-ecmascript?fbclid=IwAR3Ml9cUoDb1xxLzESwG3KW7aRodR--ev2
 PizzaImage.js
 
 ```js
-import React from 'react';
+import React from "react";
 
-import classes from './PizzaImage.css';
-import PizzaImage from '../../assets/pizza.jpg';
+import classes from "./PizzaImage.css";
+import PizzaImage from "../../assets/pizza.jpg";
 
-const pizzaImage = (props) => (
-    <div className={classes.PizzaImage}>
-        <img src={PizzaImage} className={classes.PizzaImg} />
-    </div>
+const pizzaImage = props => (
+  <div className={classes.PizzaImage}>
+    <img src={PizzaImage} className={classes.PizzaImg} />
+  </div>
 );
 
 export default pizzaImage;
@@ -14474,19 +14393,19 @@ export default pizzaImage;
 Pizza.js
 
 ```js
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import PizzaImage from '../components/PizzaImage/PizzaImage';
+import PizzaImage from "../components/PizzaImage/PizzaImage";
 
 class Pizza extends Component {
-    render () {
-        return (
-            <div>
-                <h1>The Pizza</h1>
-                <PizzaImage />
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <h1>The Pizza</h1>
+        <PizzaImage />
+      </div>
+    );
+  }
 }
 
 export default Pizza;
@@ -14495,54 +14414,51 @@ export default Pizza;
 App.js
 
 ```js
-import React, { Component } from 'react';
-import { Link, Route } from 'react-router-dom';
+import React, { Component } from "react";
+import { Link, Route } from "react-router-dom";
 
-import Users from './containers/Users';
-import asyncComponent from './hoc/asyncComponent';
+import Users from "./containers/Users";
+import asyncComponent from "./hoc/asyncComponent";
 
 const AsyncPizza = asyncComponent(() => {
-    return import('./containers/Pizza.js');
+  return import("./containers/Pizza.js");
 });
 
 class App extends Component {
-    render () {
-        return (
-            <div>
-                <div>
-                    <Link to="/">Users</Link> |
-                    <Link to="/pizza">Pizza</Link>
-                </div>
-                <div>
-                    <Route path="/" exact component={Users} />
-                    <Route path="/pizza" component={AsyncPizza} />
-                </div>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <div>
+          <Link to="/">Users</Link> |<Link to="/pizza">Pizza</Link>
+        </div>
+        <div>
+          <Route path="/" exact component={Users} />
+          <Route path="/pizza" component={AsyncPizza} />
+        </div>
+      </div>
+    );
+  }
 }
 ```
 
 index.js
 
 ```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
 
-import './index.css';
-import App from './App';
+import "./index.css";
+import App from "./App";
 
 const app = (
-    <BrowserRouter>
-        <App />
-    </BrowserRouter>
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
 );
 
-ReactDOM.render(app, document.getElementById('root'));
+ReactDOM.render(app, document.getElementById("root"));
 ```
-
-
 
 ### 9. Installing Production Dependencies
 
@@ -14553,81 +14469,74 @@ npm install --save react-dom react-router-dom
 webpack.config.js
 
 ```js
-const path = require('path');
-const autoprefixer = require('autoprefixer');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require("path");
+const autoprefixer = require("autoprefixer");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-    devtool: 'cheap-module-eval-source-map',
-    entry: './src/index.js',
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js',
-        chunkFilename: '[id].js',
-        publicPath: ''
-    },
-   // 11
-    resolve: {
-        extensions: ['.js', '.jsx']
-    },
+  devtool: "cheap-module-eval-source-map",
+  entry: "./src/index.js",
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "bundle.js",
+    chunkFilename: "[id].js",
+    publicPath: ""
+  },
+  // 11
+  resolve: {
+    extensions: [".js", ".jsx"]
+  },
 
-    module: {
-        rules: [
-            {
-                test: /\.js$/,
-                loader: 'babel-loader', // # 12
-                exclude: /node_modules/
-            },
-            {
-                test: /\.css$/,
-                exclude: /node_modules/,
-                use: [
-                    { loader: 'style-loader' },
-                    { 
-                        loader: 'css-loader', // understand css import
-                        options: {
-                            importLoaders: 1,
-                            modules: true,
-                            localIdentName: '[name]__[local]__[hash:base64:5]'
-                        }
-                     },
-                     { 
-                         loader: 'postcss-loader',
-                         options: {
-                             ident: 'postcss',
-                             plugins: () => [
-                                 autoprefixer({
-                                     browsers: [
-                                        "> 1%",
-                                        "last 2 versions"
-                                     ]
-                                 })
-                             ]
-                         }
-                      }
-                ]
-            },
-            {
-                test: /\.(png|jpe?g|gif)$/,
-                loader: 'url-loader?limit=8000&name=images/[name].[ext]'
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        loader: "babel-loader", // # 12
+        exclude: /node_modules/
+      },
+      {
+        test: /\.css$/,
+        exclude: /node_modules/,
+        use: [
+          { loader: "style-loader" },
+          {
+            loader: "css-loader", // understand css import
+            options: {
+              importLoaders: 1,
+              modules: true,
+              localIdentName: "[name]__[local]__[hash:base64:5]"
             }
+          },
+          {
+            loader: "postcss-loader",
+            options: {
+              ident: "postcss",
+              plugins: () => [
+                autoprefixer({
+                  browsers: ["> 1%", "last 2 versions"]
+                })
+              ]
+            }
+          }
         ]
-    },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: __dirname + '/src/index.html',
-            filename: 'index.html',
-            inject: 'body'
-        })
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/,
+        loader: "url-loader?limit=8000&name=images/[name].[ext]"
+      }
     ]
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: __dirname + "/src/index.html",
+      filename: "index.html",
+      inject: "body"
+    })
+  ]
 };
 ```
 
-
-
 ### 11. Adding File Rules
-
-
 
 ### 12. Introducing Babel
 
@@ -14659,7 +14568,7 @@ targets: which browser version I want to support
 
 ### 13. Adding CSS File Support
 
-npm install --save-dev css-loader  style-loader postcss-loader autoprefixer
+npm install --save-dev css-loader style-loader postcss-loader autoprefixer
 
 Đối với use apply từ dưới lên trên: css-loader => style css loader
 
@@ -14743,74 +14652,71 @@ package.json
 webpack.prod.config.js
 
 ```js
-const path = require('path');
-const autoprefixer = require('autoprefixer');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const webpack = require('webpack');
+const path = require("path");
+const autoprefixer = require("autoprefixer");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const webpack = require("webpack");
 
 module.exports = {
-    devtool: 'cheap-module-source-map', // fix
-    entry: './src/index.js',
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js',
-        chunkFilename: '[id].js',
-        publicPath: ''
-    },
-    resolve: {
-        extensions: ['.js', '.jsx']
-    },
-    module: {
-        rules: [
-            {
-                test: /\.js$/,
-                loader: 'babel-loader',
-                exclude: /node_modules/
-            },
-            {
-                test: /\.css$/,
-                exclude: /node_modules/,
-                use: [
-                    { loader: 'style-loader' },
-                    { 
-                        loader: 'css-loader',
-                        options: {
-                            importLoaders: 1,
-                            modules: true,
-                            localIdentName: '[name]__[local]__[hash:base64:5]'
-                        }
-                     },
-                     { 
-                         loader: 'postcss-loader',
-                         options: {
-                             ident: 'postcss',
-                             plugins: () => [
-                                 autoprefixer({
-                                     browsers: [
-                                        "> 1%",
-                                        "last 2 versions"
-                                     ]
-                                 })
-                             ]
-                         }
-                      }
-                ]
-            },
-            {
-                test: /\.(png|jpe?g|gif)$/,
-                loader: 'url-loader?limit=8000&name=images/[name].[ext]'
+  devtool: "cheap-module-source-map", // fix
+  entry: "./src/index.js",
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "bundle.js",
+    chunkFilename: "[id].js",
+    publicPath: ""
+  },
+  resolve: {
+    extensions: [".js", ".jsx"]
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        loader: "babel-loader",
+        exclude: /node_modules/
+      },
+      {
+        test: /\.css$/,
+        exclude: /node_modules/,
+        use: [
+          { loader: "style-loader" },
+          {
+            loader: "css-loader",
+            options: {
+              importLoaders: 1,
+              modules: true,
+              localIdentName: "[name]__[local]__[hash:base64:5]"
             }
+          },
+          {
+            loader: "postcss-loader",
+            options: {
+              ident: "postcss",
+              plugins: () => [
+                autoprefixer({
+                  browsers: ["> 1%", "last 2 versions"]
+                })
+              ]
+            }
+          }
         ]
-    },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: __dirname + '/src/index.html',
-            filename: 'index.html',
-            inject: 'body'
-        }),
-        // add
-        new webpack.optimize.UglifyJsPlugin()
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/,
+        loader: "url-loader?limit=8000&name=images/[name].[ext]"
+      }
     ]
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: __dirname + "/src/index.html",
+      filename: "index.html",
+      inject: "body"
+    }),
+    // add
+    new webpack.optimize.UglifyJsPlugin()
+  ]
 };
 ```
 
@@ -14819,8 +14725,6 @@ module.exports = {
 ```shell
 npm run build
 ```
-
-
 
 ### 18. Wrap Up
 
@@ -14846,63 +14750,63 @@ Cung cấp 1 cấu hình cho webpack không phải là một vấn đề lớn t
 
 Nào chúng ta thử nó 1 chút, tạo 1 thư mục mới và đi vào trong:
 
-| 123  | mkdir webpack-4-quickstart && cd $_ |
-| ---- | ----------------------------------- |
-|      |                                     |
+| 123 | mkdir webpack-4-quickstart && cd \$\_ |
+| --- | ------------------------------------- |
+|     |                                       |
 
 Khởi tạo 1 package.json bằng cách chạy lệnh:
 
-| 123  | npm init -y |
-| ---- | ----------- |
-|      |             |
+| 123 | npm init -y |
+| --- | ----------- |
+|     |             |
 
 Bây giờ kéo về webpack 4. Hiện tại webpack 4 đang trong quá trình beta, điều đó có nghĩa chúng ta nên lấy về từ nhánh `Next`:
 
-| 123  | npm i webpack@next --save-dev |
-| ---- | ----------------------------- |
-|      |                               |
+| 123 | npm i webpack@next --save-dev |
+| --- | ----------------------------- |
+|     |                               |
 
 Ta cần cài thêm **webpack-cli** nữa:
 
-| 123  | npm i webpack-cli --save-dev |
-| ---- | ---------------------------- |
-|      |                              |
+| 123 | npm i webpack-cli --save-dev |
+| --- | ---------------------------- |
+|     |                              |
 
 Bây giờ mở `package.json` và thêm khai báo sau:
 
-| 12345 | "scripts": {  "build": "webpack" } |
-| ----- | ---------------------------------- |
-|       |                                    |
+| 12345 | "scripts": { "build": "webpack" } |
+| ----- | --------------------------------- |
+|       |                                   |
 
 Lưu file và chạy:
 
-| 123  | npm run build |
-| ---- | ------------- |
-|      |               |
+| 123 | npm run build |
+| --- | ------------- |
+|     |               |
 
 Và xem điều gì xảy ra:
 
-| 123  | ERROR **in** Entry module **not** found: Error: Can't resolve './src' in '~/webpack-4-quickstart' |
-| ---- | ------------------------------------------------------------ |
-|      |                                                              |
+| 123 | ERROR **in** Entry module **not** found: Error: Can't resolve './src' in '~/webpack-4-quickstart' |
+| --- | ------------------------------------------------------------------------------------------------- |
+|     |                                                                                                   |
 
 webpack 4 đang muốn tìm kiếm entry point trong `./src`, nói chung đó là điểm bắt đầu để bạn xây dựng gói javascipt bundle của bạn. Đọc thêm tại đây để hiểu rõ hơn nhé: [webpack](https://techtalk.vn/webpack-cho-nguoi-moi-bat-dau.html). Trong phiên bản trước của webpack, entry point được define bên trong file cấu hình với tên là `webpack.config.js`.
 
 Nhưng bây giờ với webpac 4 thì chúng ta không cần define cái entry point này nữa. Nó sẽ được đặt mặc định trong `./src/index.js` . Thử test cái feature mới này thấy thật dễ dàng, tạo `./src/index.js` :
 
-| 123  | console.log('Tui là webpack 4); |
-| ---- | ------------------------------- |
-|      |                                 |
+| 123 | console.log('Tui là webpack 4); |
+| --- | ------------------------------- |
+|     |                                 |
 
 và build lại xem:
 
-| 123  | npm run build |
-| ---- | ------------- |
-|      |               |
+| 123 | npm run build |
+| --- | ------------- |
+|     |               |
 
 Bạn sẽ lấy được bundle trong `~/webpack-4-quickstart/dist/main.js`. Khoan đã? chờ 1 chút, nó đâu cần define ở file output đâu nhỉ??!!
 
-***Trong webpack 4 không cần phải define entry point, cũng không cần trong out put file.\***
+**\*Trong webpack 4 không cần phải define entry point, cũng không cần trong out put file.\***
 
 Tôi biết rằng đối với rất nhiều người thì điều này không quá thú vị. Sức mạnh chính của webpack là split code. Nhưng tin tui đi, file cấu hình lằng nhằng lắm, nhất là anh em mới tiếp xúc hay cần làm nhanh cái gì đó. Sau khi set up xong thì webpack 4 nó xem `./src/index.js` như là entry point mặc định.
 
@@ -14923,27 +14827,27 @@ Thì nó giới thiệu chức năng này có sẵn mà dùng thôi :v. Trên th
 
 ![img](react-maximilan.assets/web-pack-4.png)
 
-| 123  | The 'mode' option has **not** been set. Set 'mode' option **to** 'development' **or** 'production' **to** enable defaults **for** this environment. |
-| ---- | ------------------------------------------------------------ |
-|      |                                                              |
+| 123 | The 'mode' option has **not** been set. Set 'mode' option **to** 'development' **or** 'production' **to** enable defaults **for** this environment. |
+| --- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+|     |                                                                                                                                                     |
 
 Thông báo này có nghĩa là gì? Mở file package.json và update thêm script sau:
 
-| 123456 | "scripts": {  "dev": "webpack --mode development",  "build": "webpack --mode production" } |
-| ------ | ------------------------------------------------------------ |
-|        |                                                              |
+| 123456 | "scripts": { "dev": "webpack --mode development", "build": "webpack --mode production" } |
+| ------ | ---------------------------------------------------------------------------------------- |
+|        |                                                                                          |
 
 Bây giờ thử chạy:
 
-| 123  | npm run dev |
-| ---- | ----------- |
-|      |             |
+| 123 | npm run dev |
+| --- | ----------- |
+|     |             |
 
 rồi nhìn code file `./dist/main.js`, nó chưa được minified là ok. Tiếp tục chạy thử :
 
-| 123  | npm run build |
-| ---- | ------------- |
-|      |               |
+| 123 | npm run build |
+| --- | ------------- |
+|     |               |
 
 và ta thấy minified bundle trong `./dist/main.js`
 
@@ -14958,7 +14862,6 @@ Github repo tại đây : [webpack-4-quickstart](https://github.com/valentinogag
 ### 19. Adding babel-polyfill.html
 
 ### 20. Useful Resources & Links.html
-
 
 ## 23. Bonus Next.js
 
@@ -14991,7 +14894,7 @@ It render on server and return pre-render html code, nextjs is a package helping
 ```shell
 npm init
 npm install --save react react-dom next
-// nextjs yêu cầu version react 16 
+// nextjs yêu cầu version react 16
 
 ```
 
@@ -15020,7 +14923,7 @@ package.json
 
 ```
 
-We don't use  React-router with nextjs to create routes and allow user visit /auth/users => create folder and file to reflect ours URL in the file system
+We don't use React-router with nextjs to create routes and allow user visit /auth/users => create folder and file to reflect ours URL in the file system
 
 [Create React App](https://github.com/facebook/create-react-app) có rất nhiều star trên GitHub và hứa hẹn không cần config gì cả. Vì vậy nhìn nó rất đơn giản. Bạn cần học về client routing, page layout, .. nhưng không đề cập tới Server Side Rendering.
 
@@ -15052,7 +14955,6 @@ import Link from "next/link";
 import Router from "next/router";
 
 class IndexPage extends Component {
-
   render() {
     return (
       <div>
@@ -15069,7 +14971,6 @@ class IndexPage extends Component {
 }
 
 export default IndexPage;
-
 ```
 
 Khi bấm vào link nó sẽ vào index trang auth/
@@ -15083,22 +14984,21 @@ compose your app
 User.js
 
 ```js
-import React from 'react';
+import React from "react";
 
-const user = (props) => (
-    <div>
-        <h1>{props.name}</h1>
-        <p>Age: {props.age}</p>
-// # 5
-        <style jsx>{`
-            div {
-                border: 1px solid #eee;
-                box-shadow: 0 2p 3px #ccc;
-                padding: 20px;
-                text-align: center;
-            }
-        `}</style>
-    </div>
+const user = props => (
+  <div>
+    <h1>{props.name}</h1>
+    <p>Age: {props.age}</p>
+    // # 5<style jsx>{`
+      div {
+        border: 1px solid #eee;
+        box-shadow: 0 2p 3px #ccc;
+        padding: 20px;
+        text-align: center;
+      }
+    `}</style>
+  </div>
 );
 
 export default user;
@@ -15107,8 +15007,7 @@ export default user;
 auth/index.js
 
 ```js
-
-const authIndexPage = (props) => (
+const authIndexPage = props => (
   <div>
     <h1>The Auth Index Page - {props.appName}</h1>
     <User name="Max" age={28} />
@@ -15116,33 +15015,31 @@ const authIndexPage = (props) => (
 );
 ```
 
-
-
 ### 6. Styling our App in Next.js
-
-
 
 ### 7. Handling (404) Errors
 
-_error.js
+\_error.js
 
 ```js
-import React from 'react';
-import Link from 'next/link';
+import React from "react";
+import Link from "next/link";
 
 const errorPage = () => (
-    <div>
-        <h1>Oops, something went wrong.</h1>
-        <p>Try <Link href="/"><a>going back</a></Link>.</p>
-    </div>
+  <div>
+    <h1>Oops, something went wrong.</h1>
+    <p>
+      Try{" "}
+      <Link href="/">
+        <a>going back</a>
+      </Link>
+      .
+    </p>
+  </div>
 );
 
 export default errorPage;
 ```
-
-
-
-
 
 ### 8. A Special Lifecycle Hook
 
@@ -15167,8 +15064,7 @@ https://nextjs.org/docs/basic-features/data-fetching
 auth/index.js
 
 ```js
-
-const authIndexPage = (props) => (
+const authIndexPage = props => (
   <div>
     <h1>The Auth Index Page - {props.appName}</h1>
     <User name="Max" age={28} />
@@ -15185,10 +15081,7 @@ authIndexPage.getInitialProps = context => {
 };
 
 export default authIndexPage;
-
 ```
-
-
 
 ### 9. Deploying our App
 
@@ -15200,62 +15093,63 @@ export default authIndexPage;
 
 Fix cors: https://www.youtube.com/watch?v=hxyp_LkKDdk&fbclid=IwAR3BrlCOjU4uo6A54vn5mCNkjUK7c0vOexMY4hmcrrc3pJvt-EqKuCEKrDs
 
-
 ### 2. Preparing the Demo Project
-Modal.css
-```css
 
+Modal.css
+
+```css
 .ModalOpen {
-    display: block;
+  display: block;
 }
 
 .ModalClosed {
-    display: none;
+  display: none;
 }
 ```
 
 BackDrop.css
-```css
 
+```css
 .BackdropOpen {
-    display: block;
+  display: block;
 }
 
 .BackdropClosed {
-    display: none;
+  display: none;
 }
 ```
 
 BackDrop.js
+
 ```js
-import React from 'react';
+import React from "react";
 
-import './Backdrop.css';
+import "./Backdrop.css";
 
-const backdrop = (props) => {
-    const cssClasses = ['Backdrop', props.show ? 'BackdropOpen' : 'BackdropClosed'];
+const backdrop = props => {
+  const cssClasses = [
+    "Backdrop",
+    props.show ? "BackdropOpen" : "BackdropClosed"
+  ];
 
-    return <div className={cssClasses.join(' ')}></div>;
+  return <div className={cssClasses.join(" ")}></div>;
 };
 
 export default backdrop;
-
 ```
 
 Modal.js
+
 ```js
 import React from "react";
 
 import "./Modal.css";
 
 const modal = props => {
-  const cssClasses = [
-    "Modal",
-    props.show ? "ModalOpen" : "ModalClosed"
-  ];
+  const cssClasses = ["Modal", props.show ? "ModalOpen" : "ModalClosed"];
 
   return (
-    <div className={cssClasses.join(' ')}>
+    <div className={cssClasses.join(" ")}>
       <h1>A Modal</h1>
       <button className="Button" onClick={props.closed}>
         Dismiss
@@ -15265,98 +15159,100 @@ const modal = props => {
 };
 
 export default modal;
-
 ```
 
 App.js
-```js
 
+```js
 class App extends Component {
   state = {
     modalIsOpen: false
-  }
+  };
 
   showModal = () => {
-    this.setState({modalIsOpen: true});
-  }
+    this.setState({ modalIsOpen: true });
+  };
 
   closeModal = () => {
-    this.setState({modalIsOpen: false});
-  }
+    this.setState({ modalIsOpen: false });
+  };
 
   render() {
     return (
       <div className="App">
         <h1>React Animations</h1>
-        <Modal show={this.state.modalIsOpen} closed={this.closeModal}/>
+        <Modal show={this.state.modalIsOpen} closed={this.closeModal} />
         <Backdrop show={this.state.modalIsOpen} />
-        <button className="Button" onClick={this.showModal}>Open Modal</button>
+        <button className="Button" onClick={this.showModal}>
+          Open Modal
+        </button>
         <h3>Animating Lists</h3>
         <List />
       </div>
     );
   }
 }
-
 ```
+
 ![image-20200316230939478](./react-maximilan.assets/image-20200316230939478.png)
 
 ### 3. Using CSS Transitions
 
 Modal.css
+
 ```css
 .Modal {
-    position: fixed;
-    z-index: 200;
-    border: 1px solid #eee;
-    box-shadow: 0 2px 2px #ccc;
-    background-color: white;
-    padding: 10px;
-    text-align: center;
-    box-sizing: border-box;
-    top: 30%;
-    left: 25%;
-    width: 50%;
-    transition: all 0.3s ease-out; // add
+  position: fixed;
+  z-index: 200;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 2px #ccc;
+  background-color: white;
+  padding: 10px;
+  text-align: center;
+  box-sizing: border-box;
+  top: 30%;
+  left: 25%;
+  width: 50%;
+  transition: all 0.3s ease-out; // add
 }
 
 .ModalOpen {
-    // xóa display
-    animation: openModal 0.4s ease-out forwards;
+  // xóa display
+  animation: openModal 0.4s ease-out forwards;
 }
 
 .ModalClosed {
-    animation: closeModal 0.4s ease-out forwards;
+  animation: closeModal 0.4s ease-out forwards;
 }
 
 @keyframes openModal {
-    0% {
-        opacity: 0;
-        transform: translateY(-100%);
-    }
-    50% {
-        opacity: 1;
-        transform: translateY(90%); // jump down
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(90%); // jump down
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes closeModal {
-    0% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    50% {
-        opacity: 0.8;
-        transform: translateY(60%);
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(-100%);
-    }
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateY(60%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
 }
 ```
 
@@ -15365,20 +15261,18 @@ Modal.css
 App.js
 
 ```js
-{this.state.modalIsOpen ? (
-          <Modal show={this.state.modalIsOpen} closed={this.modalIsOpen} />
-        ) : null}
-        {this.state.modalIsOpen ? (
-          <Backdrop show={this.state.modalIsOpen} />
-        ) : null}
+{
+  this.state.modalIsOpen ? (
+    <Modal show={this.state.modalIsOpen} closed={this.modalIsOpen} />
+  ) : null;
+}
+{
+  this.state.modalIsOpen ? <Backdrop show={this.state.modalIsOpen} /> : null;
+}
 // Khi ấn DISSMISS thì không có animation
 ```
 
-
-
 ### 5. CSS Transition & Animations Limitations
-
-
 
 ### 6. Using ReactTransitionGroup
 
@@ -15403,8 +15297,8 @@ App.js add button
           Toggle
         </button>
         <br />
-        <Transition 
-          in={this.state.showBlock} 
+        <Transition
+          in={this.state.showBlock}
           timeout={1000}
           mountOnEnter // add and remove from the DOM
           unmountOnExit>
@@ -15423,8 +15317,6 @@ App.js add button
         </Transition>
 ```
 
-
-
 ### 7. Using the Transition Component
 
 using Transition with Modal
@@ -15432,30 +15324,28 @@ using Transition with Modal
 Modal.js
 
 ```js
- const cssClasses = [
-          "Modal",
-          props.show === "entering"
-            ? "ModalOpen"
-            : props.show === "exiting" ? "ModalClosed" : null
-        ];
+const cssClasses = [
+  "Modal",
+  props.show === "entering"
+    ? "ModalOpen"
+    : props.show === "exiting"
+    ? "ModalClosed"
+    : null
+];
 ```
 
 App.js
 
 ```js
 <Transition
-          in={this.state.modelIsOpen}
-          timeout={300}
-          mountOnEnter
-          unmountOnExit
-        >
-          {state => (
-            <Modal show={state} closed={this.closeModal} />
-          )}
-        </Transition>
+  in={this.state.modelIsOpen}
+  timeout={300}
+  mountOnEnter
+  unmountOnExit
+>
+  {state => <Modal show={state} closed={this.closeModal} />}
+</Transition>
 ```
-
-
 
 ### 8. Wrapping the Transition Component
 
@@ -15464,23 +15354,26 @@ Modal.js
 ```js
 // 9
 const animationTiming = {
-    enter: 400,
-    exit: 1000
+  enter: 400,
+  exit: 1000
 };
 
 const modal = props => {
   return (
-    <Transition 
-        mountOnEnter 
-        unmountOnExit 
-        in={props.show} 
-        timeout={animationTiming}>
+    <Transition
+      mountOnEnter
+      unmountOnExit
+      in={props.show}
+      timeout={animationTiming}
+    >
       {state => {
         const cssClasses = [
           "Modal",
           state === "entering"
             ? "ModalOpen"
-            : state === "exiting" ? "ModalClosed" : null
+            : state === "exiting"
+            ? "ModalClosed"
+            : null
         ];
         return (
           <div className={cssClasses.join(" ")}>
@@ -15494,7 +15387,6 @@ const modal = props => {
     </Transition>
   );
 };
-
 ```
 
 App.js
@@ -15502,8 +15394,6 @@ App.js
 ```js
 <Modal show={this.state.modalIsOpen} closed={this.closeModal} />
 ```
-
-
 
 ### 9. Animation Timings
 
@@ -15527,8 +15417,6 @@ App.js
           onExited={() => console.log('onExited')}
 ```
 
-
-
 ### 11. The CSSTransition Component
 
 Modal.js
@@ -15546,10 +15434,10 @@ const animationTiming = {
 
 const modal = props => {
   return (
-    <CSSTransition 
-        mountOnEnter 
-        unmountOnExit 
-        in={props.show} 
+    <CSSTransition
+        mountOnEnter
+        unmountOnExit
+        in={props.show}
         timeout={animationTiming}
 // add
         classNames="fade-slice">
@@ -15558,36 +15446,30 @@ const modal = props => {
 Modal.css
 
 ```css
-
 .fade-slide-enter {
-
 }
 
 .fade-slide-enter-active {
-    animation: openModal 0.4s ease-out forwards;
+  animation: openModal 0.4s ease-out forwards;
 }
 
 .fade-slide-exit {
-
 }
 
 .fade-slide-exit-active {
-    animation: closeModal 1s ease-out forwards;
+  animation: closeModal 1s ease-out forwards;
 }
-
 ```
-
-
 
 ### 12. Customizing CSS Classnames
 
 Modal.js
 
 ```js
-<CSSTransition 
-        mountOnEnter 
-        unmountOnExit 
-        in={props.show} 
+<CSSTransition
+        mountOnEnter
+        unmountOnExit
+        in={props.show}
         timeout={animationTiming}
         classNames={{
             enter: '',
@@ -15596,8 +15478,6 @@ Modal.js
             exitActive: 'ModalClosed'
         }}>
 ```
-
-
 
 ### 13. Animating Lists
 
@@ -15638,27 +15518,24 @@ render() {
 List.css
 
 ```css
-
 .fade-enter {
-    opacity: 0;
+  opacity: 0;
 }
 
 .fade-enter-active {
-    opacity: 1;
-    transition: opacity 0.3s ease-out;
+  opacity: 1;
+  transition: opacity 0.3s ease-out;
 }
 
 .fade-exit {
-    opacity: 1;
+  opacity: 1;
 }
 
 .fade-exit-active {
-    opacity: 0;
-    transition: opacity 0.3s ease-out;
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
 }
 ```
-
-
 
 ### 14. Alternative Animation Packages
 
@@ -15698,7 +15575,6 @@ Create folder store/ saga
 auth.js create new in saga
 
 ```js
-
 import { put } from "redux-saga/effects";
 import axios from "axios";
 
@@ -15711,8 +15587,7 @@ export function* logoutSaga(action) {
   yield put(actions.logoutSucceed());
 }
 
----------------------
-    auth.js
+---------------------auth.js;
 
 export const logoutSucceed = () => {
   return {
@@ -15725,21 +15600,22 @@ execute start to end immediately with asyn code
 
 put will dispatch the action, yield is simply execute by step and wait to finish
 
- Dấu sao trong function is a generator, func will be execute incrementally so you can kind of call them and they don't run from start to end immediately but you can pause during function execution, for example to wait for asynchronous code to finish and that is exactly what redux saga takes advantages of.
+Dấu sao trong function is a generator, func will be execute incrementally so you can kind of call them and they don't run from start to end immediately but you can pause during function execution, for example to wait for asynchronous code to finish and that is exactly what redux saga takes advantages of.
 
 ### 4. Hooking the Saga Up (to the Store and Actions)
 
 index.js
 
 ```js
-import createSagaMiddleware from 'redux-saga';
-import { logoutSaga } from './store/sagas';
+import createSagaMiddleware from "redux-saga";
+import { logoutSaga } from "./store/sagas";
 
 const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(rootReducer, composeEnhancers(
-    applyMiddleware(thunk, sagaMiddleware)
-));
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk, sagaMiddleware))
+);
 
 sagaMiddleware.run(logoutSaga);
 ```
@@ -15751,7 +15627,6 @@ F12 chạy tab redux thấy 2 cái logout
 action/auth.js
 
 ```js
-
 export const logout = () => {
   // localStorage.removeItem('token');
   // localStorage.removeItem('expirationDate');
@@ -15775,9 +15650,7 @@ sagas/index.js
 import { takeEvery } from "redux-saga/effects";
 
 import * as actionTypes from "../actions/actionTypes";
-import {
-  logoutSaga
-} from "./auth";
+import { logoutSaga } from "./auth";
 
 export function* watchAuth() {
   yield takeEvery(actionTypes.AUTH_INITIATE_LOGOUT, logoutSaga);
@@ -15788,18 +15661,15 @@ export function* watchAuth() {
 index.js
 
 ```js
-
 const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(rootReducer, composeEnhancers(
-    applyMiddleware(thunk, sagaMiddleware)
-));
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk, sagaMiddleware))
+);
 
 sagaMiddleware.run(watchAuth);
-
 ```
-
-
 
 ### 6. Moving More Logic Into Sagas
 
@@ -15816,7 +15686,7 @@ export function* checkAuthTimeoutSaga(action) {
 }
 
 ------------- auth.js in action ---------
-    
+
 export const checkAuthTimeout = expirationTime => {
   return {
     type: actionTypes.AUTH_CHECK_TIMEOUT,
@@ -15844,7 +15714,6 @@ export function* watchAuth() {
   yield takeEvery(actionTypes.AUTH_USER, authUserSaga);
   yield takeEvery(actionTypes.AUTH_CHECK_STATE, authCheckStateSaga);
 }
-
 ```
 
 Đăng nhập để test
@@ -15854,7 +15723,6 @@ export function* watchAuth() {
 saga/auth.js
 
 ```js
-
 export function* authUserSaga(action) {
   yield put(actions.authStart());
   const authData = {
@@ -15885,31 +15753,28 @@ export function* authUserSaga(action) {
     yield put(actions.authFail(error.response.data.error));
   }
 }
-
 ```
 
 index.js
 
 ```js
-
 export {
-    auth,
-    logout,
-    setAuthRedirectPath,
-    authCheckState,
-    logoutSucceed,
-    // add
-    authStart,
-    authSuccess,
-    authFail,
-    checkAuthTimeout
-} from './auth';
+  auth,
+  logout,
+  setAuthRedirectPath,
+  authCheckState,
+  logoutSucceed,
+  // add
+  authStart,
+  authSuccess,
+  authFail,
+  checkAuthTimeout
+} from "./auth";
 ```
 
 action/auth.js
 
 ```js
-
 export const auth = (email, password, isSignup) => {
   return {
     type: actionTypes.AUTH_USER,
@@ -15918,7 +15783,6 @@ export const auth = (email, password, isSignup) => {
     isSignup: isSignup
   };
 };
-
 ```
 
 Sau đó vào file index.js thêm
@@ -15964,8 +15828,6 @@ export const authCheckState = () => {
 log out and reload again
 ```
 
-
-
 ### 9. Moving the BurgerBuilder Side Effects into a Saga
 
 burgerBuilder.js in saga
@@ -15986,30 +15848,28 @@ export function* initIngredientsSaga(action) {
     yield put(actions.fetchIngredientsFailed());
   }
 }
-
 ```
 
 burgerBuilder.js in action
 
 ```js
-
-export const setIngredients = ( ingredients ) => {
-    return {
-        type: actionTypes.SET_INGREDIENTS,
-        ingredients: ingredients
-    };
+export const setIngredients = ingredients => {
+  return {
+    type: actionTypes.SET_INGREDIENTS,
+    ingredients: ingredients
+  };
 };
 
 export const fetchIngredientsFailed = () => {
-    return {
-        type: actionTypes.FETCH_INGREDIENTS_FAILED
-    };
+  return {
+    type: actionTypes.FETCH_INGREDIENTS_FAILED
+  };
 };
 
 export const initIngredients = () => {
-    return {
-        type: actionTypes.INIT_INGREDIENTS
-    };
+  return {
+    type: actionTypes.INIT_INGREDIENTS
+  };
 };
 ```
 
@@ -16017,13 +15877,13 @@ action/index.js
 
 ```js
 export {
-    addIngredient,
-    removeIngredient,
-    initIngredients,
-    // add
-    setIngredients,
-    fetchIngredientsFailed
-} from './burgerBuilder';
+  addIngredient,
+  removeIngredient,
+  initIngredients,
+  // add
+  setIngredients,
+  fetchIngredientsFailed
+} from "./burgerBuilder";
 ```
 
 index.js in saga
@@ -16053,12 +15913,9 @@ export function* watchBurgerBuilder() {
 index
 
 ```js
-
 sagaMiddleware.run(watchAuth);
 sagaMiddleware.run(watchBurgerBuilder);
 ```
-
-
 
 ### 10. Moving the Orders Side Effects into Sagas
 
@@ -16084,7 +15941,6 @@ export function* purchaseBurgerSaga(action) {
   }
 }
 
-
 export function* fetchOrdersSaga(action) {
   yield put(actions.fetchOrdersStart());
   const queryParams =
@@ -16107,7 +15963,6 @@ export function* fetchOrdersSaga(action) {
     yield put(actions.fetchOrdersFail(error));
   }
 }
-
 ```
 
 action/order.js
@@ -16182,37 +16037,30 @@ export const fetchOrders = (token, userId) => {
 saga/index.js
 
 ```js
-
 export function* watchOrder() {
   yield takeLatest(actionTypes.PURCHASE_BURGER, purchaseBurgerSaga);
   yield takeEvery(actionTypes.FETCH_ORDERS, fetchOrdersSaga);
 }
 
-
------------index.js -----------------
-    sagaMiddleware.run(watchOrder);
-
+-----------index.js---------------- - sagaMiddleware.run(watchOrder);
 ```
 
 action/index.js
 
 ```js
-
 export {
-    purchaseBurger,
-    purchaseInit,
-    fetchOrders,
-    // add
-    purchaseBurgerStart,
-    purchaseBurgerFail,
-    purchaseBurgerSuccess,
-    fetchOrdersSuccess,
-    fetchOrdersStart,
-    fetchOrdersFail
-} from './order';
+  purchaseBurger,
+  purchaseInit,
+  fetchOrders,
+  // add
+  purchaseBurgerStart,
+  purchaseBurgerFail,
+  purchaseBurgerSuccess,
+  fetchOrdersSuccess,
+  fetchOrdersStart,
+  fetchOrdersFail
+} from "./order";
 ```
-
-
 
 ### 11. Why Sagas can be Helpful
 
@@ -16221,7 +16069,6 @@ export {
 saga/auth.js
 
 ```js
-
 import { put, call } from "redux-saga/effects";
 import axios from "axios";
 
@@ -16257,8 +16104,6 @@ So for example if the user hammers the purchase burger button, we maybe only alw
 latest click, that is why besides takeEvery, we can also use takeLatest and if we use that here on purchase burger, takeLatest will automatically cancel any ongoing executions of purchaseBurgerSaga and always only execute the latest one.
 ```
 
-
-
 ### 13. Useful Resources & Links.html
 
 Find the module source code attached to this lecture.
@@ -16283,19 +16128,20 @@ Từ version 16.8
 ### 3. Enabling Hooks
 
 ### 4. The useState() Hook
+
 useState trả về 1 array, tham số thứ nhất sẽ là state và tham số thứ 2 sẽ là function để update state đó
 
 Todo.js
 
 ```js
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const todo = props => {
-    // const inputState = useState('');
-  const [todoName, setTodoName] = useState('');
+  // const inputState = useState('');
+  const [todoName, setTodoName] = useState("");
 
   const inputChangeHandler = event => {
-      // inputState[1]
+    // inputState[1]
     setTodoName(event.target.value);
   };
 
@@ -16314,28 +16160,24 @@ const todo = props => {
 };
 
 export default todo;
-
 ```
-
-
 
 ### 5. Adding Array Destructuring
 
-
 ```js
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const todo = props => {
-  const [todoName, setTodoName] = useState('');
-    // 6
+  const [todoName, setTodoName] = useState("");
+  // 6
   const [todoList, setTodoList] = useState([]);
 
-    // add
+  // add
   const inputChangeHandler = event => {
     setTodoName(event.target.value);
   };
 
-    // 6
+  // 6
   const todoAddHandler = () => {
     setTodoList(todoList.concat(todoName));
   };
@@ -16348,9 +16190,7 @@ const todo = props => {
         onChange={inputChangeHandler}
         value={todoName}
       />
-            
-      // 6
-      <button type="button" onClick={todoAddHandler}>
+      // 6<button type="button" onClick={todoAddHandler}>
         Add
       </button>
       <ul>
@@ -16363,16 +16203,13 @@ const todo = props => {
 };
 
 export default todo;
-
 ```
-
 
 ### 6. Using Multiple State
 
 ```js
-
 const todo = props => {
-  const [todoName, setTodoName] = useState('');
+  const [todoName, setTodoName] = useState("");
   const [todoList, setTodoList] = useState([]);
 
   const inputChangeHandler = event => {
@@ -16404,13 +16241,9 @@ const todo = props => {
 };
 
 export default todo;
-
 ```
 
-
-
 ### 7. Using One State Instead
-
 
 ```js
 
@@ -16432,7 +16265,7 @@ const todo = props => {
       todoList: todoState.todoList.concat(todoState.userInput)
     });
   };
-    
+
  return (
     <React.Fragment>
       <input
@@ -16458,8 +16291,8 @@ const todo = props => {
 Lưu ý: nó sẽ không merge state như class mà replace
 
 ### 8. The Rules of Hooks
-Important is that it has to be a component function
 
+Important is that it has to be a component function
 
 ### 9. Sending Data via Http
 
@@ -16468,49 +16301,47 @@ Sử dụng firebase => reala time database
 Set rule là true hết
 
 ```js
-
-  useEffect(() => {
-    axios.get('https://test-3e15a.firebaseio.com/todos.json').then(result => {
-      console.log(result);
-      const todoData = result.data;
-      const todos = [];
-      for (const key in todoData) {
-        todos.push({id: key, name: todoData[key].name})
-      }
-      setTodoList(todos);
-    });
+useEffect(() => {
+  axios.get("https://test-3e15a.firebaseio.com/todos.json").then(result => {
+    console.log(result);
+    const todoData = result.data;
+    const todos = [];
+    for (const key in todoData) {
+      todos.push({ id: key, name: todoData[key].name });
+    }
+    setTodoList(todos);
   });
-  const inputChangeHandler = event => {
-    // setTodoState({
-    //   userInput: event.target.value,
-    //   todoList: todoState.todoList
-    // });
-    setTodoName(event.target.value);
-  };
+});
+const inputChangeHandler = event => {
+  // setTodoState({
+  //   userInput: event.target.value,
+  //   todoList: todoState.todoList
+  // });
+  setTodoName(event.target.value);
+};
 
 // add
-  const todoAddHandler = () => {
-    // setTodoState({
-    //   userInput: todoState.userInput,
-    //   todoList: todoState.todoList.concat(todoState.userInput)
-    // });
-    setTodoList(todoList.concat(todoName));
-    axios
-      .post('https://test-3e15a.firebaseio.com/todos.json', { name: todoName })
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-
+const todoAddHandler = () => {
+  // setTodoState({
+  //   userInput: todoState.userInput,
+  //   todoList: todoState.todoList.concat(todoState.userInput)
+  // });
+  setTodoList(todoList.concat(todoName));
+  axios
+    .post("https://test-3e15a.firebaseio.com/todos.json", { name: todoName })
+    .then(res => {
+      console.log(res);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
 
 <ul>
-        {todoList.map(todo => (
-          <li key={todo.id}>{todo.name}</li>
-        ))}
-      </ul>
+  {todoList.map(todo => (
+    <li key={todo.id}>{todo.name}</li>
+  ))}
+</ul>;
 ```
 
 useEffect run every render cycle, Tham số thử 2 quyết định sẽ render khi nào
@@ -16527,27 +16358,26 @@ Khi unmount
 
 ```js
 const mouseMoveHandler = event => {
-    console.log(event.clientX, event.clientY);
-  };
+  console.log(event.clientX, event.clientY);
+};
 
 // khi nhập thì có ngày càng nhiều event listener => awful
-  useEffect(() => {
-    document.addEventListener('mousemove', mouseMoveHandler);
-    return () => {
-      document.removeEventListener('mousemove', mouseMoveHandler);
-    };
-  }, []);
+useEffect(() => {
+  document.addEventListener("mousemove", mouseMoveHandler);
+  return () => {
+    document.removeEventListener("mousemove", mouseMoveHandler);
+  };
+}, []);
 ```
-
 
 ### 13. Converting the App Component
 
 Create new Header.js
 
 ```js
-import React, { useContext } from 'react';
+import React, { useContext } from "react";
 
-import AuthContext from '../auth-context';
+import AuthContext from "../auth-context";
 
 const header = props => {
   const auth = useContext(AuthContext);
@@ -16562,15 +16392,14 @@ const header = props => {
 };
 
 export default header;
-
 ```
 
 Auth.js
 
 ```js
-import React, { useContext } from 'react';
+import React, { useContext } from "react";
 
-import AuthContext from '../auth-context';
+import AuthContext from "../auth-context";
 
 const auth = props => {
   const auth = useContext(AuthContext);
@@ -16579,21 +16408,20 @@ const auth = props => {
 };
 
 export default auth;
-
 ```
 
 App.js
 
 ```js
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import Todo from './components/Todo';
-import Header from './components/Header';
-import Auth from './components/Auth';
-import AuthContext from './auth-context';
+import Todo from "./components/Todo";
+import Header from "./components/Header";
+import Auth from "./components/Auth";
+import AuthContext from "./auth-context";
 
 const app = props => {
-  const [page, setPage] = useState('auth');
+  const [page, setPage] = useState("auth");
   const [authStatus, setAuthStatus] = useState(false);
 
   const switchPage = pageName => {
@@ -16608,30 +16436,28 @@ const app = props => {
     <div className="App">
       <AuthContext.Provider value={{ status: authStatus, login: login }}>
         <Header
-          onLoadTodos={switchPage.bind(this, 'todos')}
-          onLoadAuth={switchPage.bind(this, 'auth')}
+          onLoadTodos={switchPage.bind(this, "todos")}
+          onLoadAuth={switchPage.bind(this, "auth")}
         />
         <hr />
-        {page === 'auth' ? <Auth /> : <Todo />}
+        {page === "auth" ? <Auth /> : <Todo />}
       </AuthContext.Provider>
     </div>
   );
 };
 
 export default app;
-
 ```
 
 auth-context.js
 
 ```js
-import React from 'react';
+import React from "react";
 
 // trong hàm createContext có thể nhận tất cả các kiểu dữ liệu
 const authContext = React.createContext({ status: false, login: () => {} });
 
 export default authContext;
-
 ```
 
 ### 14. The useContext() Hook
@@ -16647,41 +16473,39 @@ New issue: time for response is 3000 => add new err
 Todo.js
 
 ```js
+// const [submittedTodo, setSubmittedTodo] = useState(null);
+// const [todoList, setTodoList] = useState([]);
+//   const [todoState, setTodoState] = useState({ userInput: '', todoList: [] });
 
-  // const [submittedTodo, setSubmittedTodo] = useState(null);
-  // const [todoList, setTodoList] = useState([]);
-  //   const [todoState, setTodoState] = useState({ userInput: '', todoList: [] });
+// useEffect(
+//   () => {
+//     if (submittedTodo) {
+//      // setTodoList(todoList.concat(submittedTodo));
+//       dispatch({ type: 'ADD', payload: submittedTodo });
+//     }
+//   },
+//   [submittedTodo]
+// );
 
+const todoAddHandler = () => {
+  // setTodoState({
+  //   userInput: todoState.userInput,
+  //   todoList: todoState.todoList.concat(todoState.userInput)
+  // });
 
-  // useEffect(
-  //   () => {
-  //     if (submittedTodo) {
-  //      // setTodoList(todoList.concat(submittedTodo));
-  //       dispatch({ type: 'ADD', payload: submittedTodo });
-  //     }
-  //   },
-  //   [submittedTodo]
-  // );
-
-  const todoAddHandler = () => {
-    // setTodoState({
-    //   userInput: todoState.userInput,
-    //   todoList: todoState.todoList.concat(todoState.userInput)
-    // });
-
-    axios
-      .post('https://test-3e15a.firebaseio.com/todos.json', { name: todoName })
-      .then(res => {
-        setTimeout(() => {
-          const todoItem = { id: res.data.name, name: todoName };
-            // setSubmittedTodo(todoItem)
-          dispatch({ type: 'ADD', payload: todoItem });
-        }, 3000);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
+  axios
+    .post("https://test-3e15a.firebaseio.com/todos.json", { name: todoName })
+    .then(res => {
+      setTimeout(() => {
+        const todoItem = { id: res.data.name, name: todoName };
+        // setSubmittedTodo(todoItem)
+        dispatch({ type: "ADD", payload: todoItem });
+      }, 3000);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
 ```
 
 Fix bug bằng cách thêm `setSubmittedTodo(todoItem)` và use useEffect để set lại concat todoList
@@ -16691,52 +16515,51 @@ Fix bug bằng cách thêm `setSubmittedTodo(todoItem)` và use useEffect để 
 Todo.js
 
 ```js
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState, useEffect, useReducer } from "react";
 
-  // const [todoList, setTodoList] = useState([]);
-  //   const [todoState, setTodoState] = useState({ userInput: '', todoList: [] });
+// const [todoList, setTodoList] = useState([]);
+//   const [todoState, setTodoState] = useState({ userInput: '', todoList: [] });
 
-  const todoListReducer = (state, action) => {
-    switch (action.type) {
-      case 'ADD':
-        return state.concat(action.payload);
-      case 'SET':
-        return action.payload;
-      case 'REMOVE':
-        return state.filter(todo => todo.id !== action.payload);
-      default:
-        return state;
-    }
-  };
+const todoListReducer = (state, action) => {
+  switch (action.type) {
+    case "ADD":
+      return state.concat(action.payload);
+    case "SET":
+      return action.payload;
+    case "REMOVE":
+      return state.filter(todo => todo.id !== action.payload);
+    default:
+      return state;
+  }
+};
 
 // tham số thứ 2 của useReducer là starting state
-  const [todoList, dispatch] = useReducer(todoListReducer, []);
+const [todoList, dispatch] = useReducer(todoListReducer, []);
 
-  const todoRemoveHandler = todoId => {
-    axios
-      .delete(`https://test-3e15a.firebaseio.com/todos/${todoId}.json`)
-      .then(res => {
-        dispatch({ type: 'REMOVE', payload: todoId });
-      })
-      .catch(err => console.log(err));
+const todoRemoveHandler = todoId => {
+  axios
+    .delete(`https://test-3e15a.firebaseio.com/todos/${todoId}.json`)
+    .then(res => {
+      dispatch({ type: "REMOVE", payload: todoId });
+    })
+    .catch(err => console.log(err));
+};
+
+useEffect(() => {
+  axios.get("https://test-3e15a.firebaseio.com/todos.json").then(result => {
+    console.log(result);
+    const todoData = result.data;
+    const todos = [];
+    for (const key in todoData) {
+      todos.push({ id: key, name: todoData[key].name });
+    }
+    // add
+    dispatch({ type: "SET", payload: todos });
+  });
+  return () => {
+    console.log("Cleanup");
   };
-
-
-  useEffect(() => {
-    axios.get('https://test-3e15a.firebaseio.com/todos.json').then(result => {
-      console.log(result);
-      const todoData = result.data;
-      const todos = [];
-      for (const key in todoData) {
-        todos.push({ id: key, name: todoData[key].name });
-      }
-        // add
-      dispatch({ type: 'SET', payload: todos });
-    });
-    return () => {
-      console.log('Cleanup');
-    };
-  }, []);
+}, []);
 ```
 
 ### 17. useReducer() vs useState()
@@ -16744,14 +16567,13 @@ import React, { useState, useEffect, useReducer } from 'react';
 Todo.js
 
 ```js
-
-      <ul>
-        {todoList.map(todo => (
-          <li key={todo.id} onClick={todoRemoveHandler.bind(this, todo.id)}>
-            {todo.name}
-          </li>
-        ))}
-      </ul>
+<ul>
+  {todoList.map(todo => (
+    <li key={todo.id} onClick={todoRemoveHandler.bind(this, todo.id)}>
+      {todo.name}
+    </li>
+  ))}
+</ul>
 ```
 
 ### 18. Working with References and useRef()
@@ -16765,8 +16587,8 @@ const todo = props => {
     // const [todoName, setTodoName] = useState('');
   const todoInputRef = useRef();
 
-    
- 
+
+
   const todoAddHandler = () => {
     // setTodoState({
     //   userInput: todoState.userInput,
@@ -16774,9 +16596,9 @@ const todo = props => {
     // });
 
     const todoName = todoInputRef.current.value;
-    
+
     ...
-      
+
     <React.Fragment>
       <input
         type="text"
@@ -16785,18 +16607,17 @@ const todo = props => {
       />
 ```
 
-comment *inputChangeHandler*
+comment _inputChangeHandler_
 
 ### 19. Preparing & Optimizing
-
 
 List.js
 
 ```js
-import React from 'react';
+import React from "react";
 
 const list = props => {
-  console.log('Rendering the list...');
+  console.log("Rendering the list...");
 
   return (
     <ul>
@@ -16810,7 +16631,6 @@ const list = props => {
 };
 
 export default list;
-
 ```
 
 todo.js
@@ -16834,9 +16654,9 @@ todo.js
         placeholder="Todo"
         ref={todoInputRef}
         onChange={inputValidationHandler}
-        style={{ backgroundColor: inputIsValid ? 'transparent' : 'red' }} 
+        style={{ backgroundColor: inputIsValid ? 'transparent' : 'red' }}
 
-        
+
 // check todoList  change sẽ get in React memory
       {useMemo(
         () => (
@@ -16848,7 +16668,7 @@ todo.js
 
 Khi nhập input List bị re-render => ảnh hưởng
 
-### 
+###
 
 ### 20. Avoiding Unnecessary Re-Rendering
 
@@ -16859,15 +16679,15 @@ Khi nhập input List bị re-render => ảnh hưởng
 hooks/forms.js
 
 ```js
-import { useState } from 'react';
+import { useState } from "react";
 
 export const useFormInput = () => {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState("");
   const [validity, setValidity] = useState(false);
 
   const inputChangeHandler = event => {
     setValue(event.target.value);
-    if (event.target.value.trim() === '') {
+    if (event.target.value.trim() === "") {
       setValidity(false);
     } else {
       setValidity(true);
@@ -16876,7 +16696,6 @@ export const useFormInput = () => {
 
   return { value: value, onChange: inputChangeHandler, validity };
 };
-
 ```
 
 Todo.js
@@ -16907,7 +16726,6 @@ Todo.js
 
 ### 1. Introduction
 
-
 ### 2. Converting App
 
 App.js
@@ -16920,13 +16738,7 @@ const app = props => {
   }, []);
 };
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(app)
-);
-
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(app));
 ```
 
 And if you pass an empty array, it essentially means this will only run once when the component is mounted essentially and that is exactly what I want here and therefore I pass this empty array.
@@ -16968,7 +16780,7 @@ let routes = (
         <Route path="/orders" render={() => <Orders />} />
         <Route path="/logout" component={Logout} />
         <Route path="/auth" render={() => <Auth />} />
-      
+
 // add Suspense
 return (
     <div>
@@ -16992,7 +16804,7 @@ Layout.js
 const layout = props => {
     // add
   const [sideDrawerIsVisible, setSideDrawerIsVisible] = useState(false);
-    
+
     // add const
   const sideDrawerClosedHandler = () => {
     setSideDrawerIsVisible(false);
@@ -17004,7 +16816,7 @@ const layout = props => {
 // this.props thay bằng props
 // open={sideDrawerIsVisible}
 
-    
+
     export default connect(mapStateToProps)(layout);
 
 ```
@@ -17018,7 +16830,7 @@ const withErrorHandler = (WrappedComponent, axios) => {
     const [error, setError] = useState(null);
 
 // thay this.reqInterceptor bằng const reqInterceptor
-      
+
    // thay cho componentWillUnmount
    useEffect(() => {
       return () => {
@@ -17026,8 +16838,8 @@ const withErrorHandler = (WrappedComponent, axios) => {
         axios.interceptors.response.eject(resInterceptor);
       };
     }, [reqInterceptor, resInterceptor]);
-      
-// add const 
+
+// add const
        const errorConfirmedHandler = () => {
       setError(null);
     };
@@ -17057,13 +16869,13 @@ const orders = props => {
     // thay this.props
     props.onFetchOrders(props.token, props.userId);
   }, []);
-    
- 
+
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withErrorHandler(orders, axios));
-    
+
 ```
 
 Checkout.js
@@ -17074,26 +16886,26 @@ App.js
 
 ```js
 // thêm props trong Router để fix bug
-  let routes = (
+let routes = (
+  <Switch>
+    <Route path="/auth" render={props => <Auth {...props} />} />
+    <Route path="/" exact component={BurgerBuilder} />
+    <Redirect to="/" />
+  </Switch>
+);
+
+if (props.isAuthenticated) {
+  routes = (
     <Switch>
+      <Route path="/checkout" render={props => <Checkout {...props} />} />
+      <Route path="/orders" render={props => <Orders {...props} />} />
+      <Route path="/logout" component={Logout} />
       <Route path="/auth" render={props => <Auth {...props} />} />
       <Route path="/" exact component={BurgerBuilder} />
       <Redirect to="/" />
     </Switch>
   );
-
-  if (props.isAuthenticated) {
-    routes = (
-      <Switch>
-        <Route path="/checkout" render={props => <Checkout {...props} />} />
-        <Route path="/orders" render={props => <Orders {...props} />} />
-        <Route path="/logout" component={Logout} />
-        <Route path="/auth" render={props => <Auth {...props} />} />
-        <Route path="/" exact component={BurgerBuilder} />
-        <Redirect to="/" />
-      </Switch>
-    );
-  }
+}
 ```
 
 ### 7. Add Hooks to ContactData
@@ -17108,7 +16920,7 @@ const contactData = props => {
       // tách ra 2 state và thay this.state
 });
   const [formIsValid, setFormIsValid] = useState(false);
-    
+
 // hàm thêm const, this.props => props
 // khi gọi hàm thì bỏ this đi
         <form onSubmit={orderHandler}>
@@ -17131,7 +16943,7 @@ const burgerBuilder = props => {
   useEffect(() => {
     props.onInitIngredients();
   }, []);
-    
+
 // hàm thêm const, this.props => props
 // khi gọi hàm thì bỏ this đi
 ```
@@ -17147,7 +16959,7 @@ Auth.js
 const auth = props => {
   const [authForm, setAuthForm] = useState({
       ...
-      
+
       });
   const [isSignup, setIsSignup] = useState(true);
 
@@ -17157,7 +16969,7 @@ const auth = props => {
       props.onSetAuthRedirectPath();
     }
   }, []);
-  
+
   // thay hết this.state.controls bằng authForm
 ```
 
@@ -17170,7 +16982,6 @@ const logout = props => {
     props.onLogout();
   }, []);
 ```
-
 
 ### 10. Using React.memo() & More!
 
@@ -17199,8 +17010,8 @@ const modal = props => {
       <div
         className={classes.Modal}
         style={{
-          transform: props.show ? 'translateY(0)' : 'translateY(-100vh)',
-          opacity: props.show ? '1' : '0'
+          transform: props.show ? "translateY(0)" : "translateY(-100vh)",
+          opacity: props.show ? "1" : "0"
         }}
       >
         {props.children}
@@ -17225,49 +17036,49 @@ export default React.memo(
 hook-error-handler.js copy từ withErrorHandle qua
 
 ```js
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 export default httpClient => {
-    const [error, setError] = useState(null);
+  const [error, setError] = useState(null);
 
-    const reqInterceptor = httpClient.interceptors.request.use(req => {
-      setError(null);
-      return req;
-    });
-    const resInterceptor = httpClient.interceptors.response.use(
-      res => res,
-      err => {
-        setError(err);
-      }
-    );
+  const reqInterceptor = httpClient.interceptors.request.use(req => {
+    setError(null);
+    return req;
+  });
+  const resInterceptor = httpClient.interceptors.response.use(
+    res => res,
+    err => {
+      setError(err);
+    }
+  );
 
-    useEffect(() => {
-      return () => {
-        httpClient.interceptors.request.eject(reqInterceptor);
-        httpClient.interceptors.response.eject(resInterceptor);
-      };
-    }, [reqInterceptor, resInterceptor]);
-
-    const errorConfirmedHandler = () => {
-      setError(null);
+  useEffect(() => {
+    return () => {
+      httpClient.interceptors.request.eject(reqInterceptor);
+      httpClient.interceptors.response.eject(resInterceptor);
     };
+  }, [reqInterceptor, resInterceptor]);
 
-    return [error, errorConfirmedHandler];
-}
+  const errorConfirmedHandler = () => {
+    setError(null);
+  };
+
+  return [error, errorConfirmedHandler];
+};
 ```
 
 withErrorHandle.js
 
 ```js
-import useHttpErrorHandler from '../../hooks/http-error-handler';
+import useHttpErrorHandler from "../../hooks/http-error-handler";
 
 const withErrorHandler = (WrappedComponent, axios) => {
   return props => {
     const [error, clearError] = useHttpErrorHandler(axios);
-      
-       return (
+
+    return (
       <Aux>
-           // add
+        // add
         <Modal show={error} modalClosed={clearError}>
           {error ? error.message : null}
         </Modal>
@@ -17278,7 +17089,6 @@ const withErrorHandler = (WrappedComponent, axios) => {
 };
 
 export default withErrorHandler;
-
 ```
 
 Useful Resources:
@@ -17295,8 +17105,7 @@ Useful Resources:
 
 ### 1.1 burger-css.pdf.pdf
 
-Link to the finished burger (on codepen.io): https://codepen.io/anon/pen/PJrgga  
-
+Link to the finished burger (on codepen.io): https://codepen.io/anon/pen/PJrgga
 
 ## 29. Next Steps and Course Roundup
 
@@ -17312,7 +17121,7 @@ You can also search for certain things there, for keywords like redux for exampl
 
 ### 3. More Inspiration Real-World Projects Built with React
 
-gg: build with react 
+gg: build with react
 
 site using react
 
@@ -17344,7 +17153,6 @@ Pagination: https://morioh.com/p/66918873ff30?fbclid=IwAR3uKX8cy8_ogYFPnBmNqllql
 
 ### 7. Smaller Apps with Preact
 
-
 https://preactjs.com/
 
 Fast 3kB alternative to React with the same modern API.
@@ -17354,7 +17162,6 @@ https://github.com/preactjs/preact-cli
 ### 8. Comparing React with Preact
 
 https://preactjs.com/guide/v10/differences-to-react
-
 
 ### 9. Congratulations
 
@@ -17384,13 +17191,13 @@ https://viblo.asia/p/tim-hieu-ve-hooks-trong-react-p3-m68Z07g2KkG?fbclid=IwAR2zq
 
 ## 1. Mở đầu
 
-------
+---
 
 Xin chào tất cả các bạn mặc dù `Hooks` của `React` đã ra mắt được một thời gian rồi tuy nhiên gần đây mình mới có cơ hội sử dụng thử nó nhiều hơn trong project nên bài viết này mình xin chia sẻ lại với các bạn về một số điều mà mình tìm hiểu được về một số hàm `Hooks` mà mình tìm hiểu được
 
 ## 2. React Hook
 
-------
+---
 
 ### a. useState
 
@@ -17398,13 +17205,13 @@ Có lẽ đối với các bạn đã đọc qua về `Hook` trong `React` thì 
 
 ```js
 const Sidebar = () => (
-    <div>
-        <ul>
-            <li>Menu 1</li>
-            <li>Menu 2</li>
-        </ul>    
-    </div>
-)
+  <div>
+    <ul>
+      <li>Menu 1</li>
+      <li>Menu 2</li>
+    </ul>
+  </div>
+);
 ```
 
 Với mục đích bạn đầu là phần `Sidebar` này sẽ luôn hiển thị thì bạn chỉ cần viết như trên và import nó vào sử dụng. Tuy nhiên về sau bạn lại muốn có thể thu gọn `Sidebar` này lại để có nhiều diện tích màn hình hơn cho phần nội dung chính thì chúng ta sẽ cần cập nhật lại. Trước thời kì của `Hooks` thì chúng ta sẽ phải refactor lại component này về `class Component` như sau:
@@ -17414,7 +17221,7 @@ class Sidebar extends Components {
     state = {
         isCollapsed: false
     }
-    
+
     const handleToggleSidebar = () => {
         this.setState(prevState => ({
             isCollapsed: !prevState.isCollapsed
@@ -17422,7 +17229,7 @@ class Sidebar extends Components {
     }
 
     render() {
-        const { isCollapsed } = this.state; 
+        const { isCollapsed } = this.state;
 
         return (
             <div className={`${isCollapsed ? 'hide' : 'display'}`}>
@@ -17430,7 +17237,7 @@ class Sidebar extends Components {
                 <ul>
                     <li>Menu 1</li>
                     <li>Menu 2</li>
-                </ul>    
+                </ul>
             </div>
         )
     }
@@ -17441,29 +17248,29 @@ Trước thời kì có `Hook` thì mình rất hay phải làm việc này vì 
 
 ```js
 const Sidebar = () => {
-    const [isCollapsed, setCollapse] = useState(false);
+  const [isCollapsed, setCollapse] = useState(false);
 
-    function handleToggleSidebar() {
-        handleToggleSidebar(!isCollapsed);
-    }
+  function handleToggleSidebar() {
+    handleToggleSidebar(!isCollapsed);
+  }
 
-    return (
-        <div className={`${isCollapsed ? 'hide' : 'display'}`}>
-            <button onClick={handleToggleSidebar}>Collapse</button>
-            <ul>
-                <li>Menu 1</li>
-                <li>Menu 2</li>
-            </ul>    
-        </div>
-    )
-}
+  return (
+    <div className={`${isCollapsed ? "hide" : "display"}`}>
+      <button onClick={handleToggleSidebar}>Collapse</button>
+      <ul>
+        <li>Menu 1</li>
+        <li>Menu 2</li>
+      </ul>
+    </div>
+  );
+};
 ```
 
 Như bạn có thể thấy nó ngắng gọn hơn rất nhiều so với phiên bản trước đó mà vẫn đạt được mục đích chúng ta mong muốn.
 
 ### b. useReducer
 
-------
+---
 
 Nếu bạn đã từng sử dụng `Redux` thì cũng không còn lạ với khái niệm này. Một trong những người phát triển ra `Redux` là `Dan Abramov` hiện tại cùng là thành viên trong team phát triển `React` cho nên có thể `Dan` đã mang cái tên này vào trong `Hook` của `React`. `useReducer` hoạt động tương tự như `Reducer` mà bạn thấy trong `Redux`. `useReducer` cũng nhận vào 2 tham số đó là `state` hiện tại của chúng ta và một `action` để có thể quyết định state của chúng ta sẽ thay đổi ra sao. Để hiểu rõ hơn chúng ta sẽ xét ví dụ sau:
 
@@ -17537,19 +17344,19 @@ Với ví dụ trên thì bạn có thể thây tại sao nó có tên gọi là
 
 ### c. useEffect
 
-------
+---
 
 Khi mới đọc về những dùng mà `Hook` này có thể làm được thì mình thấy nó khá là "ma mị" vì nghe nói nó sẽ thay thế cho cả `componentDidMount`, `componentDidUpdate` lẫn `componentWillUnmount`. Nhưng trên thực tế khi làm việc bạn không nên nghĩ đến nó sẽ thay thế cho các hàm trên mà hãy hiểu đơn giản là hàm là "useEffect sẽ chạy sau mỗi lần component của bạn re-render nếu thỏa mãn điều kiện bạn đặt ra hoắc khi component bị unmount". Đó là tất cả những gì bạn cần nhớ đến chứ không phải việc thay thế cho các lifecycle nói trên. Xét ví dụ sau:
 
 ```js
 const UserInfo = () => {
     const [user, setUser] = useState(null);
-    
+
     useEffect(() => {
         axios.get(`user-info-${someUserId}`)
             .then(response => setUser(response.data));
     }, [someUserId]);
-    
+
     return (
         // User info UI
     )
@@ -17564,11 +17371,11 @@ const SomeRemoteList = () => {
     function fetchData() {
         // So something to fetch data
     }
-    
+
     useEffect(() => {
            fetchData();
     });
-    
+
     return (
         // User info UI
     )
@@ -17580,14 +17387,14 @@ Nếu bạn có ý định viết tách hẳn hàm gọi API ra khỏi `useEffec
 ```js
 const SomeRemoteList = () => {
     const [data, setData] = useState(null);
-    
+
     useEffect(() => {
             function fetchData() {
                 // So something to fetch data
             }
            fetchData();
     });
-    
+
     return (
         // User info UI
     )
@@ -17595,4 +17402,3 @@ const SomeRemoteList = () => {
 ```
 
 Tại sao nên làm như trên vì thứ nhất trong trường hợp hàm của bạn có sử dụng hay phụ thuộc vào một tham số nào đó khác thì rất có thể bạn sẽ bị miss mất việc khai báo nó trong `deps` dẫn đến các bug khó hiểu. Thêm nữa việc di chuyển hàm vào trong `useEffect` như nói trên còn giúp cho bạn sau này khi nhìn vào `effect` này sẽ nhanh chóng nắm được toàn bộ những gì nó làm vì nó như viết được đóng gói toàn bộ thành một module nhỏ trong component của bạn vậy
-
