@@ -5,6 +5,110 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
 ## 1. Welcome
 ### 1. Welcome & Asking Good Questions
 ### 2. Why should I learn React
+## 2. Setting up Your Environment
+### 1. Section Intro Setting up Your Environment
+### 2. Installing Visual Studio Code
+### 3. Installing Node.js & Yarn
+
+`npm install -g yarn`
+
+`yarn --version` => phải restart
+
+## 3. Hello React
+### 1. Section Intro Hello React
+
+http://indecision.mead.io/
+https://github.com/andrewjmead/react-course-2-indecision-app
+
+
+
+https://viblo.asia/p/so-sanh-yarn-va-npm-1VgZvww7lAw
+
+### 2. Setting up a Web Server
+### 3. Hello React
+### 4. Setting up Babel
+### 5. Exploring JSX
+### 6. JSX Expressions
+### 7. Conditional Rendering in JSX
+### 8. ES6 Aside const and let
+### 9. ES6 Aside Arrow Functions
+
+
+### 10. ES6 Aside Arrow Functions Part II
+### 11. Events and Attributes
+### 12. Manual Data Binding
+### 13. Forms and Inputs
+### 14. Arrays in JSX
+### 15. Picking an Option
+### 16. Build It Visibility Toggle
+## 4. React Components
+### 1. Section Intro React Components
+### 10. What Is Component State
+### 11. Adding State to Counter App Part I
+### 12. Adding State to Counter App Part II
+### 13. Alternative setState Syntax
+### 14. Build It Adding State to VisibilityToggle
+### 15. Indecision State Part I
+### 16. Indecision State Part II
+### 17. Summary Props vs. State
+### 2. Thinking in React
+### 3. ES6 Classes Part I
+### 4. ES6 Classes Part II
+### 5. Creating a React Component
+### 6. Nesting Components
+### 7. Component Props
+### 8. Events & Methods
+### 9. Method Binding
+## 5. Stateless Functional Components
+### 1. Section Intro Stateless Functional Components
+### 2. The Stateless Functional Component
+### 3. Default Prop Values
+### 4. React Dev Tools
+### 5. Removing Individual Options
+### 6. Lifecycle Methods
+### 7. Saving and Loading Options Data
+### 8. Saving and Loading the Count
+## 6. Webpack
+### 1. Section Intro Webpack
+### 10. Source Maps with Webpack
+### 11. Webpack Dev Server
+### 12. ES6 class properties
+### 2. What Is Webpack
+### 3. Avoid Global Modules
+### 4. Installing & Configuring Webpack
+### 5. ES6 importexport
+### 6. Default Exports
+### 7. Importing npm Modules
+### 8. Setting up Babel with Webpack
+### 9. One Component per File
+## 7. Using a Third-Party Component
+### 1. Section Intro Using a Third-Party Component
+### 2. Passing Children to Component
+### 3. Setting up React-Modal
+### 4. Bonus Refactoring Other Stateless Functional Components
+## 8. Styling React
+### 1. Section Intro Styling React
+### 10. Mobile Considerations
+### 11. Bonus Favicon
+### 2. Setting up Webpack with SCSS
+### 3. Architecture and Header Styles
+### 4. Reset That $#!
+### 5. Theming with Variables
+### 6. Big Button & Options List
+### 7. Styling the Options List
+### 8. Styling Option Item
+### 9. Styling React-Modal
+## 9. React-Router
+### 1. Section Intro React Router
+### 2. Server vs. Client Routing
+### 3. Setting Up Budget App
+### 4. React-Router 101
+### 5. Setting up a 404
+### 6. Linking Between Routes
+### 7. Organizing Our Routes
+### 8. Query Strings and URL Parameters
+### 9. Build It Router for Portfolio Site
+
 ## 10. Redux
 ### 1. Section Intro Redux
 ### 10. Working with Multiple Reducers
@@ -133,92 +237,3 @@ C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Sour
 ### 7. useEffect Dependencies
 ### 8. Cleaning up Effects
 ### 9. The useReducer Hook
-## 2. Setting up Your Environment
-### 1. Section Intro Setting up Your Environment
-### 2. Installing Visual Studio Code
-### 3. Installing Node.js & Yarn
-## 3. Hello React
-### 1. Section Intro Hello React
-### 10. ES6 Aside Arrow Functions Part II
-### 11. Events and Attributes
-### 12. Manual Data Binding
-### 13. Forms and Inputs
-### 14. Arrays in JSX
-### 15. Picking an Option
-### 16. Build It Visibility Toggle
-### 2. Setting up a Web Server
-### 3. Hello React
-### 4. Setting up Babel
-### 5. Exploring JSX
-### 6. JSX Expressions
-### 7. Conditional Rendering in JSX
-### 8. ES6 Aside const and let
-### 9. ES6 Aside Arrow Functions
-## 4. React Components
-### 1. Section Intro React Components
-### 10. What Is Component State
-### 11. Adding State to Counter App Part I
-### 12. Adding State to Counter App Part II
-### 13. Alternative setState Syntax
-### 14. Build It Adding State to VisibilityToggle
-### 15. Indecision State Part I
-### 16. Indecision State Part II
-### 17. Summary Props vs. State
-### 2. Thinking in React
-### 3. ES6 Classes Part I
-### 4. ES6 Classes Part II
-### 5. Creating a React Component
-### 6. Nesting Components
-### 7. Component Props
-### 8. Events & Methods
-### 9. Method Binding
-## 5. Stateless Functional Components
-### 1. Section Intro Stateless Functional Components
-### 2. The Stateless Functional Component
-### 3. Default Prop Values
-### 4. React Dev Tools
-### 5. Removing Individual Options
-### 6. Lifecycle Methods
-### 7. Saving and Loading Options Data
-### 8. Saving and Loading the Count
-## 6. Webpack
-### 1. Section Intro Webpack
-### 10. Source Maps with Webpack
-### 11. Webpack Dev Server
-### 12. ES6 class properties
-### 2. What Is Webpack
-### 3. Avoid Global Modules
-### 4. Installing & Configuring Webpack
-### 5. ES6 importexport
-### 6. Default Exports
-### 7. Importing npm Modules
-### 8. Setting up Babel with Webpack
-### 9. One Component per File
-## 7. Using a Third-Party Component
-### 1. Section Intro Using a Third-Party Component
-### 2. Passing Children to Component
-### 3. Setting up React-Modal
-### 4. Bonus Refactoring Other Stateless Functional Components
-## 8. Styling React
-### 1. Section Intro Styling React
-### 10. Mobile Considerations
-### 11. Bonus Favicon
-### 2. Setting up Webpack with SCSS
-### 3. Architecture and Header Styles
-### 4. Reset That $#!
-### 5. Theming with Variables
-### 6. Big Button & Options List
-### 7. Styling the Options List
-### 8. Styling Option Item
-### 9. Styling React-Modal
-## 9. React-Router
-### 1. Section Intro React Router
-### 2. Server vs. Client Routing
-### 3. Setting Up Budget App
-### 4. React-Router 101
-### 5. Setting up a 404
-### 6. Linking Between Routes
-### 7. Organizing Our Routes
-### 8. Query Strings and URL Parameters
-### 9. Build It Router for Portfolio Site
-======== list file ========

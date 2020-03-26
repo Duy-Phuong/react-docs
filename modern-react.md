@@ -431,28 +431,38 @@ https://semantic-ui.com/introduction/getting-started.html
 https://github.com/StephenGrider/redux-code/tree/master/seasons
 
 ### 3. Scaffolding the App
+
+![image-20200327010802669](./modern-react.assets/image-20200327010802669.png)
+
 ### 4. Getting a Users Physical Location
+
+https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API
+
 ### 5. Resetting Geolocation Preferences
+
+allow or block
+
+Mở tab mới chọn new location
+
+![image-20200327011446090](./modern-react.assets/image-20200327011446090.png)
+
 ### 6. Handling Async Operations with Functional Components
 ### 7. Refactoring from Functional to Class Components
 ## 5. State in React Components
 ### 1. The Rules of State
 ### 2. Initializing State Through Constructors
+
+![image-20200327011712636](modern-react.assets/image-20200327011712636.png)
+
 ### 3. Updating State Properties
+
+![image-20200327011829973](./modern-react.assets/image-20200327011829973.png)
+
 ### 4. App Lifecycle Walkthrough
 ### 5. Handling Errors Gracefully
 ### 6. Conditionally Rendering Content
 ## 6. Understanding Lifecycle Methods
 ### 1. Introducing Lifecycle Methods
-### 10. Adding Some Styling
-### 11. Showing a Loading Spinner
-### 12. Specifying Default Props
-### 13. Avoiding Conditionals in Render
-### 14. Breather and Review
-### 15. Class-Based Components.html
-### 16. Exercise Solution - Class-Based Components
-### 17. Updating Components with State.html
-### 18. Updating Components with State
 ### 2. Why Lifecycle Methods
 ### 3. Refactoring Data Loading to Lifecycle Methods
 ### 4. Alternate State Intialization
@@ -461,31 +471,342 @@ https://github.com/StephenGrider/redux-code/tree/master/seasons
 ### 7. Ternary Expressions in JSX
 ### 8. Showing Icons
 ### 9. Extracting Options to Config Objects
+
+index.js
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import SeasonDisplay from './SeasonDisplay';
+import Spinner from './Spinner';
+
+class App extends React.Component {
+  state = { lat: null, errorMessage: '' };
+
+  componentDidMount() {
+    window.navigator.geolocation.getCurrentPosition(
+      position => this.setState({ lat: position.coords.latitude }),
+      err => this.setState({ errorMessage: err.message })
+    );
+  }
+
+  renderContent() {
+    if (this.state.errorMessage && !this.state.lat) {
+      return <div>Error: {this.state.errorMessage}</div>;
+    }
+
+    if (!this.state.errorMessage && this.state.lat) {
+      return <SeasonDisplay lat={this.state.lat} />;
+    }
+
+    return <Spinner message="Please accept location request" />;
+  }
+
+  render() {
+    return <div className="border red">{this.renderContent()}</div>;
+  }
+}
+
+ReactDOM.render(<App />, document.querySelector('#root'));
+
+```
+
+
+
+### 10. Adding Some Styling
+
+SeasonDisplay.js
+
+```js
+import './SeasonDisplay.css';
+import React from 'react';
+
+const seasonConfig = {
+  summer: {
+    text: "Let's hit the beach!",
+    iconName: 'sun'
+  },
+  winter: {
+    text: 'Burr it is cold!',
+    iconName: 'snowflake'
+  }
+};
+
+const getSeason = (lat, month) => {
+  if (month > 2 && month < 9) {
+    return lat > 0 ? 'summer' : 'winter';
+  } else {
+    return lat > 0 ? 'winter' : 'summer';
+  }
+};
+
+const SeasonDisplay = props => {
+  const season = getSeason(props.lat, new Date().getMonth());
+  const { text, iconName } = seasonConfig[season];
+
+  return (
+    <div className={`season-display ${season}`}>
+      <i className={`icon-left massive ${iconName} icon`} />
+      <h1>{text}</h1>
+      <i className={`icon-right massive ${iconName} icon`} />
+    </div>
+  );
+};
+
+export default SeasonDisplay;
+
+```
+
+
+
+### 11. Showing a Loading Spinner
+
+### 12. Specifying Default Props
+
+Spinner.js
+
+```js
+import React from 'react';
+
+const Spinner = props => {
+  return (
+    <div className="ui active dimmer">
+      <div className="ui big text loader">{props.message}</div>
+    </div>
+  );
+};
+
+// default
+Spinner.defaultProps = {
+  message: 'Loading...'
+};
+
+export default Spinner;
+
+```
+
+
+
+### 13. Avoiding Conditionals in Render
+
+### 14. Breather and Review
+
+### 15. Class-Based Components.html
+
+### 16. Exercise Solution - Class-Based Components
+
+### 17. Updating Components with State.html
+
+### 18. Updating Components with State
+
 ## 7. Handling User Input with Forms and Events
 ### 1. App Overview
-### 10. Handling Form Submittal
-### 11. Understanding 'this' In Javascript
-### 12. Solving Context Issues
-### 13. Communicating Child to Parent
-### 14. Invoking Callbacks in Children
 ### 2. Component Design
+
+https://github.com/StephenGrider/redux-code/tree/master/pics
+
+![image-20200327013908824](./modern-react.assets/image-20200327013908824.png)
+
 ### 3. Adding Some Project Structure
+
+SearchBar.js
+
+```js
+import React from "react";
+
+class SearchBar extends React.Component {
+  state = { term: "" };
+
+  onFormSubmit = event => {
+    event.preventDefault();
+
+    this.props.onSubmit(this.state.term);
+  };
+
+  render() {
+    return (
+      <div className="ui segment">
+        <form onSubmit={this.onFormSubmit} className="ui form">
+          <div className="field">
+            <label>Image Search</label>
+            <input
+              type="text"
+              value={this.state.term}
+              onChange={e => this.setState({ term: e.target.value })}
+            />
+          </div>
+        </form>
+      </div>
+    );
+  }
+}
+
+export default SearchBar;
+
+```
+
+
+
 ### 4. Showing Forms to the User
+
+![image-20200327014227190](./modern-react.assets/image-20200327014227190.png)
+
 ### 5. Adding a Touch of Style
 ### 6. Creating Event Handlers
 ### 7. Alternate Event Handler Syntax
 ### 8. Uncontrolled vs Controlled Elements
 ### 9. More on Controlled Elements
+
+### 
+
+### 10. Handling Form Submittal
+
+### 11. Understanding 'this' In Javascript
+
+![image-20200327014614777](./modern-react.assets/image-20200327014614777.png)  
+
+![image-20200327014739089](./modern-react.assets/image-20200327014739089.png)
+
+### 12. Solving Context Issues
+
+thêm bind
+
+![image-20200327014900387](./modern-react.assets/image-20200327014900387.png)  
+
+Ở hàm onFormSubmit trong SearchBar sử dụng arrow func để tránh lỗi khi truy cập this.state
+
+### 13. Communicating Child to Parent
+
+### 14. Invoking Callbacks in Children
+
 ## 8. Making API Requests with React
 ### 1. Fetching Data
 ### 2. Axios vs Fetch
+
+![image-20200327015657518](./modern-react.assets/image-20200327015657518.png)
+
 ### 3. Viewing Request Results
 ### 4. Handling Requests with Async Await
+
+unsplash.js
+
+```js
+import axios from 'axios';
+
+export default axios.create({
+  baseURL: 'https://api.unsplash.com',
+  headers: {
+    Authorization:
+      'Client-ID 34e39e5c2f447ce52009a515846ca2b6ccc35552bb63de59cf4a6d06728f3f7e'
+  }
+});
+
+```
+
+App.js
+
+```js
+import React from 'react';
+import unsplash from '../api/unsplash';
+import SearchBar from './SearchBar';
+import ImageList from './ImageList';
+
+class App extends React.Component {
+  state = { images: [] };
+
+// SD arrow func
+  onSearchSubmit = async term => {
+    const response = await unsplash.get('/search/photos', {
+      params: { query: term }
+    });
+
+    this.setState({ images: response.data.results });
+  };
+
+  render() {
+    return (
+      <div className="ui container" style={{ marginTop: '10px' }}>
+        <SearchBar onSubmit={this.onSearchSubmit} />
+        <ImageList images={this.state.images} />
+      </div>
+    );
+  }
+}
+
+export default App;
+
+```
+
+
+
 ### 5. Setting State After Async Requests
 ### 6. Binding Callbacks
 ### 7. Creating Custom Clients
 ## 9. Building Lists of Records
 ### 1. Rendering Lists
+
+ImageList.js
+
+```js
+import './ImageList.css';
+import React from 'react';
+import ImageCard from './ImageCard';
+
+const ImageList = props => {
+  const images = props.images.map(image => {
+    return <ImageCard key={image.id} image={image} />;
+  });
+
+  return <div className="image-list">{images}</div>;
+};
+
+export default ImageList;
+```
+
+ImageCard.js
+
+```js
+import React from 'react';
+
+class ImageCard extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { spans: 0 };
+
+    this.imageRef = React.createRef();
+  }
+
+  componentDidMount() {
+    this.imageRef.current.addEventListener('load', this.setSpans);
+  }
+
+  setSpans = () => {
+    const height = this.imageRef.current.clientHeight;
+
+    const spans = Math.ceil(height / 10);
+
+    this.setState({ spans });
+  };
+
+  render() {
+      // new
+    const { description, urls } = this.props.image;
+
+    return (
+      <div style={{ gridRowEnd: `span ${this.state.spans}` }}>
+        <img ref={this.imageRef} alt={description} src={urls.regular} />
+      </div>
+    );
+  }
+}
+
+export default ImageCard;
+
+```
+
+
+
 ### 2. Review of Map Statements
 ### 3. Rendering Lists of Components
 ### 4. The Purpose of Keys in Lists
