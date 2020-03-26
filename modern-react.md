@@ -170,10 +170,20 @@ Nếu k SD Babel
 
 ![image-20200326224114569](./modern-react.assets/image-20200326224114569.png)  
 
-
+![image-20200326224244408](./modern-react.assets/image-20200326224244408.png)
 
 ### 10. Starting and Stopping a React App
+
+![image-20200326224349408](./modern-react.assets/image-20200326224349408.png)
+
 ### 11. Javascript Module Systems
+
+![image-20200326224531123](./modern-react.assets/image-20200326224531123.png)  
+
+![image-20200326224603306](./modern-react.assets/image-20200326224603306.png)  
+
+
+
 ### 12. Displaying Content with Functional Components
 ### 13. Link to Completed Github Repo.html
 
@@ -198,6 +208,289 @@ Hi! I get many questions about the code editor, terminal, etc, that I use. Here'
   - Inside my terminal, I run the shell https://github.com/robbyrussell/oh-my-zsh with the default theme 'Robby Russell'
 
     
+
+## 2. Building Content with JSX
+### 1. What is JSX
+
+https://babeljs.io/repl
+
+![image-20200326225204236](./modern-react.assets/image-20200326225204236.png)
+
+### 2. Converting HTML to JSX
+
+![image-20200326225253370](./modern-react.assets/image-20200326225253370.png)  
+
+codepen.io
+
+![image-20200326225528533](./modern-react.assets/image-20200326225528533.png)  
+
+![image-20200326225549731](./modern-react.assets/image-20200326225549731.png)  
+
+
+
+### 3. Inline Styling with JSX
+### 4. Converting Styling to JSX Format
+### 5. Class vs ClassName
+### 6. Referencing JS Variables in JSX
+### 7. Values JSX Can't Show
+
+Khi truyền object
+
+![image-20200326225851137](./modern-react.assets/image-20200326225851137.png)
+
+### 8. Finding Forbidden Property Names
+
+```js
+// Import the React and ReactDOM libraries
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+// Create a react component
+const App = () => {
+  const buttonText = { text: 'Click me' };
+  const labelText = 'Enter name:';
+
+  return (
+    <div>
+      // add htmlFor thay cho for
+      <label className="label" htmlFor="name">
+        {labelText}
+      </label>
+      <input id="name" type="text" />
+      <button style={{ backgroundColor: 'blue', color: 'white' }}>
+        {buttonText.text}
+      </button>
+    </div>
+  );
+};
+
+// Take the react component and show it on the screen
+ReactDOM.render(<App />, document.querySelector('#root'));
+```
+
+
+
+### 9. Exercise Introduction
+
+### 10. Test Your Knowledge JSX Interpolation.html
+### 11. JSX Exercise Solution
+## 3. Communicating with Props
+### 1. Three Tenets of Components
+
+![image-20200326230326675](./modern-react.assets/image-20200326230326675.png)
+
+### 2. Application Overview
+
+### 3. Getting Some Free Styling
+
+https://github.com/StephenGrider/redux-code/tree/master/components
+
+index.js
+
+```js
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import faker from 'faker';
+import CommentDetail from './CommentDetail';
+import ApprovalCard from './ApprovalCard';
+
+const App = () => {
+  return (
+    <div className="ui container comments">
+      <ApprovalCard>
+        <div>
+          <h4>Warning!</h4>
+          Are you sure you want to do this?
+        </div>
+      </ApprovalCard>
+
+      <ApprovalCard>
+        <CommentDetail
+          author="Sam"
+          timeAgo="Today at 4:45PM"
+          content="Nice blog post"
+          avatar={faker.image.avatar()}
+        />
+      </ApprovalCard>
+
+      <ApprovalCard>
+        <CommentDetail
+          author="Alex"
+          timeAgo="Today at 2:00AM"
+          content="I like the subject"
+          avatar={faker.image.avatar()}
+        />
+      </ApprovalCard>
+
+      <ApprovalCard>
+        <CommentDetail
+          author="Jane"
+          timeAgo="Yesterday at 5:00PM"
+          content="I like the writing"
+          avatar={faker.image.avatar()}
+        />
+      </ApprovalCard>
+    </div>
+  );
+};
+
+ReactDOM.render(<App />, document.querySelector('#root'));
+```
+
+CommenDetail.js
+
+```js
+import React from 'react';
+
+const CommentDetail = props => {
+  return (
+    <div className="comment">
+      <a href="/" className="avatar">
+        <img alt="avatar" src={props.avatar} />
+      </a>
+      <div className="content">
+        <a href="/" className="author">
+          {props.author}
+        </a>
+        <div className="metadata">
+          <span className="date">{props.timeAgo}</span>
+        </div>
+        <div className="text">{props.content}</div>
+      </div>
+    </div>
+  );
+};
+
+export default CommentDetail;
+```
+
+ApprovalCard.js
+
+```js
+
+import React from 'react';
+
+const ApprovalCard = props => {
+  return (
+    <div className="ui card">
+      <div className="content">{props.children}</div>
+      <div className="extra content">
+        <div className="ui two buttons">
+          <div className="ui basic green button">Approve</div>
+          <div className="ui basic red button">Reject</div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ApprovalCard;
+```
+
+index.html
+
+```html
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
+<!-- change font -->
+```
+
+`npm install --save faker`
+
+https://semantic-ui.com/introduction/getting-started.html
+
+### 4. Naive Component Approach
+### 5. Specifying Images in JSX
+### 6. Duplicating a Single Component
+### 7. Extracting JSX to New Components
+### 8. Component Nesting
+### 9. React's Props System
+
+
+### 10. Passing and Receiving Props
+### 11. Passing Multiple Props
+### 12. Passing Props - Solutions
+### 13. Component Reuse
+### 14. Implementing an Approval Card
+### 15. Showing Custom Children
+### 16. Component Reuse
+### 17. Exercise - Props
+### 18. Test Your Knowledge Props.html
+### 19. Props Exercise Solution
+### 20. Exercise - Children
+### 21. Test Your Knowledge Children Through Props.html
+### 22. Children Exercise Solution
+
+## 4. Structuring Apps with Class-Based Components
+### 1. Class-Based Components
+
+![image-20200326232531284](./modern-react.assets/image-20200326232531284.png)
+
+### 2. Application Overview
+
+https://github.com/StephenGrider/redux-code/tree/master/seasons
+
+### 3. Scaffolding the App
+### 4. Getting a Users Physical Location
+### 5. Resetting Geolocation Preferences
+### 6. Handling Async Operations with Functional Components
+### 7. Refactoring from Functional to Class Components
+## 5. State in React Components
+### 1. The Rules of State
+### 2. Initializing State Through Constructors
+### 3. Updating State Properties
+### 4. App Lifecycle Walkthrough
+### 5. Handling Errors Gracefully
+### 6. Conditionally Rendering Content
+## 6. Understanding Lifecycle Methods
+### 1. Introducing Lifecycle Methods
+### 10. Adding Some Styling
+### 11. Showing a Loading Spinner
+### 12. Specifying Default Props
+### 13. Avoiding Conditionals in Render
+### 14. Breather and Review
+### 15. Class-Based Components.html
+### 16. Exercise Solution - Class-Based Components
+### 17. Updating Components with State.html
+### 18. Updating Components with State
+### 2. Why Lifecycle Methods
+### 3. Refactoring Data Loading to Lifecycle Methods
+### 4. Alternate State Intialization
+### 5. Passing State as Props
+### 6. Determining Season
+### 7. Ternary Expressions in JSX
+### 8. Showing Icons
+### 9. Extracting Options to Config Objects
+## 7. Handling User Input with Forms and Events
+### 1. App Overview
+### 10. Handling Form Submittal
+### 11. Understanding 'this' In Javascript
+### 12. Solving Context Issues
+### 13. Communicating Child to Parent
+### 14. Invoking Callbacks in Children
+### 2. Component Design
+### 3. Adding Some Project Structure
+### 4. Showing Forms to the User
+### 5. Adding a Touch of Style
+### 6. Creating Event Handlers
+### 7. Alternate Event Handler Syntax
+### 8. Uncontrolled vs Controlled Elements
+### 9. More on Controlled Elements
+## 8. Making API Requests with React
+### 1. Fetching Data
+### 2. Axios vs Fetch
+### 3. Viewing Request Results
+### 4. Handling Requests with Async Await
+### 5. Setting State After Async Requests
+### 6. Binding Callbacks
+### 7. Creating Custom Clients
+## 9. Building Lists of Records
+### 1. Rendering Lists
+### 2. Review of Map Statements
+### 3. Rendering Lists of Components
+### 4. The Purpose of Keys in Lists
+### 5. Implementing Keys in Lists
+
 
 ## 10. Using Ref's for DOM Access
 ### 1. Grid CSS
@@ -347,48 +640,13 @@ Hi! I get many questions about the code editor, terminal, etc, that I use. Here'
 ### 7. Customizing Form Fields
 ### 8. Handling Form Submission
 ### 9. Validation of Form Inputs
-## 2. Building Content with JSX
-### 1. What is JSX
-### 10. Test Your Knowledge JSX Interpolation.html
-### 11. JSX Exercise Solution
-### 2. Converting HTML to JSX
-### 3. Inline Styling with JSX
-### 4. Converting Styling to JSX Format
-### 5. Class vs ClassName
-### 6. Referencing JS Variables in JSX
-### 7. Values JSX Can't Show
-### 8. Finding Forbidden Property Names
-### 9. Exercise Introduction
+
 ## 20. REST-Based React Apps
 ### 1. Creating Streams
-### 10. Handling Fetching, Creating, and Updating
-### 11. Deleting Properties with Omit
-### 12. Merging Lists of Records
-### 13. Fetching a List of All Streams
-### 14. Rendering All Streams
-### 15. Associating Streams with Users
-### 16. Conditionally Showing Edit and Delete
-### 17. Linking to Stream Creation
-### 18. When to Navigate Users
-### 19. History References
+
 ### 2. REST-ful Conventions
-### 20. History Object Deprecation Warning.html
-### 21. Creating a Browser History Object
-### 22. Implementing Programmatic Navigation
-### 23. Manually Changing API Records
-### 24. URL-Based Selection
-### 25. Wildcard Navigation
-### 26. More on Route Params
-### 27. Selecting Records from State
-### 28. Component Isolation with React Router
-### 29. Fetching a Stream for Edit Stream
+
 ### 3. Setting Up an API Server
-### 30. Real Code Reuse!
-### 31. Refactoring Stream Creation
-### 32. Setting Initial Values
-### 33. Avoiding Changes to Properties
-### 34. Edit Form Submission
-### 35. PUT vs PATCH Requests
 ### 4. Creating Streams Through Action Creators
 ### 5. Creating a Stream with REST Conventions
 ### 6. Dispatching Actions After Stream Creation
@@ -407,12 +665,35 @@ Hi! I get many questions about the code editor, terminal, etc, that I use. Here'
 ### 7. OnDismiss From the Parent
 ### 8. Reminder on Path Params
 ### 9. Fetching the Deletion Stream
+
+### 10. Handling Fetching, Creating, and Updating
+### 11. Deleting Properties with Omit
+### 12. Merging Lists of Records
+### 13. Fetching a List of All Streams
+### 14. Rendering All Streams
+### 15. Associating Streams with Users
+### 16. Conditionally Showing Edit and Delete
+### 17. Linking to Stream Creation
+### 18. When to Navigate Users
+### 19. History References
+### 20. History Object Deprecation Warning.html
+### 21. Creating a Browser History Object
+### 22. Implementing Programmatic Navigation
+### 23. Manually Changing API Records
+### 24. URL-Based Selection
+### 25. Wildcard Navigation
+### 26. More on Route Params
+### 27. Selecting Records from State
+### 28. Component Isolation with React Router
+### 29. Fetching a Stream for Edit Stream
+### 30. Real Code Reuse!
+### 31. Refactoring Stream Creation
+### 32. Setting Initial Values
+### 33. Avoiding Changes to Properties
+### 34. Edit Form Submission
+### 35. PUT vs PATCH Requests
 ## 22. Implementing Streaming Video
 ### 1. Viewing a Stream
-### 10. Creating a FLV Player
-### 11. Optional Player Building
-### 12. It Works!
-### 13. Cleaning Up with ComponentWillUnmount
 ### 2. Switches with React-Router
 ### 3. Showing a Stream
 ### 4. RTMP NodeMediaServer is not a constructor error fix.html
@@ -421,11 +702,13 @@ Hi! I get many questions about the code editor, terminal, etc, that I use. Here'
 ### 7. OBS Scene Setup
 ### 8. Video Player Setup
 ### 9. Implementing FLV JS
+
+### 10. Creating a FLV Player
+### 11. Optional Player Building
+### 12. It Works!
+### 13. Cleaning Up with ComponentWillUnmount
 ## 23. The Context System with React
 ### 1. The Context System
-### 10. Gotchas Around Providers
-### 11. Accessing Data with Consumers
-### 12. Pulling From Multiple Contexts
 ### 2. An App with Context
 ### 3. App Generation
 ### 4. Selecting a Language
@@ -434,6 +717,10 @@ Hi! I get many questions about the code editor, terminal, etc, that I use. Here'
 ### 7. Creating Context Objects
 ### 8. Consuming the Context Value
 ### 9. The Context Provider
+
+### 10. Gotchas Around Providers
+### 11. Accessing Data with Consumers
+### 12. Pulling From Multiple Contexts
 ## 24. Replacing Redux with Context
 ### 1. Replacing Redux with Context
 ### 2. Creating a Store Component
@@ -444,13 +731,6 @@ Hi! I get many questions about the code editor, terminal, etc, that I use. Here'
 ### 7. Context vs Redux Recap
 ## 25. Hooks with Functional Components
 ### 1. Introducing Hooks
-### 10. Lifecycles with UseEffect
-### 11. Updates with UseEffect
-### 12. Does It Get Called
-### 13. Quick Gotcha with UseEffect
-### 14. Rendering a List
-### 15. Actual Code Reuse!
-### 16. Code Reuse with Hooks
 ### 2. App Overview
 ### 3. Building Stateful Class Components
 ### 4. The UseState Hook
@@ -459,6 +739,14 @@ Hi! I get many questions about the code editor, terminal, etc, that I use. Here'
 ### 7. Fetching a Given Resource
 ### 8. ComponentDidUpdate vs ComponentDIdMount
 ### 9. Refactoring a Class to a Function
+
+### 10. Lifecycles with UseEffect
+### 11. Updates with UseEffect
+### 12. Does It Get Called
+### 13. Quick Gotcha with UseEffect
+### 14. Rendering a List
+### 15. Actual Code Reuse!
+### 16. Code Reuse with Hooks
 ## 26. More Fun with Hooks
 ### 1. Weather Hooks
 ### 2. Project Zip.html
@@ -468,6 +756,16 @@ Hi! I get many questions about the code editor, terminal, etc, that I use. Here'
 ### 6. That's All For Now.html
 ## 27. [Legacy] An Intro to React
 ### 1. Introduction - Github Links for Project Files!
+### 2. Completed Projects - Github Links.html
+
+### 3. The Purpose of Boilerplate Projects
+### 4. Environment Setup
+### 5. Project Setup
+### 6. Support for Create React App.html
+### 7. A Taste of JSX
+### 8. More on JSX
+### 9. Quick Note - Getting Different Error Messages.html
+
 ### 10. ES6 Import Statements
 ### 11. ReactDOM vs React
 ### 12. Differences Between Component Instances and Component Classes
@@ -478,17 +776,9 @@ Hi! I get many questions about the code editor, terminal, etc, that I use. Here'
 ### 17. Class-Based Components
 ### 18. Handling User Events
 ### 19. Introduction to State
-### 2. Completed Projects - Github Links.html
 ### 20. More on State
 ### 21. Controlled Components
 ### 22. Breather and Review
-### 3. The Purpose of Boilerplate Projects
-### 4. Environment Setup
-### 5. Project Setup
-### 6. Support for Create React App.html
-### 7. A Taste of JSX
-### 8. More on JSX
-### 9. Quick Note - Getting Different Error Messages.html
 ## 28. [Legacy] Ajax Requests with React
 ### 1. Youtube Search Response
 ### 10. Styling with CSS
@@ -508,29 +798,7 @@ Hi! I get many questions about the code editor, terminal, etc, that I use. Here'
 ### 2. What is Redux
 ### 3. More on Redux
 ### 4. Even More on Redux!
-## 3. Communicating with Props
-### 1. Three Tenets of Components
-### 10. Passing and Receiving Props
-### 11. Passing Multiple Props
-### 12. Passing Props - Solutions
-### 13. Component Reuse
-### 14. Implementing an Approval Card
-### 15. Showing Custom Children
-### 16. Component Reuse
-### 17. Exercise - Props
-### 18. Test Your Knowledge Props.html
-### 19. Props Exercise Solution
-### 2. Application Overview
-### 20. Exercise - Children
-### 21. Test Your Knowledge Children Through Props.html
-### 22. Children Exercise Solution
-### 3. Getting Some Free Styling
-### 4. Naive Component Approach
-### 5. Specifying Images in JSX
-### 6. Duplicating a Single Component
-### 7. Extracting JSX to New Components
-### 8. Component Nesting
-### 9. React's Props System
+
 ## 30. [Legacy] Managing App State with Redux
 ### 1. Putting Redux to Practice.html
 ### 10. Consuming Actions in Reducers
@@ -647,67 +915,3 @@ Hi! I get many questions about the code editor, terminal, etc, that I use. Here'
 ### 7. Route Configuration
 ### 8. Nesting Of Routes
 ### 9. IndexRoutes with React Router
-## 4. Structuring Apps with Class-Based Components
-### 1. Class-Based Components
-### 2. Application Overview
-### 3. Scaffolding the App
-### 4. Getting a Users Physical Location
-### 5. Resetting Geolocation Preferences
-### 6. Handling Async Operations with Functional Components
-### 7. Refactoring from Functional to Class Components
-## 5. State in React Components
-### 1. The Rules of State
-### 2. Initializing State Through Constructors
-### 3. Updating State Properties
-### 4. App Lifecycle Walkthrough
-### 5. Handling Errors Gracefully
-### 6. Conditionally Rendering Content
-## 6. Understanding Lifecycle Methods
-### 1. Introducing Lifecycle Methods
-### 10. Adding Some Styling
-### 11. Showing a Loading Spinner
-### 12. Specifying Default Props
-### 13. Avoiding Conditionals in Render
-### 14. Breather and Review
-### 15. Class-Based Components.html
-### 16. Exercise Solution - Class-Based Components
-### 17. Updating Components with State.html
-### 18. Updating Components with State
-### 2. Why Lifecycle Methods
-### 3. Refactoring Data Loading to Lifecycle Methods
-### 4. Alternate State Intialization
-### 5. Passing State as Props
-### 6. Determining Season
-### 7. Ternary Expressions in JSX
-### 8. Showing Icons
-### 9. Extracting Options to Config Objects
-## 7. Handling User Input with Forms and Events
-### 1. App Overview
-### 10. Handling Form Submittal
-### 11. Understanding 'this' In Javascript
-### 12. Solving Context Issues
-### 13. Communicating Child to Parent
-### 14. Invoking Callbacks in Children
-### 2. Component Design
-### 3. Adding Some Project Structure
-### 4. Showing Forms to the User
-### 5. Adding a Touch of Style
-### 6. Creating Event Handlers
-### 7. Alternate Event Handler Syntax
-### 8. Uncontrolled vs Controlled Elements
-### 9. More on Controlled Elements
-## 8. Making API Requests with React
-### 1. Fetching Data
-### 2. Axios vs Fetch
-### 3. Viewing Request Results
-### 4. Handling Requests with Async Await
-### 5. Setting State After Async Requests
-### 6. Binding Callbacks
-### 7. Creating Custom Clients
-## 9. Building Lists of Records
-### 1. Rendering Lists
-### 2. Review of Map Statements
-### 3. Rendering Lists of Components
-### 4. The Purpose of Keys in Lists
-### 5. Implementing Keys in Lists
-======== list file ========
