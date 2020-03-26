@@ -1,0 +1,4 @@
+<p>This is note is for students who are using Create React App, instead of the ReduxSimpleStarter boilerplate. <strong>If you are not using Create React App, please skip ahead to the next lecture.</strong></p><p>In the next lecture you will get an error, <code>'google' is not defined no-undef</code>. To fix this we need to read the global variable from the window object. Add the following  to your google_map component's life cycle method right above your map code:</p><pre class="prettyprint linenums">...
+const google = window.google; // &lt;- ADD THIS LINE
+new google.maps.Map(this.refs.map, {
+...</pre><p>If you still do not see your map, there may be an issue in your styles.css file, please check the QA or create new post for assistance. </p><p><br></p>

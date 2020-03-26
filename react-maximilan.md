@@ -633,6 +633,9 @@ React is a js library for building user interface (include many Components)
 
 Run on browser => ngay lập tức xảy ra trên browser mà không phải đợi server return
 
+Things happen instantly since they happen in the user's browser.
+We don't have to wait for a server response to get a new page or to render something new.
+
 Chia thành nhiều components => dễ bảo trì, tái SD, quản lí
 
 ### 2.1 components-learning-card.pdf.pdf
@@ -1795,6 +1798,8 @@ Stateless is a component that doesn’t manage state
 
 => func presentation component than stateful component => easy to maintain and manage
 
+A stateful component is a component that manages state, no matter if it's using the useState hook or a class-based approach with the state property. A component like the person.js file, so this person component is a stateless component because it has no internal state management and it is a good practice to create as many of these stateless components, also called dumb because they have no internal logic or presentational components because they present something, they output content, they only get external data and output it in a structured way, it is a good practice to use as many of these stateless, dumb, presentational components as possible in your application.
+
 ### 22. Passing Method References Between Components
 
 Click on paragraph => have two way to call func with params(use arrow func is not recommend). You can pass method like a props `click={this.switchNameHandler.bind(this, 'Max!')`
@@ -1802,6 +1807,8 @@ Click on paragraph => have two way to call func with params(use arrow func is no
 `() => this.switchNameHandler('Maximilian!!')` mean `() => return this.switchNameHandler('Maximilian!!')`
 
 arrow func khuyên k nên SD
+
+Now this is a very convenient syntax but it can be inefficient, react can re-render certain things in your app too often so I don't necessarily recommend using this if you don't have to, use the bind syntax instead if you can. Still I'll leave it here, you may use it and depending on the size of your application you also might not feel that big of a performance hit but be aware that this can be inefficient.
 
 App.js
 
@@ -3094,6 +3101,9 @@ ReactDOM.render(
 
 Side effect: mean call something like https or store somethings in local storage of the browser or sending something to gg analysic => affect performance
 
+Now the word side effect is relatively abstract, in the end it means things like sending a HTTP request or storing something in your local storage of the browser or sending some analytics to Google analytics.
+You don't really want to do things like that in the constructor because that can impact performance and cause unnecessary re-render cycles which of course are pretty bad and you want to avoid
+
 getDiverStateFromProps that is lifecycle hook from react 16.3, the idea is whenever props change
 ![](./root/img/2020-01-24-16-10-26.png)
 
@@ -3134,10 +3144,12 @@ Cách init state ở ngoài là cách hiện đại trong js, behind the sence
 ### 8. Component Update Lifecycle (for props Changes)
 
 rarely use react lifecycle hook to update your state
-there is a more elegant way of updating your state or managing your component based on external properties
+we'll not use that lifecycle hook because actually, you very very rarely need that and often there is a more elegant way of updating your state or of managing your components based on external properties.
 
 getSnapshotBeforeUpdate => Get snapshot of use state, restore the scrolling position before update happen
 ComponentDidMount => không nên use sync: cause re-render when update state
+
+It's fine to do it as a result of some async task you're kicking off here but you should not call it synchronously in componentDidUpdate because that will simply lead to an unnecessary re-render cycle.
 
 shouldComponentUpdate => có update hay không?
 
@@ -3449,6 +3461,7 @@ Khi thay đổi name trong input useEffect trong Cockpit được gọi bằng c
 ```js
 export default React.memo(cockpit);
 // will store a snapshot of this component, only input change => re-render. If parent doesnot change React will back in store components
+//  This basically uses memoization which is a technique where React will memoize, so basically store a snapshot of this component and only if its input changes, it will re-render it and otherwise if its inputs do not change and some parent component wants to update this cockpit component, React will give back that stored component.
 ```
 
 App.js add personsLength để nó không liên quan gì đến person nên khi change input sẽ không còn in ra log
@@ -3474,6 +3487,8 @@ Kết quả là khi thay đổi input nó sẽ không gọi lại hàm useEffect
 ### 16. When should you optimize
 
 Khi có khoảng 60% component cần update mà wrap bằng memo hay shouldComponentUpdate thì sẽ ảnh hưởng tốc độ app vì phải check mỗi lần render
+
+if you wrap all your components with such checks and let's say 60% of your components actually always need to update when their parent updates, well if you then wrapped all your components with these extra checks, then you're running unnecessary checks on 60% of your component codebase and that is not really something you want to do. So you should evaluate this carefully
 
 ### 17. PureComponents instead of shouldComponentUpdate
 
@@ -3579,9 +3594,6 @@ const aux = props => props.children;
 export default aux;
 
 ---------------Auxiliary.js;
-const aux = props => props.children;
-
-export default aux;
 ```
 
 ### 19.1 react-adjacent-jsx.pdf.pdf
@@ -4218,16 +4230,20 @@ return (
 
 ### 31. contextType & useContext()
 
+Static property means that  it can be accessed from outside without the need to instantiate an object based on this class first and React will access contextType for you, so to say. Now we set a value here and that value should be your authContext, just like this, not as JSX code, nothing else, just the authContext object.
+
 Person.js
 
 ```js
 import AuthContext from '../../../context/auth-context';
 
+// add
 static contextType = AuthContext;
 
 componentDidMount() {
     // this.inputElement.focus();
     this.inputElementRef.current.focus();
+    // add
     console.log(this.context.authenticated);
   }
 
@@ -4252,6 +4268,7 @@ import AuthContext from '../../../context/auth-context';
 
 const cockpit = props => {
   const toggleBtnRef = useRef(null);
+    // add
   const authContext = useContext(AuthContext);
   console.log(authContext.authenticated);
 
@@ -4385,6 +4402,11 @@ export default cockpit;
 ### 36. [LEGACY] Comparing Stateless and Stateful Components
 
 Cố gắng create nhiều functional component càng nhiều càng tốt bởi vì these component have a narow focus and clear responsibility => present something
+
+ you should try to create functional components as often as possible 
+Why?
+Because these components have a narrow focus and a clear responsibility, 
+they are only about presenting something, they are about rendering jsx and they contain some logic to display the jsx correctly, for example by adding some css classes as we do here in the cockpit component.
 
 Khi ứng dụng lớn => vấn đề về manage state, quản lý state từng component khó track
 
@@ -4730,6 +4752,16 @@ Cách 2: SD Shallow check thì comment đoạn trên lại và tiến hành như
 `class App extends PureComponent {` và `class Persons extends PureComponent {`
 
 Nên hạn chế SD vì prevent update child component and performance
+
+If that is what we want to do, make this shallow comparison and I'm saying shallow because it doesn't deeply check these objects, 
+it only detects differences because we update them in an immutable fashion which is important.
+
+So if you want to make this shallow check, we actually don't have to implement shouldComponentUpdate instead we can comment this out and inherit from a different type of component, a pure component.
+
+This is a different object exposed by the react library and it is exactly the same as the normal component but it has this type of shouldComponentUpdate check already built in.
+
+It will basically go through all the properties in the props and compare them to their old versions
+and only continue updating if it detects differences and it does the same for state.
 
 ### 45. [LEGACY] How React Updates the App & Component Tree
 
@@ -8241,6 +8273,8 @@ Khi console.log(props); Không có loaction, history and match
 
 Post.js get info of nearest routes => nên sẽ get giống như Posts
 
+So withRouter is a nice way of making that component route aware and it will use or it will get the props containing information for the nearest loaded route.
+
 Get access to routing relative props
 
 ```js
@@ -8272,6 +8306,9 @@ Sau đó revert file này lại như ban đầu
 ### 13. Absolute vs Relative Paths
 
 Relative path là vs post/new-post => new-post là relative
+
+An absolute path is always appended to your domain, so if you're serving this app from example.com then you want to go to new-post,
+if you navigate to /new-post, that simply means always attach /new-post right after the domain.
 
 Blog.js có thể truy cập path bằng cách this.props.match.url + 'new-post'
 Blog.js
@@ -8634,7 +8671,7 @@ return (
 
 ### 23. Creating Dynamic Nested Routes
 
-Khi ấn vào Post bất kì thì hiện thêm FullPost => sửa
+Khi ấn vào Post bất kì thì không hiện  FullPost => sửa
 
 FullPost.js add
 
@@ -8698,6 +8735,19 @@ Blog.js
 NewPost
 
 ```js
+import { Redirect } from 'react-router-dom';
+
+
+class NewPost extends Component {
+    state = {
+        title: '',
+        content: '',
+        author: 'Max',
+        submitted: false  // add
+    }
+
+....
+
 postDataHandler = () => {
         const data = {
             title: this.state.title,
@@ -8807,7 +8857,40 @@ Webpack will to prepare extra bundle for this potentially loaded code
 
 Sau đó thay cho NewPost trong Route tag => load asyn chỉ cs thêm 1 file chunk load thêm
 
+```js
+import React, { Component } from 'react';
+
+const asyncComponent = (importComponent) => {
+    return class extends Component {
+        state = {
+            component: null
+        }
+
+        componentDidMount () {
+            importComponent()
+                .then(cmp => {
+                    this.setState({component: cmp.default});
+                });
+        }
+        
+        render () {
+            const C = this.state.component;
+
+            return C ? <C {...this.props} /> : null;
+        }
+    }
+}
+
+export default asyncComponent;
+```
+
+This technique will work for react router for and for create react app because code splitting depends heavily on the webpack configuration you are using, it is an advanced concept after all.
+
+So the way I'm showing you is the way it works with the config from create react app which is a pretty modern and good configuration though, so chances are it also works in any decently set up webpack project or as I said at the beginning of this course, I strongly recommend using create react app anyway.
+
 ### 30. Lazy Loading with React Suspense (16.6)
+
+The lazy method which you can use to load your data your components asynchronously. Which means only when they are needed.
 
 App.js start
 
@@ -8839,6 +8922,8 @@ class App extends Component {
 
 export default App;
 ```
+
+We should use default exports named exports are not supported.
 
 App.js end
 
@@ -8882,6 +8967,8 @@ class App extends Component {
       //     </nav>
       //     <Route path="/" component={Welcome} exact />
       //     <Route path="/user" component={User} />
+
+// ----------------- add ---------------
       //     <Route
       //       path="/posts"
       //       render={() => (
@@ -8898,6 +8985,17 @@ class App extends Component {
 
 export default App;
 ```
+
+And that's the fallback proc which should be J as X code and they all add div where I say loading and this will actually be displayed.
+In cases where re-act basically postpones the rendering of this wrap component and shows as well fallback in the meantime.
+
+Now after reloading clear it and now click on the post page and you will see that there it loaded a new file and that is the file holding the code for this component and that is async rendering at async loading in action because this component and its code is only fetched and rendered when we really need
+
+it and therefore we avoid loading everything in advance which can of course drastically improve the performance of your application depending on its size.
+
+Please be aware that this will not work if you're trying to serve a side rendered.
+
+Then this is not support that this API will not work yet. If you have very simple components using suspends might actually be overkill and could even slow down your application or be suboptimal.
 
 ### 31. Routing and Server Deployment
 
@@ -9623,7 +9721,7 @@ Input.css
 }
 ```
 
-Contact.js
+ContactData.js
 
 ```js
 let form = (
@@ -10369,6 +10467,28 @@ const reducer = (state = initialState, action) => {
 export default reducer;
 ```
 
+Test
+
+```js
+
+const initialState = {
+  counter: 0
+};
+
+const reducer = (state = initialState) => {
+  // # 10
+    return {
+      ...state,
+      counter: state.counter + 1
+    };
+};
+console.log(reducer());
+
+// > Object { counter: 1 }
+```
+
+https://developer.mozilla.org/vi/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
+
 ### 9. Connecting the Store to React
 
 `npm install --save react-redux`
@@ -10954,7 +11074,7 @@ const reducer = ( state = initialState, action ) => {
         case actionTypes.STORE_RESULT:
             return {
                 ...state,
-                // sửa action.result để nhận vì không thể access từ global state
+                // sửa action.result để nhận vì không thể access từ global state, Counter.js truyền thêm tham số
                 results: state.results.concat({id: new Date(), value: action.result})
             }
 ```
@@ -11229,6 +11349,38 @@ componentDidMount () {
     }
 ```
 
+Test
+
+```js
+const initialState = {
+  ingredients: {
+    salad: 0,
+    bacon: 0,
+    cheese: 0,
+    meat: 0
+  },
+  totalPrice: 4
+};
+const reducer = (state = initialState) => {
+      return {
+        ...state,
+        ingredients: {
+          ...state.ingredients,
+          // cú pháp es6 cho phép override property of the object
+          ["salad"]: state.ingredients["salad"] + 1
+        },
+        // # 6 add
+        totalPrice: state.totalPrice + 1
+      };
+  
+};
+console.log(reducer());
+
+// > Object { ingredients: Object { salad: 1, bacon: 0, cheese: 0, meat: 0 }, totalPrice: 5 }
+```
+
+
+
 ### 5. Connecting the Burger Builder Container to our Store
 
 BurgerBuilder.js
@@ -11237,11 +11389,11 @@ BurgerBuilder.js
 
 // delete state 3 thuộc tính đầu
 state = {
-   		// delete start
+   // delete start
     	// ingredients: null,
         // totalPrice: 4,
         // purchasable: false,
-        // delete end
+   // delete end
         purchasing: false,
         loading: false,
         error:
@@ -11510,7 +11662,7 @@ export default connect(mapStateToProps)(ContactData);
 
 ### 2. Adding Middleware
 
-Middleware is term used for function or the code general you hook into a process which then get executed as part of that process without stopping it
+Middleware basically is a term used for functions or the code general you hook into a process which then gets executed as part of that process without stopping it.
 
 ![image-20200225203849602](./react-maximilan.assets/image-20200225203849602.png)
 
@@ -11620,7 +11772,7 @@ export const deleteResult = resElId => {
 };
 ```
 
-It is a func return an action or create an action
+ An action creator is just a function which returns an action or which creates an action, hence the name.
 
 ### 6. Action Creators & Async Code
 
@@ -11968,7 +12120,7 @@ const store = createStore(
 
 ### 3. Preparing the Folder Structure
 
-Move submit form in ContactData into action creator
+Move source submit form in ContactData into action creator
 
 In **store** folder create **actions** and **reducer** folder and file in this
 
@@ -11986,6 +12138,7 @@ BurgerBuilder.js in action dựa vào file BurgerBuilder các hàm dispatch ở 
 import * as actionTypes from "./actionTypes";
 import axios from "../../axios-orders";
 
+// add
 export const addIngredient = name => {
   return {
     type: actionTypes.ADD_INGREDIENT,
@@ -12211,7 +12364,7 @@ const mapStateToProps = state => {
     };
 }
 
-
+// add
 const mapDispatchToProps = dispatch => {
     return {
         onIngredientAdded: (ingName) => dispatch(burgerBuilderActions.addIngredient(ingName)),
