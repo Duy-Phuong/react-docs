@@ -493,15 +493,11 @@ const onMakeDecision = () => {
 
 ## 4. React Components
 ### 1. Section Intro React Components
-### 10. What Is Component State
-### 11. Adding State to Counter App Part I
-### 12. Adding State to Counter App Part II
-### 13. Alternative setState Syntax
-### 14. Build It Adding State to VisibilityToggle
-### 15. Indecision State Part I
-### 16. Indecision State Part II
-### 17. Summary Props vs. State
+### ![image-20200328082500513](./react-2nd-edition.assets/image-20200328082500513.png)
 ### 2. Thinking in React
+
+
+
 ### 3. ES6 Classes Part I
 ### 4. ES6 Classes Part II
 ### 5. Creating a React Component
@@ -509,6 +505,23 @@ const onMakeDecision = () => {
 ### 7. Component Props
 ### 8. Events & Methods
 ### 9. Method Binding
+
+### 10. What Is Component State
+
+### 11. Adding State to Counter App Part I
+
+### 12. Adding State to Counter App Part II
+
+### 13. Alternative setState Syntax
+
+### 14. Build It Adding State to VisibilityToggle
+
+### 15. Indecision State Part I
+
+### 16. Indecision State Part II
+
+### 17. Summary Props vs. State
+
 ## 5. Stateless Functional Components
 ### 1. Section Intro Stateless Functional Components
 ### 2. The Stateless Functional Component
