@@ -824,26 +824,52 @@ export default ImageCard;
 ### 8. App Review
 ## 11. Let's Test Your React Mastery!
 ### 1. App Overview
-### 10. Updating State with Fetched Data
-### 11. Passing State as Props
-### 12. Rendering a List of Videos
-### 13. Rendering Video Thumbnails
-### 14. Styling a List
-### 15. Communicating from Child to Parent
-### 16. Deeply Nested Callbacks
-### 17. Conditional Rendering
-### 18. Styling the VideoDetail
-### 19. Displaying a Video Player
+
+![image-20200327183028683](./modern-react.assets/image-20200327183028683.png)
+
+### 
 ### 2. Component Design
-### 20. Fixing a Few Warnings
-### 21. Defaulting Video Selection
+![image-20200327183143166](./modern-react.assets/image-20200327183143166.png)
+
 ### 3. Scaffolding the App
+
+https://github.com/StephenGrider/redux-code/tree/master/videos
+
+
+
 ### 4. Reminder on Event Handlers
 ### 5. Handling Form Submittal
 ### 6. Accessing the Youtube API
 ### 7. Searching for Videos
 ### 8. Axios 400 Required Parameter part Error.html
 ### 9. Putting it All Together
+
+### 10. Updating State with Fetched Data
+
+### 11. Passing State as Props
+
+### 12. Rendering a List of Videos
+
+### 13. Rendering Video Thumbnails
+
+### 14. Styling a List
+
+### 15. Communicating from Child to Parent
+
+### 16. Deeply Nested Callbacks
+
+### 17. Conditional Rendering
+
+### 18. Styling the VideoDetail
+
+### 19. Displaying a Video Player
+
+
+
+### 20. Fixing a Few Warnings
+
+### 21. Defaulting Video Selection
+
 ## 12. On We Go...To Redux!
 ### 1. Introduction to Redux
 ### 10. Important Redux Notes
