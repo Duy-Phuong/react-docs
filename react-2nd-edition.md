@@ -1,7 +1,8 @@
-
+[TOC]
 
 C:\Users\phuong\AppData\Local\Programs\Python\Python37\python.exe D:/Source/Source_All/python/Test/readfile.py
 ======== name dir ========
+
 ## 1. Welcome
 ### 1. Welcome & Asking Good Questions
 ### 2. Why should I learn React
@@ -103,7 +104,9 @@ Serving "public" at http://127.0.0.1:8080
 
 
 
-![image-20200327232152199](./react-2nd-edition.assets/image-20200327232152199.png)  
+![image-20200327232152199](./react-2nd-edition.assets/image-20200327232152199.png) 
+
+Type: React in console  
 
 ![image-20200327232313302](./react-2nd-edition.assets/image-20200327232313302.png)  
 
@@ -132,6 +135,8 @@ Vào babel convert html
 ### 4. Setting up Babel
 
 https://babeljs.io/docs/en/plugins
+
+![image-20200403212657976](./react-2nd-edition.assets/image-20200403212657976.png)
 
 ```shell
 yarn global add babel-cli@6.24.1
@@ -496,29 +501,618 @@ const onMakeDecision = () => {
 ### ![image-20200328082500513](./react-2nd-edition.assets/image-20200328082500513.png)
 ### 2. Thinking in React
 
-
-
 ### 3. ES6 Classes Part I
+
+es6-classes-1.js
+
+```js
+class Person {
+  constructor(name = 'Anonymous', age = 0) {
+    this.name = name;
+    this.age = age;
+  }
+  getGreeting() {
+    return `Hi. I am ${this.name}!`;
+  }
+  getDescription() {
+    return `${this.name} is ${this.age} year(s) old.`;
+  }
+}
+
+
+const me = new Person('Andrew Mead', 26);
+console.log(me.getDescription());
+
+const other = new Person(undefined, undefined);
+console.log(other.getDescription());
+// Andrew Mead is 26 ...
+// Anonymous is 0 year(s) old.
+
+// 4
+class Student extends Person {
+  constructor(name, age, major) {
+    super(name, age);
+    this.major = major;
+  }
+  hasMajor() {
+    return !!this.major;
+  }
+  getDescription() {
+    let description = super.getDescription();
+
+    if (this.hasMajor()) {
+      description += ` Their major is ${this.major}.`;
+    }
+
+    return description;
+  }
+}
+
+
+
+// 4
+class Traveler extends Person {
+  constructor(name, age, homeLocation) {
+    super(name, age);
+    this.homeLocation = homeLocation;
+  }
+  getGreeting() {
+    let greeting = super.getGreeting();
+
+    if (this.homeLocation) {
+      greeting += ` I am visiting from ${this.homeLocation}.`;
+    }
+
+    return greeting;
+  }
+}
+
+const me = new Traveler('Andrew Mead', 26, 'Philadelphia');
+console.log(me.getGreeting());
+
+const other = new Traveler(undefined, undefined, 'Nowhere');
+console.log(other.getGreeting());
+
+
+```
+
+
+
 ### 4. ES6 Classes Part II
 ### 5. Creating a React Component
+
+app.js
+
+```js
+class Header extends React.Component {
+  render() {
+    return (
+      <div>
+        <h1>Indecision</h1>
+        <h2>Put your life in the hands of a computer</h2>
+      </div>
+    );
+  }
+}
+
+class Action extends React.Component {
+  render() {
+    return (
+      <div>
+        <button>What should I do?</button>
+      </div>
+    );
+  }
+}
+
+class Options extends React.Component {
+  render() {
+    return (
+      <div>
+        Options component here
+      </div>
+    );
+  }
+}
+
+class AddOption extends React.Component {
+  render() {
+    return (
+      <div>
+        AddOption component here
+      </div>
+    );
+  }
+}
+
+const jsx = (
+  <div>
+    <Header />
+    <Action />
+    <Options />
+    <AddOption />
+  </div>
+);
+
+ReactDOM.render(jsx, document.getElementById('app'));
+
+```
+
+
+
 ### 6. Nesting Components
+
+app.js
+
+```js
+class IndecisionApp extends React.Component {
+  render() {
+    return (
+      <div>
+        <Header />
+        <Action />
+        <Options />
+        <AddOption />
+      </div>
+    );
+  }
+}
+
+class Options extends React.Component {
+  render() {
+    return (
+      <div>
+        Options component here
+        // add
+        <Option />
+      </div>
+    );
+  }
+}
+
+class Option extends React.Component {
+  render() {
+    return (
+      <div>
+        Option component here
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<IndecisionApp />, document.getElementById('app'));
+
+```
+
+
+
 ### 7. Component Props
+
+app.js
+
+```js
+class IndecisionApp extends React.Component {
+  render() {
+    const title = 'Indecision';
+    const subtitle = 'Put your life in the hands of a computer';
+    const options = ['Thing one', 'Thing two', 'Thing four'];
+
+    return (
+      <div>
+        <Header title={title} subtitle={subtitle} />
+        <Action />
+        <Options options={options} />
+        <AddOption />
+      </div>
+    );
+  }
+}
+
+class Header extends React.Component {
+  render() {
+    return (
+      <div>
+        <h1>{this.props.title}</h1>
+        <h2>{this.props.subtitle}</h2>
+      </div>
+    );
+  }
+}
+
+class Action extends React.Component {
+  render() {
+    return (
+      <div>
+        <button>What should I do?</button>
+      </div>
+    );
+  }
+}
+
+class Options extends React.Component {
+  render() {
+    return (
+      <div>
+        {
+          this.props.options.map((option) => <Option key={option} optionText={option} />)
+        }
+      </div>
+    );
+  }
+}
+
+class Option extends React.Component {
+  render() {
+    return (
+      <div>
+        {this.props.optionText}
+      </div>
+    );
+  }
+}
+
+class AddOption extends React.Component {
+  render() {
+    return (
+      <div>
+        AddOption component here
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<IndecisionApp />, document.getElementById('app'));
+
+```
+
+
+
 ### 8. Events & Methods
+
+app.js
+```js
+
+class Action extends React.Component {
+    // add
+  handlePick() {
+    alert('handlePick');
+  }
+  render() {
+    return (
+      <div>
+        <button onClick={this.handlePick}>What should I do?</button>
+      </div>
+    );
+  }
+}
+
+class Options extends React.Component {
+    // add
+  handleRemoveAll() {
+    alert('handleRemoveAll');
+  }
+  render() {
+    return (
+      <div>
+        <button onClick={this.handleRemoveAll}>Remove All</button>
+        {
+          this.props.options.map((option) => <Option key={option} optionText={option} />)
+        }
+      </div>
+    );
+  }
+}
+
+class Option extends React.Component {
+  render() {
+    return (
+      <div>
+        {this.props.optionText}
+      </div>
+    );
+  }
+}
+
+class AddOption extends React.Component {
+    // add
+  handleAddOption(e) {
+    e.preventDefault();
+
+    const option = e.target.elements.option.value.trim();
+
+    if (option) {
+      alert(option);
+    }
+  }
+  render() {
+    return (
+      <div>
+        <form onSubmit={this.handleAddOption}>
+          <input type="text" name="option" />
+          <button>Add Option</button>
+        </form>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<IndecisionApp />, document.getElementById('app'));
+
+```
+
 ### 9. Method Binding
+
+app.js
+
+```js
+
+class Options extends React.Component {
+    // add
+  constructor(props) {
+    super(props);
+    this.handleRemoveAll = this.handleRemoveAll.bind(this);
+  }
+  handleRemoveAll() {
+      // add thêm nếu chưa có bind ở trên mà access => err cannot access props
+    console.log(this.props.options);
+    // alert('handleRemoveAll');
+  }
+  render() {
+    return (
+      <div>
+        <button onClick={this.handleRemoveAll}>Remove All</button>
+        {
+          this.props.options.map((option) => <Option key={option} optionText={option} />)
+        }
+      </div>
+    );
+  }
+}s
+```
+
+Tương tự:
+
+![image-20200403223309394](./react-2nd-edition.assets/image-20200403223309394.png)
 
 ### 10. What Is Component State
 
+component state to manage some data, khi data change => auto render
+
+![image-20200329222825785](./react-2nd-edition.assets/image-20200329222825785.png)
+
 ### 11. Adding State to Counter App Part I
+
+counter-example.js
+
+```js
+class Counter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleAddOne = this.handleAddOne.bind(this);
+    this.handleMinusOne = this.handleMinusOne.bind(this);
+    this.handleReset = this.handleReset.bind(this);
+  }
+  handleAddOne() {
+    console.log('handleAddOne');
+  }
+  handleMinusOne() {
+    console.log('handleMinusOne');
+  }
+  handleReset() {
+    console.log('handleReset');
+  }
+  render() {
+    return (
+      <div>
+        <h1>Count: </h1>
+        <button onClick={this.handleAddOne}>+1</button>
+        <button onClick={this.handleMinusOne}>-1</button>
+        <button onClick={this.handleReset}>reset</button>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<Counter />, document.getElementById('app'));
+```
+
+
 
 ### 12. Adding State to Counter App Part II
 
+counter-examples.js
+
+```js
+class Counter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleAddOne = this.handleAddOne.bind(this);
+    this.handleMinusOne = this.handleMinusOne.bind(this);
+    this.handleReset = this.handleReset.bind(this);
+      // add new state
+    this.state = {
+      count: 0
+    };
+  }
+  handleAddOne() {
+    this.setState((prevState) => {
+      return {
+        count: prevState.count + 1
+      };
+    });
+  }
+  handleMinusOne() {
+    this.setState((prevState) => {
+      return {
+        count: prevState.count - 1
+      };
+    });
+  }
+  handleReset() {
+    this.setState(() => {
+      return {
+        count: 0
+      };
+    });
+  }
+```
+
+
+
 ### 13. Alternative setState Syntax
 
+
+
+
+
 ### 14. Build It Adding State to VisibilityToggle
+build-it-visible.js
+
+```js
+class VisibilityToggle extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleToggleVisibility = this.handleToggleVisibility.bind(this);
+    this.state = {
+      visibility: false
+    };
+  }
+  handleToggleVisibility() {
+    this.setState((prevState) => {
+      return {
+        visibility: !prevState.visibility
+      };
+    });
+  }
+  render() {
+    return (
+      <div>
+        <h1>Visibility Toggle</h1>
+        <button onClick={this.handleToggleVisibility}>
+          {this.state.visibility ? 'Hide details' : 'Show details'}
+        </button>
+        {this.state.visibility && (
+          <div>
+            <p>Hey. These are some details you can now see!</p>
+          </div>
+        )}
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<VisibilityToggle />, document.getElementById('app'));
+
+```
 
 ### 15. Indecision State Part I
 
+app.js
+
+```js
+class IndecisionApp extends React.Component {
+    // add
+  constructor(props) {
+    super(props);
+    this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
+    this.handlePick = this.handlePick.bind(this);
+    this.state = {
+      options: ['Thing one', 'Thing two', 'Thing three']
+    };
+  }
+    // add
+  handleDeleteOptions() {
+    this.setState(() => {
+      return {
+        options: []
+      };
+    });
+  }
+    
+    // add
+  handlePick() {
+    const randomNum = Math.floor(Math.random() * this.state.options.length);
+    const option = this.state.options[randomNum];
+    alert(option);
+  }
+  render() {
+    const title = 'Indecision';
+    const subtitle = 'Put your life in the hands of a computer';
+
+    return (
+      <div>
+        <Header title={title} subtitle={subtitle} />
+        <Action
+          hasOptions={this.state.options.length > 0}
+          handlePick={this.handlePick}
+        />
+        <Options
+          options={this.state.options}
+          handleDeleteOptions={this.handleDeleteOptions}
+        />
+        <AddOption />
+      </div>
+    );
+  }
+}
+```
+
+
+
 ### 16. Indecision State Part II
+
+app.js
+
+```js
+handleAddOption(option) {
+    if (!option) {
+      return 'Enter valid value to add item';
+    } else if (this.state.options.indexOf(option) > -1) {
+      return 'This option already exists';
+    }
+    this.setState((prevState) => {
+      return {
+        options: prevState.options.concat(option)
+      };
+    });
+  }
+
+
+
+class AddOption extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleAddOption = this.handleAddOption.bind(this);
+    this.state = {
+      error: undefined
+    };
+  }
+  handleAddOption(e) {
+    e.preventDefault();
+
+    const option = e.target.elements.option.value.trim();
+      // add
+    const error = this.props.handleAddOption(option);
+
+    this.setState(() => {
+      return { error };
+    });
+  }
+  render() {
+    return (
+      <div>
+        {this.state.error && <p>{this.state.error}</p>}
+        <form onSubmit={this.handleAddOption}>
+          <input type="text" name="option" />
+          <button>Add Option</button>
+        </form>
+      </div>
+    );
+  }
+}
+```
+
+
 
 ### 17. Summary Props vs. State
 
