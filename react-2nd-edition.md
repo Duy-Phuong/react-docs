@@ -1416,6 +1416,40 @@ So in the end of the day when we run our app through web pack we're going to get
 
 ### 2. What Is Webpack
 ### 3. Avoid Global Modules
+
+Before we install web pack as a global module and run it from the terminal I want to talk about why it's generally a bad idea to install global modules whether you using yarn or NPM. (live-server and babel)
+
+- Khi down về không biết tool nào và version
+- `yarn global remove babel-cli live-server`
+- `npm uninstall -g babel-cli live-server`
+
+`yarn add live-server@1.2.0` 
+
+package.json
+
+```js
+{
+  "name": "indecision-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Andrew Mead",
+  "license": "MIT",
+      // add
+  "scripts": {
+    "serve": "live-server public/",
+    "build": "babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch"
+  },
+  "dependencies": {
+    "babel-cli": "6.24.1",
+    "babel-preset-env": "1.5.2",
+    "babel-preset-react": "6.24.1",
+    "live-server": "^1.2.0"
+  }
+}
+```
+
+
+
 ### 4. Installing & Configuring Webpack
 ### 5. ES6 importexport
 ### 6. Default Exports
