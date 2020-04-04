@@ -1791,8 +1791,81 @@ Sửa lại file IndecisionApp
 ## 7. Using a Third-Party Component
 ### 1. Section Intro Using a Third-Party Component
 ### 2. Passing Children to Component
+
+app.js use this.props.children
+
 ### 3. Setting up React-Modal
+
+gg: react-modal
+
+https://github.com/reactjs/react-modal
+
+```shell
+$ npm install react-modal
+```
+
+OptionModal.js
+
+```js
+import React from 'react';
+import Modal from 'react-modal';
+
+const OptionModal = (props) => (
+  <Modal
+    isOpen={!!props.selectedOption} // convert string to boolean
+    onRequestClose={props.handleClearSelectedOption}
+    contentLabel="Selected Option"
+  >
+    <h3>Selected Option</h3>
+    {props.selectedOption && <p>{props.selectedOption}</p>}
+    <button onClick={props.handleClearSelectedOption}>Okay</button>
+  </Modal>
+);
+
+export default OptionModal;
+
+```
+
+https://github.com/reactjs/react-modal#examples
+
+IndecisionApp.js
+
+```js
+
+export default class IndecisionApp extends React.Component {
+  state = {
+    options: [],
+    selectedOption: undefined // add
+  };
+
+ handleClearSelectedOption = () => {
+     // add
+    this.setState(() => ({ selectedOption: undefined }));
+  }
+  handleDeleteOption = (optionToRemove) => {
+    this.setState((prevState) => ({
+      options: prevState.options.filter((option) => optionToRemove !== option)
+    }));
+  };
+  handlePick = () => {
+    const randomNum = Math.floor(Math.random() * this.state.options.length);
+    const option = this.state.options[randomNum];
+      // add
+    this.setState(() => ({
+      selectedOption: option
+    }));
+  };
+
+        <OptionModal
+          selectedOption={this.state.selectedOption}
+          handleClearSelectedOption={this.handleClearSelectedOption}
+        />
+```
+
+<img src="./react-2nd-edition.assets/image-20200404113715613.png" alt="image-20200404113715613" style="zoom:100%;" />
+
 ### 4. Bonus Refactoring Other Stateless Functional Components
+
 ## 8. Styling React
 ### 1. Section Intro Styling React
 ### 10. Mobile Considerations
