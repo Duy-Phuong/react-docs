@@ -2436,24 +2436,308 @@ index.html
 
 ### 3. Setting Up Budget App
 
+copy từ project cũ qua
+
+package.json
+
+```js
+  "name": "expensify",
+```
+
+_setting.scss
+
+```css
+// Colors
+// Spacing
+$s-size: 1.2rem;
+$m-size: 1.6rem;
+$l-size: 3.2rem;
+$xl-size: 4.8rem;
+$desktop-breakpoint: 45rem;
+
+```
+
+app.js
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import 'normalize.css/normalize.css';
+import './styles/styles.scss';
+
+ReactDOM.render(<p>This is my boilerplate</p>, document.getElementById('app'));
+
+```
+
 
 
 ### 4. React-Router 101
+
+https://reacttraining.com/react-router/web/guides/quick-start
+
+`npm install react-router-dom`
+
+app.js
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
+import 'normalize.css/normalize.css';
+import './styles/styles.scss';
+
+const ExpenseDashboardPage = () => (
+  <div>
+    This is from my dashboard component
+  </div>
+);
+
+const AddExpensePage = () => (
+  <div>
+    This is from my add expense component
+  </div>
+);
+
+const EditExpensePage = () => (
+  <div>
+    This is from my edit expense component
+  </div>
+);
+
+const HelpPage = () => (
+  <div>
+    This is from my help component
+  </div>
+);
+
+const routes = (
+  <BrowserRouter>
+    <div>
+      <Route path="/" component={ExpenseDashboardPage} exact={true} />
+      <Route path="/create" component={AddExpensePage} />
+      <Route path="/edit" component={EditExpensePage} />
+      <Route path="/help" component={HelpPage} />
+    </div>
+  </BrowserRouter>
+);
+
+ReactDOM.render(routes, document.getElementById('app'));
+
+```
+
+webpack-config.js => xử lý routing via client side, sẽ không call server side khi gọi /create
+
+```js
+
+  devtool: 'cheap-module-eval-source-map',
+  devServer: {
+    contentBase: path.join(__dirname, 'public'),
+    historyApiFallback: true // add
+  }
+};
+
+```
+
+exact={true}
+
 ### 5. Setting up a 404
+
+app.js
+
+```js
+
+const NotFoundPage = () => (
+  <div>
+    404!
+  </div>
+);
+
+const routes = (
+  <BrowserRouter>
+    <Switch>
+      <Route path="/" component={ExpenseDashboardPage} exact={true} />
+      <Route path="/create" component={AddExpensePage} />
+      <Route path="/edit" component={EditExpensePage} />
+      <Route path="/help" component={HelpPage} />
+      <Route component={NotFoundPage} />
+    </Switch>
+  </BrowserRouter>
+);
+```
+
+Khi vào /create thì thấy cả 404 => use Switch nếu match thì stop
+
 ### 6. Linking Between Routes
+
+app.js
+
+```js
+import { BrowserRouter, Route, Switch, Link, NavLink } from 'react-router-dom';
+
+const NotFoundPage = () => (
+  <div>
+    404 - <Link to="/">Go home</Link>
+  </div>
+);
+
+const Header = () => (
+  <header>
+    <h1>Expensify</h1>
+    <NavLink to="/" activeClassName="is-active" exact={true}>Dashboard</NavLink>
+    <NavLink to="/create" activeClassName="is-active">Create Expense</NavLink>
+    <NavLink to="/edit" activeClassName="is-active">Edit Expense</NavLink>
+    <NavLink to="/help" activeClassName="is-active">Help</NavLink>
+  </header>
+);
+
+const routes = (
+  <BrowserRouter>
+    <div>
+      <Header />
+      <Switch>
+        <Route path="/" component={ExpenseDashboardPage} exact={true} />
+        <Route path="/create" component={AddExpensePage} />
+        <Route path="/edit" component={EditExpensePage} />
+        <Route path="/help" component={HelpPage} />
+        <Route component={NotFoundPage} />
+      </Switch>
+    </div>
+  </BrowserRouter>
+);
+
+```
+
+thêm exact nếu không vào /help dashboard cũng sẽ bị active
+
+base.scss
+
+```scss
+
+.is-active {
+  font-weight: bold;
+}
+
+```
+
+
+
 ### 7. Organizing Our Routes
+
+routers/AppRouter.js
+
+```js
+import React from 'react';
+import { BrowserRouter, Route, Switch, Link, NavLink } from 'react-router-dom';
+import ExpenseDashboardPage from '../components/ExpenseDashboardPage';
+import AddExpensePage from '../components/AddExpensePage';
+import EditExpensePage from '../components/EditExpensePage';
+import HelpPage from '../components/HelpPage';
+import NotFoundPage from '../components/NotFoundPage';
+import Header from '../components/Header';
+
+const AppRouter = () => (
+  <BrowserRouter>
+    <div>
+      <Header />
+      <Switch>
+        <Route path="/" component={ExpenseDashboardPage} exact={true} />
+        <Route path="/create" component={AddExpensePage} />
+        <Route path="/edit" component={EditExpensePage} />
+        <Route path="/help" component={HelpPage} />
+        <Route component={NotFoundPage} />
+      </Switch>
+    </div>
+  </BrowserRouter>
+);
+
+export default AppRouter;
+
+```
+
+
+
 ### 8. Query Strings and URL Parameters
+
+AppRouter.js
+
+```js
+        <Route path="/edit/:id" component={EditExpensePage} />
+
+```
+
+EditExpensePage
+
+```js
+import React from 'react';
+
+const EditExpensePage = (props) => {
+  console.log(props);
+  return (
+    <div>
+      Editing the expense with id of {props.match.params.id}
+    </div>
+  );
+};
+
+export default EditExpensePage;
+
+```
+
+
+
 ### 9. Build It Router for Portfolio Site
+
+AppRouter.js
+
+```js
+
+const AppRouter = () => (
+  <BrowserRouter>
+    <div>
+      <Header />
+      <Switch>
+        <Route path="/" component={HomePage} exact={true} />
+        <Route path="/portfolio" component={PortfolioPage} exact={true} />
+        <Route path="/portfolio/:id" component={PortfolioItemPage} />
+        <Route path="/contact" component={ContactPage} />
+        <Route component={NotFoundPage} />
+      </Switch>
+    </div>
+  </BrowserRouter>
+);
+```
+
+Header.js
+
+```js
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+
+const Header = () => (
+  <header>
+    <h1>Portfolio</h1>
+    <NavLink to="/" activeClassName="is-active" exact={true}>Home</NavLink>
+    <NavLink to="/portfolio" activeClassName="is-active" exact={true}>Portfolio</NavLink>
+    <NavLink to="/contact" activeClassName="is-active">Contact</NavLink>
+  </header>
+);
+
+export default Header;
+
+```
+
+
 
 ## 10. Redux
 ### 1. Section Intro Redux
-### 10. Working with Multiple Reducers
-### 11. ES6 Spread Operator in Reducers
-### 12. Spreading Objects
-### 13. Wrapping up Our Reducers
-### 14. Filtering Redux Data
-### 15. Sorting Redux Data
 ### 2. Why Do We Need Something Like Redux
+
+![image-20200404222958547](./react-2nd-edition.assets/image-20200404222958547.png)  
+
+![image-20200404223117346](./react-2nd-edition.assets/image-20200404223117346.png)  
+
+![image-20200404223340540](./react-2nd-edition.assets/image-20200404223340540.png)
+
 ### 3. Setting up Redux
 ### 4. Dispatching Actions
 ### 5. Subscribing and Dynamic Actions
@@ -2461,6 +2745,21 @@ index.html
 ### 7. ES6 Array Destructuring
 ### 8. Refactoring and Organizing
 ### 9. Reducers
+
+### 
+
+### 10. Working with Multiple Reducers
+
+### 11. ES6 Spread Operator in Reducers
+
+### 12. Spreading Objects
+
+### 13. Wrapping up Our Reducers
+
+### 14. Filtering Redux Data
+
+### 15. Sorting Redux Data
+
 ## 11. React with Redux
 ### 1. Section Intro Connecting React and Redux
 ### 10. Wiring up Add Expense
