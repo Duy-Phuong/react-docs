@@ -1448,24 +1448,345 @@ package.json
 }
 ```
 
-
+`yarn run build`
 
 ### 4. Installing & Configuring Webpack
+
+`yarn add webpack@3.1.0`
+
+package.json
+
+```js
+{
+  "name": "indecision-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Andrew Mead",
+  "license": "MIT",
+  "scripts": {
+    "serve": "live-server public/",
+        
+     // add
+    "build": "webpack --watch",
+    "build-babel": "babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch"
+  },
+  "dependencies": {
+    "babel-cli": "6.24.1",
+    "babel-preset-env": "1.5.2",
+    "babel-preset-react": "6.24.1",
+    "live-server": "^1.2.0",
+    "webpack": "3.1.0" // add
+  }
+}
+
+```
+
+webpack.config.js
+
+```js
+const path = require('path');
+
+module.exports = {
+  entry: './src/app.js',
+  output: {
+    path: path.join(__dirname, 'public'),
+    filename: 'bundle.js'
+  }
+};
+
+```
+
+https://webpack.js.org/configuration/entry-context/#entry
+
+Test: `node webpack.config.js`  khi thêm console.log(__dirname);
+
+`npm run build`
+
 ### 5. ES6 importexport
+
+src/utils.js
+
+```js
+console.log('utils.js is running');
+
+export const square = (x) => x * x;
+
+export const add = (a, b) => a + b;
+
+// export { square, add };
+
+// exports - default export - named exports
+
+```
+
+app.js
+
+```js
+// import './utils.js';
+// import { square, add } from './utils.js';
+
+// console.log('app.js is running');
+// console.log(square(4));
+// console.log(add(100, 23));
+
+import { isAdult, canDrink } from './person.js';
+console.log(isAdult(18));
+console.log(canDrink(20));
+
+```
+
+person.js
+
+```js
+const isAdult = (age) => age >= 18;
+const canDrink = (age) => age >= 21;
+
+export { isAdult, canDrink };
+
+```
+
+
+
 ### 6. Default Exports
+
+utils.js
+
+```js
+console.log('utils.js is running');
+
+export const square = (x) => x * x;
+
+export const add = (a, b) => a + b;
+
+export default (a, b) => a - b;
+
+// export { square, add, subtract as default };
+
+// exports - default export - named exports
+
+```
+
+person.js
+
+```js
+const isAdult = (age) => age >= 18;
+const canDrink = (age) => age >= 21;
+const isSeniorCitizen = (age) => age >= 65;
+
+export { isAdult, canDrink, isSeniorCitizen as default };
+
+```
+
+app.js
+
+```js
+// import subtract, { square, add } from './utils.js';
+
+import isSenior, { isAdult, canDrink } from './person.js';
+console.log(isAdult(18));
+console.log(canDrink(20));
+console.log(isSenior(65));
+```
+
+Khi export default có thể import với bất kì tên nào và call it
+
 ### 7. Importing npm Modules
+
+app.js
+
+```js
+// install -> import -> use
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+const template = React.createElement('p', {}, 'testing 123');
+ReactDOM.render(template, document.getElementById('app'));
+
+```
+
+
+
 ### 8. Setting up Babel with Webpack
+
+.babelrc
+
+```js
+{
+  "presets": [
+    "env",
+    "react"
+  ]
+}
+
+```
+
+webpack.config.js
+
+```js
+const path = require('path');
+
+module.exports = {
+  entry: './src/app.js',
+  output: {
+    path: path.join(__dirname, 'public'),
+    filename: 'bundle.js'
+  },
+  module: {
+    rules: [{
+      loader: 'babel-loader',
+      test: /\.js$/,
+      exclude: /node_modules/
+    }]
+  }
+};
+
+// install babel-core babel-loader
+/*
+	"babel-cli": "6.24.1",
+    "babel-core": "6.25.0",
+    "babel-loader": "7.1.1",
+    "babel-preset-env": "1.5.2",
+    "babel-preset-react": "6.24.1",
+*/
+
+```
+
+https://webpack.js.org/configuration/module/#modulerules
+
 ### 9. One Component per File
 
+Tách ra thành nhiều file chứa các component khác nhau
 
+Action.js
+
+```js
+import React from 'react';
+
+const Action = (props) => {
+  return (
+    <div>
+      <button
+        onClick={props.handlePick}
+        disabled={!props.hasOptions}
+      >
+        What should I do?
+      </button>
+    </div>
+  );
+};
+
+export default Action;
+
+```
 
 
 
 ### 10. Source Maps with Webpack
 
+```js
+const path = require('path');
+
+module.exports = {
+  entry: './src/app.js',
+  output: {
+    path: path.join(__dirname, 'public'),
+    filename: 'bundle.js'
+  },
+  module: {
+    rules: [{
+      loader: 'babel-loader',
+      test: /\.js$/,
+      exclude: /node_modules/
+    }]
+  },
+  // add
+  devtool: 'cheap-module-eval-source-map'
+};
+
+```
+
+https://webpack.js.org/configuration/devtool/#devtool
+
+Sửa AddOption cho sai
+
+![image-20200404102922120](./react-2nd-edition.assets/image-20200404102922120.png)  
+
+Nếu không có webpack devtool khó track err
+
+![image-20200404103046334](./react-2nd-edition.assets/image-20200404103046334.png)
+
 ### 11. Webpack Dev Server
 
+https://webpack.js.org/configuration/dev-server/#devserver
+
+Install: `npm install --save webpack-dev-server`
+
+```js
+const path = require('path');
+
+module.exports = {
+  entry: './src/app.js',
+  output: {
+    path: path.join(__dirname, 'public'),
+    filename: 'bundle.js'
+  },
+  module: {
+    rules: [{
+      loader: 'babel-loader',
+      test: /\.js$/,
+      exclude: /node_modules/
+    }]
+  },
+  devtool: 'cheap-module-eval-source-map',
+    // add
+  devServer: {
+    contentBase: path.join(__dirname, 'public')
+  }
+};
+
+```
+
+package.json
+
+```json
+
+  "scripts": {
+    "serve": "live-server public/",
+    "build": "webpack",
+      // add
+    "dev-server": "webpack-dev-server"
+  },
+```
+
+**yarn run dev-server**
+
 ### 12. ES6 class properties
+
+https://babeljs.io/docs/en/babel-preset-stage-2
+
+.babelrc
+
+```js
+{
+  "presets": [
+    "env",
+    "react"
+  ],
+      // add
+  "plugins": [
+    "transform-class-properties"
+  ]
+}
+
+```
+
+**yarn run dev-server**
+
+new syntax không cần constructor, use arrow function mà không cần bind
+
+![image-20200404104940047](./react-2nd-edition.assets/image-20200404104940047.png)  
+
+Sửa lại file IndecisionApp 
 
 ## 7. Using a Third-Party Component
 ### 1. Section Intro Using a Third-Party Component
