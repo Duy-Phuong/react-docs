@@ -1119,17 +1119,301 @@ class AddOption extends React.Component {
 ## 5. Stateless Functional Components
 ### 1. Section Intro Stateless Functional Components
 ### 2. The Stateless Functional Component
+
+app.js
+
+```js
+
+// const User = (props) => {
+//   return (
+//     <div>
+//       <p>Name: {props.name}</p>
+//       <p>Age: {props.age}</p>
+//     </div>
+//   );
+// };
+
+ReactDOM.render(<User name="a" age={26} />, document.getElementById('app'));
+```
+
+app.js
+
+```js
+// add
+
+const Header = (props) => {
+  return (
+    <div>
+      <h1>{props.title}</h1>
+      <h2>{props.subtitle}</h2>
+    </div>
+  );
+};
+
+const Action = (props) => {
+  return (
+    <div>
+      <button
+        onClick={props.handlePick}
+        disabled={!props.hasOptions}
+      >
+        What should I do?
+      </button>
+    </div>
+  );
+};
+
+const Options = (props) => {
+  return (
+    <div>
+      <button onClick={props.handleDeleteOptions}>Remove All</button>
+      {
+        props.options.map((option) => <Option key={option} optionText={option} />)
+      }
+    </div>
+  );
+};
+
+const Option = (props) => {
+  return (
+    <div>
+      {props.optionText}
+    </div>
+  );
+};
+
+```
+
+
+
 ### 3. Default Prop Values
+
+app.js
+
+```js
+
+const Header = (props) => {
+  return (
+    <div>
+      <h1>{props.title}</h1>
+      // add
+      {props.subtitle && <h2>{props.subtitle}</h2>}
+    </div>
+  );
+};
+
+// add nếu title không được truyền vào thì sẽ hiển thị default
+Header.defaultProps = {
+  title: 'Indecision'
+};
+
+
+
+class IndecisionApp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
+    this.handlePick = this.handlePick.bind(this);
+    this.handleAddOption = this.handleAddOption.bind(this);
+      // sửa
+    this.state = {
+      options: props.options /// []
+    };
+      
+      
+   // set default here
+   // add
+
+IndecisionApp.defaultProps = {
+  options: []
+};
+
+```
+
+counter-example.js
+
+```js
+class Counter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleAddOne = this.handleAddOne.bind(this);
+    this.handleMinusOne = this.handleMinusOne.bind(this);
+    this.handleReset = this.handleReset.bind(this);
+      // fix
+    this.state = {
+      count: props.count // 0
+    };
+  }
+    
+// add
+Counter.defaultProps = {
+  count: 0
+};
+```
+
+
+
 ### 4. React Dev Tools
+
+Cài react developer tools, có thể search tên component bên trái hiển thị props and state
+
+You can change value in state to test in REACT tab
+
+![image-20200404072558420](./react-2nd-edition.assets/image-20200404072558420.png)  
+
+Khi hover lên 1 component chọn có hiển thị `=== $r`
+
+![image-20200404072850714](./react-2nd-edition.assets/image-20200404072850714.png)  
+
+Sau đó vào console gõ $r để xem kết quả:
+
+![image-20200404073015498](./react-2nd-edition.assets/image-20200404073015498.png)
+
 ### 5. Removing Individual Options
+
+Viết ngắn gọn lại setState ở nhiều chỗ
+
+app.js
+
+```js
+// add
+  handleDeleteOptions() {
+      // sửa lại setstate cho ngắn hơn bỏ return đi
+    this.setState(() => ({ options: [] }));
+  }
+  handleDeleteOption(optionToRemove) {
+    this.setState((prevState) => ({
+      options: prevState.options.filter((option) => optionToRemove !== option)
+    }));
+  }
+
+...
+<Options
+          options={this.state.options}
+          handleDeleteOptions={this.handleDeleteOptions}
+          handleDeleteOption={this.handleDeleteOption}
+
+
+
+const Option = (props) => {
+  return (
+    <div>
+      {props.optionText}
+      // add new button
+      <button
+        onClick={(e) => {
+          props.handleDeleteOption(props.optionText);
+        }}
+      >
+        remove
+      </button>
+    </div>
+  );
+};
+```
+
+Nếu để bình thường khi onClick sẽ print trên console event:
+
+![image-20200404074240159](./react-2nd-edition.assets/image-20200404074240159.png)  
+
+gg: mdn filter javascript
+
+
+
 ### 6. Lifecycle Methods
+
+app.js
+
+```js
+
+  componentDidMount() {
+    console.log('fetching data');
+  }
+  componentDidUpdate(prevProps, prevState) {
+    console.log('saving data');
+  }
+  componentWillUnmount() {
+    console.log('componentWillUnmount');
+  }
+```
+
+Test componentWillUnmount gõ trên console
+
+![image-20200404074909399](./react-2nd-edition.assets/image-20200404074909399.png)
+
 ### 7. Saving and Loading Options Data
+
+Sử dụng localStorage, vào console test
+
+![image-20200404075134164](./react-2nd-edition.assets/image-20200404075134164.png)  
+
+![image-20200404075241416](./react-2nd-edition.assets/image-20200404075241416.png)  
+
+app.js
+
+```js
+componentDidMount() {
+    // add
+    try {
+      const json = localStorage.getItem('options');
+      const options = JSON.parse(json);
+
+      if (options) {
+        this.setState(() => ({ options }));
+      }
+    } catch (e) {
+      // Do nothing at all
+    }
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.options.length !== this.state.options.length) {
+        // add
+      const json = JSON.stringify(this.state.options);
+      localStorage.setItem('options', json);
+    }
+  }
+```
+
+![image-20200404075543269](./react-2nd-edition.assets/image-20200404075543269.png)
+
 ### 8. Saving and Loading the Count
+
+Khi cộng chuỗi và số thì result is string => use parseInt to convert
+
+Check isNaN => parseInt("abc", 10) = NaN
+
+app.js remove default value
+
+counter-example.js
+
+```js
+// add
+  componentDidMount() {
+    const stringCount = localStorage.getItem('count');
+    const count = parseInt(stringCount, 10);
+
+    if (!isNaN(count)) {
+      this.setState(() => ({ count }));
+    }
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.count !== this.state.count) {
+      localStorage.setItem('count', this.state.count);
+    }
+  }
+```
+
+![image-20200404081519197](./react-2nd-edition.assets/image-20200404081519197.png)
+
 ## 6. Webpack
 ### 1. Section Intro Webpack
-### 10. Source Maps with Webpack
-### 11. Webpack Dev Server
-### 12. ES6 class properties
+
+The first advantage of Web pack is that it allows us to organize our Javascript.
+
+So in the end of the day when we run our app through web pack we're going to get a single javascript file back and that file what's called the bundle is going to contain everything our application needs to run.
+
+![image-20200404084048672](./react-2nd-edition.assets/image-20200404084048672.png)
+
 ### 2. What Is Webpack
 ### 3. Avoid Global Modules
 ### 4. Installing & Configuring Webpack
@@ -1138,6 +1422,17 @@ class AddOption extends React.Component {
 ### 7. Importing npm Modules
 ### 8. Setting up Babel with Webpack
 ### 9. One Component per File
+
+
+
+
+
+### 10. Source Maps with Webpack
+
+### 11. Webpack Dev Server
+
+### 12. ES6 class properties
+
 ## 7. Using a Third-Party Component
 ### 1. Section Intro Using a Third-Party Component
 ### 2. Passing Children to Component
