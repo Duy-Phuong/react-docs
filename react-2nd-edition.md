@@ -2739,11 +2739,239 @@ export default Header;
 ![image-20200404223340540](./react-2nd-edition.assets/image-20200404223340540.png)
 
 ### 3. Setting up Redux
+
+webpack.config.js
+
+```js
+module.exports = {
+  entry: './src/playground/redux-101.js',
+```
+
+redux-101.js
+
+```js
+import { createStore } from 'redux';
+
+const store = createStore((state = { count: 0 }) => {
+  return state;
+});
+
+console.log(store.getState());
+
+// Actions
+// I'd like to increment the count
+// I'd like to reset the count to zero
+
+```
+
+```shell
+npm run dev-server
+npm insatll --save redux
+```
+
+
+
 ### 4. Dispatching Actions
+
+redux-101.js
+
+```js
+import { createStore } from 'redux';
+
+const store = createStore((state = { count: 0 }, action) => {
+  switch (action.type) {
+    case 'INCREMENT':
+      return {
+        count: state.count + 1
+      };
+    case 'DECREMENT':
+      return {
+        count: state.count - 1
+      };
+    case 'RESET':
+      return {
+        count: 0
+      };
+    default:
+      return state;
+  }
+});
+
+console.log(store.getState());
+
+// Actions - than an object that gets sent to the store
+
+// I'd like to increment the count
+store.dispatch({
+  type: 'INCREMENT'
+});
+
+store.dispatch({
+  type: 'INCREMENT'
+});
+
+store.dispatch({
+  type: 'RESET'
+});
+
+store.dispatch({
+  type: 'DECREMENT'
+});
+
+// I'd like to reset the count to zero
+
+
+console.log(store.getState());
+
+```
+
+
+
 ### 5. Subscribing and Dynamic Actions
+
+redux-101.js
+
+```js
+
+const store = createStore((state = { count: 0 }, action) => {
+  switch (action.type) {
+    case 'INCREMENT':
+          // add
+      const incrementBy = typeof action.incrementBy === 'number' ? action.incrementBy : 1;
+      return {
+        count: state.count + incrementBy
+      };
+    case 'DECREMENT':
+      const decrementBy = typeof action.decrementBy === 'number' ? action.decrementBy : 1;
+      return {
+        count: state.count - decrementBy
+      };
+    case 'SET':
+      return {
+        count: action.count
+      };
+    case 'RESET':
+      return {
+        count: 0
+      };
+    default:
+      return state;
+  }
+});
+
+// add
+const unsubscribe = store.subscribe(() => {
+  console.log(store.getState());
+});
+
+store.dispatch({
+  type: 'INCREMENT',
+  incrementBy: 5 // add
+});
+
+store.dispatch({
+  type: 'INCREMENT'
+});
+
+store.dispatch({
+  type: 'RESET'
+});
+
+store.dispatch({
+  type: 'DECREMENT'
+});
+
+store.dispatch({
+  type: 'DECREMENT',
+  decrementBy: 10
+});
+
+store.dispatch({
+  type: 'SET',
+  count: 101
+});
+
+```
+
+
+
 ### 6. ES6 Object Destructuring
+
+destructuring.js
+
+```js
+// const person = {
+//   name: 'Andrew',
+//   age: 27,
+//   location: {
+//     city: 'Philadelphia',
+//     temp: 88
+//   }
+// };
+
+// set default value
+// const { name: firstName = 'Anonymous', age } = person;
+// console.log(`${firstName} is ${age}.`);
+
+// const { city, temp: temperature } = person.location;
+// if (city && temperature) {
+//   console.log(`It's ${temperature} in ${city}.`);
+// }
+
+// Sau khi gán temp: temprature thì chỉ có thể access temperature => rename
+
+const book = {
+  title: 'Ego is the Enemy',
+  author: 'Ryan Holiday',
+  publisher: {
+    // name: 'Penguin'
+  }
+};
+
+const { name: publisherName = 'Self-Published' } = book.publisher;
+
+console.log(publisherName); // Penguin, Self-Published
+
+```
+
+webpack.config.js
+
+```js
+
+module.exports = {
+  entry: './src/playground/destructuring.js',
+
+```
+
+
+
 ### 7. ES6 Array Destructuring
+
+redux-101.js
+
+```js
+
+//
+// Array destructuring
+//
+
+// const address = ['1299 S Juniper Street', 'Philadelphia', 'Pennsylvania', '19147'];
+// const [, city, state = 'New York'] = address;
+// console.log(`You are in ${city} ${state}.`);
+
+const item = ['Coffee (iced)', '$3.00', '$3.50', '$3.75'];
+const [itemName, , mediumPrice] = item;
+
+console.log(`A medium ${itemName} costs ${mediumPrice}`);
+
+```
+
+
+
 ### 8. Refactoring and Organizing
+
+
+
 ### 9. Reducers
 
 ### 
