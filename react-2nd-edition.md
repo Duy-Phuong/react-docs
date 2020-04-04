@@ -1868,20 +1868,576 @@ export default class IndecisionApp extends React.Component {
 
 ## 8. Styling React
 ### 1. Section Intro Styling React
-### 10. Mobile Considerations
-### 11. Bonus Favicon
 ### 2. Setting up Webpack with SCSS
+
+styles.scss
+
+```scss
+$brand-color: blue;
+* {
+    color: $brand-color;
+}
+
+```
+
+
+
+webpack-config.js
+
+```js
+const path = require('path');
+
+module.exports = {
+  entry: './src/app.js',
+  output: {
+    path: path.join(__dirname, 'public'),
+    filename: 'bundle.js'
+  },
+  module: {
+    rules: [{
+      loader: 'babel-loader',
+      test: /\.js$/,
+      exclude: /node_modules/
+    }, {
+      test: /\.scss$/,
+      use: [
+        'style-loader',
+        'css-loader',
+        'sass-loader'
+      ]
+    }]
+  },
+  devtool: 'cheap-module-eval-source-map',
+  devServer: {
+    contentBase: path.join(__dirname, 'public')
+  }
+};
+
+```
+
+npm install --save-dev css-loader style-loader sass-loader
+
+app.js
+
+```js
+import './styles/styles.scss';
+
+```
+
+
+
 ### 3. Architecture and Header Styles
+
+styles/base/_base.scss
+
+```scss
+html {
+  font-size: 62.5%; // 62,5*16 = 10
+}
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 1.6rem;
+}
+
+```
+
+components/_header.scss
+
+```css
+.header {
+  background: #20222b;
+  color: white;
+  margin-bottom: 4.8rem;
+  padding: 1.6rem 0;
+}
+
+.header__title {
+  font-size: 3.2rem;
+  margin: 0;
+}
+
+.header__subtitle {
+  color: #a5afd7;
+  font-size: 1.6rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+```
+
+styles.scss
+
+```scss
+@import './base/base';
+@import './components/header';
+
+```
+
+
+
 ### 4. Reset That $#!
+
+gg: nomalize css
+
+https://github.com/necolas/normalize.css/
+
+```shell
+npm install --save normalize.css
+```
+
+webpack.config.js
+
+```js
+ module: {
+    rules: [{
+      loader: 'babel-loader',
+      test: /\.js$/,
+      exclude: /node_modules/
+    }, {
+        // add ?
+      test: /\.s?css$/,
+      use: [
+        'style-loader',
+        'css-loader',
+        'sass-loader'
+      ]
+    }]
+  },
+```
+
+Cũng giống như cái title **CSS Reset**, hiển nhiên nó là một số thuộc tính CSS dùng để “cài đặt” lại tất cả các CSS của trình duyệt về mặc định.
+
+Việc này là tối quan trọng nếu các anh em không muốn viết nhiều phiên bản CSS trên project của mình riêng cho mỗi trình duyệt.
+
+Thực chất nếu các anh em chỉ thường sử dụng các `CSS Framework` như Bootstrap, thì cũng chả cần quan tâm vấn đề này vì hầu như chúng luôn được include trong tất cả `Front End Framework` như trên.
+
+https://hungphamdevweb.com/front-end-reset-css-voi-normalize-css.html
+
+Cơ bản `Normalize` là một chuỗi các thuộc tính chuyên dùng chỉ để Reset CSS.
+
+Dưới đây là một đoạn code nhỏ trong `Normalize`
+
+```css
+/**
+ * 1. Correct the line height in all browsers.
+ * 2. Prevent adjustments of font size after orientation changes in iOS.
+ */
+
+html {
+  line-height: 1.15; /* 1 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+}
+
+/* Sections
+   ========================================================================== */
+
+/**
+ * Remove the margin in all browsers.
+ */
+
+body {
+  margin: 0;
+}
+
+/**
+ * Render the `main` element consistently in IE.
+ */
+
+main {
+  display: block;
+}
+```
+
+Ở đây người ta cũng đã chú thích rất kỹ, các anh em chỉ cần đọc sơ qua thôi cũng sẽ hiểu.
+
+## Nguyên Tắc Sử Dụng CSS Reset
+
+Dưới đây là một vài nguyên tắc hoạt động **CSS Reset**, các anh em nên biết sơ qua trước khi bắt đầu code giao diện:
+
+### Rule 1: CSS Reset luôn ở đầu tiên trong các file CSS
+
+Điều này thì các anh em đã rõ như ban ngày rồi. Nếu nó là một file riêng hãy import nó ở trên cùng, còn nếu copy thì cũng nên nhớ paste nó ở trên cùng file CSS của mình.
+
+### Rule 2: CSS Reset luôn xử lý các element HTML
+
+Nhiệm vụ của **CSS Reset** là làm việc trực tiếp với các element chứ không phải các class hay ID nào cả. Bởi nó sẽ làm việc với trình duyệt, mà các trình duyệt cũng làm cách tương tự để thêm các CSS mặc định vào.
+
+### Rule 3: Custom CSS Style phải gọi vào các Class/ID hoặc có parent element
+
+Điều này rất rõ ràng và cần thiết trong **Code Standards**:
+Bạn nên code vào `.button` thay vì `a.button`
+Bạn nên code vào `.list li` thay vì `ul li` hay `ul.list li`
+Việc tránh gọi các element trình duyệt mà sử dụng Class/ID đóng vai trò quan trọng giúp bạn dễ dàng xử lý xung đột giữa **CSS Reset** và Custom Style.
+
+
+
+app.js
+
+```js
+
+import 'normalize.css/normalize.css';
+import './styles/styles.scss';
+```
+
+`npm run dev-server`
+
+
+
 ### 5. Theming with Variables
+
+base/settings.scss
+
+```css
+// Colors
+$off-black: #20222b;
+$dark-blue: #333745;
+$off-white: #a5afd7;
+// Spacing
+$m-size: 1.6rem;
+$l-size: 3.2rem;
+$xl-size: 4.8rem;
+
+```
+
+styles.scss
+
+```css
+@import './base/settings';
+@import './base/base';
+@import './components/container';
+@import './components/header';
+
+```
+
+_base.scss
+
+```css
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background: $dark-blue;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: $m-size;
+}
+
+```
+
+add _container.scss
+
+```css
+.container {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 0 $m-size;
+}
+// được gọi trong class header, IndecisionApp
+```
+
+
+
 ### 6. Big Button & Options List
+
+_button.scss
+
+```scss
+// Big Button
+// Gọi trong Action
+// darken in scss
+.big-button {
+  background: $purple;
+  border: none;
+  border-bottom: .6rem solid darken($purple, 10%);
+  color: white;
+  font-weight: bold;
+  font-size: $l-size;
+  margin-bottom: $xl-size;
+  padding: 2.4rem;
+  width: 100%;
+}
+
+.big-button:disabled {
+  opacity: .5;
+}
+
+// Button
+// Add Option
+.button {
+  background: $purple;
+  border: none;
+  border-bottom: .3rem solid darken($purple, 10%);
+  color: white;
+  font-weight: 500;
+  padding: $s-size;
+}
+
+// Options, Option
+.button--link {
+  background: none;
+  border: none;
+  color: $off-white;
+  padding: 0;
+}
+
+```
+
+base.scss
+
+```scss
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: default;
+}
+
+```
+
+
+
 ### 7. Styling the Options List
+
+style.scss
+
+```scss
+@import './base/settings';
+@import './base/base';
+@import './components/button';
+@import './components/container';
+// add
+@import './components/header';
+@import './components/widget';
+
+```
+
+_widget.scss
+
+```scss
+// Widget
+// Options
+.widget {
+  background: $light-blue;
+  margin-bottom: $xl-size;
+}
+
+.widget__message {
+  border-bottom: 1px solid lighten($light-blue, 10%);
+  color: $off-white;
+  margin: 0;
+  padding: $l-size;
+  text-align: center;
+}
+
+// Widget Header
+.widget-header {
+  background: $blue;
+  color: $off-white;
+  display: flex;
+  justify-content: space-between;
+  padding: $m-size;
+}
+
+.widget-header__title {
+  margin: 0;
+}
+
+```
+
+![image-20200404155401715](./react-2nd-edition.assets/image-20200404155401715.png)
+
 ### 8. Styling Option Item
+
+option.scss
+
+```scss
+.option {
+  border-bottom: 1px solid lighten($light-blue, 10%);
+  display: flex;
+  justify-content: space-between;
+  padding: $l-size $m-size;
+}
+
+.option__text {
+  color: white;
+  font-weight: 500;
+  font-size: 2rem;
+  margin: 0;
+}
+
+```
+
+_add-option.scss
+
+```scss
+// Add Option Error
+.add-option-error {
+  color: $off-white;
+  font-style: italic;
+  margin: $m-size 0 0 0;
+  padding: 0 $m-size;
+}
+
+// Add Option
+.add-option {
+  display: flex;
+  padding: $m-size;
+}
+
+.add-option__input {
+  background: $dark-blue;
+  border: none;
+  color: $off-white;
+  border-bottom: .3rem solid darken($dark-blue, 10%);
+  flex-grow: 1;
+  margin-right: $s-size;
+  padding: $s-size;
+}
+
+```
+
+![image-20200404155910349](./react-2nd-edition.assets/image-20200404155910349.png)
+
 ### 9. Styling React-Modal
+
+_modal.scss
+
+```scss
+.ReactModalPortal>div {
+  opacity: 0;
+}
+
+.ReactModalPortal .ReactModal__Overlay {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  transition: opacity 200ms ease-in-out;
+}
+
+.ReactModalPortal .ReactModal__Overlay--after-open {
+  opacity: 1;
+}
+
+.ReactModalPortal .ReactModal__Overlay--before-close {
+  opacity: 0;
+}
+
+.modal {
+  background: $light-blue;
+  color: white;
+  max-width: 30rem;
+  outline: none;
+  padding: $l-size;
+  text-align: center;
+}
+
+.modal__title {
+  margin: 0 0 $m-size 0;
+}
+
+.modal__body {
+  font-size: 2rem;
+  font-weight: 300;
+  margin: 0 0 $l-size 0;
+  word-break: break-all;
+}
+
+```
+
+OptionModal.js
+
+```js
+import React from 'react';
+import Modal from 'react-modal';
+
+const OptionModal = (props) => (
+  <Modal
+    isOpen={!!props.selectedOption}
+    onRequestClose={props.handleClearSelectedOption}
+    contentLabel="Selected Option"
+
+// add
+    closeTimeoutMS={200}
+    className="modal"
+  >
+    <h3 className="modal__title">Selected Option</h3>
+    {props.selectedOption && <p className="modal__body">{props.selectedOption}</p>}
+    <button className="button" onClick={props.handleClearSelectedOption}>Okay</button>
+  </Modal>
+);
+
+export default OptionModal;
+```
+
+
+
+### 10. Mobile Considerations
+
+public/index.html
+
+```html
+
+<head>
+  <meta charset="UTF-8">
+  //  add
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Indecision App</title>
+</head>
+```
+
+add-option.scss
+
+```scss
+
+@media (min-width: $desktop-breakpoint) {
+  .add-option {
+    flex-direction: row;
+  }
+  .add-option__input {
+    margin: 0 $s-size 0 0;
+  }
+}
+
+```
+
+header.scss
+
+```scss
+@media (min-width: $desktop-breakpoint) {
+  .header {
+    margin-bottom: $xl-size;
+  }
+}
+
+```
+
+Xem lại
+
+### 11. Bonus Favicon
+
+index.html
+
+```html
+<title>Indecision App</title>
+  <link rel="icon" type="image/png" href="/images/favicon.png" />
+
+```
+
+
+
 ## 9. React-Router
 ### 1. Section Intro React Router
 ### 2. Server vs. Client Routing
+
+![image-20200404164111277](./react-2nd-edition.assets/image-20200404164111277.png)
+
 ### 3. Setting Up Budget App
+
+
+
 ### 4. React-Router 101
 ### 5. Setting up a 404
 ### 6. Linking Between Routes
