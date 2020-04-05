@@ -3577,25 +3577,868 @@ store.dispatch(sortByAmount());
 ### 1. Section Intro Connecting React and Redux
 ### 2. Organizing Redux
 
+Create folder actions, reducer
+
+action/expenses.js
+
+```js
+import uuid from 'uuid';
+
+// ADD_EXPENSE
+export const addExpense = (
+  {
+    description = '',
+    note = '',
+    amount = 0,
+    createdAt = 0
+  } = {}
+) => ({
+  type: 'ADD_EXPENSE',
+  expense: {
+    id: uuid(),
+    description,
+    note,
+    amount,
+    createdAt
+  }
+});
+
+// REMOVE_EXPENSE
+export const removeExpense = ({ id } = {}) => ({
+  type: 'REMOVE_EXPENSE',
+  id
+});
+
+// EDIT_EXPENSE
+export const editExpense = (id, updates) => ({
+  type: 'EDIT_EXPENSE',
+  id,
+  updates
+});
+
+```
+
+filter.js
+
+```js
+// SET_TEXT_FILTER
+export const setTextFilter = (text = '') => ({
+  type: 'SET_TEXT_FILTER',
+  text
+});
+
+// SORT_BY_DATE
+export const sortByDate = () => ({
+  type: 'SORT_BY_DATE'
+});
+
+// SORT_BY_AMOUNT
+export const sortByAmount = () => ({
+  type: 'SORT_BY_AMOUNT'
+});
+
+// SET_START_DATE
+export const setStartDate = (startDate) => ({
+  type: 'SET_START_DATE',
+  startDate
+});
+
+// SET_END_DATE
+export const setEndDate = (endDate) => ({
+  type: 'SET_END_DATE',
+  endDate
+});
+
+```
+
+reducer/expense.js
+
+```js
+// Expenses Reducer
+
+const expensesReducerDefaultState = [];
+
+export default (state = expensesReducerDefaultState, action) => {
+  switch (action.type) {
+    case 'ADD_EXPENSE':
+      return [
+        ...state,
+        action.expense
+      ];
+    case 'REMOVE_EXPENSE':
+      return state.filter(({ id }) => id !== action.id);
+    case 'EDIT_EXPENSE':
+      return state.map((expense) => {
+        if (expense.id === action.id) {
+          return {
+            ...expense,
+            ...action.updates
+          };
+        } else {
+          return expense;
+        };
+      });
+    default:
+      return state;
+  }
+};
+
+```
+
+filter.js
+
+```js
+// Filters Reducer
+
+const filtersReducerDefaultState = {
+  text: '',
+  sortBy: 'date',
+  startDate: undefined,
+  endDate: undefined
+};
+
+export default (state = filtersReducerDefaultState, action) => {
+  switch (action.type) {
+    case 'SET_TEXT_FILTER':
+      return {
+        ...state,
+        text: action.text
+      };
+    case 'SORT_BY_AMOUNT':
+      return {
+        ...state,
+        sortBy: 'amount'
+      };
+    case 'SORT_BY_DATE':
+      return {
+        ...state,
+        sortBy: 'date'
+      };
+    case 'SET_START_DATE':
+      return {
+        ...state,
+        startDate: action.startDate
+      };
+    case 'SET_END_DATE':
+      return {
+        ...state,
+        endDate: action.endDate
+      };
+    default:
+      return state;
+  }
+};
+
+```
+
+configureStore.js
+
+```js
+import { createStore, combineReducers } from 'redux';
+import expensesReducer from '../reducers/expenses';
+import filtersReducer from '../reducers/filters';
+
+export default () => {
+  const store = createStore(
+    combineReducers({
+      expenses: expensesReducer,
+      filters: filtersReducer
+    })
+  );
+
+  return store;
+};
+
+```
+
+selectors/expense.js
+
+```js
+// Get visible expenses
+
+export default (expenses, { text, sortBy, startDate, endDate }) => {
+  return expenses.filter((expense) => {
+    const startDateMatch = typeof startDate !== 'number' || expense.createdAt >= startDate;
+    const endDateMatch = typeof endDate !== 'number' || expense.createdAt <= endDate;
+    const textMatch = expense.description.toLowerCase().includes(text.toLowerCase());
+
+    return startDateMatch && endDateMatch && textMatch;
+  }).sort((a, b) => {
+    if (sortBy === 'date') {
+      return a.createdAt < b.createdAt ? 1 : -1;
+    } else if (sortBy === 'amount') {
+      return a.amount < b.amount ? 1 : -1;
+    }
+  });
+};
+
+```
+
+app.js
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import AppRouter from './routers/AppRouter';
+import configureStore from './store/configureStore';
+import { addExpense } from './actions/expenses';
+import { setTextFilter } from './actions/filters';
+import getVisibleExpenses from './selectors/expenses';
+import 'normalize.css/normalize.css';
+import './styles/styles.scss';
+
+const store = configureStore();
+
+store.dispatch(addExpense({ description: 'Water bill' }));
+store.dispatch(addExpense({ description: 'Gas bill' }));
+store.dispatch(setTextFilter('water'));
+
+const state = store.getState();
+const visibleExpenses = getVisibleExpenses(state.expenses, state.filters);
+console.log(visibleExpenses);
+
+ReactDOM.render(<AppRouter />, document.getElementById('app'));
+
+```
+
 
 
 ### 3. The Higher Order Component
+
+hoc.js
+
+```js
+// Higher Order Component (HOC) - A component (HOC) that renders another component
+// Reuse code
+// Render hijacking
+// Prop manipulation
+// Abstract state
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+const Info = (props) => (
+  <div>
+    <h1>Info</h1>
+    <p>The info is: {props.info}</p>
+  </div>
+);
+
+const withAdminWarning = (WrappedComponent) => {
+  return (props) => (
+    <div>
+      {props.isAdmin && <p>This is private info. Please don't share!</p>}
+      <WrappedComponent {...props} />
+    </div>
+  );
+};
+
+const requireAuthentication = (WrappedComponent) => {
+  return (props) => (
+    <div>
+      {props.isAuthenticated ? (
+        <WrappedComponent {...props} />
+      ) : (
+          <p>Please login to view the info</p>
+        )}
+    </div>
+  );
+};
+
+const AdminInfo = withAdminWarning(Info);
+const AuthInfo = requireAuthentication(Info);
+
+// ReactDOM.render(<AdminInfo isAdmin={true} info="There are the details" />, document.getElementById('app'));
+ReactDOM.render(<AuthInfo isAuthenticated={true} info="There are the details" />, document.getElementById('app'));
+
+```
+
+
+
 ### 4. Connecting Store and Component with React-Redux
+
+`npm install --save react-redux`
+
+https://react-redux.js.org/api/provider
+
+app.js
+
+```js
+import { Provider } from 'react-redux';
+
+setTimeout(() => {
+  store.dispatch(setTextFilter('rent'));
+}, 3000)
+
+const jsx = (
+  <Provider store={store}>
+    <AppRouter />
+  </Provider>
+);
+
+ReactDOM.render(jsx, document.getElementById('app'));
+```
+
+ExpenseList.js
+
+```js
+import React from 'react';
+import { connect } from 'react-redux';
+
+const ExpenseList = (props) => (
+  <div>
+    <h1>Expense List</h1>
+    {props.filters.text}
+    {props.expenses.length}
+  </div>
+);
+
+const mapStateToProps = (state) => {
+  return {
+    expenses: state.expenses,
+    filters: state.filters
+  };
+};
+
+export default connect(mapStateToProps)(ExpenseList);
+
+```
+
+```json
+// xem thôi
+const demoState = {
+  expenses: [{
+    id: 'poijasdfhwer',
+    description: 'January Rent',
+    note: 'This was the final payment for that address',
+    amount: 54500,
+    createdAt: 0
+  }],
+  filters: {
+    text: 'rent',
+    sortBy: 'amount', // date or amount
+    startDate: undefined,
+    endDate: undefined
+  }
+};
+
+
+```
+
+
+
 ### 5. Rendering Individual Expenses
+
+ExpenseListItem.js
+
+```js
+import React from 'react';
+
+const ExpenseListItem = ({ description, amount, createdAt }) => (
+  <div>
+    <h3>{description}</h3>
+    <p>{amount} - {createdAt}</p>
+  </div>
+);
+
+export default ExpenseListItem;
+
+```
+
+ExpenseList.js
+
+```js
+import React from 'react';
+import { connect } from 'react-redux';
+import ExpenseListItem from './ExpenseListItem';
+import selectExpenses from '../selectors/expenses';
+
+const ExpenseList = (props) => (
+  <div>
+    <h1>Expense List</h1>
+    {props.expenses.map((expense) => {
+      return <ExpenseListItem key={expense.id} {...expense} />;
+    })}
+  </div>
+);
+
+const mapStateToProps = (state) => {
+  return {
+    expenses: selectExpenses(state.expenses, state.filters)
+  };
+};
+
+export default connect(mapStateToProps)(ExpenseList);
+
+```
+
+
+
 ### 6. Controlled Inputs for Filters
+
+ExpenseListFilters.js
+
+```js
+import React from 'react';
+import { connect } from 'react-redux';
+import { setTextFilter } from '../actions/filters';
+
+const ExpenseListFilters = (props) => (
+  <div>
+    <input type="text" value={props.filters.text} onChange={(e) => {
+      props.dispatch(setTextFilter(e.target.value));
+    }} />
+  </div>
+);
+
+const mapStateToProps = (state) => {
+  return {
+    filters: state.filters
+  };
+};
+
+export default connect(mapStateToProps)(ExpenseListFilters);
+
+```
+
+![image-20200405133657727](./react-2nd-edition.assets/image-20200405133657727.png)  
+
+ExpenseListItem.js
+
+```js
+<button onClick={() => {
+      dispatch(removeExpense({ id }));
+    }}>Remove</button>
+  </div>
+
+export default connect()(ExpenseListItem);
+
+```
+
+
+
 ### 7. Dropdown for Picking SortBy
+
+ExpenseListFilter.js
+
+```js
+<select
+      value={props.filters.sortBy}
+      onChange={(e) => {
+        if (e.target.value === 'date') {
+          props.dispatch(sortByDate());
+        } else if (e.target.value === 'amount') {
+          props.dispatch(sortByAmount());
+        }
+      }}
+    >
+      <option value="date">Date</option>
+      <option value="amount">Amount</option>
+    </select>
+```
+
+app.js
+
+```js
+
+store.dispatch(addExpense({ description: 'Water bill', amount: 4500 }));
+store.dispatch(addExpense({ description: 'Gas bill', createdAt: 1000 }));
+store.dispatch(addExpense({ description: 'Rent', amount: 109500 }));
+
+```
+
+
+
 ### 8. Creating Expense AddEdit Form
+
+ExpenseForm.js
+
+```js
+import React from 'react';
+
+export default class ExpenseForm extends React.Component {
+  state = {
+    description: '',
+    note: '',
+    amount: ''
+  };
+  onDescriptionChange = (e) => {
+    const description = e.target.value;
+    this.setState(() => ({ description }));
+  };
+  onNoteChange = (e) => {
+    const note = e.target.value;
+    this.setState(() => ({ note }));
+  };
+  onAmountChange = (e) => {
+    const amount = e.target.value;
+
+    if (amount.match(/^\d*(\.\d{0,2})?$/)) {
+      this.setState(() => ({ amount }));
+    }
+  };
+  render() {
+    return (
+      <div>
+        <form>
+          <input
+            type="text"
+            placeholder="Description"
+            autoFocus
+            value={this.state.description}
+            onChange={this.onDescriptionChange}
+          />
+          <input
+            type="text"
+            placeholder="Amount"
+            value={this.state.amount}
+            onChange={this.onAmountChange}
+          />
+          <textarea
+            placeholder="Add a note for your expense (optional)"
+            value={this.state.note}
+            onChange={this.onNoteChange}
+          >
+          </textarea>
+          <button>Add Expense</button>
+        </form>
+      </div>
+    )
+  }
+}
+
+```
+
+AddExpensePage.js
+
+```js
+import React from 'react';
+import ExpenseForm from './ExpenseForm';
+
+const AddExpensePage = () => (
+  <div>
+    <h1>Add Expense</h1>
+    <ExpenseForm />
+  </div>
+);
+
+export default AddExpensePage;
+
+```
+
+![image-20200405142801100](./react-2nd-edition.assets/image-20200405142801100.png)  
+
+Khi setState, access trực tiếp trong call back(có thể fix bằng thêm e.persist()):
+
+![image-20200405144004784](./react-2nd-edition.assets/image-20200405144004784.png)  
+
+regex:
+
+https://regex101.com/
+
+![image-20200405144519776](./react-2nd-edition.assets/image-20200405144519776.png)  
+
+()? is a optional group
+
 ### 9. Setting up a Date Picker
+
+DatePicker
+
+https://momentjs.com/
+
+gg: airbnb react dates
+
+https://github.com/airbnb/react-dates
+
+http://airbnb.io/react-dates/?path=/story/singledatepicker-sdp--default
+
+```shell
+npm install moment
+npm install react-dates react-addons-shallow-compare
+```
+
+ExpenseForm.js
+
+```js
+
+import { SingleDatePicker } from 'react-dates';
+import 'react-dates/lib/css/_datepicker.css';
+
+
+// const date = new Date();
+const now = moment();
+console.log(now.format('MMM Do, YYYY'));  // Jan 1st, 2019
+
+export default class ExpenseForm extends React.Component {
+  state = {
+    description: '',
+    note: '',
+    amount: '',
+      // add
+    createdAt: moment(),
+    calendarFocused: false
+  };
+
+
+  onDateChange = (createdAt) => {
+    this.setState(() => ({ createdAt }));
+  };
+  onFocusChange = ({ focused }) => {
+    this.setState(() => ({ calendarFocused: focused }));
+  };
+
+....
+
+<SingleDatePicker
+            date={this.state.createdAt}
+            onDateChange={this.onDateChange}
+            focused={this.state.calendarFocused}
+            onFocusChange={this.onFocusChange}
+            numberOfMonths={1} // show only 1 month
+            isOutsideRange={() => false} // can pick day in the past
+          />
+```
+
+https://momentjs.com/docs/#/displaying/
 
 ### 
 
 ### 10. Wiring up Add Expense
 
+ExpenseForm.js
+
+```js
+
+  onAmountChange = (e) => {
+    const amount = e.target.value;
+// fix add 1 number at least
+    if (!amount || amount.match(/^\d{1,}(\.\d{0,2})?$/)) {
+      this.setState(() => ({ amount }));
+    }
+  };
+
+onDateChange = (createdAt) => {
+    // add
+    if (createdAt) {
+      this.setState(() => ({ createdAt }));
+    }
+  };
+
+// add
+
+  onSubmit = (e) => {
+    e.preventDefault();
+
+    if (!this.state.description || !this.state.amount) {
+      this.setState(() => ({ error: 'Please provide description and amount.' }));
+    } else {
+      this.setState(() => ({ error: '' }));
+      this.props.onSubmit({
+        description: this.state.description,
+        amount: parseFloat(this.state.amount, 10) * 100,
+        createdAt: this.state.createdAt.valueOf(),
+        note: this.state.note
+      });
+    }
+  };
+
+render() {
+    return (
+      <div>
+        {this.state.error && <p>{this.state.error}</p>}
+        <form onSubmit={this.onSubmit}>
+```
+
+![image-20200405154232258](./react-2nd-edition.assets/image-20200405154232258.png)  
+
+AddExpensePage
+
+```js
+import React from 'react';
+import { connect } from 'react-redux';
+import ExpenseForm from './ExpenseForm';
+import { addExpense } from '../actions/expenses';
+
+const AddExpensePage = (props) => (
+  <div>
+    <h1>Add Expense</h1>
+    <ExpenseForm
+      onSubmit={(expense) => {
+        props.dispatch(addExpense(expense));
+        props.history.push('/');
+      }}
+    />
+  </div>
+);
+
+export default connect()(AddExpensePage);
+
+```
+
+
+
 ### 11. Wiring up Edit Expense
+
+EditExpensePage 
+
+```js
+import React from 'react';
+import { connect } from 'react-redux';
+import ExpenseForm from './ExpenseForm';
+import { editExpense, removeExpense } from '../actions/expenses';
+
+const EditExpensePage = (props) => {
+  return (
+    <div>
+      <ExpenseForm
+        expense={props.expense}
+        onSubmit={(expense) => {
+          props.dispatch(editExpense(props.expense.id, expense));
+          props.history.push('/');
+        }}
+      />
+      <button onClick={() => {
+        props.dispatch(removeExpense({ id: props.expense.id }));
+        props.history.push('/');
+      }}>Remove</button>
+    </div>
+  );
+};
+
+const mapStateToProps = (state, props) => {
+  return {
+    expense: state.expenses.find((expense) => expense.id === props.match.params.id)
+  };
+};
+
+export default connect(mapStateToProps)(EditExpensePage);
+
+```
+
+ExpenseForm.js
+
+```js
+
+export default class ExpenseForm extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      description: props.expense ? props.expense.description : '',
+      note: props.expense ? props.expense.note : '',
+      amount: props.expense ? (props.expense.amount / 100).toString() : '',
+      createdAt: props.expense ? moment(props.expense.createdAt) : moment(),
+      calendarFocused: false,
+      error: ''
+    };
+  }
+```
+
+ExpenseListItem.js
+
+```js
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+const ExpenseListItem = ({ id, description, amount, createdAt }) => (
+  <div>
+    <Link to={`/edit/${id}`}>
+      <h3>{description}</h3>
+    </Link>
+    <p>{amount} - {createdAt}</p>
+  </div>
+);
+
+export default ExpenseListItem;
+
+```
+
+
 
 ### 12. Redux Dev Tools
 
+gg: redux developer tools extension
+
+https://github.com/zalmoxisus/redux-devtools-extension
+
+Copy đoạn vào store:
+
+```js
+
+export default () => {
+  const store = createStore(
+    combineReducers({
+      expenses: expensesReducer,
+      filters: filtersReducer
+    }),
+      // add
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  );
+
+  return store;
+};
+
+```
+
+
+
 ### 13. Filtering by Dates
+
+https://github.com/airbnb/react-dates
+
+vào mục DateRangePicker
+
+reducer/filter.js
+
+```js
+import moment from 'moment';
+
+// Filters Reducer
+
+const filtersReducerDefaultState = {
+  text: '',
+  sortBy: 'date',
+    // add
+  startDate: moment().startOf('month'),
+  endDate: moment().endOf('month')
+};
+```
+
+ExpenseListFilters
+
+```js
+// convert to class component
+class ExpenseListFilters extends React.Component {
+    // add
+  state = {
+    calendarFocused: null
+  };
+
+  onDatesChange = ({ startDate, endDate }) => {
+    this.props.dispatch(setStartDate(startDate));
+    this.props.dispatch(setEndDate(endDate));
+  };
+  onFocusChange = (calendarFocused) => {
+    this.setState(() => ({ calendarFocused }));
+  }
+
+
+// add
+<DateRangePicker
+          startDate={this.props.filters.startDate}
+          endDate={this.props.filters.endDate}
+          onDatesChange={this.onDatesChange}
+          focusedInput={this.state.calendarFocused}
+          onFocusChange={this.onFocusChange}
+          showClearDates={true}
+          numberOfMonths={1}
+          isOutsideRange={() => false}
+        />
+```
+
+showClearDates
+
+![image-20200405161922366](./react-2nd-edition.assets/image-20200405161922366.png)
 
 ## 12. Testing Your Application
 ### 1. Section Intro Testing React Components
