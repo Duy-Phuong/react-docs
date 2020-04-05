@@ -4438,12 +4438,34 @@ class ExpenseListFilters extends React.Component {
 
 showClearDates
 
-![image-20200405161922366](./react-2nd-edition.assets/image-20200405161922366.png)
+![image-20200405161922366](./react-2nd-edition.assets/image-20200405161922366.png)  
+
+https://momentjs.com/docs/#/query/
+
+selectors/expenses.js
+
+```js
+// fix check
+    const startDateMatch = startDate ? startDate.isSameOrBefore(createdAtMoment, 'day') : true;
+    const endDateMatch = endDate ? endDate.isSameOrAfter(createdAtMoment, 'day') : true;
+```
+
+
 
 ## 12. Testing Your Application
 ### 1. Section Intro Testing React Components
 ### 2. Setting up Jest
+
+https://github.com/facebook/jest
+
+```shell
+npm install --save-dev jest
+```
+
+
+
 ### 3. Testing Expenses Action Generators
+
 ### 4. Testing Filters Action Generators
 ### 5. Testing Expenses Selector
 ### 6. Testing Filters Reducer
