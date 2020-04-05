@@ -4462,18 +4462,509 @@ https://github.com/facebook/jest
 npm install --save-dev jest
 ```
 
+package.json
 
+```js
+"scripts": {
+    "serve": "live-server public/",
+    "build": "webpack",
+    "dev-server": "webpack-dev-server",
+        // add
+    "test": "jest"
+  },
+```
+
+`yarn test`
+
+create folder test
+
+add.test.js
+
+```js
+const add = (a, b) => a + b;
+const generateGreeting = (name = 'Anonymous') => `Hello ${name}!`;
+
+test('should add two numbers', () => {
+  const result = add(3, 4);
+  expect(result).toBe(7);
+});
+
+test('should generate greeting from name', () => {
+  const result = generateGreeting('Mike');
+  expect(result).toBe('Hello Mike!');
+});
+
+test('should generate greeting for no name', () => {
+  const result = generateGreeting();
+  expect(result).toBe('Hello Anonymous!');
+});
+// tham số đầu là name, 
+```
+
+Jest sẽ tự động tìm file có đuôi test.js
+
+`yarn test -- --watch`
 
 ### 3. Testing Expenses Action Generators
 
+expenses.test.js
+
+```js
+import { addExpense, editExpense, removeExpense } from '../../actions/expenses';
+
+test('should setup remove expense action object', () => {
+  const action = removeExpense({ id: '123abc' });
+  expect(action).toEqual({
+    type: 'REMOVE_EXPENSE',
+    id: '123abc'
+  });
+});
+
+test('should setup edit expense action object', () => {
+  const action = editExpense('123abc', { note: 'New note value' });
+  expect(action).toEqual({
+    type: 'EDIT_EXPENSE',
+    id: '123abc',
+    updates: {
+      note: 'New note value'
+    }
+  });
+});
+
+test('should setup add expense action object with provided values', () => {
+  const expenseData = {
+    description: 'Rent',
+    amount: 109500,
+    createdAt: 1000,
+    note: 'This was last months rent'
+  };
+  const action = addExpense(expenseData);
+  expect(action).toEqual({
+    type: 'ADD_EXPENSE',
+    expense: {
+      ...expenseData,
+      id: expect.any(String)
+    }
+  });
+});
+
+test('should setup add expense action object with default values', () => {
+  const action = addExpense();
+  expect(action).toEqual({
+    type: 'ADD_EXPENSE',
+    expense: {
+      id: expect.any(String),
+      description: '',
+      note: '',
+      amount: 0,
+      createdAt: 0
+    }
+  });
+});
+
+```
+
+toEqual: compare all props of object
+
 ### 4. Testing Filters Action Generators
+
+filters.test.js
+
+```js
+import moment from 'moment';
+import {
+  setStartDate,
+  setEndDate,
+  setTextFilter,
+  sortByAmount,
+  sortByDate
+} from '../../actions/filters';
+
+test('should generate set start date action object', () => {
+  const action = setStartDate(moment(0));
+  expect(action).toEqual({
+    type: 'SET_START_DATE',
+    startDate: moment(0)
+  });
+});
+
+test('should generate set end date aciton object', () => {
+  const action = setEndDate(moment(0));
+  expect(action).toEqual({
+    type: 'SET_END_DATE',
+    endDate: moment(0)
+  });
+});
+
+test('should generate set text filter object with text value', () => {
+  const text = 'Something in';
+  const action = setTextFilter(text);
+  expect(action).toEqual({
+    type: 'SET_TEXT_FILTER',
+    text
+  });
+});
+
+test('should generate set text filter object with default', () => {
+  const action = setTextFilter();
+  expect(action).toEqual({
+    type: 'SET_TEXT_FILTER',
+    text: ''
+  });
+});
+
+test('should generate action object for sort by date', () => {
+  expect(sortByDate()).toEqual({ type: 'SORT_BY_DATE' });
+});
+
+test('should generate action object for sort by amount', () => {
+  expect(sortByAmount()).toEqual({ type: 'SORT_BY_AMOUNT' });
+});
+
+```
+
+
+
 ### 5. Testing Expenses Selector
+
+expenses.test.js
+
+```js
+import moment from 'moment';
+import selectExpenses from '../../selectors/expenses';
+
+const expenses = [{
+  id: '1',
+  description: 'Gum',
+  note: '',
+  amount: 195,
+  createdAt: 0
+}, {
+  id: '2',
+  description: 'Rent',
+  note: '',
+  amount: 109500,
+  createdAt: moment(0).subtract(4, 'days').valueOf()
+}, {
+  id: '3',
+  description: 'Credit Card',
+  note: '',
+  amount: 4500,
+  createdAt: moment(0).add(4, 'days').valueOf()
+}];
+
+test('should filter by text value', () => {
+  const filters = {
+    text: 'e',
+    sortBy: 'date',
+    startDate: undefined,
+    endDate: undefined
+  };
+  const result = selectExpenses(expenses, filters);
+  expect(result).toEqual([expenses[2], expenses[1]]);
+});
+
+test('should filter by startDate', () => {
+  const filters = {
+    text: '',
+    sortBy: 'date',
+    startDate: moment(0),
+    endDate: undefined
+  };
+  const result = selectExpenses(expenses, filters);
+  expect(result).toEqual([expenses[2], expenses[0]]);
+});
+
+test('should filter by endDate', () => {
+  const filters = {
+    text: '',
+    sortBy: 'date',
+    startDate: undefined,
+    endDate: moment(0).add(2, 'days')
+  };
+  const result = selectExpenses(expenses, filters);
+  expect(result).toEqual([expenses[0], expenses[1]]);
+});
+
+test('should sort by date', () => {
+  const filters = {
+    text: '',
+    sortBy: 'date',
+    startDate: undefined,
+    endDate: undefined
+  };
+  const result = selectExpenses(expenses, filters);
+  expect(result).toEqual([expenses[2], expenses[0], expenses[1]]);
+});
+
+test('should sort by amount', () => {
+  const filters = {
+    text: '',
+    sortBy: 'amount',
+    startDate: undefined,
+    endDate: undefined
+  };
+  const result = selectExpenses(expenses, filters);
+  expect(result).toEqual([expenses[1], expenses[2], expenses[0]]);
+});
+
+```
+
+
+
 ### 6. Testing Filters Reducer
+
+filters.test.js
+
+```js
+import moment from 'moment';
+import filtersReducer from '../../reducers/filters';
+
+test('should setup default filter values', () => {
+  const state = filtersReducer(undefined, { type: '@@INIT' });
+  expect(state).toEqual({
+    text: '',
+    sortBy: 'date',
+    startDate: moment().startOf('month'),
+    endDate: moment().endOf('month')
+  });
+});
+
+test('should set sortBy to amount', () => {
+  const state = filtersReducer(undefined, { type: 'SORT_BY_AMOUNT' });
+  expect(state.sortBy).toBe('amount');
+});
+
+test('should set sortBy to date', () => {
+  const currentState = {
+    text: '',
+    startDate: undefined,
+    endDate: undefined,
+    sortBy: 'amount'
+  };
+  const action = { type: 'SORT_BY_DATE' };
+  const state = filtersReducer(currentState, action);
+  expect(state.sortBy).toBe('date');
+});
+
+test('should set text filter', () => {
+  const text = 'This is my filter';
+  const action = {
+    type: 'SET_TEXT_FILTER',
+    text
+  };
+  const state = filtersReducer(undefined, action);
+  expect(state.text).toBe(text);
+});
+
+test('should set startDate filter', () => {
+  const startDate = moment();
+  const action = {
+    type: 'SET_START_DATE',
+    startDate
+  };
+  const state = filtersReducer(undefined, action);
+  expect(state.startDate).toEqual(startDate);
+});
+
+test('should set endDate filter', () => {
+  const endDate = moment();
+  const action = {
+    type: 'SET_END_DATE',
+    endDate
+  };
+  const state = filtersReducer(undefined, action);
+  expect(state.endDate).toEqual(endDate);
+});
+
+```
+
+
+
 ### 7. Testing Expenses Reducer
+
+expenses.test.js
+
+```js
+import expensesReducer from '../../reducers/expenses';
+import expenses from '../fixtures/expenses';
+
+test('should set default state', () => {
+  const state = expensesReducer(undefined, { type: '@@INIT' });
+  expect(state).toEqual([]);
+});
+
+test('should remove expense by id', () => {
+  const action = {
+    type: 'REMOVE_EXPENSE',
+    id: expenses[1].id
+  };
+  const state = expensesReducer(expenses, action);
+  expect(state).toEqual([expenses[0], expenses[2]]);
+});
+
+test('should not remove expenses if id not found', () => {
+  const action = {
+    type: 'REMOVE_EXPENSE',
+    id: '-1'
+  };
+  const state = expensesReducer(expenses, action);
+  expect(state).toEqual(expenses);
+});
+
+test('should add an expense', () => {
+  const expense = {
+    id: '109',
+    description: 'Laptop',
+    note: '',
+    createdAt: 20000,
+    amount: 29500
+  };
+  const action = {
+    type: 'ADD_EXPENSE',
+    expense
+  };
+  const state = expensesReducer(expenses, action);
+  expect(state).toEqual([...expenses, expense]);
+});
+
+test('should edit an expense', () => {
+  const amount = 122000;
+  const action = {
+    type: 'EDIT_EXPENSE',
+    id: expenses[1].id,
+    updates: {
+      amount
+    }
+  };
+  const state = expensesReducer(expenses, action);
+  expect(state[1].amount).toBe(amount);
+});
+
+test('should not edit an expense if id not found', () => {
+  const amount = 122000;
+  const action = {
+    type: 'EDIT_EXPENSE',
+    id: '-1',
+    updates: {
+      amount
+    }
+  };
+  const state = expensesReducer(expenses, action);
+  expect(state).toEqual(expenses);
+});
+
+```
+
+fixtures/expenses.js
+
+```js
+import moment from 'moment'
+
+export default [{
+  id: '1',
+  description: 'Gum',
+  note: '',
+  amount: 195,
+  createdAt: 0
+}, {
+  id: '2',
+  description: 'Rent',
+  note: '',
+  amount: 109500,
+  createdAt: moment(0).subtract(4, 'days').valueOf()
+}, {
+  id: '3',
+  description: 'Credit Card',
+  note: '',
+  amount: 4500,
+  createdAt: moment(0).add(4, 'days').valueOf()
+}];
+
+```
+
+
+
 ### 8. Snapshot Testing
+
+conponents/header.test.js
+
+```js
+import React from 'react';
+import ReactShallowRenderer from 'react-test-renderer/shallow';
+import Header from '../../components/Header';
+
+test('should render Header correctly', () => {
+  const renderer = new ReactShallowRenderer();
+  renderer.render(<Header />);
+  expect(renderer.getRenderOutput()).toMatchSnapshot();
+});
+
+```
+
+install react-test-renderer
+
+
+
 ### 9. Enzyme
 
-### 
+test render with enzyme better:
+
+ `npm install enzyme enzyme-adapter-react-16 raf` 16 là version cần test
+
+Header.test.js
+
+```js
+import React from 'react';
+import { shallow } from 'enzyme';
+import Header from '../../components/Header';
+
+test('should render Header correctly', () => {
+  const wrapper = shallow(<Header />);
+  // có thể dùng hàm find để tìm thẻ (wrapper.find('h1').length) hay .text()
+  expect(wrapper).toMatchSnapshot(); // enzime to json
+});
+
+```
+
+https://enzymejs.github.io/enzyme/
+
+Finally, you need to configure enzyme to use the adapter you want it to use. To do this, you can use the top level `configure(...)` API.
+
+```js
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+Enzyme.configure({ adapter: new Adapter() });
+```
+
+https://jestjs.io/docs/en/configuration#setupfiles-array
+
+`setupFiles` will execute *before*
+
+install package enzyme-to-json
+
+Create file jest.config.json
+
+```json
+{
+  "snapshotSerializers": [
+    "enzyme-to-json/serializer"
+  ]
+}
+// xem lại để hiểu rõ hơn
+```
+
+package.json
+
+```json
+    "test": "jest --config=jest.config.json"
+
+```
+
+https://enzymejs.github.io/enzyme/
+
+![image-20200405223341994](./react-2nd-edition.assets/image-20200405223341994.png)
 
 ### 10. Snapshot Testing with Dynamic Components
 
