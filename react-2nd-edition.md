@@ -4968,17 +4968,481 @@ https://enzymejs.github.io/enzyme/
 
 ### 10. Snapshot Testing with Dynamic Components
 
+ExpenseList.test.js
+
+```js
+import React from 'react';
+import { shallow } from 'enzyme';
+import { ExpenseList } from '../../components/ExpenseList';
+import expenses from '../fixtures/expenses';
+
+test('should render ExpenseList with expenses', () => {
+  const wrapper = shallow(<ExpenseList expenses={expenses} />);
+  expect(wrapper).toMatchSnapshot();
+});
+
+test('should render ExpenseList with empty message', () => {
+  const wrapper = shallow(<ExpenseList expenses={[]} />);
+  expect(wrapper).toMatchSnapshot();
+});
+
+```
+
+ExpenseListItem.test.js
+
+```js
+import React from 'react';
+import { shallow } from 'enzyme';
+import expenses from '../fixtures/expenses';
+import ExpenseListItem from '../../components/ExpenseListItem';
+
+test('should render ExpenseListItem correctly', () => {
+  const wrapper = shallow(<ExpenseListItem {...expenses[0]} />);
+  expect(wrapper).toMatchSnapshot();
+});
+
+```
+
+ExpenseDashboardPage.js
+
+```js
+import React from 'react';
+import ExpenseList from './ExpenseList';
+import ExpenseListFilters from './ExpenseListFilters';
+
+const ExpenseDashboardPage = () => (
+  <div>
+    <ExpenseListFilters />
+    <ExpenseList />
+  </div>
+);
+
+export default ExpenseDashboardPage;
+
+```
+
+NotFoundPage.test.js
+
+```js
+import React from 'react';
+import { shallow } from 'enzyme';
+import NotFoundPage from '../../components/NotFoundPage';
+
+test('should render NotFoundPage correctly', () => {
+  const wrapper = shallow(<NotFoundPage />);
+  expect(wrapper).toMatchSnapshot();
+});
+
+```
+
+
+
 ### 11. Mocking Libraries with Jest
+
+app.js
+
+```js
+
+import 'normalize.css/normalize.css';
+import './styles/styles.scss';
+// move from ExpenseForm
+import 'react-dates/lib/css/_datepicker.css';
+```
+
+
+
+ExpenseForm.test.js
+
+```js
+import React from 'react';
+import { shallow } from 'enzyme';
+import ExpenseForm from '../../components/ExpenseForm';
+import expenses from '../fixtures/expenses';
+
+test('should render ExpenseForm correctly', () => {
+  const wrapper = shallow(<ExpenseForm />);
+  expect(wrapper).toMatchSnapshot();
+});
+
+test('should render ExpenseForm correctly with expense data', () => {
+  const wrapper = shallow(<ExpenseForm expense={expenses[1]} />);
+  expect(wrapper).toMatchSnapshot();
+});
+
+```
+
+Fail vì moment mỗi lúc sẽ có time different => mock
+
+https://jestjs.io/docs/en/mock-function-api
+
+__mock__/moment.js
+
+```js
+const moment = require.requireActual('moment');
+
+export default (timestamp = 0) => {
+  return moment(timestamp);
+};
+
+```
+
+
 
 ### 12. Testing User Interaction
 
+ExpenseForm.js
+
+```js
+
+test('should render error for invalid form submission', () => {
+  const wrapper = shallow(<ExpenseForm />);
+  expect(wrapper).toMatchSnapshot();
+  wrapper.find('form').simulate('submit', {
+    preventDefault: () => { }
+  });
+  expect(wrapper.state('error').length).toBeGreaterThan(0);
+  expect(wrapper).toMatchSnapshot();
+});
+
+test('should set description on input change', () => {
+  const value = 'New description';
+  const wrapper = shallow(<ExpenseForm />);
+  wrapper.find('input').at(0).simulate('change', {
+    target: { value }
+  });
+  expect(wrapper.state('description')).toBe(value);
+});
+
+test('should set note on textarea change', () => {
+  const value = 'New note value';
+  const wrapper = shallow(<ExpenseForm />);
+  wrapper.find('textarea').simulate('change', {
+    target: { value }
+  });
+  expect(wrapper.state('note')).toBe(value);
+});
+
+test('should set amount if valid input', () => {
+  const value = '23.50';
+  const wrapper = shallow(<ExpenseForm />);
+  wrapper.find('input').at(1).simulate('change', {
+    target: { value }
+  });
+  expect(wrapper.state('amount')).toBe(value);
+});
+
+test('should not set amount if invalid input', () => {
+  const value = '12.122';
+  const wrapper = shallow(<ExpenseForm />);
+  wrapper.find('input').at(1).simulate('change', {
+    target: { value }
+  });
+  expect(wrapper.state('amount')).toBe('');
+});
+
+```
+
+https://enzymejs.github.io/enzyme/docs/api/ShallowWrapper/simulate.html
+
 ### 13. Test Spies
+
+ExpenseForm.test
+
+```js
+
+test('should call onSubmit prop for valid form submission', () => {
+  const onSubmitSpy = jest.fn();
+  const wrapper = shallow(<ExpenseForm expense={expenses[0]} onSubmit={onSubmitSpy} />);
+  wrapper.find('form').simulate('submit', {
+    preventDefault: () => { }
+  });
+  expect(wrapper.state('error')).toBe('');
+  expect(onSubmitSpy).toHaveBeenLastCalledWith({
+    description: expenses[0].description,
+    amount: expenses[0].amount,
+    note: expenses[0].note,
+    createdAt: expenses[0].createdAt
+  });
+});
+
+test('should set new date on date change', () => {
+  const now = moment();
+  const wrapper = shallow(<ExpenseForm />);
+  wrapper.find('SingleDatePicker').prop('onDateChange')(now);
+  expect(wrapper.state('createdAt')).toEqual(now);
+});
+
+test('should set calendar focus on change', () => {
+  const focused = true;
+  const wrapper = shallow(<ExpenseForm />);
+  wrapper.find('SingleDatePicker').prop('onFocusChange')({ focused });
+  expect(wrapper.state('calendarFocused')).toBe(focused);
+});
+
+```
+
+
 
 ### 14. Testing AddExpensePage
 
+AddExpensePage.test
+
+```js
+import React from 'react';
+import { shallow } from 'enzyme';
+import { AddExpensePage } from '../../components/AddExpensePage';
+import expenses from '../fixtures/expenses';
+
+let onSubmit, history, wrapper;
+
+beforeEach(() => {
+  onSubmit = jest.fn();
+  history = { push: jest.fn() };
+  wrapper = shallow(<AddExpensePage onSubmit={onSubmit} history={history} />);
+});
+
+test('should render AddExpensePage correctly', () => {
+  expect(wrapper).toMatchSnapshot();
+});
+
+test('should handle onSubmit', () => {
+  wrapper.find('ExpenseForm').prop('onSubmit')(expenses[1]);
+  expect(history.push).toHaveBeenLastCalledWith('/');
+  expect(onSubmit).toHaveBeenLastCalledWith(expenses[1]);
+});
+
+```
+
+AddExpensePage.js
+
+```js
+
+export class AddExpensePage extends React.Component {
+  onSubmit = (expense) => {
+    this.props.onSubmit(expense);
+    this.props.history.push('/');
+  };
+  render() {
+    return (
+      <div>
+        <h1>Add Expense</h1>
+        <ExpenseForm
+          onSubmit={this.onSubmit}
+        />
+      </div>
+    );
+  }
+}
+
+// add
+const mapDispatchToProps = (dispatch) => ({
+  onSubmit: (expense) => dispatch(addExpense(expense))
+});
+
+// add
+export default connect(undefined, mapDispatchToProps)(AddExpensePage);
+
+```
+
+
+
 ### 15. Testing EditExpensePage
 
+```js
+import React from 'react';
+import { shallow } from 'enzyme';
+import expenses from '../fixtures/expenses';
+import { EditExpensePage } from '../../components/EditExpensePage';
+
+let editExpense, removeExpense, history, wrapper;
+
+beforeEach(() => {
+  editExpense = jest.fn();
+  removeExpense = jest.fn();
+  history = { push: jest.fn() };
+  wrapper = shallow(
+    <EditExpensePage
+      editExpense={editExpense}
+      removeExpense={removeExpense}
+      history={history}
+      expense={expenses[2]}
+    />
+  );
+});
+
+test('should render EditExpensePage', () => {
+  expect(wrapper).toMatchSnapshot();
+});
+
+test('should handle editExpense', () => {
+  wrapper.find('ExpenseForm').prop('onSubmit')(expenses[2]);
+  expect(history.push).toHaveBeenLastCalledWith('/');
+  expect(editExpense).toHaveBeenLastCalledWith(expenses[2].id, expenses[2]);
+});
+
+test('should handle removeExpense', () => {
+  wrapper.find('button').simulate('click');
+  expect(history.push).toHaveBeenLastCalledWith('/');
+  expect(removeExpense).toHaveBeenLastCalledWith({
+    id: expenses[2].id
+  });
+});
+
+```
+
+EditExpensePage
+
+```js
+
+export class EditExpensePage extends React.Component {
+  onSubmit = (expense) => {
+    this.props.editExpense(this.props.expense.id, expense);
+    this.props.history.push('/');
+  };
+  onRemove = () => {
+    this.props.removeExpense({ id: this.props.expense.id });
+    this.props.history.push('/');
+  };
+  render() {
+    return (
+      <div>
+        <ExpenseForm
+          expense={this.props.expense}
+          onSubmit={this.onSubmit}
+        />
+        <button onClick={this.onRemove}>Remove</button>
+      </div>
+    );
+  }
+};
+
+// add
+
+const mapStateToProps = (state, props) => ({
+  expense: state.expenses.find((expense) => expense.id === props.match.params.id)
+});
+
+const mapDispatchToProps = (dispatch, props) => ({
+  editExpense: (id, expense) => dispatch(editExpense(id, expense)),
+  removeExpense: (data) => dispatch(removeExpense(data))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditExpensePage);
+
+```
+
+
+
 ### 16. Testing ExpenseListFilters
+
+```js
+import React from 'react';
+import { shallow } from 'enzyme';
+import { ExpenseListFilters } from '../../components/ExpenseListFilters';
+import { filters, altFilters } from '../fixtures/filters';
+
+let setTextFilter, sortByDate, sortByAmount, setStartDate, setEndDate, wrapper;
+
+beforeEach(() => {
+  setTextFilter = jest.fn();
+  sortByDate = jest.fn();
+  sortByAmount = jest.fn();
+  setStartDate = jest.fn();
+  setEndDate = jest.fn();
+  wrapper = shallow(
+    <ExpenseListFilters
+      filters={filters}
+      setTextFilter={setTextFilter}
+      sortByDate={sortByDate}
+      sortByAmount={sortByAmount}
+      setStartDate={setStartDate}
+      setEndDate={setEndDate}
+    />
+  );
+});
+
+test('should render ExpenseListFilters correctly', () => {
+  expect(wrapper).toMatchSnapshot();
+});
+
+test('should render ExpenseListFilters with alt data correctly', () => {
+  wrapper.setProps({
+    filters: altFilters
+  });
+  expect(wrapper).toMatchSnapshot();
+});
+
+// 17
+
+test('should handle text change', () => {
+  const value = 'rent';
+  wrapper.find('input').simulate('change', {
+    target: { value }
+  });
+  expect(setTextFilter).toHaveBeenLastCalledWith(value);
+});
+
+test('should sort by date', () => {
+  const value = 'date';
+  wrapper.setProps({
+    filters: altFilters
+  });
+  wrapper.find('select').simulate('change', {
+    target: { value }
+  });
+  expect(sortByDate).toHaveBeenCalled();
+});
+
+test('should sort by amount', () => {
+  const value = 'amount';
+  wrapper.find('select').simulate('change', {
+    target: { value }
+  });
+  expect(sortByAmount).toHaveBeenCalled();
+});
+
+test('should handle date changes', () => {
+  const startDate = moment(0).add(4, 'years');
+  const endDate = moment(0).add(8, 'years');
+  wrapper.find('DateRangePicker').prop('onDatesChange')({ startDate, endDate });
+  expect(setStartDate).toHaveBeenLastCalledWith(startDate);
+  expect(setEndDate).toHaveBeenLastCalledWith(endDate);
+});
+
+test('hould handle date focus changes', () => {
+  const calendarFocused = 'endDate';
+  wrapper.find('DateRangePicker').prop('onFocusChange')(calendarFocused);
+  expect(wrapper.state('calendarFocused')).toBe(calendarFocused);
+});
+
+```
+
+convert all qua class
+
+fixture/filter.js
+
+```js
+import moment from 'moment';
+
+const filters = {
+  text: '',
+  sortBy: 'date',
+  startDate: undefined,
+  endDate: undefined
+};
+
+const altFilters = {
+  text: 'bills',
+  sortBy: 'amount',
+  startDate: moment(0),
+  endDate: moment(0).add(3, 'days')
+};
+
+export { filters, altFilters };
+
+```
+
+
 
 ### 17. Testing ExpenseListFilters Part II
 
