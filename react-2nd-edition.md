@@ -2970,31 +2970,615 @@ console.log(`A medium ${itemName} costs ${mediumPrice}`);
 
 ### 8. Refactoring and Organizing
 
+Sửa trong webpack
 
+redux-101.js
+
+```js
+import { createStore } from 'redux';
+
+// Action generators - functions that return action objects
+
+const incrementCount = ({ incrementBy = 1 } = {}) => ({
+  type: 'INCREMENT',
+  incrementBy
+});
+
+const decrementCount = ({ decrementBy = 1 } = {}) => ({
+  type: 'DECREMENT',
+  decrementBy
+});
+
+const setCount = ({ count }) => ({
+  type: 'SET',
+  count
+});
+
+const resetCount = () => ({
+  type: 'RESET'
+});
+
+// reducer
+const store = createStore((state = { count: 0 }, action) => {
+  switch (action.type) {
+    case 'INCREMENT':
+      return {
+        count: state.count + action.incrementBy
+      };
+    case 'DECREMENT':
+      return {
+        count: state.count - action.decrementBy
+      };
+    case 'SET':
+      return {
+        count: action.count
+      };
+    case 'RESET':
+      return {
+        count: 0
+      };
+    default:
+      return state;
+  }
+});
+
+const unsubscribe = store.subscribe(() => {
+  console.log(store.getState());
+});
+
+store.dispatch(incrementCount({ incrementBy: 5 }))
+
+store.dispatch(incrementCount());
+
+store.dispatch(resetCount());
+
+store.dispatch(decrementCount());
+
+store.dispatch(decrementCount({ decrementBy: 10 }));
+
+store.dispatch(setCount({ count: -100 }));
+
+```
+
+Thay vì truyền vào data và gọi data.a thì
+
+![image-20200405073803094](./react-2nd-edition.assets/image-20200405073803094.png)
 
 ### 9. Reducers
 
-### 
+redux 101.js
+
+```js
+
+// Reducers
+// 1. Reducers are pure functions
+// 2. Never change state or actiton
+
+const countReducer = (state = { count: 0 }, action) => {
+  switch (action.type) {
+    case 'INCREMENT':
+      return {
+        count: state.count + action.incrementBy
+      };
+    case 'DECREMENT':
+      return {
+        count: state.count - action.decrementBy
+      };
+    case 'SET':
+      return {
+        count: action.count
+      };
+    case 'RESET':
+      return {
+        count: 0
+      };
+    default:
+      return state;
+  }
+};
+
+const store = createStore(countReducer);
+```
+
+Pure func là func xác định đầu ra dựa vào input và không thay đổi giá trị bên ngoài
+
+redux-expensify.js
+
+```js
+import { createStore, combineReducers } from 'redux';
+
+const demoState = {
+  expenses: [{
+    id: 'poijasdfhwer',
+    description: 'January Rent',
+    note: 'This was the final payment for that address',
+    amount: 54500,
+    createdAt: 0
+  }],
+  filters: {
+    text: 'rent',
+    sortBy: 'amount', // date or amount
+    startDate: undefined,
+    endDate: undefined
+  }
+};
+
+
+```
+
+webpack.config.js
+
+```js
+
+module.exports = {
+  entry: './src/playground/redux-expensify.js',
+
+```
+
+
 
 ### 10. Working with Multiple Reducers
 
+redux-expensify.js
+
+```js
+import { createStore, combineReducers } from 'redux';
+
+// ADD_EXPENSE
+// REMOVE_EXPENSE
+// EDIT_EXPENSE
+// SET_TEXT_FILTER
+// SORT_BY_DATE
+// SORT_BY_AMOUNT
+// SET_START_DATE
+// SET_END_DATE
+
+// Expenses Reducer
+
+const expensesReducerDefaultState = [];
+
+const expensesReducer = (state = expensesReducerDefaultState, action) => {
+  switch (action.type) {
+    default:
+      return state;
+  }
+};
+
+// Filters Reducer
+// text => '', sortBy => 'date', startDate => undefined, endDate => undefined
+
+const filtersReducerDefaultState = {
+  text: '',
+  sortBy: 'date',
+  startDate: undefined,
+  endDate: undefined
+};
+
+const filtersReducer = (state = filtersReducerDefaultState, action) => {
+  switch (action.type) {
+    default:
+      return state;
+  }
+};
+
+// Store creation
+
+const store = createStore(
+  combineReducers({
+    expenses: expensesReducer,
+    filters: filtersReducer
+  })
+);
+
+console.log(store.getState());
+
+const demoState = {
+  expenses: [{
+    id: 'poijasdfhwer',
+    description: 'January Rent',
+    note: 'This was the final payment for that address',
+    amount: 54500,
+    createdAt: 0
+  }],
+  filters: {
+    text: 'rent',
+    sortBy: 'amount', // date or amount
+    startDate: undefined,
+    endDate: undefined
+  }
+};
+
+
+```
+
+
+
 ### 11. ES6 Spread Operator in Reducers
+
+uuid npm
+
+redux-expensify.js
+
+```js
+import { createStore, combineReducers } from 'redux';
+import uuid from 'uuid';
+
+// ADD_EXPENSE
+const addExpense = (
+  {
+    description = '',
+    note = '',
+    amount = 0,
+    createdAt = 0
+  } = {}
+) => ({
+  type: 'ADD_EXPENSE',
+  expense: {
+    id: uuid(),
+    description,
+    note,
+    amount,
+    createdAt
+  }
+});
+
+// REMOVE_EXPENSE
+const removeExpense = ({ id } = {}) => ({
+  type: 'REMOVE_EXPENSE',
+  id
+});
+
+// EDIT_EXPENSE
+// SET_TEXT_FILTER
+// SORT_BY_DATE
+// SORT_BY_AMOUNT
+// SET_START_DATE
+// SET_END_DATE
+
+// Expenses Reducer
+
+const expensesReducerDefaultState = [];
+
+const expensesReducer = (state = expensesReducerDefaultState, action) => {
+  switch (action.type) {
+    case 'ADD_EXPENSE':
+      // return state.concat(action.expense);
+      return [
+        ...state,
+        action.expense
+      ];
+    case 'REMOVE_EXPENSE':
+      return state.filter(({ id }) => id !== action.id);
+    default:
+      return state;
+  }
+};
+
+// Filters Reducer
+
+const filtersReducerDefaultState = {
+  text: '',
+  sortBy: 'date',
+  startDate: undefined,
+  endDate: undefined
+};
+
+const filtersReducer = (state = filtersReducerDefaultState, action) => {
+  switch (action.type) {
+    default:
+      return state;
+  }
+};
+
+// Store creation
+
+const store = createStore(
+  combineReducers({
+    expenses: expensesReducer,
+    filters: filtersReducer
+  })
+);
+
+// add
+store.subscribe(() => {
+  console.log(store.getState());
+});
+
+const expenseOne = store.dispatch(addExpense({ description: 'Rent', amount: 100 }));
+const expenseTwo = store.dispatch(addExpense({ description: 'Coffee', amount: 300 }));
+
+// console.log(expenseOne);
+store.dispatch(removeExpense({ id: expenseOne.expense.id }));
+
+const demoState = {
+  expenses: [{
+    id: 'poijasdfhwer',
+    description: 'January Rent',
+    note: 'This was the final payment for that address',
+    amount: 54500,
+    createdAt: 0
+  }],
+  filters: {
+    text: 'rent',
+    sortBy: 'amount', // date or amount
+    startDate: undefined,
+    endDate: undefined
+  }
+};
+
+
+```
+
+![image-20200405080436133](./react-2nd-edition.assets/image-20200405080436133.png)  
+
+![image-20200405080515302](./react-2nd-edition.assets/image-20200405080515302.png)
 
 ### 12. Spreading Objects
 
+redux-expensify.js
+
+```js
+
+// EDIT_EXPENSE
+const editExpense = (id, updates) => ({
+  type: 'EDIT_EXPENSE',
+  id,
+  updates
+});
+
+// SET_TEXT_FILTER
+const setTextFilter = (text = '') => ({
+  type: 'SET_TEXT_FILTER',
+  text
+});
+
+const expensesReducer = (state = expensesReducerDefaultState, action) => {
+  switch (action.type) {
+    case 'ADD_EXPENSE':
+      return [
+        ...state,
+        action.expense
+      ];
+    case 'REMOVE_EXPENSE':
+      return state.filter(({ id }) => id !== action.id);
+    case 'EDIT_EXPENSE':
+      return state.map((expense) => {
+        if (expense.id === action.id) {
+          return {
+            ...expense,
+            ...action.updates
+          };
+        } else {
+          return expense;
+        };
+      });
+    default:
+      return state;
+  }
+};
+
+
+store.dispatch(editExpense(expenseTwo.expense.id, { amount: 500 }));
+
+store.dispatch(setTextFilter('rent'));
+store.dispatch(setTextFilter());
+
+
+```
+
+gg: babel object spread
+
+```js
+use = {
+    name: "asas",
+    age: 21
+};
+console.log({
+    ...user
+});
+// sẽ gây ra lỗi vì spead chỉ chạy trên main stream => tool
+```
+
+.babelrc
+
+```js
+{
+  "presets": [
+    "env",
+    "react"
+  ],
+  "plugins": [
+    "transform-class-properties",
+    "transform-object-rest-spread" // add
+  ]
+}
+
+```
+
+```js
+use = {
+    name: "asas",
+    age: 21
+};
+console.log({
+    ...user,
+    country: "VN",
+    age: 37
+});
+// override and return new obj
+```
+
+
+
+https://babeljs.io/docs/en/babel-plugin-transform-object-rest-spread.html
+
+```shell
+npm install --save-dev babel-plugin-transform-object-rest-spread
+```
+
 ### 13. Wrapping up Our Reducers
+
+redux-expensify.js
+
+```js
+
+
+// SORT_BY_DATE
+const sortByDate = () => ({
+  type: 'SORT_BY_DATE'
+});
+
+// SORT_BY_AMOUNT
+const sortByAmount = () => ({
+  type: 'SORT_BY_AMOUNT'
+});
+
+// SET_START_DATE
+const setStartDate = (startDate) => ({
+  type: 'SET_START_DATE',
+  startDate
+});
+
+// SET_END_DATE
+const setEndDate = (endDate) => ({
+  type: 'SET_END_DATE',
+  endDate
+});
+
+
+
+// Filters Reducer
+
+const filtersReducerDefaultState = {
+  text: '',
+  sortBy: 'date',
+  startDate: undefined,
+  endDate: undefined
+};
+
+const filtersReducer = (state = filtersReducerDefaultState, action) => {
+  switch (action.type) {
+    case 'SET_TEXT_FILTER':
+      return {
+        ...state,
+        text: action.text
+      };
+    case 'SORT_BY_AMOUNT':
+      return {
+        ...state,
+        sortBy: 'amount'
+      };
+    case 'SORT_BY_DATE':
+      return {
+        ...state,
+        sortBy: 'date'
+      };
+    case 'SET_START_DATE':
+      return {
+        ...state,
+        startDate: action.startDate
+      };
+    case 'SET_END_DATE':
+      return {
+        ...state,
+        endDate: action.endDate
+      };
+    default:
+      return state;
+  }
+};
+
+
+// store.dispatch(sortByAmount());
+// store.dispatch(sortByDate());
+
+store.dispatch(setStartDate(125)); // startDate 125
+store.dispatch(setStartDate()); // startDate undefined
+store.dispatch(setEndDate(1250)); // endDate 1250
+```
+
+
 
 ### 14. Filtering Redux Data
 
+redux-expensify.js
+
+```js
+// add
+// Get visible expenses
+const getVisibleExpenses = (expenses, { text, sortBy, startDate, endDate }) => {
+  return expenses.filter((expense) => {
+    const startDateMatch = typeof startDate !== 'number' || expense.createdAt >= startDate;
+    const endDateMatch = typeof endDate !== 'number' || expense.createdAt <= endDate;
+    const textMatch = expense.description.toLowerCase().includes(text.toLowerCase());
+
+    return startDateMatch && endDateMatch && textMatch;
+  });
+};
+
+// Store creation
+
+const store = createStore(
+  combineReducers({
+    expenses: expensesReducer,
+    filters: filtersReducer
+  })
+);
+
+// add
+store.subscribe(() => {
+  const state = store.getState();
+  const visibleExpenses = getVisibleExpenses(state.expenses, state.filters);
+  console.log(visibleExpenses);
+});
+
+
+const expenseOne = store.dispatch(addExpense({ description: 'Rent', amount: 100, createdAt: 1000 }));
+const expenseTwo = store.dispatch(addExpense({ description: 'Coffee', amount: 300, createdAt: -1000 }));
+
+store.dispatch(setTextFilter('ffe'));
+
+```
+
+timestamp milliseconds từ 1st 1970, âm là trk đó
+
 ### 15. Sorting Redux Data
+
+gg: mdn array sort 
+
+```js
+// Get visible expenses
+const getVisibleExpenses = (expenses, { text, sortBy, startDate, endDate }) => {
+  return expenses.filter((expense) => {
+    const startDateMatch = typeof startDate !== 'number' || expense.createdAt >= startDate;
+    const endDateMatch = typeof endDate !== 'number' || expense.createdAt <= endDate;
+    const textMatch = expense.description.toLowerCase().includes(text.toLowerCase());
+
+    return startDateMatch && endDateMatch && textMatch;
+      
+  // add
+  }).sort((a, b) => {
+    if (sortBy === 'date') {
+      return a.createdAt < b.createdAt ? 1 : -1;
+    } else if (sortBy === 'amount') {
+      return a.amount < b.amount ? 1 : -1;
+    }
+  });
+};
+
+
+store.dispatch(sortByAmount());
+// store.dispatch(sortByDate());
+```
+
+
 
 ## 11. React with Redux
 ### 1. Section Intro Connecting React and Redux
-### 10. Wiring up Add Expense
-### 11. Wiring up Edit Expense
-### 12. Redux Dev Tools
-### 13. Filtering by Dates
 ### 2. Organizing Redux
+
+
+
 ### 3. The Higher Order Component
 ### 4. Connecting Store and Component with React-Redux
 ### 5. Rendering Individual Expenses
@@ -3002,16 +3586,19 @@ console.log(`A medium ${itemName} costs ${mediumPrice}`);
 ### 7. Dropdown for Picking SortBy
 ### 8. Creating Expense AddEdit Form
 ### 9. Setting up a Date Picker
+
+### 
+
+### 10. Wiring up Add Expense
+
+### 11. Wiring up Edit Expense
+
+### 12. Redux Dev Tools
+
+### 13. Filtering by Dates
+
 ## 12. Testing Your Application
 ### 1. Section Intro Testing React Components
-### 10. Snapshot Testing with Dynamic Components
-### 11. Mocking Libraries with Jest
-### 12. Testing User Interaction
-### 13. Test Spies
-### 14. Testing AddExpensePage
-### 15. Testing EditExpensePage
-### 16. Testing ExpenseListFilters
-### 17. Testing ExpenseListFilters Part II
 ### 2. Setting up Jest
 ### 3. Testing Expenses Action Generators
 ### 4. Testing Filters Action Generators
@@ -3020,12 +3607,27 @@ console.log(`A medium ${itemName} costs ${mediumPrice}`);
 ### 7. Testing Expenses Reducer
 ### 8. Snapshot Testing
 ### 9. Enzyme
+
+### 
+
+### 10. Snapshot Testing with Dynamic Components
+
+### 11. Mocking Libraries with Jest
+
+### 12. Testing User Interaction
+
+### 13. Test Spies
+
+### 14. Testing AddExpensePage
+
+### 15. Testing EditExpensePage
+
+### 16. Testing ExpenseListFilters
+
+### 17. Testing ExpenseListFilters Part II
+
 ## 13. Deploying Your Apps
 ### 1. Section Intro Deploying Your Apps
-### 10. Regular vs Development Dependencies
-### 11. New Feature Workflow
-### 12. Build It Adding Total Selector
-### 13. Build It Adding Summary Component
 ### 2. Installing Git
 ### 3. What is Git
 ### 4. Integrating Git into Our Project
@@ -3034,9 +3636,19 @@ console.log(`A medium ${itemName} costs ${mediumPrice}`);
 ### 7. Creating Separate CSS Files
 ### 8. A Production Web Server with Express
 ### 9. Deploying with Heroku
+
+### 
+
+### 10. Regular vs Development Dependencies
+
+### 11. New Feature Workflow
+
+### 12. Build It Adding Total Selector
+
+### 13. Build It Adding Summary Component
+
 ## 14. Firebase 101
 ### 1. Section Intro Firebase 101
-### 10. Array Data in Firebase Part II
 ### 2. Getting Firebase
 ### 3. Writing to the Database
 ### 4. ES6 Promises
@@ -3045,9 +3657,13 @@ console.log(`A medium ${itemName} costs ${mediumPrice}`);
 ### 7. Updating Data
 ### 8. Fetching Data From Firebase
 ### 9. Array Data in Firebase Part I
+
+### 10. Array Data in Firebase Part II
+
+### 
+
 ## 15. Firebase with Redux
 ### 1. Section Intro Firebase with Redux
-### 10. Update Expense
 ### 2. Asynchronous Redux Actions
 ### 3. Testing Async Redux Actions Part I
 ### 4. Testing Async Redux Actions Part II
@@ -3056,6 +3672,11 @@ console.log(`A medium ${itemName} costs ${mediumPrice}`);
 ### 7. Fetching Expenses Part I
 ### 8. Fetching Expenses Part II
 ### 9. Remove Expense
+
+### 10. Update Expense
+
+### 
+
 ## 16. Firebase Authentication
 ### 1. Section Intro Firebase Authentication
 ### 2. Login Page and Google Authentication
@@ -3068,9 +3689,6 @@ console.log(`A medium ${itemName} costs ${mediumPrice}`);
 ### 9. Data Validation and Deployment
 ## 17. Styling Budget App
 ### 1. Section Intro Styling Budget App
-### 10. Adding Loader
-### 11. Babel Polyfill
-### 12. Final Deployment
 ### 2. Styling Login Page
 ### 3. Styling Buttons
 ### 4. Styling Summary Area
@@ -3079,6 +3697,15 @@ console.log(`A medium ${itemName} costs ${mediumPrice}`);
 ### 7. Styling Expense Form
 ### 8. Styling Expenses List Part I
 ### 9. Styling Expenses List Part II
+
+### 
+
+### 10. Adding Loader
+
+### 11. Babel Polyfill
+
+### 12. Final Deployment
+
 ## 18. What Now
 ### 1. Section Into What Now
 ### 2. Creating the Final Boilerplate
@@ -3088,10 +3715,6 @@ console.log(`A medium ${itemName} costs ${mediumPrice}`);
 ### 6. Until Next Time
 ## 19. [New!] Hooks, Context, Fragments, and More
 ### 1. Section Intro
-### 10. The Context API & useContext Hook Part I
-### 11. The Context API & useContext Hook Part II
-### 12. Fragments
-### 13. Creating Custom Hooks
 ### 2. Using Create React App
 ### 3. The useState Hook
 ### 4. useState vs. setState
@@ -3100,3 +3723,13 @@ console.log(`A medium ${itemName} costs ${mediumPrice}`);
 ### 7. useEffect Dependencies
 ### 8. Cleaning up Effects
 ### 9. The useReducer Hook
+
+### 
+
+### 10. The Context API & useContext Hook Part I
+
+### 11. The Context API & useContext Hook Part II
+
+### 12. Fragments
+
+### 13. Creating Custom Hooks
