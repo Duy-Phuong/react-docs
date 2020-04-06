@@ -5449,23 +5449,423 @@ export { filters, altFilters };
 ## 13. Deploying Your Apps
 ### 1. Section Intro Deploying Your Apps
 ### 2. Installing Git
+
+https://www.git-scm.com/
+
 ### 3. What is Git
 ### 4. Integrating Git into Our Project
+
+```shell
+git --version
+git init
+git status
+git add .
+git commit -m "add"
+```
+
+.gitignore
+
+```js
+node_modules/
+
+```
+
+app.js
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import AppRouter from './routers/AppRouter';
+import configureStore from './store/configureStore';
+import { addExpense } from './actions/expenses';
+import { setTextFilter } from './actions/filters';
+import getVisibleExpenses from './selectors/expenses';
+import 'normalize.css/normalize.css';
+import './styles/styles.scss';
+import 'react-dates/lib/css/_datepicker.css';
+
+const store = configureStore();
+
+// remove some line of code
+
+const jsx = (
+  <Provider store={store}>
+    <AppRouter />
+  </Provider>
+);
+
+ReactDOM.render(jsx, document.getElementById('app'));
+
+```
+
+```shell
+# Git Commands
+
+git init - Create a new git repo
+git status - View the changes to your project code
+git add - Add files to staging area
+git commit - Creates a new commit with files from staging area
+git log - View recent commits
+
+```
+
+
+
 ### 5. Setting up SSH and Github
+
+```shell
+ls -a ~/.ssh 
+# check ssh key
+
+gg: connecting to github with ssh
+```
+
+https://help.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh
+
+Chọn: https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+
+### [Generating a new SSH key](https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key)
+
+1. Open Git Bash.
+
+2. Paste the text below, substituting in your GitHub email address.
+
+   ```shell
+   $ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+   ```
+
+3. When you're prompted to "Enter a file in which to save the key," press Enter. This accepts the default file location.
+
+```shell
+> Enter a file in which to save the key (/c/Users/you/.ssh/id_rsa):[Press enter]
+```
+
+4. At the prompt, type a secure passphrase. For more information, see ["Working with SSH key passphrases"](https://help.github.com/en/articles/working-with-ssh-key-passphrases).
+
+```shell
+> Enter passphrase (empty for no passphrase): [Press enter]
+```
+
+type: `ls -a ~/.ssh `
+
+### [Adding your SSH key to the ssh-agent](https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#adding-your-ssh-key-to-the-ssh-agent)
+
+1. Ensure the ssh-agent is running:
+
+   - If you are using the Git Shell that's installed with GitHub Desktop, the ssh-agent should be running.
+
+   - If you are using another terminal prompt, such as Git for Windows, you can use the "Auto-launching the ssh-agent" instructions in "[Working with SSH key passphrases](https://help.github.com/en/articles/working-with-ssh-key-passphrases)", or start it manually:
+
+     ```shell
+     # start the ssh-agent in the background
+     $ eval $(ssh-agent -s)
+     > Agent pid 59566
+     ```
+
+2. Add your SSH private key to the ssh-agent. If you created your key with a different name, or if you are adding an existing key that has a different name, replace *id_rsa* in the command with the name of your private key file.
+
+   ```shell
+   $ ssh-add ~/.ssh/id_rsa
+   ```
+
+https://help.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account
+
+# Adding a new SSH key to your GitHub account
+
+To configure your GitHub account to use your new (or existing) SSH key, you'll also need to add it to your GitHub account.
+
+[Mac](https://help.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account#)[Windows](https://help.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account#)[Linux](https://help.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account#)
+
+Before adding a new SSH key to your GitHub account, you should have:
+
+- [Checked for existing SSH keys](https://help.github.com/en/articles/checking-for-existing-ssh-keys)
+- [Generated a new SSH key and added it to the ssh-agent](https://help.github.com/en/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
+
+After adding a new SSH key to your GitHub account, you can reconfigure any local repositories to use SSH. For more information, see "[Switching remote URLs from HTTPS to SSH](https://help.github.com/en/articles/changing-a-remote-s-url/#switching-remote-urls-from-https-to-ssh)."
+
+**Note:** DSA keys (SSH-DSS) are no longer supported. Existing keys will continue to function, but you cannot add new DSA keys to your GitHub account.
+
+1. Copy the SSH key to your clipboard.
+
+   If your SSH key file has a different name than the example code, modify the filename to match your current setup. When copying your key, don't add any newlines or whitespace.
+
+   ```shell
+   $ clip < ~/.ssh/id_rsa.pub
+   # Copies the contents of the id_rsa.pub file to your clipboard
+   ```
+
+   **Tip:** If `clip` isn't working, you can locate the hidden `.ssh` folder, open the file in your favorite text editor, and copy it to your clipboard.
+
+2. In the upper-right corner of any page, click your profile photo, then click **Settings**.
+
+   ![Settings icon in the user bar](./react-2nd-edition.assets/userbar-account-settings.png)
+
+   
+
+3. In the user settings sidebar, click **SSH and GPG keys**.
+
+   ![Authentication keys](./react-2nd-edition.assets/settings-sidebar-ssh-keys.png)
+
+   
+
+4. Click **New SSH key** or **Add SSH key**.
+
+   ![SSH Key button](./react-2nd-edition.assets/ssh-add-ssh-key.png)
+
+   
+
+5. In the "Title" field, add a descriptive label for the new key. For example, if you're using a personal Mac, you might call this key "Personal MacBook Air".
+
+6. Paste your key into the "Key" field.
+
+   ![The key field](./react-2nd-edition.assets/ssh-key-paste.png)
+
+   
+
+7. Click **Add SSH key**.
+
+   ![The Add key button](./react-2nd-edition.assets/ssh-add-key.png)
+
+   
+
+8. If prompted, confirm your GitHub password.
+
+   ![Sudo mode dialog](./react-2nd-edition.assets/sudo_mode_popup.png)
+
+https://help.github.com/en/github/authenticating-to-github/testing-your-ssh-connection
+
+# Testing your SSH connection
+
+1. Open Git Bash.
+
+2. Enter the following:
+
+   ```shell
+   $ ssh -T git@github.com
+   # Attempts to ssh to GitHub
+   ```
+
+   You may see a warning like this:
+
+   ```shell
+   > The authenticity of host 'github.com (IP ADDRESS)' can't be established.
+     > RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.
+     > Are you sure you want to continue connecting (yes/no)?
+   ```
+
+   or like this:
+
+   ```shell
+   > The authenticity of host 'github.com (IP ADDRESS)' can't be established.
+     > RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.
+     > Are you sure you want to continue connecting (yes/no)?
+   ```
+
+3. Verify that the fingerprint in the message you see matches one of the messages in step 2, then type `yes`:
+
+   ```shell
+   > Hi username! You've successfully authenticated, but GitHub does not
+   > provide shell access.
+   ```
+
+4. Verify that the resulting message contains your username. If you receive a "permission denied" message, see ["Error: Permission denied (publickey)"](https://help.github.com/en/articles/error-permission-denied-publickey).
+
+---
+
+```shell
+git remote add origin git@hithub.com....
+git remote
+git remote -v
+# -u chỉ SD lần đầu
+git push -u origin master
+
+
+```
+
+
+
 ### 6. Production Webpack
+
+```shell
+npm run build
+# => optimize for production
+
+```
+
+https://webpack.js.org/guides/production/
+
+package.json
+
+```js
+"scripts": {
+    "serve": "live-server public/",
+    "build:dev": "webpack",
+        // -p là production
+    "build:prod": "webpack -p --env production",
+    "dev-server": "webpack-dev-server",
+    "test": "jest --config=jest.config.json"
+  },
+```
+
+Chạy: `npm run build:prod` sau khi chạy thì dung lượng xem sẽ nhỏ lại
+
+webpack.config.js
+
+```js
+const path = require('path');
+
+module.exports = (env) => {
+    // add
+  console.log(env);
+  const isProduction = env === 'production';
+
+  return {
+    entry: './src/app.js',
+    output: {
+      path: path.join(__dirname, 'public'),
+      filename: 'bundle.js'
+    },
+    module: {
+      rules: [{
+        loader: 'babel-loader',
+        test: /\.js$/,
+        exclude: /node_modules/
+      }, {
+        test: /\.s?css$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader'
+        ]
+      }]
+    },
+      // add
+    devtool: isProduction ? 'source-map' : 'cheap-module-eval-source-map',
+    devServer: {
+      contentBase: path.join(__dirname, 'public'),
+      historyApiFallback: true
+    }
+  };
+};
+
+```
+
+https://webpack.js.org/configuration/configuration-types/
+
+sourcemap is slower
+
+```shell
+npm run serve
+# run server on localhost:8080
+
+npm run build:prod
+```
+
+
+
+
+
+
+
 ### 7. Creating Separate CSS Files
+
+`npm install --save-dev extract-text-webpack-plugin`
+
+webpack.config
+
+```js
+const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+module.exports = (env) => {
+  const isProduction = env === 'production';
+    // tham số truyền vào là tên file
+  const CSSExtract = new ExtractTextPlugin('styles.css');
+    
+     module: {
+      rules: [{
+        loader: 'babel-loader',
+        test: /\.js$/,
+        exclude: /node_modules/
+	// add
+      }, {
+        test: /\.s?css$/,
+        use: CSSExtract.extract({
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                sourceMap: true
+              }
+            },
+            {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: true
+              }
+            }
+          ]
+        })
+      }]
+    },
+    plugins: [
+      CSSExtract
+    ],
+            devtool: isProduction ? 'source-map' : 'inline-source-map',
+
+  // define a file we want to save
+  // run: yarn run build:prod
+```
+
+Extract text from a bundle, or bundles, into a separate file.
+
+It moves all the required `*.css` modules in entry chunks into a separate CSS file. So your styles are no longer inlined into the JS bundle, but in a separate CSS file (`styles.css`). If your total stylesheet volume is big, it will be faster because the CSS bundle is loaded in parallel to the JS bundle.
+
+![image-20200406220531009](./react-2nd-edition.assets/image-20200406220531009.png)  
+
+index.html
+
+```html
+  <link rel="stylesheet" type="text/css" href="/styles.css" />
+
+```
+
+`npm run serve`
+
+![image-20200406221503592](./react-2nd-edition.assets/image-20200406221503592.png)  
+
+Khi f12 chọn vào mũi tên thì show location of file
+
+`npm run dev-server` : f12 thì nó ở file style.css
+
+https://github.com/webpack-contrib/css-loader
+
+css loader có option là source map 
+
 ### 8. A Production Web Server with Express
+
+
+
 ### 9. Deploying with Heroku
 
 ### 
 
 ### 10. Regular vs Development Dependencies
 
+
+
 ### 11. New Feature Workflow
+
+
 
 ### 12. Build It Adding Total Selector
 
+
+
 ### 13. Build It Adding Summary Component
+
+
 
 ## 14. Firebase 101
 ### 1. Section Intro Firebase 101
