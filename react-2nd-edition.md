@@ -5845,11 +5845,116 @@ css loader có option là source map
 
 ### 8. A Production Web Server with Express
 
+create folder server/server.js
 
+```js
+const path = require('path');
+const express = require('express');
+const app = express();
+const publicPath = path.join(__dirname, '..', 'public');
+
+// access from that dir and use to serve up all our static assets
+app.use(express.static(publicPath));
+
+// fix error below
+app.get('*', (req, res) => {
+  res.sendFile(path.join(publicPath, 'index.html'));
+});
+
+// tham số thứ 2 là callback func khi server up
+app.listen(3000, () => {
+  console.log('Server is up!');
+});
+
+```
+
+app.use: register some middleware
+
+run: `node server/server.js`
+
+`npm run build:prod` : when switch page => error and refresh
+
+webpack.config.js
+
+```js
+      historyApiFallback: true
+```
+
+
+
+Right here we set history API fallback to true this served up indexed out in the public folder every single time we got to 4 0 4.
+
+https://expressjs.com/en/4x/api.html#res.sendFile
+
+Then we tell it to use the public directory to serve up all of our static assets.
+
+We also say hey if what the person requested isn't in the public folder just give them back index html
 
 ### 9. Deploying with Heroku
 
-### 
+https://www.heroku.com/
+
+install heroku cli
+
+https://devcenter.heroku.com/articles/heroku-cli
+
+```shell
+heroku --version
+heroku login
+heroku create react-app
+
+```
+
+git bash not support
+
+package.json
+
+```js
+
+    "start": "node server/server.js",
+    "heroku-postbuild": "yarn run build:prod"
+```
+
+heroku supply  a dynamic port not static port 
+
+server.js
+
+```js
+
+const port = process.env.PORT || 3000;
+
+app.use(express.static(publicPath));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(publicPath, 'index.html'));
+});
+
+// change port
+app.listen(port, () => {
+  console.log('Server is up!');
+});
+```
+
+.gitignore
+
+```js
+node_modules/
+public/bundle.js
+public/bundle.js.map
+public/styles.css
+public/styles.css.map
+
+```
+
+![image-20200407003654497](./react-2nd-edition.assets/image-20200407003654497.png)  
+
+```shell
+git push
+git push heroku master
+
+```
+
+![image-20200407004239242](./react-2nd-edition.assets/image-20200407004239242.png)
 
 ### 10. Regular vs Development Dependencies
 
