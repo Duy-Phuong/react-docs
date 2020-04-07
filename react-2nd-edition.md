@@ -6259,18 +6259,229 @@ npm install firebase
 Create folder firebase/firebase.js
 
 ```js
+import * as firebase from 'firebase';
+
+const config = {
+  apiKey: "AIzaSyAapA5P8gWC83aHK26xgDDMzIBC4dw914w",
+  authDomain: "expensify-a13e6.firebaseapp.com",
+  databaseURL: "https://expensify-a13e6.firebaseio.com",
+  projectId: "expensify-a13e6",
+  storageBucket: "expensify-a13e6.appspot.com",
+  messagingSenderId: "124728096317"
+};
+
+firebase.initializeApp(config);
+
+firebase.database().ref().set({
+  name: 'Andrew Mead'
+});
+
+```
+
+app.js
+
+```js
+import './firebase/firebase';
+
+```
+
+```shell
+npm run dev-server
+```
+
+![image-20200407222841073](./react-2nd-edition.assets/image-20200407222841073.png)  
+
+see name khi vào localhost:8080
+
+
+
+### 3. Writing to the Database
+
+firebase.js
+
+```js
+import * as firebase from 'firebase';
+
+const config = {
+  apiKey: "AIzaSyAapA5P8gWC83aHK26xgDDMzIBC4dw914w",
+  authDomain: "expensify-a13e6.firebaseapp.com",
+  databaseURL: "https://expensify-a13e6.firebaseio.com",
+  projectId: "expensify-a13e6",
+  storageBucket: "expensify-a13e6.appspot.com",
+  messagingSenderId: "124728096317"
+};
+
+firebase.initializeApp(config);
+
+// add
+const database = firebase.database();
+
+database.ref().set({
+  name: 'Andrew Mead',
+  age: 26,
+  isSingle: false,
+  location: {
+    city: 'Philadelphia',
+    country: 'United States'
+  }
+});
+
+// Nếu ghi ở sau nó sẽ override old obj
+// database.ref().set('This is my data.');
+
+database.ref('age').set(27);
+database.ref('location/city').set('New York');
+
+database.ref('attributes').set({
+  height: 73,
+  weight: 150
+});
+// merge object
+
+console.log('I made a request to change the data.');
 
 ```
 
 
 
-
-
-### 3. Writing to the Database
 ### 4. ES6 Promises
+
+playground/promises.js
+
+```js
+const promise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    // resolve({
+    //   name: 'Andrew',
+    //   age: 26
+    // });
+    reject('Something went wrong!');
+  }, 5000);
+});
+
+console.log('before');
+
+promise.then((data) => {
+  console.log('1', data);
+}).catch((error) => {
+  console.log('error: ', error);
+});
+
+// cách 2
+/*
+promise.then((data) => {
+  console.log('1', data);
+}, (error) => {
+  console.log('error: ', error);
+});
+*/
+
+console.log('after');
+
+```
+
+Vào app.js thêm để chạy
+
+mỗi promise chỉ thực hiện resolve hoặc reject chỉ 1 lần tại 1 thời điểm
+
 ### 5. Promises with Firebase
+
+firebase.js
+
+```js
+
+firebase.initializeApp(config);
+
+const database = firebase.database();
+
+database.ref().set({
+  name: 'Andrew Mead',
+  age: 26,
+  isSingle: false,
+  location: {
+    city: 'Philadelphia',
+    country: 'United States'
+  }
+}).then(() => {
+  console.log('Data is saved!');
+}).catch((e) => {
+  console.log('This failed.', e);
+});
+
+// database.ref().set('This is my data.');
+
+// database.ref('age').set(27);
+// database.ref('location/city').set('New York');
+
+database.ref('attributes').set({
+  height: 73,
+  weight: 150
+}).then(() => {
+  console.log('Second set call worked.');
+}).catch((e) => {
+  console.log('Things didnt for the second error', e);
+});
+
+// vào firebase set rules is false to test
+```
+
+https://firebase.google.com/docs/reference/js/firebase.database.Database#ref
+
+https://firebase.google.com/docs/reference/js/firebase.database.Reference#set
+
+return a Promise
+
 ### 6. Removing Data from Firebase
+
+```js
+
+// database.ref()
+//   .remove()
+//   .then(() => {
+//     console.log('Data was removed');
+//   }).catch((e) => {
+//     console.log('Did not remove data', e);
+//   });
+
+// set null cũng tương đương remove
+// database.ref('isSingle').set(null);
+```
+
+https://firebase.google.com/docs/reference/js/firebase.database.Reference#remove
+
 ### 7. Updating Data
+
+```js
+
+database.ref().set({
+  name: 'Andrew Mead',
+  age: 26,
+  stressLevel: 6,
+  job: {
+    title: 'Software developer',
+    company: 'Google'
+  },
+  location: {
+    city: 'Philadelphia',
+    country: 'United States'
+  }
+}).then(() => {
+  console.log('Data is saved!');
+}).catch((e) => {
+  console.log('This failed.', e);
+});
+
+// add
+database.ref().update({
+  stressLevel: 9,
+  'job/company': 'Amazon',
+  'location/city': 'Seattle'
+});
+
+```
+
+
+
 ### 8. Fetching Data From Firebase
 ### 9. Array Data in Firebase Part I
 
