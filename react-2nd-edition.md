@@ -5952,29 +5952,320 @@ public/styles.css.map
 git push
 git push heroku master
 
+# xem log
+heroku logs
 ```
 
 ![image-20200407004239242](./react-2nd-edition.assets/image-20200407004239242.png)
 
 ### 10. Regular vs Development Dependencies
 
+Tách làm 2 sections: test and deloy
+
+`npm install chalk --save-dev` : dev is install as a development dependence 
+
+ Trong file package.json sẽ không thấy
+
+```js
+{
+  "name": "expensify",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Andrew Mead",
+  "license": "MIT",
+  "scripts": {
+    "build:dev": "webpack",
+    "build:prod": "webpack -p --env production",
+    "dev-server": "webpack-dev-server",
+    "test": "jest --config=jest.config.json",
+    "start": "node server/server.js",
+    "heroku-postbuild": "yarn run build:prod"
+  },
+  "dependencies": {
+    "babel-cli": "6.24.1",
+    "babel-core": "6.25.0",
+    "babel-loader": "7.1.1",
+    "babel-plugin-transform-class-properties": "6.24.1",
+    "babel-plugin-transform-object-rest-spread": "6.23.0",
+    "babel-preset-env": "1.5.2",
+    "babel-preset-react": "6.24.1",
+    "css-loader": "0.28.4",
+    "express": "4.15.4",
+    "extract-text-webpack-plugin": "3.0.0",
+    "moment": "2.18.1",
+    "node-sass": "4.5.3",
+    "normalize.css": "7.0.0",
+    "react": "15.6.1",
+    "react-addons-shallow-compare": "15.6.0",
+    "react-dates": "12.3.0",
+    "react-dom": "15.6.1",
+    "react-modal": "2.2.2",
+    "react-redux": "5.0.5",
+    "react-router-dom": "4.1.2",
+    "redux": "3.7.2",
+    "sass-loader": "6.0.6",
+    "style-loader": "0.18.2",
+    "uuid": "3.1.0",
+    "validator": "8.0.0",
+    "webpack": "3.1.0"
+  },
+      // add
+  "devDependencies": {
+    "enzyme": "2.9.1",
+    "enzyme-to-json": "1.5.1",
+    "jest": "20.0.4",
+    "react-test-renderer": "15.6.1",
+    "webpack-dev-server": "2.5.1"
+  }
+}
+
+```
+
+`npm install --production` tell npm install regular dependences 
+
+`npm install` to install dev and  regular dependences 
+
+index.html thêm dist/ trước link
+
+```html
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Expensify</title>
+  <link rel="icon" type="image/png" href="/images/favicon.png" />
+  <link rel="stylesheet" type="text/css" href="/dist/styles.css" />
+</head>
+
+<body>
+  <div id="app"></div>
+  <script src="/dist/bundle.js"></script>
+</body>
+```
+
+webpack.config.js
+
+```js
+return {
+    entry: './src/app.js',
+    output: {
+      path: path.join(__dirname, 'public', 'dist'),
+      filename: 'bundle.js'
+    },
+    
+
+    devtool: isProduction ? 'source-map' : 'inline-source-map',
+    devServer: {
+      contentBase: path.join(__dirname, 'public'),
+      historyApiFallback: true,
+        // add
+      publicPath: '/dist/'
+    }
+  };
+```
+
+
+
+https://webpack.js.org/configuration/dev-server/#devserverpublicpath-
+
+**webpack.config.js**
+
+```javascript
+module.exports = {
+  //...
+  devServer: {
+    publicPath: '/assets/'
+  }
+};
+```
+
+The bundle will now be available as `http://localhost:8080/assets/bundle.js`
+
+```shell
+npm run dev-server
+npm run build:prod
+npm run start
+```
+
+.gitignore
+
+```js
+node_modules/
+public/dist/
+
+```
+
+```shell
+git commit -am ''
+git push heroku master
+
+# Sau đó copy link heroku rồi run
+```
+
 
 
 ### 11. New Feature Workflow
 
+format currency
 
+```shell
+npm run dev-server 
+npm test -- --watch
+a
+w
+
+npm install numeral 
+```
+
+custom: http://numeraljs.com/#locales
+
+ExpenseListItem
+
+```js
+import React from 'react';
+import { Link } from 'react-router-dom';
+import moment from 'moment';
+import numeral from 'numeral';
+
+const ExpenseListItem = ({ id, description, amount, createdAt }) => (
+  <div>
+    <Link to={`/edit/${id}`}>
+      <h3>{description}</h3>
+    </Link>
+    <p>
+      {numeral(amount / 100).format('$0,0.00')}
+      -
+      {moment(createdAt).format('MMMM Do, YYYY')}
+    </p>
+  </div>
+);
+
+export default ExpenseListItem;
+
+```
+
+sau đó push lên heroku
 
 ### 12. Build It Adding Total Selector
+
+selectors/expenses-total.js
+
+```js
+export default (expenses) => {
+  return expenses
+      .map((expense) => expense.amount)
+      .reduce((sum, value) => sum + value, 0);
+};
+
+```
+
+expenses-total.test.js
+
+```js
+import selectExpensesTotal from '../../selectors/expenses-total';
+import expenses from '../fixtures/expenses';
+
+test('should return 0 if no expenses', () => {
+  const res = selectExpensesTotal([]);
+  expect(res).toBe(0);
+});
+
+test('should correctly add up a single expense', () => {
+  const res = selectExpensesTotal([expenses[0]]);
+  expect(res).toBe(195);
+});
+
+test('should correctly add up multiple expenses', () => {
+  const res = selectExpensesTotal(expenses);
+  expect(res).toBe(114195);
+});
+
+```
 
 
 
 ### 13. Build It Adding Summary Component
+
+ExpensesSummary.js
+
+```js
+import React from 'react';
+import { connect } from 'react-redux';
+import numeral from 'numeral';
+import selectExpenses from '../selectors/expenses';
+import selectExpensesTotal from '../selectors/expenses-total';
+
+export const ExpensesSummary = ({ expenseCount, expensesTotal }) => {
+  const expenseWord = expenseCount === 1 ? 'expense' : 'expenses' ;
+  const formattedExpensesTotal = numeral(expensesTotal / 100).format('$0,0.00');
+  
+  return (
+    <div>
+      <h1>Viewing {expenseCount} {expenseWord} totalling {formattedExpensesTotal}</h1>
+    </div>
+  );
+};
+
+const mapStateToProps = (state) => {
+  const visibleExpenses = selectExpenses(state.expenses, state.filters);
+
+  return {
+    expenseCount: visibleExpenses.length,
+    expensesTotal: selectExpensesTotal(visibleExpenses)
+  };
+};
+
+export default connect(mapStateToProps)(ExpensesSummary);
+
+```
+
+ExpensesSummary.test.js
+
+```js
+import React from 'react';
+import { shallow } from 'enzyme';
+import { ExpensesSummary } from '../../components/ExpensesSummary';
+
+test('should correctly render ExpensesSummary with 1 expense', () => {
+  const wrapper = shallow(<ExpensesSummary expenseCount={1} expensesTotal={235} />);
+  expect(wrapper).toMatchSnapshot();
+});
+
+test('should correctly render ExpensesSummary with multiple expenses', () => {
+  const wrapper = shallow(<ExpensesSummary expenseCount={23} expensesTotal={23512340987} />);
+  expect(wrapper).toMatchSnapshot();
+});
+
+```
 
 
 
 ## 14. Firebase 101
 ### 1. Section Intro Firebase 101
 ### 2. Getting Firebase
+
+![image-20200407215356340](./react-2nd-edition.assets/image-20200407215356340.png)  
+
+Sau đó ấn vào PUBLISH
+
+Click add firebase to your web app
+
+![image-20200407215539492](./react-2nd-edition.assets/image-20200407215539492.png)  
+
+```shell
+npm install firebase
+
+```
+
+Create folder firebase/firebase.js
+
+```js
+
+```
+
+
+
+
+
 ### 3. Writing to the Database
 ### 4. ES6 Promises
 ### 5. Promises with Firebase
