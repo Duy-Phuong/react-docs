@@ -6483,11 +6483,162 @@ database.ref().update({
 
 
 ### 8. Fetching Data From Firebase
+
+firebase.js
+
+```js
+
+const database = firebase.database();
+
+// nếu data thay đổi sẽ tự động cập nhật subcribe, off to hủy
+database.ref().on('value', (snapshot) => {
+  const val = snapshot.val();
+  console.log(`${val.name} is a ${val.job.title} at ${val.job.company}`);
+})
+
+// setTimeout database.ref().off()
+
+// Setup data sub -> Andrew is a Software Developer at Amazon.
+
+
+// Cách 1
+// Change the data and make sure it reprints
+
+// database.ref('location/city')
+//   .once('value')
+//   .then((snapshot) => {
+//     const val = snapshot.val();
+//     console.log(val);
+//   })
+//   .catch((e) => {
+//     console.log('Error fetching data', e);
+//   });
+```
+
+![image-20200408204504967](./react-2nd-edition.assets/image-20200408204504967.png)  
+
+![image-20200408204641934](./react-2nd-edition.assets/image-20200408204641934.png)  
+
+https://firebase.google.com/docs/reference/js/firebase.database.Reference#on
+
 ### 9. Array Data in Firebase Part I
+
+delete all data
+
+firebase.js
+
+```js
+
+const database = firebase.database();
+
+// Setup "expenses" with three items (description, note, amount, createdAt)
+
+database.ref('expenses').push({
+  description: 'Rent',
+  note: '',
+  amount: 109500,
+  createdAt: 976123498763
+});
+
+database.ref('expenses').push({
+  description: 'Phone bill',
+  note: '',
+  amount: 5900,
+  createdAt: 976123498763
+});
+
+database.ref('expenses').push({
+  description: 'Food',
+  note: '',
+  amount: 1200,
+  createdAt: 976123498763
+});
+
+
+
+// firebase k support save array
+
+// database.ref('notes/-Krll52aVDQ3X6dOtmS7').remove();
+
+// database.ref('notes/-Krll52aVDQ3X6dOtmS7').update({
+//   body: 'React Native, Angular, Python'
+//});
+
+
+// database.ref('notes').push({
+//   title: 'Course Topics',
+//   body: 'React Native, Angular, Python'
+// });
+
+```
+
+
 
 ### 10. Array Data in Firebase Part II
 
-### 
+firebase.js
+
+```js
+
+// child_removed
+database.ref('expenses').on('child_removed', (snapshot) => {
+  console.log(snapshot.key, snapshot.val());
+});
+
+// child_changed
+database.ref('expenses').on('child_changed', (snapshot) => {
+  console.log(snapshot.key, snapshot.val());
+});
+
+// child_added
+database.ref('expenses').on('child_added', (snapshot) => {
+  console.log(snapshot.key, snapshot.val());
+});
+
+// step 1
+// database.ref('expenses')
+//   .once('value')
+//   .then((snapshot) => {
+//     const expenses = [];
+
+//     snapshot.forEach((childSnapshot) => {
+//       expenses.push({
+//         id: childSnapshot.key,
+//         ...childSnapshot.val()
+//       });
+//     });
+
+//     console.log(expenses);
+//   });
+
+// step 2
+// database.ref('expenses').on('value', (snapshot) => {
+//   const expenses = [];
+
+//   snapshot.forEach((childSnapshot) => {
+//     expenses.push({
+//       id: childSnapshot.key,
+//       ...childSnapshot.val()
+//     });
+//   });
+
+//   console.log(expenses);
+// });
+
+database.ref('expenses').push({
+  description: 'Rent',
+  note: '',
+  amount: 109500,
+  createdAt: 976123498763
+});
+
+```
+
+![image-20200408211454863](./react-2nd-edition.assets/image-20200408211454863.png)  
+
+https://firebase.google.com/docs/reference/js/firebase.database.DataSnapshot#for-each
+
+
 
 ## 15. Firebase with Redux
 ### 1. Section Intro Firebase with Redux
