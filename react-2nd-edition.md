@@ -136,6 +136,12 @@ Vào babel convert html
 
 https://babeljs.io/docs/en/plugins
 
+https://babeljs.io/docs/en/presets
+
+env: es5, es6, es7 support
+
+react: using JSX code
+
 ![image-20200403212657976](./react-2nd-edition.assets/image-20200403212657976.png)
 
 ```shell
@@ -161,13 +167,18 @@ ReactDOM.render(template, appRoot);
 
 ```
 
-Run `babel src/app.js --out-file=public/srcipts/app.js --presets=env,react `
+Run `babel src/app.js --out-file=public/scripts/app.js --presets=env,react `
 
-Run `babel src/app.js --out-file=public/srcipts/app.js --presets=env,react  --watch` rồi sửa file app.js trong scripts
+Run `babel src/app.js --out-file=public/scripts/app.js --presets=env,react  --watch` rồi sửa h1 tag in  file app.js trong scripts
 
 `live-server public`
 
+https://babeljs.io/docs/en/babel-cli
+
 ### 5. Exploring JSX
+
+tool compare source: https://www.diffnow.com/compare-clips
+
 ### 6. JSX Expressions
 
 app.js
@@ -228,7 +239,7 @@ var nameVar = 'Andrew';
 var nameVar = 'Mike';
 console.log('nameVar', nameVar);
 
-let nameLet = 'Jen';
+let nameLet = 'Jen'; // only define first time
 nameLet = 'Julie';
 console.log('nameLet', nameLet);
 
@@ -238,7 +249,7 @@ console.log('nameConst', nameConst);
 // Block scoping
 
 const fullName = 'Jen Mead';
-let firstName;
+let firstName; // thay bằng const hay var để test err
 
 if (fullName) {
   firstName = fullName.split(' ')[0];
@@ -249,7 +260,7 @@ console.log(firstName);
 
 ```
 
-
+Change file name to run in babel
 
 
 
@@ -294,10 +305,10 @@ console.log(getFirstName('Andrew Mead'));
 // arguments object - no longer bound with arrow functions
 
 const add = (a, b) => {
-  // console.log(arguments);
+  // console.log(arguments); sử dụng arrow k thể print args => error
   return a + b;
 };
-console.log(add(55, 1, 1001));
+console.log(add(55, 1, 1001)); // sẽ return 56
 
 // this keyword - no longer bound
 
@@ -412,7 +423,7 @@ const app = {
 };
 
 const onFormSubmit = (e) => {
-  e.preventDefault();
+  e.preventDefault();// prevent reload page
 
   const option = e.target.elements.option.value;
 
@@ -870,9 +881,21 @@ class Options extends React.Component {
 }s
 ```
 
-Tương tự:
+![image-20200412175147164](./react-2nd-edition.assets/image-20200412175147164.png)
 
-![image-20200403223309394](./react-2nd-edition.assets/image-20200403223309394.png)
+Tương tự bởi vì context khác nhau nó k transfer:
+
+![image-20200403223309394](./react-2nd-edition.assets/image-20200403223309394.png)  
+
+nếu để const getName = obj.getName sẽ lỗi
+
+TH này cũng lỗi
+
+![image-20200412175934106](./react-2nd-edition.assets/image-20200412175934106.png)  
+
+gg: mdn bind
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/Function/bind
 
 ### 10. What Is Component State
 
@@ -6643,8 +6666,243 @@ https://firebase.google.com/docs/reference/js/firebase.database.DataSnapshot#for
 ## 15. Firebase with Redux
 ### 1. Section Intro Firebase with Redux
 ### 2. Asynchronous Redux Actions
+
+install redux thunk
+
+configStore.js
+
+```js
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import expensesReducer from '../reducers/expenses';
+import filtersReducer from '../reducers/filters';
+import thunk from 'redux-thunk';
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+export default () => {
+  const store = createStore(
+    combineReducers({
+      expenses: expensesReducer,
+      filters: filtersReducer
+    }),
+    composeEnhancers(applyMiddleware(thunk))
+  );
+
+  return store;
+};
+
+```
+
+firebase.js
+
+```js
+// add
+export { firebase, database as default };
+
+```
+
+actions/expense.js
+
+```js
+
+// ADD_EXPENSE
+export const addExpense = (expense) => ({
+  type: 'ADD_EXPENSE',
+  expense
+});
+
+export const startAddExpense = (expenseData = {}) => {
+  return (dispatch) => {
+    const {
+      description = '',
+      note = '',
+      amount = 0,
+      createdAt = 0
+    } = expenseData;
+    const expense = { description, note, amount, createdAt };
+
+    database.ref('expenses').push(expense).then((ref) => {
+      dispatch(addExpense({
+        id: ref.key,
+        ...expense
+      }));
+    });
+  };
+};
+```
+
+AddExpensePage
+
+```js
+
+export class AddExpensePage extends React.Component {
+  onSubmit = (expense) => {
+      // tweak
+    this.props.startAddExpense(expense);
+```
+
+
+
 ### 3. Testing Async Redux Actions Part I
+
+`yarn test -- --watch`
+
+AddExpensePage.test.js
+
+```js
+// Sửa lại tên hàm thành startAddExpense 
+let startAddExpense, history, wrapper;
+
+beforeEach(() => {
+  startAddExpense = jest.fn();
+  history = { push: jest.fn() };
+  wrapper = shallow(<AddExpensePage startAddExpense={startAddExpense} history={history} />);
+});
+
+...
+  expect(startAddExpense).toHaveBeenLastCalledWith(expenses[1]);
+
+```
+
+action/expenses.test
+
+```js
+import expenses from '../fixtures/expenses';
+
+const createMockStore = configureMockStore([thunk]);
+
+// add
+test('should setup add expense action object with provided values', () => {
+  const action = addExpense(expenses[2]);
+  expect(action).toEqual({
+    type: 'ADD_EXPENSE',
+    expense: expenses[2]
+  });
+});
+  
+test('should add expense to database and store', (done) => {
+  const store = createMockStore({});
+  const expenseData = {
+    description: 'Mouse',
+    amount: 3000,
+    note: 'This one is better',
+    createdAt: 1000
+  };
+
+  store.dispatch(startAddExpense(expenseData)).then(() => {
+    expect(1).toBe(1);
+      // vì test asyn nên phải có để wait
+    done();
+  });
+});
+
+test('should add expense with defaults to database and store', () => {
+
+});
+```
+
+https://github.com/dmitry-zaets/redux-mock-store
+
+npm install redux-mock-store
+
+playground/promise.js
+
+```js
+
+promise.then((data) => {
+  console.log('1', data);
+
+  return 'some data';
+}).then((str) => {
+  console.log('does this run?', str); // add
+}).catch((error) => {
+  console.log('error: ', error);
+});
+```
+
+vào app.js import để check
+
+`npm run dev-server`
+
 ### 4. Testing Async Redux Actions Part II
+
+```js
+test('should add expense to database and store', (done) => {
+  const store = createMockStore({});
+  const expenseData = {
+    description: 'Mouse',
+    amount: 3000,
+    note: 'This one is better',
+    createdAt: 1000
+  };
+    // add
+  store.dispatch(startAddExpense(expenseData)).then(() => {
+    const actions = store.getActions();
+    expect(actions[0]).toEqual({
+      type: 'ADD_EXPENSE',
+      expense: {
+        id: expect.any(String),
+        ...expenseData
+      }
+    });
+
+    return database.ref(`expenses/${actions[0].expense.id}`).once('value');
+  }).then((snapshot) => {
+    expect(snapshot.val()).toEqual(expenseData);
+    done();
+  });
+});
+
+test('should add expense with defaults to database and store', (done) => {
+  const store = createMockStore({});
+  const expenseDefaults = {
+    description: '',
+    amount: 0,
+    note: '',
+    createdAt: 0
+  };
+
+  store.dispatch(startAddExpense({})).then(() => {
+    const actions = store.getActions();
+    expect(actions[0]).toEqual({
+      type: 'ADD_EXPENSE',
+      expense: {
+        id: expect.any(String),
+        ...expenseDefaults
+      }
+    });
+
+    return database.ref(`expenses/${actions[0].expense.id}`).once('value');
+      // thêm then sửa lại chỗ này
+  }).then((snapshot) => {
+    expect(snapshot.val()).toEqual(expenseDefaults);
+    done();
+  });
+});
+```
+
+promise.js
+
+```js
+
+promise.then((data) => {
+  console.log('1', data);
+
+    // new promise
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('This is my other promise');
+    }, 5000);
+  });
+}).then((str) => {
+  console.log('does this run?', str);
+}).catch((error) => {
+  console.log('error: ', error);
+});
+```
+
+
+
 ### 5. Creating a Separate Test Database
 ### 6. Heroku Environment Variables
 ### 7. Fetching Expenses Part I
