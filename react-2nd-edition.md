@@ -1446,7 +1446,7 @@ Before we install web pack as a global module and run it from the terminal I wan
 - `yarn global remove babel-cli live-server`
 - `npm uninstall -g babel-cli live-server`
 
-`yarn add live-server@1.2.0` 
+`yarn add live-server babel-cli` 
 
 package.json
 
@@ -1471,7 +1471,13 @@ package.json
 }
 ```
 
+`yarn run serves`
+
+Mở terminal thứ 2 chạy: 
+
 `yarn run build`
+
+Nếu lỗi install rồi build lại và thay đổi trực tiếp để check
 
 ### 4. Installing & Configuring Webpack
 
@@ -1492,6 +1498,7 @@ package.json
      // add
     "build": "webpack --watch",
     "build-babel": "babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch"
+      
   },
   "dependencies": {
     "babel-cli": "6.24.1",
@@ -1521,9 +1528,13 @@ module.exports = {
 
 https://webpack.js.org/configuration/entry-context/#entry
 
-Test: `node webpack.config.js`  khi thêm console.log(__dirname);
+Test: `node webpack.config.js`  khi thêm console.log(__dirname); để chạy in ra dir path, khi chưa có file webpack.config.js thì npm run build sẽ bị lỗi.
+
+https://nodejs.org/api/path.html#path_path_join_paths
 
 `npm run build`
+
+Thêm tham số --watch để auto re-render
 
 ### 5. ES6 importexport
 
@@ -1627,7 +1638,9 @@ ReactDOM.render(template, document.getElementById('app'));
 
 ```
 
+test với validator modules
 
+`npm install react react-dom validator`
 
 ### 8. Setting up Babel with Webpack
 
@@ -1663,7 +1676,7 @@ module.exports = {
   }
 };
 
-// install babel-core babel-loader
+// npm install babel-core babel-loader
 /*
 	"babel-cli": "6.24.1",
     "babel-core": "6.25.0",
@@ -1675,6 +1688,27 @@ module.exports = {
 ```
 
 https://webpack.js.org/configuration/module/#modulerules
+
+babel-core allow you run babel from tools like webpack
+
+babel-loader is a webpack plug in
+
+`npm run build`
+
+app.js
+
+```js
+// install -> import -> use
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+// add JSX
+const template = <p>THIS IS JSX FROM WEBPACK</p>;
+ReactDOM.render(template, document.getElementById('app'));
+
+```
+
+
 
 ### 9. One Component per File
 
@@ -1730,6 +1764,10 @@ module.exports = {
 
 https://webpack.js.org/configuration/devtool/#devtool
 
+`eval-cheap-source-map` - Similar to `eval-source-map`, each module is executed with `eval()`. It is "cheap" because it doesn't have column mappings, it only maps line numbers. It ignores SourceMaps from Loaders and only display transpiled code similar to the `eval` devtool.
+
+`cheap-module-eval-source-map` - Similar to `eval-cheap-source-map`, however, in this case Source Maps from Loaders are processed for better results. However Loader Source Maps are simplified to a single mapping per line.
+
 Sửa AddOption cho sai
 
 ![image-20200404102922120](./react-2nd-edition.assets/image-20200404102922120.png)  
@@ -1740,7 +1778,44 @@ Nếu không có webpack devtool khó track err
 
 ### 11. Webpack Dev Server
 
+Remove live-server
+
+For example is going to speed up the process between changing our application files and actually seeing those changes reflected in the browser.
+
+While there's nothing wrong with a live server it's a generic server.
+
+We're going to be switching over to web pack dev server instead.
+
 https://webpack.js.org/configuration/dev-server/#devserver
+
+**webpack.config.js**
+
+```javascript
+var path = require('path');
+
+module.exports = {
+  //...
+  devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
+    port: 9000
+  }
+};
+```
+
+When the server is started, there will be a message prior to the list of resolved modules:
+
+```bash
+http://localhost:9000/
+webpack output is served from /build/
+Content not from webpack is served from /path/to/dist/
+```
+
+that will give some background on where the server is located and what it's serving
+
+Tell the server where to serve content from. This is only necessary if you want to serve static files. [`devServer.publicPath`](https://webpack.js.org/configuration/dev-server/#devserverpublicpath-) will be used to determine where the bundles should be served from, and takes precedence.
+
+> It is recommended to use an absolute path.
 
 Install: `npm install --save webpack-dev-server`
 
@@ -1783,9 +1858,19 @@ package.json
 
 **yarn run dev-server**
 
+it's not actually writing the physical file and serving that up which can slow things down.
+
+It is just serving it up from memory which keeps our development server super snappy and fast.
+
+Khi xóa bundle.js thì nó sẽ không tự gen ra file mới được phải chạy lệnh: `npm run build` it will be the web pack build that we set up for production.
+
 ### 12. ES6 class properties
 
+This is going to add support for the class properties syntax that's going to allow us to add properties right onto our classes as opposed to just methods.
+
 https://babeljs.io/docs/en/babel-preset-stage-2
+
+`npm install babel-plugin-transform-class-properties`
 
 .babelrc
 
@@ -1826,6 +1911,8 @@ https://github.com/reactjs/react-modal
 ```shell
 $ npm install react-modal
 ```
+
+onRequestClose: This is especially important for handling closing the modal via the escape key.
 
 OptionModal.js
 
@@ -1889,6 +1976,8 @@ export default class IndecisionApp extends React.Component {
 
 ### 4. Bonus Refactoring Other Stateless Functional Components
 
+Bỏ return đi
+
 ## 8. Styling React
 ### 1. Section Intro Styling React
 ### 2. Setting up Webpack with SCSS
@@ -1938,7 +2027,7 @@ module.exports = {
 
 ```
 
-npm install --save-dev css-loader style-loader sass-loader
+`npm install --save-dev css-loader style-loader sass-loader node-sass`
 
 app.js
 
@@ -1947,11 +2036,11 @@ import './styles/styles.scss';
 
 ```
 
-
+`npm run dev-server`
 
 ### 3. Architecture and Header Styles
 
-styles/base/_base.scss
+styles/base/_base.scss : it is a partial start with underscore
 
 ```scss
 html {
@@ -1997,7 +2086,7 @@ styles.scss
 
 ```
 
-
+Tránh lồng nhau quá nhiều nên định nghĩa class để bớt nested
 
 ### 4. Reset That $#!
 
@@ -2159,9 +2248,11 @@ add _container.scss
 // được gọi trong class header, IndecisionApp
 ```
 
-
+![image-20200413223617297](./react-2nd-edition.assets/image-20200413223617297.png)
 
 ### 6. Big Button & Options List
+
+gg: darken in scss
 
 _button.scss
 
@@ -2197,6 +2288,7 @@ _button.scss
 }
 
 // Options, Option
+// link Remove and Remove all
 .button--link {
   background: none;
   border: none;
@@ -2395,7 +2487,7 @@ const OptionModal = (props) => (
 export default OptionModal;
 ```
 
-
+![image-20200413232054127](./react-2nd-edition.assets/image-20200413232054127.png)
 
 ### 10. Mobile Considerations
 
@@ -2434,7 +2526,7 @@ header.scss
     margin-bottom: $xl-size;
   }
 }
-
+// lớn hơn min apply style
 ```
 
 Xem lại
