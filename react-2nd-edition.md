@@ -2738,6 +2738,8 @@ base.scss
 
 ### 7. Organizing Our Routes
 
+Tách file ra folder mới gồm components và routes
+
 routers/AppRouter.js
 
 ```js
@@ -2881,7 +2883,7 @@ console.log(store.getState());
 
 ```shell
 npm run dev-server
-npm insatll --save redux
+npm install --save redux
 ```
 
 
@@ -3085,7 +3087,7 @@ console.log(`A medium ${itemName} costs ${mediumPrice}`);
 
 ### 8. Refactoring and Organizing
 
-Sửa trong webpack
+Sửa trong webpack để action creator không nhầm lẫn khi gõ nên tạo hàm và call
 
 redux-101.js
 
@@ -3164,6 +3166,11 @@ Thay vì truyền vào data và gọi data.a thì
 redux 101.js
 
 ```js
+let a = 1;
+const add = (b) => {
+    return a + b;
+}
+// Đây k phải là pure func vì nó SD biến bên ngoài, không interact với bên ngoài
 
 // Reducers
 // 1. Reducers are pure functions
@@ -3329,7 +3336,7 @@ const addExpense = (
 ) => ({
   type: 'ADD_EXPENSE',
   expense: {
-    id: uuid(),
+    id: uuid1(),
     description,
     note,
     amount,
@@ -3481,7 +3488,11 @@ store.dispatch(setTextFilter());
 
 ```
 
-gg: babel object spread
+gg search plugin trên babel: babel object spread
+
+https://babeljs.io/docs/en/babel-plugin-transform-object-rest-spread.html
+
+`npm install --save-dev babel-plugin-transform-object-rest-spread`
 
 ```js
 use = {
@@ -3493,6 +3504,8 @@ console.log({
 });
 // sẽ gây ra lỗi vì spead chỉ chạy trên main stream => tool
 ```
+
+![image-20200414231853144](./react-2nd-edition.assets/image-20200414231853144.png)
 
 .babelrc
 

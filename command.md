@@ -6,9 +6,19 @@
 
 ```shell npm install webpack
 npm install live-server babel-cli
+
+6.7
+npm install react react-dom validator
+
+6.8
 npm install babel-core babel-loader
+
+6.11
 npm install --save webpack-dev-server
 
+
+6.12
+npm install babel-plugin-transform-class-properties
 
 npm install react-modal
 npm install --save-dev css-loader style-loader sass-loader node-sass
@@ -56,3 +66,27 @@ module.exports = {
 };
 
 ```
+
+9. Router
+```shell
+npm install react-router-dom
+
+```
+
+10.4 Redux
+
+```shell
+npm run dev-server
+npm install --save redux
+```
+
+10.12
+"plugins": [
+    "transform-class-properties",
+    "transform-object-rest-spread" // add
+  ]
+  
+npm install --save-dev babel-plugin-transform-object-rest-spread
+
+
+
