@@ -4100,7 +4100,7 @@ export default connect(mapStateToProps)(ExpenseList);
 
 ```
 
-
+app.js đổi set Text là bill để hiển thị filter 2 cái
 
 ### 6. Controlled Inputs for Filters
 
@@ -4631,7 +4631,9 @@ test('should generate greeting for no name', () => {
 
 Jest sẽ tự động tìm file có đuôi test.js
 
-`yarn test -- --watch`
+`yarn test -- --watch` : vì jest nằm trong script nên cần thêm -- để phân biệt do tham số nếu để bình thường nó sẽ associate to yarn command line
+
+![image-20200418083728423](./react-2nd-edition.assets/image-20200418083728423.png)
 
 ### 3. Testing Expenses Action Generators
 
@@ -5615,7 +5617,7 @@ import 'react-dates/lib/css/_datepicker.css';
 
 const store = configureStore();
 
-// remove some line of code
+// remove some line of code add object example to test
 
 const jsx = (
   <Provider store={store}>
@@ -5638,9 +5640,13 @@ git log - View recent commits
 
 ```
 
-
+Videos setting for mac
 
 ### 5. Setting up SSH and Github
+
+Firstly create new repo on github
+
+Gen ssh key
 
 ```shell
 ls -a ~/.ssh 
@@ -5699,6 +5705,8 @@ type: `ls -a ~/.ssh `
 
 https://help.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account
 
+![image-20200418102713217](./react-2nd-edition.assets/image-20200418102713217.png)
+
 # Adding a new SSH key to your GitHub account
 
 To configure your GitHub account to use your new (or existing) SSH key, you'll also need to add it to your GitHub account.
@@ -5721,6 +5729,7 @@ After adding a new SSH key to your GitHub account, you can reconfigure any local
    ```shell
    $ clip < ~/.ssh/id_rsa.pub
    # Copies the contents of the id_rsa.pub file to your clipboard
+   # mac sẽ xài lệnh khác pbcopy
    ```
 
    **Tip:** If `clip` isn't working, you can locate the hidden `.ssh` folder, open the file in your favorite text editor, and copy it to your clipboard.
@@ -5802,6 +5811,7 @@ https://help.github.com/en/github/authenticating-to-github/testing-your-ssh-conn
 ---
 
 ```shell
+# link lấy từ ssh of github
 git remote add origin git@hithub.com....
 git remote
 git remote -v
@@ -5820,6 +5830,8 @@ npm run build
 # => optimize for production
 
 ```
+
+search -p: https://webpack.js.org/guides/production/#cli-alternatives
 
 https://webpack.js.org/guides/production/
 
@@ -5884,10 +5896,11 @@ https://webpack.js.org/configuration/configuration-types/
 sourcemap is slower
 
 ```shell
+npm run build:prod
+
 npm run serve
 # run server on localhost:8080
 
-npm run build:prod
 ```
 
 
@@ -5959,17 +5972,31 @@ index.html
 
 ```
 
-`npm run serve`
+`npm run dev:prod` and `npm run serve`
 
 ![image-20200406221503592](./react-2nd-edition.assets/image-20200406221503592.png)  
 
-Khi f12 chọn vào mũi tên thì show location of file
+Khi f12 chọn vào mũi tên thì show location of file style.css
 
 `npm run dev-server` : f12 thì nó ở file style.css
 
-https://github.com/webpack-contrib/css-loader
+nên chỉnh lại loader và devtool trở thành inlien-source-map
+
+https://github.com/webpack-contrib/css-loader xem source-map options
 
 css loader có option là source map 
+
+Tại đây bị lỗi plugin không còn dk sd nữa
+
+**This package has been deprecated**
+
+Thay https://webpack.js.org/plugins/mini-css-extract-plugin/
+
+```shell
+npm install --save-dev mini-css-extract-plugin
+```
+
+dùng cho react < 15
 
 ### 8. A Production Web Server with Express
 

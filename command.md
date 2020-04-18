@@ -88,5 +88,5 @@ npm install --save redux
   
 npm install --save-dev babel-plugin-transform-object-rest-spread
 
-
+npm install --save react-redux
 
