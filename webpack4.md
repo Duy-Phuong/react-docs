@@ -146,16 +146,19 @@ index.html
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="./dist/bundle.js"></script>
     <title>Document</title>
   </head>
-  <body></body>
+  <body>
+        <script src="./dist/bundle.js"></script>
+    </body>
 </html>
 
 
 ```
 
 `npm run build`
+
+NOTE: lưu ý đến thứ tự đặt thẻ script
 
 ## 3. Loaders
 ### 1. What Is Webpack Loader
