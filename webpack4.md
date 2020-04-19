@@ -533,32 +533,241 @@ index.html add link tag
 
 ### 4. Extracting CSS Into a Separate Bundle, Part 2
 
-
-
-
-
-
+Thêm heading
 
 ### 5. Browser Caching
 
+As you might know, every time your browser loads a website, it downloads all the assets required by this Website. Each Website is different.
+However most of them require some javascript and css in order to work properly.
+and some Websites require lots of JavaScript. 
+Each time the user reloads the page, their browser downloads all those files from the Internet.
 
+With slow internet connection 
+Each time they go to a new page they need to wait several minutes until the page is ready.
+
+And it's called browser caching. 
+If the file didn't change between the page reloads, your browser can save it in a specific place. This place is called cache.
+When you open this page again browser won't download this file again.
+It will take this file from cache.
+This technique helps to save lots of time and traffic.
+
+What if you fixed a bug on your Website and your javascript file has been changed? If the browser always  takes this file from cache your customers will never get the new version.
+Therefore we need a mechanism for updating the cache.
+One of the most popular approaches is creating a new file with the new name
+each time you make a change. Browsers remember files by name.
+Therefore if the name changes browsers will download the new version.
+Well it doesn't mean that we need to change the filename manually every time we change our code.
+We can do this automatically.
+md5 đặt tên file trong dấu []
+
+```js
+
+  output: {
+    filename: "bundle.[contenthash].js", // add
+
+        ...
+    
+    
+  plugins: [
+    new TerserPlugin(),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: "styles.[contenthash].css", // add
+    }),
+  ],
+```
 
 
 
 ### 6. How To Clean Dist Folder Before Generating New Bundles
 
+```
+npm install --save-dev clean-webpack-plugin
+```
 
+https://www.npmjs.com/package/clean-webpack-plugin
 
+```js
 
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+
+...
+
+  plugins: [
+    new CleanWebpackPlugin(),
+    new TerserPlugin(),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: "styles.[contenthash].css",
+    }),
+  ],
+```
+
+Xóa hết file tring dist/
+
+Để xóa tất cả file trong build folder
+
+```js
+
+  plugins: [
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: [
+        "**/*",
+        path.join(process.cwd(), "build/**/*"),
+      ],
+    }),
+    new TerserPlugin(),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: "styles.[contenthash].css",
+    }),
+  ],
+```
 
 ### 7. Generating HTML Files Automatically During Webpack Build Process
 
+Lúc load lại file index.html sẽ lỗi vì include không bao gồm md5
 
+https://webpack.js.org/plugins/html-webpack-plugin/
+
+```bash
+npm install --save-dev html-webpack-plugin
+```
+
+Nếu có publicPath thì file index.html sẽ tự động thêm vào link do đó nên xóa đi để rỗng
+
+Sau đó xóa file html ở ngoài đi
+
+```js
+const path = require("path");
+const TerserPlugin = require("terser-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+module.exports = {
+  entry: "./src/index.js",
+  output: {
+    filename: "bundle.[contenthash].js",
+    path: path.resolve(__dirname, "dist"),
+    publicPath: "",
+  },
+  mode: "none",
+  module: {
+    rules: [
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: ["file-loader"],
+      },
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
+      },
+      {
+        test: /\.scss$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/env"],
+            plugins: ["transform-class-properties"],
+          },
+        },
+      },
+    ],
+  },
+  plugins: [
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: [
+        "**/*",
+        path.join(process.cwd(), "build/**/*"),
+      ],
+    }),
+    new TerserPlugin(),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: "styles.[contenthash].css",
+    }),
+    new HtmlWebpackPlugin(), // add
+  ],
+};
+
+```
 
 
 
 ### 8. Customizing Generated HTML Files
+
+https://www.npmjs.com/package/html-webpack-plugin
+
+```js
+new HtmlWebpackPlugin({
+      filename: "sub/hello-world.html",
+      title: "Hello world",
+      meta: {
+        description: "description Hello world",
+      },
+    }),
+```
+
+gen ra file html trong thư mục sub
+
 ### 9. Integration with Handlebars
+
+https://github.com/jantimon/html-webpack-plugin
+
+https://github.com/jantimon/html-webpack-plugin/blob/master/docs/template-option.md
+
+```js
+{
+                test: /\.hbs$/,
+                use: [
+                    'handlebars-loader'
+                ]
+            }
+
+....
+
+
+new HtmlWebpackPlugin({
+      title: "Hello world",
+      description: "description Hello world",
+      template: "src/page-template.hbs",
+    }),
+```
+
+src/page-template.hbs
+
+```js
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{htmlWebpackPlugin.options.description}}">
+    <title>{{htmlWebpackPlugin.options.title}}</title>
+</head>
+<body>
+
+</body>
+</html>
+
+```
+
+`npm install handlebars-loader --save-dev`
+
+`npm install --save handlebars`
+
+
 
 ### 10. More Webpack Plugins
 
