@@ -1621,17 +1621,141 @@ P. S. You would need to repeat these steps every time you start one of the follo
 
 npm install jquery --save
 
-![image-20200419214121248](./webpack4.assets/image-20200419214121248.png)
+![image-20200419214121248](./webpack4.assets/image-20200419214121248.png)  
+
+npm run build
+
+npm start
 
 ## 10. Integration with Bootstrap
 
 ### 1. Using Bootstrap with Webpack
 
+npm install bootstrap --save
+
+Xài bs 3 bs 4 lỗi
+
+https://github.com/twbs/bootstrap/issues/27353
+
+https://webpack.js.org/configuration/externals/
+
+index.js
+
+```js
+import "bootstrap";
+import "bootstrap/dist/css/boostrap.min.css";
+import "./index.scss
+```
+
+page-template.hbs
+
+```html
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{htmlWebpackPlugin.options.description}}">
+    <title>{{htmlWebpackPlugin.options.title}}</title>
+</head>
+<body>
+    <div class="alert alert-primary" role="alert">
+        This is a primary alert—check it out!
+    </div>
+
+    <div class="dropdown my-dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown button
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+    </div>
+</body>
+</html>
+```
+
+index.scss
+
+```scss
+  
+.my-dropdown {
+    float: right;
+    position: relative;
+    top: 7px;
+    right: 40px;
+}
+```
+
+npm run build
+
+npm start
+
 ### 2. 2nd Method Of Importing CSS From Bootstrap
+
+```js
+{
+                test: /\.scss$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            plugins: function () {
+                                return [
+                                    require('precss'),
+                                    require('autoprefixer')
+                                ];
+                            }
+                        }
+                    },
+                    'sass-loader'
+                ]
+            },
+```
+
+
 
 ## 11. Using FontAwesome with Webpack
 
 ### 1. Using FontAwesome with Webpack
+
+![image-20200419214418991](./webpack4.assets/image-20200419214418991.png)  
+
+gg: google font open sans
+
+![image-20200419214539769](./webpack4.assets/image-20200419214539769.png)  
+
+Sau đó tải về
+
+Xóa chỉ giữ lại 3 cái:
+
+![image-20200419214709335](./webpack4.assets/image-20200419214709335.png)  
+
+gg: online font converter rồi chọn
+
+![image-20200419214813973](./webpack4.assets/image-20200419214813973.png)  
+
+![image-20200419215228081](./webpack4.assets/image-20200419215228081.png)  
+
+Vào index.js import "./index.scss" đầu tiên
+
+![image-20200419215544660](./webpack4.assets/image-20200419215544660.png)  
+
+thay cho 2 file rồi run 
+
+```shell
+npm install --save-dev file-loader
+npm run dev
+```
+
+
+
+
 
 ## 12. Github Repository
 
@@ -1655,6 +1779,16 @@ https://github.com/vp-online-courses/webpack-tutorial
 ## 13. Using ESLint
 
 ### 1. Configuring ESLint
+
+npm install --save-dev eslint
+
+package.json
+
+```js
+"lint": "eslint ."
+```
+
+![image-20200419233358372](./webpack4.assets/image-20200419233358372.png)
 
 ## 14. Summary
 
