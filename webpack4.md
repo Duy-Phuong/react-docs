@@ -214,20 +214,356 @@ npm install --save-dev file-loader
 npm run build
 
 ### 3. Handling Images With Webpack. How To Use publicPath
+
+Nếu để file index.html ngoài thư mục dist thì sẽ bị lỗi nên chỉ ra publicPath
+
+![image-20200419094639812](./webpack4.assets/image-20200419094639812.png)  
+
+```js
+const path = require("path");
+
+module.exports = {
+  entry: "./src/index.js",
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "dist"),
+    publicPath: "dist/", // add sau này thay bằng https://..
+  },
+  mode: "none",
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: ["file-loader"],
+      },
+    ],
+  },
+};
+
+```
+
+
+
 ### 4. Handling CSS With Webpack
+
+```js
+const path = require("path");
+
+module.exports = {
+  entry: "./src/index.js",
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "dist"),
+    publicPath: "dist/",
+  },
+  mode: "none",
+  module: {
+    rules: [
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: ["file-loader"],
+      },
+        // add
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.scss$/,
+        use: ["style-loader", "css-loader", "sass-loader"],
+      },
+    ],
+  },
+};
+
+```
+
+npm install --save-dev sass-loader node-sass style-loader css-loader
+
+*hello-world-button.js*
+
+```js
+// import './hello-world-button.scss';
+import "./hello-world.css";
+
+class HelloWorldButton {
+  //   buttonCssClass = "hello-world-button";
+
+  render() {
+    const button = document.createElement("button");
+    const br = document.createElement("br");
+
+    const body = document.querySelector("body");
+    button.innerHTML = "Hello world";
+    button.onclick = function () {
+      const p = document.createElement("p");
+      p.innerHTML = "Hello world";
+      p.classList.add("hello-world-text");
+      body.appendChild(p);
+    };
+    button.classList.add("hello-world-button");
+    body.appendChild(br);
+
+    body.appendChild(button);
+  }
+}
+
+export default HelloWorldButton;
+
+```
+
+hello-world.css
+
+```css
+.hello-world-button {
+  font-size: 20px;
+  padding: 7px 15px;
+  background: green;
+  color: white;
+  outline: none;
+}
+
+.hello-world-text {
+  color: red;
+  font-weight: bold;
+}
+
+```
+
+![image-20200419100716059](./webpack4.assets/image-20200419100716059.png)
+
 ### 5. Handling SASS
+
+Bỏ comment để test
+
+hello-world-button.scss
+
+````scss
+$font-size: 20px;
+$button-background-color: green;
+$button-font-color: white;
+$text-font-color: red;
+
+.hello-world-button {
+    font-size: $font-size;
+    padding: 7px 15px;
+    background: $button-background-color;
+    color: $button-font-color;
+    outline: none;
+}
+
+.hello-world-text {
+    color: $text-font-color;
+    font-weight: bold;
+}
+
+````
+
+
+
 ### 6. Using Latest JavaScript Features With Babel 7
+
+hello-world-button.js
+
+```js
+
+class HelloWorldButton {
+    // add props
+    buttonCssClass = 'hello-world-button';
+
+```
+
+webpack.config.js
+
+```js
+const path = require("path");
+
+module.exports = {
+  entry: "./src/index.js",
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "dist"),
+    publicPath: "dist/",
+  },
+  mode: "none",
+  module: {
+    rules: [
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: ["file-loader"],
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.scss$/,
+        use: ["style-loader", "css-loader", "sass-loader"],
+      },
+        // add
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/env"],
+            plugins: ["transform-class-properties"],
+          },
+        },
+      },
+    ],
+  },
+};
+
+```
+
+`npm install @babel/core babel-loader @babel/preset-env babel-plugin-transform-class-properties --save-dev`
+
+
+
 ## 4. Plugins
 ### 1. What Is Webpack Plugin
-### 10. More Webpack Plugins
+
+![image-20200419102310344](./webpack4.assets/image-20200419102310344.png)
+
 ### 2. Minification Of The Resulting Webpack Bundle
+
+https://webpack.js.org/plugins/terser-webpack-plugin/
+
+```shell
+$ npm install terser-webpack-plugin --save-dev
+```
+
+Làm nhỏ đi file bundle
+
+
+
 ### 3. Extracting CSS Into a Separate Bundle With mini-css-extract-plugin, Part 1
+
+https://webpack.js.org/plugins/mini-css-extract-plugin/
+
+To begin, you'll need to install `mini-css-extract-plugin`:
+
+```bash
+npm install --save-dev mini-css-extract-plugin
+```
+
+```js
+const path = require("path");
+const TerserPlugin = require("terser-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+
+module.exports = {
+  entry: "./src/index.js",
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "dist"),
+    publicPath: "dist/",
+  },
+  mode: "none",
+  module: {
+    rules: [
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: ["file-loader"],
+      },
+      {
+        test: /\.css$/,
+          // add
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
+      },
+      {
+        test: /\.scss$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/env"],
+            plugins: ["transform-class-properties"],
+          },
+        },
+      },
+    ],
+  },
+    // add
+  plugins: [
+    new TerserPlugin(),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: "styles.css",
+    }),
+  ],
+};
+
+
+```
+
+index.html add link tag
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./dist/styles.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="./dist/bundle.js"></script>
+  </body>
+</html>
+
+```
+
+
+
+
+
 ### 4. Extracting CSS Into a Separate Bundle, Part 2
+
+
+
+
+
+
+
 ### 5. Browser Caching
+
+
+
+
+
 ### 6. How To Clean Dist Folder Before Generating New Bundles
+
+
+
+
+
 ### 7. Generating HTML Files Automatically During Webpack Build Process
+
+
+
+
+
 ### 8. Customizing Generated HTML Files
 ### 9. Integration with Handlebars
+
+### 10. More Webpack Plugins
+
+### 
+
 ## 5. Production vs Development Builds
 ### 1. Introduction
 ### 2. Mode
