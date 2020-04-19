@@ -1043,11 +1043,294 @@ npm run dev :  sửa sẽ load lại on browser
 ## 6. Multiple Page Applications
 ### 1. Introduction
 ### 2. Creating KiwiImage Component
+
+kiwi-images.js
+
+```js
+import Kiwi from './kiwi.jpg';
+import './kiwi-image.scss';
+
+class KiwiImage {
+    render() {
+        const img = document.createElement('img');
+        img.src = Kiwi;
+        img.alt = 'Kiwi';
+        img.classList.add('kiwi-image');
+
+        const bodyDomElement = document.querySelector('body');
+        bodyDomElement.appendChild(img);
+    }
+}
+
+export default KiwiImage;
+
+```
+
+kiwi-images.scss
+
+```scss
+.kiwi-image {
+    display: block;
+    width: 400px;
+    height: auto;
+}
+
+
+```
+
 ### 3. Code Splitting in Webpack Multiple JS and CSS Bundles
+
+src/kiwi.js
+
+```js
+import Heading from './components/heading/heading.js';
+import KiwiImage from './components/kiwi-image/kiwi-image.js';
+
+const heading = new Heading();
+heading.render('kiwi');
+const kiwiImage = new KiwiImage();
+kiwiImage.render();
+
+```
+
+webpack.production.config.js
+
+```js
+const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+module.exports = {
+  // add
+  entry: {
+    "hello-world": "./src/hello-world.js",
+    kiwi: "./src/kiwi.js",
+  },
+  output: {
+    filename: "[name].[contenthash].js", // fix
+    path: path.resolve(__dirname, "dist"),
+    publicPath: "",
+  },
+  mode: "production",
+  module: {
+    rules: [
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: ["file-loader"],
+      },
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
+      },
+      {
+        test: /\.scss$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/env"],
+            plugins: ["transform-class-properties"],
+          },
+        },
+      },
+      {
+        test: /\.hbs$/,
+        use: ["handlebars-loader"],
+      },
+    ],
+  },
+  plugins: [
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: [
+        "**/*",
+        path.join(process.cwd(), "build/**/*"),
+      ],
+    }),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: "[name].[contenthash].css",  // fix
+    }),
+    new HtmlWebpackPlugin({
+      title: "Hello world",
+      description: "description Hello world",
+      template: "src/page-template.hbs",
+    }),
+  ],
+};
+
+```
+
+Sửa name và entry cho dev
+
+`npm run build`
+
 ### 4. How To Generate Multiple HTML Files
+
+file index.html được sinh ra có dạng
+
+```js
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="description Hello world" />
+    <title>Hello world</title>
+    <link href="kiwi.18009c082a7520ea9379.css" rel="stylesheet" />
+  </head>
+  <body>
+    <script src="hello-world.13c8eb137cbb4147c189.js"></script>
+    <script src="kiwi.93c2223e1e05e13a7fa9.js"></script>
+  </body>
+</html>
+
+```
+
+production
+
+```js
+new HtmlWebpackPlugin({
+            filename: 'hello-world.html',
+            chunks: ['hello-world'],
+            title: 'Hello world',
+            description: 'Hello world',
+            template: 'src/page-template.hbs'
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'kiwi.html',
+            chunks: ['kiwi'],
+            title: 'Kiwi',
+            description: 'Kiwi',
+            template: 'src/page-template.hbs'
+        })
+// chunk có tên trùng với entry
+```
+
+
+
 ### 5. Extracting Common Dependencies While Code Splitting
+
+truyền name vào header
+
+kiwi.js
+
+```js
+import Heading from "./components/heading/heading.js";
+import KiwiImage from "./components/kiwi-image/kiwi-image.js";
+import _ from "lodash"; // add
+
+const heading = new Heading();
+heading.render(_.upperFirst("kiwi"));
+const kiwiImage = new KiwiImage();
+kiwiImage.render();
+
+```
+
+Khi build ra tới 70kb quá lớn vì lodash, mỗi lần lại download về => slow
+
+prodcution
+
+```js
+
+  mode: "production",
+  optimization: {
+    splitChunks: {
+      chunks: "all",
+    },
+  },
+      
+      
+    // add chunk
+  
+    new HtmlWebpackPlugin({
+      filename: "hello-world.html",
+      chunks: ["hello-world", "vendors~hello-world~kiwi"],
+      title: "Hello world",
+      description: "Hello world",
+      template: "src/page-template.hbs",
+    }),
+    new HtmlWebpackPlugin({
+      filename: "kiwi.html",
+      chunks: ["kiwi", "vendors~hello-world~kiwi"],
+      title: "Kiwi",
+      description: "Kiwi",
+      template: "src/page-template.hbs",
+    }),
+```
+
+It is called optimization.
+It is an object and inside it we can specify another option which is called splitChunks.
+And inside we need to specify yet another option which is called chunks, and here specify the value "all".
+
+And we have now third javascript bundle 
+which is called vendors~hello-world~kiwi.<something>.js which consumes around 70 kilobytes. So in this bundle
+we have lodash.
+This third bundle will be cached separately and now our users don't need to download it when we change something in kiwi.js
+or hello-world.js. Since we have a new bundle, how webpack knows where to include it?
+
+Will all html pages include it by default? 
+The answer is we should specifically tell webpack to include it for every html page that needs it.
+In our case both our pages need this bundle.
+
+So now let's go back to our editor to our webpack configuration and scroll down to the HtmlWebpackPlugin.
+
+And here remember we included chunks.
+So now every our html page would need two chunks instead of one
+And the second chunk would be this common chunk, common bundle, which includes lodash library. 
+
+Which is called
+vendors~hello-world~kiwi.
+
 ### 6. Setting Custom Options for Code Splitting
+
+npm install react --save
+
+kiwi.js
+
+```js
+import Heading from "./components/heading/heading.js";
+import KiwiImage from "./components/kiwi-image/kiwi-image.js";
+import React from "react";
+// import _ from "lodash";
+
+const heading = new Heading();
+// heading.render(_.upperFirst("kiwi"));
+heading.render("kiwi");
+const kiwiImage = new KiwiImage();
+kiwiImage.render();
+
+```
+
+webpack.production.config
+
+```js
+
+    mode: 'production',
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+            minSize: 10000,
+            automaticNameDelimiter: '_'
+        }
+    },
+```
+
+![image-20200419174143284](./webpack4.assets/image-20200419174143284.png)  
+
+Vì lodash > 30kb react thì nhỏ hơn nên k hoạt động
+
+![image-20200419174542272](./webpack4.assets/image-20200419174542272.png)
+
 ### 7. How To Setup Development Environment For Multiple Page Application
+
+
+
 ## 7. Webpack Integration With Node And Express
 ### 1. Introduction
 ### 2. Getting Code for Single Page Application.html
@@ -1080,7 +1363,20 @@ npm run dev :  sửa sẽ load lại on browser
 
 ### 1. How To Use Github Repository
 
+```shell
+git branch -a
+
+```
+
+![image-20200419162701151](./webpack4.assets/image-20200419162701151.png)  
+
+check out qua end
+
+`git reset --hard HEAD`
+
 ### 1.1 Link to the Github repository.html
+
+https://github.com/vp-online-courses/webpack-tutorial
 
 ## 13. Using ESLint
 
