@@ -109,6 +109,13 @@ If you have any questions regarding the course, please feel free to write me via
 https://github.com/vp-online-courses/webpack-tutorial
 
 ### 4.1 Github Repository.html
+
+https://github.com/vp-online-courses/webpack-tutorial
+
+**NOTE**: lỗi error Uncaught SyntaxError: Invalid or unexpected token when run webpack
+
+I fixed the problem by adding the meta tag `` to my index.html and rebuilding.
+
 ### 5. Integrating Webpack Into Our JS Application
 
 hello-world.js
@@ -153,6 +160,56 @@ index.html
 ## 3. Loaders
 ### 1. What Is Webpack Loader
 ### 2. Handling Images With Webpack
+
+add-images.js
+
+```js
+import Kiwi from "./kiwi.jpg";
+
+function addImage() {
+  const img = document.createElement("img");
+  img.src = Kiwi;
+  img.alt = "Kiwi";
+  img.width = 300;
+
+  const bodyDomElement = document.querySelector("body");
+  bodyDomElement.appendChild(img);
+}
+
+export default addImage;
+
+```
+
+add in index.js
+
+webpack-config.js
+
+```js
+const path = require("path");
+
+module.exports = {
+  entry: "./src/index.js",
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "dist"),
+  },
+  mode: "none",
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpg)$/,
+        use: ["file-loader"],
+      },
+    ],
+  },
+};
+
+```
+
+npm install --save-dev file-loader
+
+npm run build
+
 ### 3. Handling Images With Webpack. How To Use publicPath
 ### 4. Handling CSS With Webpack
 ### 5. Handling SASS
