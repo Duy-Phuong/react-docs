@@ -66,14 +66,14 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       filename: "hello-world.html",
-      chunks: ["hello-world", "vendors~hello-world~kiwi"],
+      chunks: ["hello-world"],
       title: "Hello world",
       description: "Hello world",
       template: "src/page-template.hbs",
     }),
     new HtmlWebpackPlugin({
       filename: "kiwi.html",
-      chunks: ["kiwi", "vendors~hello-world~kiwi"],
+      chunks: ["kiwi"],
       title: "Kiwi",
       description: "Kiwi",
       template: "src/page-template.hbs",

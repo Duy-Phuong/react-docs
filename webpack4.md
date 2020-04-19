@@ -1329,25 +1329,299 @@ Vì lodash > 30kb react thì nhỏ hơn nên k hoạt động
 
 ### 7. How To Setup Development Environment For Multiple Page Application
 
+webpack.dev.config
 
+```js
+const path = require("path");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+module.exports = {
+  entry: {
+    "hello-world": "./src/hello-world.js",
+    kiwi: "./src/kiwi.js",
+  },
+  output: {
+    filename: "[name].bundle.js",
+    path: path.resolve(__dirname, "dist"),
+    publicPath: "",
+  },
+  devServer: {
+    contentBase: path.resolve(__dirname, "./dist"),
+    index: "index.html",
+    port: 9000,
+  },
+  mode: "development",
+  module: {
+    rules: [
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: ["file-loader"],
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.scss$/,
+        use: ["style-loader", "css-loader", "sass-loader"],
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/env"],
+            plugins: ["transform-class-properties"],
+          },
+        },
+      },
+      {
+        test: /\.hbs$/,
+        use: ["handlebars-loader"],
+      },
+    ],
+  },
+  plugins: [
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: [
+        "**/*",
+        path.join(process.cwd(), "build/**/*"),
+      ],
+    }),
+    new HtmlWebpackPlugin({
+      title: "Hello world",
+      description: "description Hello world",
+      template: "src/page-template.hbs",
+    }),
+  ],
+};
+
+```
+
+http://localhost:9000/kiwi.html
 
 ## 7. Webpack Integration With Node And Express
 ### 1. Introduction
 ### 2. Getting Code for Single Page Application.html
+
+As I said in the previous video, first we will integrate Express framework into a Single Page Application. We will use code from Section 5 as a starting point. You can get this code from the [Github repository](https://github.com/vp-online-courses/webpack-tutorial). Just follow 3 easy steps:
+
+\1. First, you need to clone this repository to your computer.
+
+```bash
+git clone https://github.com/vp-online-courses/webpack-tutorial.git
+cd webpack-tutorial
+```
+
+\2. Then checkout the branch `integrating-express-js-into-a-single-page-application`.
+
+```shell
+git checkout -b integrating-express-js-into-a-single-page-application remotes/origin/integrating-express-js-into-a-single-page-application
+```
+
+\3. Finally, don't forget to reinstall project dependencies after switching to the new branch.
+
+```bash
+rm -rf node_modules
+npm install
+```
+
+At this point you have all the files you need in order to integrate Express framework into a Single Page Application.
+
 ### 3. Integrating Express Into Our Application
+
+npm install --save express
+
+package.json
+
+```js
+"start": "node src/server.js"
+```
+
+src/server.js
+
+```js
+const express = require("express");
+const app = express();
+
+app.get("/", function (req, res) {
+  res.send("Some dummy content");
+});
+
+app.listen(3000, function () {
+  console.log("Application is running on http://localhost:3000");
+});
+
+```
+
+npm start
+
 ### 4. Serving HTML Pages via Express
+
+server.js
+
+```js
+const express = require('express');
+const app = express();
+const path = require('path');
+const fs = require('fs');
+
+
+app.get("/", function (req, res) {
+  const pathToHtmlFile = path.resolve(__dirname, "../dist/index.html");
+  const contentFromHtmlFile = fs.readFileSync(pathToHtmlFile, "utf-8");
+  res.send(contentFromHtmlFile);
+});
+
+// phần sau
+app.use('/static', express.static(path.resolve(__dirname, '../dist')));
+
+app.listen(3000, function () {
+    console.log('Application is running on http://localhost:3000');
+});
+
+```
+
+npm run build
+
+npm start
+
+![image-20200419211606404](./webpack4.assets/image-20200419211606404.png)  
+
+![image-20200419211656513](./webpack4.assets/image-20200419211656513.png)
+
+Nếu là static file nó sẽ tìm trong static folder
+
 ### 5. Handling JS and CSS via Express
+
+prodcution
+
+```js
+
+module.exports = {
+  entry: "./src/index.js",
+  output: {
+    filename: "bundle.[contenthash].js",
+    path: path.resolve(__dirname, "./dist"),
+    publicPath: "/static/",  // add thay vì add thủ công từng cái
+  },
+```
+
+
+
 ### 6. Getting Code for Multiple Page Application.html
+
+In the next video we will integrate Express framework into a Multiple Page Application. We will use code from Section 6 as a starting point. You can get this code from the Github repository. Just follow 3 easy steps:
+
+\1. First, you need to clone [this repository](https://github.com/vp-online-courses/webpack-tutorial) to your computer.
+
+```
+git clone https://github.com/vp-online-courses/webpack-tutorial.git
+cd webpack-tutorial
+```
+
+\2. Then checkout the branch `integrating-express-js-into-a-multiple-page-application`.
+
+```
+git checkout -b integrating-express-js-into-a-multiple-page-application remotes/origin/integrating-express-js-into-a-multiple-page-application
+```
+
+\3. Finally, don't forget to reinstall project dependencies after switching to the new branch.
+
+```
+rm -rf node_modules
+npm install
+```
+
+At this point you have all the files you need in order to integrate Express framework into a Multiple Page Application.
+
 ### 7. Integrating Express.js Into A Multiple Page Application
+
+server.js
+
+```js
+const express = require('express');
+const app = express();
+const path = require('path');
+const fs = require('fs');
+
+app.get('/hello-world/', function (req, res) {
+    const pathToHtmlFile = path.resolve(__dirname, '../dist/hello-world.html');
+    const contentFromHtmlFile = fs.readFileSync(pathToHtmlFile, 'utf-8');
+    res.send(contentFromHtmlFile);
+});
+app.get('/kiwi/', function (req, res) {
+    const pathToHtmlFile = path.resolve(__dirname, '../dist/kiwi.html');
+    const contentFromHtmlFile = fs.readFileSync(pathToHtmlFile, 'utf-8');
+    res.send(contentFromHtmlFile);
+});
+
+app.use('/static', express.static(path.resolve(__dirname, '../dist')));
+
+app.listen(3000, function () {
+    console.log('Application is running on http://localhost:3000');
+});
+
+```
+
+```shell
+npm install
+npm run build
+npm start
+```
+
+
+
 ## 8. Integration with jQuery
 ### 1. Getting the Source Code.html
+
+In this section (and in the next sections as well) you would need to use [Github repository](https://github.com/vp-online-courses/webpack-tutorial) associated with this course. We'll use the source code from `starting-point-for-use-cases` branch as a starting point.
+
+Let me show you how you can get the source code:
+
+\1. First, you need to clone the Github repository.
+
+```
+git clone https://github.com/vp-online-courses/webpack-tutorial.git
+cd webpack-tutorial
+```
+
+\2. Second, you need to checkout the branch `starting-point-for-use-cases`.
+
+```
+git checkout -b starting-point-for-use-cases remotes/origin/starting-point-for-use-cases
+```
+
+\3. Finally, you need to install the project dependencies after switching to the new branch.
+
+```
+rm -rf node_modules
+npm install
+```
+
+Now you are ready to start with this section.
+
+
+
+P. S. You would need to repeat these steps every time you start one of the following sections:
+
+\1. Integration with jQuery.
+
+\2. Integration with Bootstrap.
+
+\3. Using FontAwesome with Webpack.
+
+\4. Using ESLint.
+
 ### 2. Integration with jQuery
 ## 9. Using Custom Fonts with Webpack
 ### 1. Using Custom Fonts with Webpack
 
+npm install jquery --save
 
-
-### 
+![image-20200419214121248](./webpack4.assets/image-20200419214121248.png)
 
 ## 10. Integration with Bootstrap
 
