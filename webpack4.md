@@ -776,9 +776,270 @@ src/page-template.hbs
 ## 5. Production vs Development Builds
 ### 1. Introduction
 ### 2. Mode
+
+index.js
+
+```js
+
+// mode
+if (process.env.NODE_ENV === "production") {
+  console.log("production mode");
+} else if (process.env.NODE_ENV === "development") {
+  console.log("developent mode");
+}
+
+// check file error position
+// helloWorldButton.acb();
+```
+
+Sửa mode in webpack
+
 ### 3. Managing Webpack Config for Production and Development Use Cases
+
+Tach ra 2 file
+
+ở production mode xóa plugin terser
+
+webpack.dev.config
+
+```js
+const path = require("path");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+module.exports = {
+  entry: "./src/index.js",
+  output: {
+    filename: "bundle.js", // add
+    path: path.resolve(__dirname, "dist"),
+    publicPath: "",
+  },
+  mode: "development",
+  module: {
+    rules: [
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: ["file-loader"],
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"], // fix
+      },
+      {
+        test: /\.scss$/,
+        use: ["style-loader", "css-loader", "sass-loader"],
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/env"],
+            plugins: ["transform-class-properties"],
+          },
+        },
+      },
+      {
+        test: /\.hbs$/,
+        use: ["handlebars-loader"],
+      },
+    ],
+  },
+  plugins: [
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: [
+        "**/*",
+        path.join(process.cwd(), "build/**/*"),
+      ],
+    }),
+      // remove 2
+    new HtmlWebpackPlugin({
+      title: "Hello world",
+      description: "description Hello world",
+      template: "src/page-template.hbs",
+    }),
+  ],
+};
+
+```
+
+webpack.production.config
+
+```js
+const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+module.exports = {
+  entry: "./src/index.js",
+  output: {
+    filename: "bundle.[contenthash].js",
+    path: path.resolve(__dirname, "dist"),
+    publicPath: "",
+  },
+  mode: "production",
+  module: {
+    rules: [
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: ["file-loader"],
+      },
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
+      },
+      {
+        test: /\.scss$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/env"],
+            plugins: ["transform-class-properties"],
+          },
+        },
+      },
+      {
+        test: /\.hbs$/,
+        use: ["handlebars-loader"],
+      },
+    ],
+  },
+  plugins: [
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: [
+        "**/*",
+        path.join(process.cwd(), "build/**/*"),
+      ],
+    }),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: "styles.[contenthash].css",
+    }),
+    new HtmlWebpackPlugin({
+      title: "Hello world",
+      description: "description Hello world",
+      template: "src/page-template.hbs",
+    }),
+  ],
+};
+
+```
+
+package.json
+
+```js
+
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.production.config.js",
+    "dev": "webpack --config webpack.dev.config.js",
+    "start": "node src/server.js"
+  },
+```
+
+Ở mode dev dễ track error
+
+![image-20200419155639230](./webpack4.assets/image-20200419155639230.png)
+
 ### 4. Faster Development with webpack dev server
+
+```bash
+npm install webpack-dev-server --save-dev
+```
+
+webpack-dev-config.js
+
+```js
+const path = require("path");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+module.exports = {
+  entry: "./src/index.js",
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "dist"),
+    publicPath: "",
+  },
+    // add
+  devServer: {
+    contentBase: path.resolve(__dirname, "./dist"),
+    index: "index.html",
+    port: 9000,
+  },
+  mode: "development",
+  module: {
+    rules: [
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: ["file-loader"],
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.scss$/,
+        use: ["style-loader", "css-loader", "sass-loader"],
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/env"],
+            plugins: ["transform-class-properties"],
+          },
+        },
+      },
+      {
+        test: /\.hbs$/,
+        use: ["handlebars-loader"],
+      },
+    ],
+  },
+  plugins: [
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: [
+        "**/*",
+        path.join(process.cwd(), "build/**/*"),
+      ],
+    }),
+    new HtmlWebpackPlugin({
+      title: "Hello world",
+      description: "description Hello world",
+      template: "src/page-template.hbs",
+    }),
+  ],
+};
+
+```
+
+package.json
+
+```js
+
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.production.config.js",
+    "dev": "webpack-dev-server --config webpack.dev.config.js --hot", // add
+    "start": "node src/server.js"
+  },
+```
+
+npm run dev :  sửa sẽ load lại on browser
+
 ### 5. Cleaning Up A Bit
+
 ## 6. Multiple Page Applications
 ### 1. Introduction
 ### 2. Creating KiwiImage Component
