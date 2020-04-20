@@ -5903,9 +5903,9 @@ npm run serve
 
 ```
 
+kích thước file bundle.js giảm đáng kể từ MB sang kb, sinh ra 2 file
 
-
-
+![image-20200420220716794](./react-2nd-edition.assets/image-20200420220716794.png)
 
 
 
@@ -5980,7 +5980,7 @@ Khi f12 chọn vào mũi tên thì show location of file style.css
 
 `npm run dev-server` : f12 thì nó ở file style.css
 
-nên chỉnh lại loader và devtool trở thành inlien-source-map
+nên chỉnh lại loader và devtool trở thành inline-source-map
 
 https://github.com/webpack-contrib/css-loader xem source-map options
 
@@ -5997,6 +5997,87 @@ npm install --save-dev mini-css-extract-plugin
 ```
 
 dùng cho react < 15
+
+```js
+const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+module.exports = (env) => {
+  const isProduction = env === "production";
+
+  return {
+    mode: "development",
+    entry: "./src/app.js",
+    output: {
+      path: path.join(__dirname, "public"),
+      filename: "bundle.js",
+    },
+    module: {
+      rules: [
+        {
+          loader: "babel-loader",
+          test: /\.js$/,
+          exclude: /node_modules/,
+        },
+        {
+          test: /\.s?css$/,
+          use: [
+            {
+              loader: MiniCssExtractPlugin.loader,
+            },
+            {
+              loader: "css-loader",
+              options: {
+                sourceMap: true,
+              },
+            },
+            {
+              loader: "sass-loader",
+              options: {
+                sourceMap: true,
+              },
+            },
+          ],
+        },
+      ],
+    },
+    devtool: isProduction ? "source-map" : "inline-source-map",
+    devServer: {
+      contentBase: path.join(__dirname, "public"),
+      historyApiFallback: true,
+    },
+    plugins: [
+      new MiniCssExtractPlugin({
+        // Options similar to the same options in webpackOptions.output
+        // both options are optional
+        filename: "styles.css",
+      }),
+    ],
+  };
+};
+
+```
+
+chạy `npm run build:prod` kết quả sinh ra 4 file
+
+![image-20200420222416033](./react-2nd-edition.assets/image-20200420222416033.png)
+
+index.html
+
+```html
+  <link rel="stylesheet" type="text/css" href="/styles.css" />
+
+```
+
+`npm run dev:prod` and `npm run serve`
+
+Sửa lại inline source map và options là true vì khi xóa file các style.css rồi chạy npm run dev-server datepiker nó hiển thị link đến file css mà k phải tới thư viện css date picker
+
+```shell
+npm run dev-server
+```
+
+![image-20200420222820963](./react-2nd-edition.assets/image-20200420222820963.png)
 
 ### 8. A Production Web Server with Express
 
