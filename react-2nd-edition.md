@@ -6081,6 +6081,8 @@ npm run dev-server
 
 ### 8. A Production Web Server with Express
 
+`npm install --save express`
+
 create folder server/server.js
 
 ```js
@@ -6116,8 +6118,6 @@ webpack.config.js
       historyApiFallback: true
 ```
 
-
-
 Right here we set history API fallback to true this served up indexed out in the public folder every single time we got to 4 0 4.
 
 https://expressjs.com/en/4x/api.html#res.sendFile
@@ -6130,6 +6130,8 @@ We also say hey if what the person requested isn't in the public folder just giv
 
 https://www.heroku.com/
 
+mail dp20100 dp1020/
+
 install heroku cli
 
 https://devcenter.heroku.com/articles/heroku-cli
@@ -6137,18 +6139,18 @@ https://devcenter.heroku.com/articles/heroku-cli
 ```shell
 heroku --version
 heroku login
-heroku create react-app
+heroku create react-course-2
 
 ```
 
-git bash not support
+NOTE: git bash not support command login
 
 package.json
 
 ```js
 
     "start": "node server/server.js",
-    "heroku-postbuild": "yarn run build:prod"
+    "heroku-postbuild": "npm run build:prod"
 ```
 
 heroku supply  a dynamic port not static port 
@@ -6192,7 +6194,9 @@ git push heroku master
 heroku logs
 ```
 
-![image-20200407004239242](./react-2nd-edition.assets/image-20200407004239242.png)
+![image-20200407004239242](./react-2nd-edition.assets/image-20200407004239242.png)  
+
+heroku open
 
 ### 10. Regular vs Development Dependencies
 
@@ -6485,6 +6489,10 @@ Sau đó ấn vào PUBLISH
 
 Click add firebase to your web app
 
+![image-20200421005415757](./react-2nd-edition.assets/image-20200421005415757.png)  
+
+
+
 ![image-20200407215539492](./react-2nd-edition.assets/image-20200407215539492.png)  
 
 ```shell
@@ -6565,6 +6573,7 @@ database.ref().set({
 // Nếu ghi ở sau nó sẽ override old obj
 // database.ref().set('This is my data.');
 
+// Nếu có tham số trong ref thì không ghi đè mà merge
 database.ref('age').set(27);
 database.ref('location/city').set('New York');
 
@@ -6618,7 +6627,7 @@ console.log('after');
 
 Vào app.js thêm để chạy
 
-mỗi promise chỉ thực hiện resolve hoặc reject chỉ 1 lần tại 1 thời điểm
+mỗi promise chỉ thực hiện resolve hoặc reject chỉ 1 lần tại 1 thời điểm, có nhiều resolve chỉ chạy cái đầu
 
 ### 5. Promises with Firebase
 
