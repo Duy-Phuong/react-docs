@@ -7152,13 +7152,231 @@ Create login component
 LoginPage.js
 
 ```js
+import React from 'react';
+import { connect } from 'react-redux';
+import { startLogin } from '../actions/auth';
+
+export const LoginPage = ({ startLogin }) => (
+  <div>
+    <button onClick={startLogin}>Login</button>
+  </div>
+);
+
+const mapDispatchToProps = (dispatch) => ({
+  startLogin: () => dispatch(startLogin())
+});
+
+export default connect(undefined, mapDispatchToProps)(LoginPage);
 
 ```
 
 LoginPage.test.js
 
+```js
+import React from 'react';
+import { shallow } from 'enzyme';
+import { LoginPage } from '../../components/LoginPage';
+
+test('should correctly render LoginPage', () => {
+  const wrapper = shallow(<LoginPage />);
+  expect(wrapper).toMatchSnapshot();
+});
+
+```
+
+AppRouter.js
+
+```js
+
+const AppRouter = () => (
+  <BrowserRouter>
+    <div>
+      <Header />
+      <Switch>
+    // add
+        <Route path="/" component={LoginPage} exact={true} />
+        <Route path="/dashboard" component={ExpenseDashboardPage} />
+        <Route path="/create" component={AddExpensePage} />
+        <Route path="/edit/:id" component={EditExpensePage} />
+        <Route path="/help" component={HelpPage} />
+        <Route component={NotFoundPage} />
+      </Switch>
+    </div>
+  </BrowserRouter>
+);
+```
+
+Vào authen rồi chọn google và enable nó lên
+
+![image-20200422004129756](./react-2nd-edition.assets/image-20200422004129756.png)  
+
+firebase.js
+
+```js
+
+const database = firebase.database();
+// add
+const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+
+export { firebase, googleAuthProvider, database as default };
+```
+
+https://firebase.google.com/docs/reference/js/firebase.auth.GoogleAuthProvider
+
+app.js
+
+```js
+import { firebase } from './firebase/firebase';
+
+// add
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    console.log('log in');
+  } else {
+    console.log('log out');
+  }
+});
+```
+
+actions/auth.js
+
+```js
+import { firebase, googleAuthProvider } from '../firebase/firebase';
+
+export const startLogin = () => {
+  return () => {
+    return firebase.auth().signInWithPopup(googleAuthProvider);
+  };
+};
+
+```
+
+
+
+
+
 ### 3. Logging Out
+
+Header.js thêm button Logout
+
+```js
+    <button onClick={startLogout}>Logout</button>
+  </header>
+);
+
+const mapDispatchToProps = (dispatch) => ({
+  startLogout: () => dispatch(startLogout())
+});
+
+export default connect(undefined, mapDispatchToProps)(Header);
+```
+
+auth.js
+
+```js
+
+export const startLogout = () => {
+  return () => {
+    return firebase.auth().signOut();
+  };
+};
+```
+
+Header.test.js
+
+```js
+import React from 'react';
+import { shallow } from 'enzyme';
+import { Header } from '../../components/Header';
+
+test('should render Header correctly', () => {
+  const wrapper = shallow(<Header startLogout={() => { }} />);
+  expect(wrapper).toMatchSnapshot();
+});
+
+test('should call startLogout on button click', () => {
+  const startLogout = jest.fn();
+  const wrapper = shallow(<Header startLogout={startLogout} />);
+  wrapper.find('button').simulate('click');
+  expect(startLogout).toHaveBeenCalled();
+});
+
+```
+
+
+
 ### 4. Redirecting Login or Logout
+
+So by default if we use browser router behind the scenes or re-act router is doing some work for us
+
+it's creating an instance of something called a browser history and it's registering it with our new router but we can actually go through that process manually.
+
+gg: npm history
+
+https://www.npmjs.com/package/history
+
+AppRouter.js
+
+```js
+import createHistory from 'history/createBrowserHistory';
+
+// add
+export const history = createHistory();
+
+
+const AppRouter = () => (
+    // fix
+  <Router history={history}>
+    <div>
+      <Header />
+      <Switch>
+        <Route path="/" component={LoginPage} exact={true} />
+        <Route path="/dashboard" component={ExpenseDashboardPage} />
+        <Route path="/create" component={AddExpensePage} />
+        <Route path="/edit/:id" component={EditExpensePage} />
+        <Route path="/help" component={HelpPage} />
+        <Route component={NotFoundPage} />
+      </Switch>
+    </div>
+  </Router>
+);
+```
+
+app.js
+
+```js
+import AppRouter, { history } from './routers/AppRouter';
+
+// add
+let hasRendered = false;
+const renderApp = () => {
+  if (!hasRendered) {
+    ReactDOM.render(jsx, document.getElementById('app'));
+    hasRendered = true;
+  }
+};
+
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    store.dispatch(startSetExpenses()).then(() => {
+      renderApp();
+      if (history.location.pathname === '/') {
+        history.push('/dashboard');
+      }
+    });
+  } else {
+    renderApp();
+    history.push('/');
+  }
+});
+```
+
+npm run dev-server
+
+
+
+
+
 ### 5. The Auth Reducer
 ### 6. Private Only Routes
 ### 7. Public Only Routes
