@@ -6729,7 +6729,7 @@ database.ref().update({
 
 ### 8. Fetching Data From Firebase
 
-firebase.js
+firebase.js có 2 cách dùng once hay on cũng được
 
 ```js
 
@@ -6768,9 +6768,9 @@ https://firebase.google.com/docs/reference/js/firebase.database.Reference#on
 
 ### 9. Array Data in Firebase Part I
 
-delete all data
+delete all data trên web
 
-firebase.js
+firebase.js sử dung push để add data to array
 
 ```js
 
@@ -6802,6 +6802,7 @@ database.ref('expenses').push({
 
 
 // firebase k support save array
+// Update và xóa với id có sẵn
 
 // database.ref('notes/-Krll52aVDQ3X6dOtmS7').remove();
 
@@ -6840,7 +6841,7 @@ database.ref('expenses').on('child_added', (snapshot) => {
   console.log(snapshot.key, snapshot.val());
 });
 
-// step 1
+// step 1 Fetch all
 // database.ref('expenses')
 //   .once('value')
 //   .then((snapshot) => {
@@ -6961,6 +6962,13 @@ export class AddExpensePage extends React.Component {
   onSubmit = (expense) => {
       // tweak
     this.props.startAddExpense(expense);
+      
+
+const mapDispatchToProps = (dispatch) => ({
+  startAddExpense: (expense) => dispatch(startAddExpense(expense)) // fix
+});
+
+export default connect(undefined, mapDispatchToProps)(AddExpensePage);
 ```
 
 
@@ -7138,6 +7146,17 @@ promise.then((data) => {
 ## 16. Firebase Authentication
 ### 1. Section Intro Firebase Authentication
 ### 2. Login Page and Google Authentication
+
+Create login component
+
+LoginPage.js
+
+```js
+
+```
+
+LoginPage.test.js
+
 ### 3. Logging Out
 ### 4. Redirecting Login or Logout
 ### 5. The Auth Reducer
