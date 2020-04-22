@@ -7307,7 +7307,7 @@ test('should call startLogout on button click', () => {
 
 ### 4. Redirecting Login or Logout
 
-So by default if we use browser router behind the scenes or re-act router is doing some work for us
+So by default if we use browser router behind the scenes or react router is doing some work for us
 
 it's creating an instance of something called a browser history and it's registering it with our new router but we can actually go through that process manually.
 
@@ -7360,6 +7360,7 @@ firebase.auth().onAuthStateChanged((user) => {
   if (user) {
     store.dispatch(startSetExpenses()).then(() => {
       renderApp();
+        // if in login page
       if (history.location.pathname === '/') {
         history.push('/dashboard');
       }
@@ -7378,10 +7379,324 @@ npm run dev-server
 
 
 ### 5. The Auth Reducer
+
+app.js
+
+console.log(user.id)
+
+```js
+import { login, logout } from './actions/auth';
+
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    store.dispatch(login(user.uid)); // add
+    store.dispatch(startSetExpenses()).then(() => {
+      renderApp();
+      if (history.location.pathname === '/') {
+        history.push('/dashboard');
+      }
+    });
+  } else {
+    store.dispatch(logout()); // add
+    renderApp();
+    history.push('/');
+  }
+});
+
+```
+
+reducer/auth.js
+
+```js
+export default (state = {}, action) => {
+  switch (action.type) {
+    case 'LOGIN':
+      return {
+        uid: action.uid
+      };
+    case 'LOGOUT':
+      return {};
+    default:
+      return state;
+  }
+};
+
+```
+
+actions/auth.js
+
+```js
+import { firebase, googleAuthProvider } from '../firebase/firebase';
+
+// add
+export const login = (uid) => ({
+  type: 'LOGIN',
+  uid
+});
+
+export const startLogin = () => {
+  return () => {
+    return firebase.auth().signInWithPopup(googleAuthProvider);
+  };
+};
+
+// add
+export const logout = () => ({
+  type: 'LOGOUT'
+});
+
+export const startLogout = () => {
+  return () => {
+    return firebase.auth().signOut();
+  };
+};
+
+```
+
+configreStore 
+
+```js
+
+import authReducer from '../reducers/auth';
+
+export default () => {
+  const store = createStore(
+    combineReducers({
+      expenses: expensesReducer,
+      filters: filtersReducer,
+      auth: authReducer // add
+    }),
+    composeEnhancers(applyMiddleware(thunk))
+  );
+
+  return store;
+};
+
+```
+
+test reducer/auth.js
+
+```js
+import authReducer from '../../reducers/auth';
+
+test('should set uid for login', () => {
+  const action = {
+    type: 'LOGIN',
+    uid: 'abc123'
+  };
+  const state = authReducer({}, action);
+  expect(state.uid).toBe(action.uid);
+});
+
+test('should clear uid for logout', () => {
+  const action = {
+    type: 'LOGOUT'
+  };
+  const state = authReducer({ uid: 'anything' }, action);
+  expect(state).toEqual({});
+});
+
+```
+
+actions/auth.js
+
+```js
+import { login, logout } from '../../actions/auth';
+
+test('should generate login action object', () => {
+  const uid = 'abc123';
+  const action = login(uid);
+  expect(action).toEqual({
+    type: 'LOGIN',
+    uid
+  });
+});
+
+test('should generate logout action object', () => {
+  const action = logout();
+  expect(action).toEqual({
+    type: 'LOGOUT'
+  });
+});
+
+```
+
+
+
 ### 6. Private Only Routes
+
+`npm run dev-server`
+
+We are able to navigate to private pages even if we are logged out when click into link
+
+PrivateRoute.js
+
+```js
+import React from 'react';
+import { connect } from 'react-redux';
+import { Route, Redirect } from 'react-router-dom';
+import Header from '../components/Header';
+
+export const PrivateRoute = ({
+  isAuthenticated,
+  component: Component,
+  ...rest
+}) => (
+    <Route {...rest} component={(props) => (
+      isAuthenticated ? (
+        <div>
+          <Header />
+          <Component {...props} />
+        </div>
+      ) : (
+          <Redirect to="/" />
+        )
+    )} />
+  );
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: !!state.auth.uid  // true or false
+});
+
+export default connect(mapStateToProps)(PrivateRoute);
+
+```
+
+AppRoutes
+
+```js
+
+const AppRouter = () => (
+  <Router history={history}>
+    <div>
+      <Switch>
+        <Route path="/" component={LoginPage} exact={true} />
+        // modify Private Route
+        <PrivateRoute path="/dashboard" component={ExpenseDashboardPage} />
+        <PrivateRoute path="/create" component={AddExpensePage} />
+        <PrivateRoute path="/edit/:id" component={EditExpensePage} />
+            
+        <Route path="/help" component={HelpPage} />
+        <Route component={NotFoundPage} />
+      </Switch>
+    </div>
+  </Router>
+);
+
+```
+
+
+
 ### 7. Public Only Routes
+
+`npm run dev-server`
+
+Khi ấn vào link dashboard link dẫn đến bị sai
+
+Xóa HelpPageComponent đi
+
+PublicRoute.js
+
+```js
+import React from 'react';
+import { connect } from 'react-redux';
+import { Route, Redirect } from 'react-router-dom';
+
+export const PublicRoute = ({
+  isAuthenticated,
+  component: Component,
+  ...rest
+}) => (
+    <Route {...rest} component={(props) => (
+      isAuthenticated ? (
+        <Redirect to="/dashboard" />
+      ) : (
+          <Component {...props} />
+        )
+    )} />
+  );
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: !!state.auth.uid
+});
+
+export default connect(mapStateToProps)(PublicRoute);
+
+```
+
+AppRoute.js
+
+```js
+        <PublicRoute path="/" component={LoginPage} exact={true} />
+
+```
+
+Header.js
+
+```js
+    <NavLink to="/dashboard" activeClassName="is-active">Dashboard</NavLink>
+
+```
+
+
+
 ### 8. Private Firebase Data
+
+action/expense.js
+
+```js
+
+export const startAddExpense = (expenseData = {}) => {
+  return (dispatch, getState) => { // add getState 
+    const uid = getState().auth.uid;
+
+....
+
+return database.ref(`users/${uid}/expenses`).push(expense).then((ref) // add string in ref line 20
+                                                                => {
+      dispatch(addExpense({
+        id: ref.key,
+        ...expense
+      }));
+    });
+      
+// thực hiện tương tự
+
+export const startSetExpenses = () => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+    return database.ref(`users/${uid}/expenses`).once('value').then((snapshot) => {
+      const expenses = [];
+
+// edit remove cũng làm y chang
+```
+
+expenses.test.js
+
+```js
+// sửa lại
+const uid = 'thisismytestuid';
+const defaultAuthState = { auth: { uid } };
+
+// Sửa tương ứng
+```
+
+![image-20200423010200491](./react-2nd-edition.assets/image-20200423010200491.png)  
+
+Khi read and write
+
+![image-20200423010312471](./react-2nd-edition.assets/image-20200423010312471.png)  
+
+![image-20200423010456501](./react-2nd-edition.assets/image-20200423010456501.png)  
+
+enable authenticated và sửa lại location
+
 ### 9. Data Validation and Deployment
+
+![image-20200423011304718](./react-2nd-edition.assets/image-20200423011304718.png)  
+
+
+
 ## 17. Styling Budget App
 ### 1. Section Intro Styling Budget App
 ### 2. Styling Login Page
