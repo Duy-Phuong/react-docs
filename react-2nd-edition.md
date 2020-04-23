@@ -7700,8 +7700,170 @@ enable authenticated và sửa lại location
 ## 17. Styling Budget App
 ### 1. Section Intro Styling Budget App
 ### 2. Styling Login Page
+
+Vào thư mục public/images thêm hình
+
+components/_box-layout.scss
+
+```scss
+.box-layout {
+  align-items: center;
+  background: url('/images/bg.jpg');
+  background-size: cover;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+}
+
+.box-layout__box {
+  background: fade-out(white, .15);
+  border-radius: 3px;
+  padding: $l-size $m-size;
+  text-align: center;
+  width: 25rem;
+}
+
+.box-layout__title {
+  margin: 0 0 $m-size 0;
+  line-height: 1;
+}
+
+```
+
+styles.scss
+
+```scss
+@import './base/settings';
+@import './base/base';
+// add
+@import './components/box-layout';
+
+```
+
+LoginPage.js
+
+```js
+
+export const LoginPage = ({ startLogin }) => (
+  <div className="box-layout">
+    <div className="box-layout__box">
+      <h1 className="box-layout__title">Expensify App</h1>
+      <p>It's time to get your expenses under control.</p>
+      <button onClick={startLogin}>Login</button>
+    </div>
+  </div>
+);
+```
+
+![image-20200423205748876](./react-2nd-edition.assets/image-20200423205748876.png)  
+
+_base.scss
+
+```scss
+
+body {
+  color: $dark-grey; // add
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: $m-size;
+  line-height: 1.6;// add
+}
+```
+
+
+
 ### 3. Styling Buttons
+
+_button.scss
+
+```scss
+.button {
+  background: $blue;
+  border: none;
+  color: white;
+  font-size: $font-size-large;
+  font-weight: 300;
+  padding: $s-size;
+}
+
+```
+
+styles.scss import
+
+_settings.scss
+
+```scss
+// add
+// Colors
+$dark-grey: #333;
+$blue: #1c88bf;
+$dark-blue: #364051;
+// Font Size
+$font-size-large: 1.8rem;
+```
+
+Header.js sửa lại nội dung
+
+```js
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { startLogout } from '../actions/auth';
+
+export const Header = ({ startLogout }) => (
+  <header className="header">
+    <div className="content-container">
+      <div className="header__content">
+        <Link className="header__title" to="/dashboard">
+          <h1>Expensify</h1>
+        </Link>
+        <button onClick={startLogout}>Logout</button>
+      </div>
+    </div>
+  </header>
+```
+
+_header.scss
+
+```scss
+.header {
+  background: $dark-blue;
+}
+
+.header__content {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: $s-size 0;
+}
+
+.header__title {
+  color: white;
+  text-decoration: none;
+  h1 {
+    margin: 0;
+  }
+}
+
+```
+
+_content-container.scss
+
+```scss
+.content-container {
+  margin: 0 auto;
+  padding: 0 $m-size;
+  max-width: 80rem;
+}
+
+```
+
+![image-20200423213459138](./react-2nd-edition.assets/image-20200423213459138.png)
+
 ### 4. Styling Summary Area
+
+
+
 ### 5. Styling List Filters
 ### 6. Styling Inputs
 ### 7. Styling Expense Form
@@ -7742,4 +7904,4 @@ enable authenticated và sửa lại location
 
 ### 12. Fragments
 
-### 13. Creating Custom Hooks
+### 13. Creating Custom
