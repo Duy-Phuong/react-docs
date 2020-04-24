@@ -7862,19 +7862,488 @@ _content-container.scss
 
 ### 4. Styling Summary Area
 
+_page-header.scss
 
+```scss
+.page-header {
+  background: #f7f7f7;
+  margin-bottom: $l-size;
+  padding: $l-size 0;
+}
+
+.page-header__actions {
+  margin-top: $m-size;
+}
+
+.page-header__title {
+  font-weight: 300;
+  margin: 0;
+  span {
+    font-weight: 700;
+  }
+}
+
+```
+
+ExpensesSummary.js
+
+```js
+return (
+    <div className="page-header">
+      <div className="content-container">
+        <h1 className="page-header__title">Viewing <span>{expenseCount}</span> {expenseWord} totalling <span>{formattedExpensesTotal}</span></h1>
+        <div className="page-header__actions">
+          <Link className="button" to="/create">Add Expense</Link>
+        </div>
+      </div>
+    </div>
+  );
+```
+
+button.scss
+
+```scss
+  display: inline-block; // add
+  text-decoration: none;
+
+  line-height: 1;
+  padding: $s-size;
+}
+
+// sửa cho nút LOg out ở Header
+.button--link {
+  background: none;
+}
+
+
+```
+
+![image-20200423214442690](./react-2nd-edition.assets/image-20200423214442690.png)
 
 ### 5. Styling List Filters
+
+ExpenseListFilters.js
+
+```js
+<div className="content-container">
+        <div className="input-group">
+            <div className="input-group__item">
+```
+
+_input-group.scss
+
+```scss
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: $m-size;
+  @media (min-width: $desktop-breakpoint) {
+    flex-direction: row;
+    margin-bottom: $l-size;
+  }
+}
+
+.input-group__item {
+  margin-bottom: $s-size;
+  @media (min-width: $desktop-breakpoint) {
+    margin: 0 $s-size 0 0;
+  }
+}
+
+```
+
+
+
 ### 6. Styling Inputs
+
+_inputs.scss
+
+```scss
+.text-input {
+  border: 1px solid #cacccd;
+  height: 50px;
+  font-size: $font-size-large;
+  font-weight: 300;
+  padding: $s-size;
+}
+
+.select {
+  @extend .text-input;
+}
+
+.textarea {
+  @extend .text-input;
+  height: 10rem;
+}
+
+```
+
+ExpenseListFilters.js
+
+```js
+<input
+              type="text"
+              className="text-input" // add
+              placeholder="Search expenses"
+              value={this.props.filters.text}
+              onChange={this.onTextChange}
+            />
+```
+
+base.scss
+
+```scss
+* {
+  box-sizing: border-box; // not sum all 
+}
+```
+
+![image-20200423222836410](./react-2nd-edition.assets/image-20200423222836410.png)
+
 ### 7. Styling Expense Form
+
+AddExpensePage.js
+
+```js
+ return (
+      <div>
+        <div className="page-header">
+          <div className="content-container">
+            <h1 className="page-header__title">Add Expense</h1>
+          </div>
+        </div>
+        <div className="content-container">
+          <ExpenseForm
+            onSubmit={this.onSubmit}
+          />
+        </div>
+      </div>
+    );
+
+....
+
+<div>
+          <button className="button">Save Expense</button>
+        </div>
+      </form>
+```
+
+ExpenseForm.js
+
+```js
+return (
+      <form className="form" onSubmit={this.onSubmit}>
+        {this.state.error && <p className="form__error">{this.state.error}</p>}
+        <input
+          type="text"
+          placeholder="Description"
+          autoFocus
+          className="text-input"
+          value={this.state.description}
+          onChange={this.onDescriptionChange}
+        />
+```
+
+_form.scss
+
+```scss
+.form {
+  display: flex;
+  flex-direction: column;
+  >* {
+    margin-bottom: $m-size;
+  }
+}
+
+.form__error {
+  margin: 0 0 $m-size 0;
+  font-style: italic;
+}
+
+```
+
+![image-20200423233301785](./react-2nd-edition.assets/image-20200423233301785.png)  
+
+EditExpensePage.js
+
+```js
+return (
+      <div>
+        <div className="page-header">
+          <div className="content-container">
+            <h1 className="page-header__title">Edit Expense</h1>
+          </div>
+        </div>
+        <div className="content-container">
+          <ExpenseForm
+            expense={this.props.expense}
+            onSubmit={this.onSubmit}
+          />
+          <button className="button button--secondary" onClick={this.onRemove}>Remove Expense</button>
+        </div>
+      </div>
+    );
+```
+
+button.scss
+
+```scss
+
+.button--secondary {
+  background: #888;
+}
+
+```
+
+
+
 ### 8. Styling Expenses List Part I
+
+_list.scss
+
+```scss
+.list-header {
+  background: $off-white;
+  border: 1px solid darken($off-white, 7%);
+  color: $grey;
+  display: flex;
+  justify-content: space-between;
+  padding: $s-size $m-size;
+}
+
+```
+
+ExpenseList.js
+
+```js
+
+export const ExpenseList = (props) => (
+  <div className="content-container">
+    <div className="list-header">
+      <div className="show-for-mobile">Expenses</div>
+      <div className="show-for-desktop">Expense</div>
+      <div className="show-for-desktop">Amount</div>
+    </div>
+```
+
+_visibility.scss
+
+```css
+.show-for-mobile {
+  @media (min-width: $desktop-breakpoint) {
+    display: none;
+  }
+}
+
+.show-for-desktop {
+  @media (max-width: $desktop-breakpoint - .01rem) {
+    display: none;
+  }
+}
+
+```
+
+ExpenseListItem.js
+
+```js
+
+const ExpenseListItem = ({ id, description, amount, createdAt }) => (
+  <Link className="list-item" to={`/edit/${id}`}>
+```
+
+
+
+
+
 ### 9. Styling Expenses List Part II
 
-### 
+list.scss
+
+```css
+.list-header {
+  background: $off-white;
+  border: 1px solid darken($off-white, 7%);
+  color: $grey;
+  display: flex;
+  justify-content: space-between;
+  padding: $s-size $m-size;
+}
+
+.list-body {
+  margin-bottom: $m-size;
+  @media (min-width: $desktop-breakpoint) {
+    margin-bottom: $l-size;
+  }
+}
+
+.list-item {
+  border: 1px solid darken($off-white, 7%);
+  border-top: none;
+  color: $dark-grey;
+  display: flex;
+  flex-direction: column;
+  padding: $s-size;
+  text-decoration: none;
+  transition: background .3s ease;
+  &:hover {
+    background: $off-white;
+  }
+  @media (min-width: $desktop-breakpoint) {
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: $m-size;
+  }
+}
+
+.list-item--message {
+  align-items: center;
+  color: $grey;
+  justify-content: center;
+  padding: $m-size;
+  &:hover {
+    background: none;
+  }
+}
+
+.list-item__title {
+  margin: 0;
+  word-break: break-all;
+}
+
+.list-item__sub-title {
+  color: $grey;
+  font-size: $font-size-small;
+}
+
+.list-item__data {
+  margin: $s-size 0 0 0;
+  @media (min-width: $desktop-breakpoint) {
+    margin: 0;
+    padding-left: $s-size;
+  }
+}
+
+```
+
+ExpenseListItem.js
+
+```js
+
+const ExpenseListItem = ({ id, description, amount, createdAt }) => (
+  <Link className="list-item" to={`/edit/${id}`}>
+    <div>
+      <h3 className="list-item__title">{description}</h3>
+      <span className="list-item__sub-title">{moment(createdAt).format('MMMM Do, YYYY')}</span>
+    </div>
+    <h3 className="list-item__data">{numeral(amount / 100).format('$0,0.00')}</h3>
+  </Link>
+);
+```
+
+ExpenseList.js
+
+```js
+props.expenses.length === 0 ? (
+          <div className="list-item list-item--message">
+            <span>No expenses</span>
+          </div>
+        ) : (
+            props.expenses.map((expense) => {
+              return <ExpenseListItem key={expense.id} {...expense} />;
+            })
+          )
+```
+
+
+
+
+
+
 
 ### 10. Adding Loader
 
+_loader.scss
+
+```scss
+.loader {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+}
+
+.loader__image {
+  height: 6rem;
+  width: 6rem;
+}
+
+```
+
+app.js
+
+```js
+ReactDOM.render(<LoadingPage />, document.getElementById('app'));
+
+```
+
+LoadingPage.js
+
+```js
+import React from 'react';
+
+const LoadingPage = () => (
+  <div className="loader">
+    <img className="loader__image" src="/images/loader.gif" />
+  </div>
+);
+
+export default LoadingPage;
+
+```
+
+`yarn test -- -- watch`
+
+LoadingPage.test.js
+
+```js
+import React from 'react';
+import { shallow } from 'enzyme';
+import LoadingPage from '../../components/LoadingPage';
+
+test('should correctly render LoadingPage', () => {
+  const wrapper = shallow(<LoadingPage />);
+  expect(wrapper).toMatchSnapshot();
+});
+
+```
+
+
+
 ### 11. Babel Polyfill
+
+https://www.browserstack.com/
+
+https://babeljs.io/docs/en/babel-polyfill/
+
+```shell
+npm install babel-polyfill
+```
+
+webpack.config.js
+
+```js
+
+  return {
+    entry: ['babel-polyfill', './src/app.js'],
+```
+
+```shell
+npm run dev-server 
+```
+
+
 
 ### 12. Final Deployment
 
@@ -7904,4 +8373,4 @@ _content-container.scss
 
 ### 12. Fragments
 
-### 13. Creating Custom
+### 13. Creating Custom Hooks
