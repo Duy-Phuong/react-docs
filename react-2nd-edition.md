@@ -8453,20 +8453,612 @@ create-react-app react-new-feature
 
 file manifest.json: create a progressive application
 
+index.js: entry point
+
+
+
 ### 3. The useState Hook
+
+Reason: make life easier
+
+index.js
+
+```js
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
+import * as serviceWorker from './serviceWorker';
+
+//
+// Goal: Add -1 and reset button to component
+//
+// 1. Allow initial count to be configured using a count prop (default to 0)
+// 2. Add "-1" button to reduce count by 1
+// 3. Add "reset" button to reset count
+// 4. Test your work!
+
+const App = (props) => {
+    const [count, setCount] = useState(props.count)
+
+    return (
+        <div>
+            <p>The current count is {count}</p>
+            <button onClick={() => setCount(count - 1)}>-1</button>
+            <button onClick={() => setCount(props.count)}>reset</button>
+            <button onClick={() => setCount(count + 1)}>+1</button>
+        </div>
+    )
+}
+
+App.defaultProps = {
+    count: 0
+}
+
+ReactDOM.render(<App count={2}/>, document.getElementById('root'));
+
+serviceWorker.unregister();
+
+```
+
+
+
 ### 4. useState vs. setState
+
+index.js
+
+```js
+
+const App = (props) => {
+    // const [count, setCount] = useState(props.count)
+    // const [text, setText] = useState('')
+    const [state, setState] = useState({
+        count: props.count,
+        text: ''
+    })
+
+    return (
+        <div>
+            <p>The current {state.text || 'count'} is {state.count}</p>
+            <button onClick={() => setState({ count: state.count - 1 })}>-1</button>
+            <button onClick={() => setState({ count: props.count })}>reset</button>
+            <button onClick={() => setState({ count: state.count + 1 })}>+1</button>
+            <input value={state.text} onChange={(e) => setState({ text: e.target.value })} />
+        </div>
+    )
+}
+
+// const App = (props) => {
+//     const [count, setCount] = useState(props.count)
+//     const [text, setText] = useState('')
+
+//     return (
+//         <div>
+//             <p>The current {text || 'count'} is {count}</p>
+//             <button onClick={() => setCount(count - 1)}>-1</button>
+//             <button onClick={() => setCount(props.count)}>reset</button>
+//             <button onClick={() => setCount(count + 1)}>+1</button>
+//             <input value={text} onChange={(e) => setText(e.target.value)}/>
+//         </div>
+//     )
+// }
+
+App.defaultProps = {
+    count: 0
+}
+
+ReactDOM.render(<App count={2}/>, document.getElementById('root'));
+```
+
+
+
 ### 5. Complex State with useState
+
+app.js
+
+```js
+
+const NoteApp = () => {
+    const [notes, setNotes] = useState([])
+    const [title, setTitle] = useState('')
+    const [body, setBody] = useState('')
+
+    const addNote = (e) => {
+        e.preventDefault()
+        setNotes([
+            ...notes,
+            { title, body }
+        ])
+        setTitle('')
+        setBody('')
+    }
+
+    const removeNote = (title) => {
+        setNotes(notes.filter((note) => note.title !== title))
+    }
+
+    return (
+        <div>
+            <h1>Notes</h1>
+            {notes.map((note) => (
+                <div key={note.title}>
+                    <h3>{note.title}</h3>
+                    <p>{note.body}</p>
+                    <button onClick={() => removeNote(note.title)}>x</button>
+                </div>
+            ))}
+            <p>Add note</p>
+            <form onSubmit={addNote}>
+                <input value={title} onChange={(e) => setTitle(e.target.value)} />
+                <textarea value={body} onChange={(e) => setBody(e.target.value)}></textarea>
+                <button>add note</button>
+            </form>
+        </div>
+    )
+}
+```
+
+
+
 ### 6. The useEffect Hook
+
+app.js
+
+```js
+
+const NoteApp = () => {
+    // add
+    const notesData = JSON.parse(localStorage.getItem('notes'))
+    const [notes, setNotes] = useState(notesData || [])
+    
+ 
+    useEffect(() => {
+        localStorage.setItem('notes', JSON.stringify(notes))
+    })
+```
+
+
+
 ### 7. useEffect Dependencies
+
+NoteApp
+
+```js
+
+const NoteApp = () => {
+    const [notes, setNotes] = useState([])
+    
+    
+    useEffect(() => {
+        const notesData = JSON.parse(localStorage.getItem('notes'))
+
+        if (notesData) {
+            setNotes(notesData)
+        }
+    }, [])
+
+    useEffect(() => {
+        localStorage.setItem('notes', JSON.stringify(notes))
+    }, [notes])
+```
+
+App
+
+```js
+
+const App = (props) => {
+    const [count, setCount] = useState(props.count)
+    const [text, setText] = useState('')
+
+    useEffect(() => {
+        console.log('This should only run once!')
+    }, [])
+
+    useEffect(() => {
+        console.log('useEffect ran')
+        document.title = count
+    }, [count])
+```
+
+
+
 ### 8. Cleaning up Effects
+
+index.js
+
+```js
+
+const Note = ({ note, removeNote }) => {
+    useEffect(() => {
+        console.log('Setting up effect!')
+
+        return () => {
+            console.log('Cleaning up effect!')
+        }
+    }, [])
+
+    return (
+        <div>
+            <h3>{note.title}</h3>
+            <p>{note.body}</p>
+            <button onClick={() => removeNote(note.title)}>x</button>
+        </div>
+    )
+}
+```
+
+
+
 ### 9. The useReducer Hook
 
-### 
+```js 
+import React, { useState, useEffect, useReducer } from 'react';
+import ReactDOM from 'react-dom';
+import * as serviceWorker from './serviceWorker';
+
+//
+// Goal: Setup support for adding and removing notes
+//
+// 1. Setup and dispatch an ADD_NOTE action
+// 2. Setup and dispatch a REMOVE_NOTE action
+// 3. Test your work!
+
+const notesReducer = (state, action) => {
+    switch (action.type) {
+        case 'POPULATE_NOTES':
+            return action.notes
+        case 'ADD_NOTE':
+            return [
+                ...state,
+                { title: action.title, body: action.body }
+            ]
+        case 'REMOVE_NOTE':
+            return state.filter((note) => note.title !== action.title )
+        default:
+            return state
+    }
+}
+
+const NoteApp = () => {
+    // add tham số thứ 2 là initial state
+    const [notes, dispatch] = useReducer(notesReducer, [])
+    const [title, setTitle] = useState('')
+    const [body, setBody] = useState('')
+
+    const addNote = (e) => {
+        e.preventDefault()
+        dispatch({
+            type: 'ADD_NOTE',
+            title,
+            body
+        })
+        setTitle('')
+        setBody('')
+    }
+
+    const removeNote = (title) => {
+        dispatch({
+            type: 'REMOVE_NOTE',
+            title
+        })
+    }
+
+    useEffect(() => {
+        const notes = JSON.parse(localStorage.getItem('notes'))
+
+        if (notes) {
+            dispatch({ type: 'POPULATE_NOTES', notes })
+        }
+    }, [])
+
+    useEffect(() => {
+        localStorage.setItem('notes', JSON.stringify(notes))
+    }, [notes])
+
+    return (
+        <div>
+            <h1>Notes</h1>
+            {notes.map((note) => (
+                <Note key={note.title} note={note} removeNote={removeNote}/>
+            ))}
+            <p>Add note</p>
+            <form onSubmit={addNote}>
+                <input value={title} onChange={(e) => setTitle(e.target.value)} />
+                <textarea value={body} onChange={(e) => setBody(e.target.value)}></textarea>
+                <button>add note</button>
+            </form>
+        </div>
+    )
+}
+
+const Note = ({ note, removeNote }) => {
+    useEffect(() => {
+        console.log('Setting up effect!')
+
+        return () => {
+            console.log('Cleaning up effect!')
+        }
+    }, [])
+
+    return (
+        <div>
+            <h3>{note.title}</h3>
+            <p>{note.body}</p>
+            <button onClick={() => removeNote(note.title)}>x</button>
+        </div>
+    )
+}
+
+ReactDOM.render(<NoteApp/>, document.getElementById('root'));
+```
+
+
 
 ### 10. The Context API & useContext Hook Part I
 
+Tách file
+
+reducer/notes.js
+
+```js
+const notesReducer = (state, action) => {
+    switch (action.type) {
+        case 'POPULATE_NOTES':
+            return action.notes
+        case 'ADD_NOTE':
+            return [
+                ...state,
+                { title: action.title, body: action.body }
+            ]
+        case 'REMOVE_NOTE':
+            return state.filter((note) => note.title !== action.title)
+        default:
+            return state
+    }
+}
+
+export { notesReducer as default }
+```
+
+NoteList.js
+
+```js
+import React from 'react'
+import Note from './Note'
+
+const NoteList = ({ notes, removeNote }) => {
+    return notes.map((note) => (
+        <Note key={note.title} note={note} removeNote={removeNote} />
+    ))
+}
+
+export { NoteList as default }
+```
+
+NoteApp.js
+
+```js
+import React, { useState, useEffect, useReducer } from 'react'
+import notesReducer from '../reducers/notes'
+import NoteList from './NoteList'
+import AddNoteForm from './AddNoteForm'
+
+const NoteApp = () => {
+    const [notes, dispatch] = useReducer(notesReducer, [])
+
+    const removeNote = (title) => {
+        dispatch({
+            type: 'REMOVE_NOTE',
+            title
+        })
+    }
+
+    useEffect(() => {
+        const notes = JSON.parse(localStorage.getItem('notes'))
+
+        if (notes) {
+            dispatch({ type: 'POPULATE_NOTES', notes })
+        }
+    }, [])
+
+    useEffect(() => {
+        localStorage.setItem('notes', JSON.stringify(notes))
+    }, [notes])
+
+    return (
+        <div>
+            <h1>Notes</h1>
+            <NoteList notes={notes} removeNote={removeNote}/>
+            <AddNoteForm dispatch={dispatch}/>
+        </div>
+    )
+}
+
+export { NoteApp as default }
+```
+
+AddNoteForm.js
+
+```js
+import React, { useState } from 'react'
+
+const AddNoteForm = ({ dispatch }) => {
+    const [title, setTitle] = useState('')
+    const [body, setBody] = useState('')
+
+    const addNote = (e) => {
+        e.preventDefault()
+        dispatch({
+            type: 'ADD_NOTE',
+            title,
+            body
+        })
+        setTitle('')
+        setBody('')
+    }
+
+    return (
+        <div>
+            <p>Add note</p>
+            <form onSubmit={addNote}>
+                <input value={title} onChange={(e) => setTitle(e.target.value)} />
+                <textarea value={body} onChange={(e) => setBody(e.target.value)}></textarea>
+                <button>add note</button>
+            </form>
+        </div>
+    )
+}
+
+export { AddNoteForm as default }
+```
+
+
+
 ### 11. The Context API & useContext Hook Part II
+
+notes-context.js
+
+```js
+import React from 'react'
+
+const NotesContext = React.createContext()
+
+export { NotesContext as default }
+```
+
+NoteApp.js
+
+```js
+
+import NotesContext from '../context/notes-context'
+
+// add
+    return (
+        <NotesContext.Provider value={{ notes, dispatch }}>
+            <h1>Notes</h1>
+            <NoteList/>
+            <AddNoteForm/>
+        </NotesContext.Provider>
+    )
+}
+
+export { NoteApp as default }
+```
+
+NoteList
+
+```js
+import React, { useContext } from 'react'
+import Note from './Note'
+import NotesContext from '../context/notes-context'
+
+const NoteList = () => {
+    const { notes } = useContext(NotesContext)
+
+    return notes.map((note) => (
+        <Note key={note.title} note={note}/>
+    ))
+}
+
+export { NoteList as default }
+```
+
+Note.js
+
+```js
+import React, { useContext } from 'react'
+import NotesContext from '../context/notes-context'
+
+const Note = ({ note }) => {
+    const { dispatch } = useContext(NotesContext)
+
+    return (
+        <div>
+            <h3>{note.title}</h3>
+            <p>{note.body}</p>
+            <button onClick={() => dispatch({ type: 'REMOVE_NOTE', title: note.title })}>x</button>
+        </div>
+    )
+}
+
+export { Note as default }
+```
+
+AddNoteForm
+
+```js
+
+const AddNoteForm = () => {
+    const { dispatch } = useContext(NotesContext)
+```
+
+
 
 ### 12. Fragments
 
+AddNoteForm
+
+```js
+
+    return (
+        <>
+            <p>Add note</p>
+            <form onSubmit={addNote}>
+                <input value={title} onChange={(e) => setTitle(e.target.value)} />
+                <textarea value={body} onChange={(e) => setBody(e.target.value)}></textarea>
+                <button>add note</button>
+            </form>
+        </>
+    )
+```
+
+
+
 ### 13. Creating Custom Hooks
+
+useMousePosition.js
+
+```js
+import {useState, useEffect} from 'react'
+
+const useMousePosition = () => {
+    const [position, setPosition] = useState({ x: 0, y: 0 })
+// run first time khi nào add note
+    useEffect(() => {
+        const handleMouseMove = (e) => {
+            setPosition({
+                x: e.pageX,
+                y: e.pageY
+            })
+        }
+
+        document.addEventListener('mousemove', handleMouseMove)
+
+        return () => {
+            document.removeEventListener('mousemove', handleMouseMove)
+        }
+    }, [])
+
+    return position
+}
+
+export { useMousePosition as default }
+```
+
+Note.js
+
+```js
+
+const Note = ({ note }) => {
+    const { dispatch } = useContext(NotesContext)
+    const position = useMousePosition()
+
+    return (
+        <div>
+            <h3>{note.title}</h3>
+            <p>{note.body}</p>
+            <p>{position.x}, {position.y}</p>
+            <button onClick={() => dispatch({ type: 'REMOVE_NOTE', title: note.title })}>x</button>
+        </div>
+    )
+}
+```
+
