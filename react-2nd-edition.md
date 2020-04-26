@@ -5707,7 +5707,7 @@ https://help.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-
 
 ![image-20200418102713217](./react-2nd-edition.assets/image-20200418102713217.png)
 
-# Adding a new SSH key to your GitHub account
+### Adding a new SSH key to your GitHub account
 
 To configure your GitHub account to use your new (or existing) SSH key, you'll also need to add it to your GitHub account.
 
@@ -5772,7 +5772,7 @@ After adding a new SSH key to your GitHub account, you can reconfigure any local
 
 https://help.github.com/en/github/authenticating-to-github/testing-your-ssh-connection
 
-# Testing your SSH connection
+### Testing your SSH connection
 
 1. Open Git Bash.
 
@@ -8350,6 +8350,94 @@ npm run dev-server
 ## 18. What Now
 ### 1. Section Into What Now
 ### 2. Creating the Final Boilerplate
+
+xóa action/expenses.js và filter.js và file test 
+
+Xóa playground, selector folder and 
+
+![image-20200426145741937](./react-2nd-edition.assets/image-20200426145741937.png)  
+
+DashboardPage.js
+
+```js
+import React from 'react';
+
+const DashboardPage = () => (
+  <div>
+    Dashboard page content
+  </div>
+);
+
+export default DashboardPage;
+
+```
+
+AppRouter.js
+
+```js
+
+export const history = createHistory();
+
+const AppRouter = () => (
+  <Router history={history}>
+    <div>
+      <Switch>
+        <PublicRoute path="/" component={LoginPage} exact={true} />
+        <PrivateRoute path="/dashboard" component={DashboardPage} />
+        <Route component={NotFoundPage} />
+      </Switch>
+    </div>
+  </Router>
+);
+```
+
+configureStore.js
+
+```js
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
+import authReducer from '../reducers/auth';
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+export default () => {
+  const store = createStore(
+    combineReducers({
+      auth: authReducer
+    }),
+    composeEnhancers(applyMiddleware(thunk))
+  );
+
+  return store;
+};
+
+```
+
+Sửa dashboard test
+
+app.js
+
+```js
+
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    store.dispatch(login(user.uid));
+    renderApp();
+    if (history.location.pathname === '/') {
+      history.push('/dashboard');
+    }
+  } else {
+    store.dispatch(logout());
+    renderApp();
+    history.push('/');
+  }
+});
+```
+
+npm run test
+
+ https://github.com/andrewjmead/react-course-2-boilerplate
+
 ### 3. Budget App Enhancements
 ### 4. Indecision App Enhancements
 ### 5. New App Idea Blog
@@ -8357,6 +8445,14 @@ npm run dev-server
 ## 19. [New!] Hooks, Context, Fragments, and More
 ### 1. Section Intro
 ### 2. Using Create React App
+
+```shell
+npm i -g create-react-app
+create-react-app react-new-feature
+```
+
+file manifest.json: create a progressive application
+
 ### 3. The useState Hook
 ### 4. useState vs. setState
 ### 5. Complex State with useState
