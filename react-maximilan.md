@@ -753,6 +753,8 @@ https://jsbin.com/komifafifu/edit?js,console
 
 Class kế thừa trong constructor phải có super(); nếu không sẽ báo lỗi
 
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/constructor
+
 ![](./root/img/2020-01-19-15-50-03.png)
 
 Cú pháp mới không cần constructor:
@@ -1134,22 +1136,22 @@ https://quoctuan.info/bai-02-cau-truc-ung-dung-co-trong-reactjs.1.2.html
 ### 4.1 ide-setup.pdf.pdf
 
 **Editor / IDE Setup**
-My Setup
-In this course, I use Microsoﬞ Visual Studio Code which is a great free-to-use Web Development IDE.
-It’s a different IDE than Microsoﬞ Visual Studio - don’t mix them up. The laמּer is NOT free and also not as suited for JavaScript Web Development as Visual
-Studio Code is.
+My Setup  
+In this course, I use Microsoﬞ Visual Studio Code which is a great free-to-use Web Development IDE.  
+It’s a different IDE than Microsoﬞ Visual Studio - don’t mix them up. The laמּer is NOT free and also not as suited for JavaScript Web Development as Visual 
+Studio Code is.  
 If you just installed VS Code, it’s going to look different than in my videos. That’s because I’m using a different theme and icons. In general, you can install a lot
-of free extensions for VS Code to customise it to your needs and requirements (both visually as well as from the functionality offered).
-• Theme: Dark+ (default theme, no extension required)
+of free extensions for VS Code to customise it to your needs and requirements (both visually as well as from the functionality offered).  
+• Theme: Dark+ (default theme, no extension required)  
 • Icons: Material Icons (extension: hמּps://marketplace.visualstudio.com/
-items?itemName=PKief.material-icon-theme)
-Feel free to browse the extension marketplace for more useful extensions!
-**Alternatives**
+items?itemName=PKief.material-icon-theme)  
+Feel free to browse the extension marketplace for more useful extensions!  
+**Alternatives ** 
 If you don’t want to use VS Code but also don’t have you favourite IDE/ editor,
-here are the common alternatives:
-• Webstorm: hמּps://www.jetbrains.com/webstorm/ (not free)
-• Sublime Text: hמּps://www.sublimetext.com/ (free unlimited trial)
-• Atom: hמּps://atom.io/ (free)
+here are the common alternatives:  
+• Webstorm: hמּps://www.jetbrains.com/webstorm/ (not free)  
+• Sublime Text: hמּps://www.sublimetext.com/ (free unlimited trial)  
+• Atom: hמּps://atom.io/ (free)  
 
 ### 5. Understanding Component Basics
 
@@ -1689,7 +1691,7 @@ onToggle
 
 ### 18. Manipulating the State
 
-Sẽ overwrite old state to new state, merge
+Sẽ overwrite old state to new state nếu là func component
 
 Nếu là class thì sẽ merge vào và ngược lại
 
@@ -2207,6 +2209,8 @@ nameChangedHandler = (event, id) => {
 Call
 `changed={(event) => this.nameChangedHandler(event, person.id)}`
 
+![image-20200526172527135](react-maximilan.assets/image-20200526172527135.png)
+
 ### 10. Wrap Up
 
 ### 11. Time to Practice - Lists & Conditionals.html
@@ -2530,6 +2534,8 @@ Person.css
     }
 } */
 ```
+
+> `> 500px thì width của person sẽ là 450`
 
 Tại file app.js wrap by StyleRoot
 
@@ -3104,7 +3110,8 @@ Side effect: mean call something like https or store somethings in local storage
 Now the word side effect is relatively abstract, in the end it means things like sending a HTTP request or storing something in your local storage of the browser or sending some analytics to Google analytics.
 You don't really want to do things like that in the constructor because that can impact performance and cause unnecessary re-render cycles which of course are pretty bad and you want to avoid
 
-getDiverStateFromProps that is lifecycle hook from react 16.3, the idea is whenever props change
+getDiverStateFromProps that is lifecycle hook from react 16.3, the idea is whenever props change  
+
 ![](./root/img/2020-01-24-16-10-26.png)
 
 ### 7. Component Creation Lifecycle in Action
@@ -3121,6 +3128,7 @@ App.js
     console.log('[App.js] getDerivedStateFromProps', props);
     return state;
   }
+
 // rare
 componentWillMount() {
     console.log('[App.js] componentWillMount');
@@ -3395,7 +3403,7 @@ Add state showCockpit and add button to remove the cockpit
 
 ### 13. Cleanup Work with useEffect() - Ex
 
-Clear timer neu k se nhin thay alert khi click button remove
+Clear timer neu k se nhin thay alert khi click button remove mà nó chỉ nên xuất hiện lần đầu khi reload thôi
 clearTimeout(timer)
 
 ```js
@@ -3418,7 +3426,7 @@ useEffect(() => {
 
 Bấm vào button toggle và sau đó xóa Cockpit sẽ không render lại Persons(xem log)
 
-Person.js
+Persons.js
 
 ```js
 shouldComponentUpdate(nextProps, nextState) {
@@ -4403,12 +4411,12 @@ export default cockpit;
 
 Cố gắng create nhiều functional component càng nhiều càng tốt bởi vì these component have a narow focus and clear responsibility => present something
 
- you should try to create functional components as often as possible 
-Why?
-Because these components have a narrow focus and a clear responsibility, 
-they are only about presenting something, they are about rendering jsx and they contain some logic to display the jsx correctly, for example by adding some css classes as we do here in the cockpit component.
+ you should try to create functional components as often as possible   
+Why?  
+Because these components have a narrow focus and a clear responsibility,   
+they are only about presenting something, they are about rendering jsx and they contain some logic to display the jsx correctly, for example by adding some css classes as we do here in the cockpit component.  
 
-Khi ứng dụng lớn => vấn đề về manage state, quản lý state từng component khó track
+Khi ứng dụng lớn => vấn đề về manage state, quản lý state từng component khó track  
 
 ![image-20200217230951177](./react-maximilan.assets/image-20200217230951177.png)
 
@@ -4595,7 +4603,47 @@ export default App;
 
 ![image-20200217233410546](./react-maximilan.assets/image-20200217233410546.png)
 
-thêm các hàm ở Person.js
+thêm các hàm ở Person.js  
+
+Person.js
+
+```js
+import React, { Component } from 'react';
+
+import Person from './Person/Person';
+
+class Persons extends Component {
+    // add
+    constructor( props ) {
+        super( props );
+        console.log( '[Persons.js] Inside Constructor', props );
+    }
+
+    componentWillMount () {
+        console.log( '[Persons.js] Inside componentWillMount()' );
+    }
+
+    componentDidMount () {
+        console.log( '[Persons.js] Inside componentDidMount()' );
+    }
+
+    render () {
+        console.log( '[Persons.js] Inside render()' );
+        return this.props.persons.map( ( person, index ) => {
+            return <Person
+                click={() => this.props.clicked( index )}
+                name={person.name}
+                age={person.age}
+                key={person.id}
+                changed={( event ) => this.props.changed( event, person.id )} />
+        } );
+    }
+}
+
+export default Persons;
+```
+
+
 
 ![image-20200217233546090](./react-maximilan.assets/image-20200217233546090.png)
 
@@ -5584,6 +5632,8 @@ Từ react 16.3 nên tránh sử dụng componentWillUpdate, componentWillMount,
 App.js
 
 ```js
+
+// add static
 static getDerivedStateFromProps(nextProps, prevState) {
     console.log(
       "[UPDATE App.js] Inside getDerivedStateFromProps",
