@@ -5702,6 +5702,8 @@ Xem lại
 
 ### 6. Setting up the Project
 
+![image-20200527010828713](react-maximilan.assets/image-20200527010828713.png)
+
 enable css modules: npm run eject
 
 Vào google font, Vào tab CUSTOMIZE chọn bold
@@ -6095,6 +6097,8 @@ export default burger;
 
 \_ : không care about itself
 
+![image-20200527011530073](react-maximilan.assets/image-20200527011530073.png)
+
 ### 13. Calculating the Ingredient Sum Dynamically
 
 ![image-20200222131833225](./react-maximilan.assets/image-20200222131833225.png)
@@ -6322,9 +6326,14 @@ document.getElementById("demo").innerHTML = "The car type is " + sum[0];
 </body>
 </html>
 // test
+// The car type is Fiat
+
+
 ```
 
 ### 16. Connecting State to Build Controls
+
+![image-20200527083937849](react-maximilan.assets/image-20200527083937849.png)
 
 BurgerBuilder.js
 
@@ -6460,6 +6469,8 @@ Khi thêm hay bớt nhớ thêm hàm này vào và truyền vào trong
 
 ### 20. Creating the Order Summary Modal
 
+![image-20200527085701136](react-maximilan.assets/image-20200527085701136.png)
+
 Add folder UI/
 
 Backdrop.js, css create new in session 22
@@ -6566,6 +6577,12 @@ export default orderSummary;
 ![image-20200303210745211](./react-maximilan.assets/image-20200303210745211.png)
 
 ### 21. Showing & Hiding the Modal (with Animation!)
+
+Khi ấn button ORDER ở Build Controls mới hiện
+
+![image-20200527090113964](react-maximilan.assets/image-20200527090113964.png)  
+
+
 
 Add BurgerBuilder.js add purchasing
 
@@ -6768,6 +6785,10 @@ BurgerBuilder.js thêm total
 ```
 
 ### 26. Adding a Toolbar
+
+![image-20200527093738536](react-maximilan.assets/image-20200527093738536.png)  
+
+
 
 Add components/Navigation/
 
@@ -7712,7 +7733,7 @@ The Firebase Database console - which we'll see in the next lecture - changed vi
 
 ![image-20200222225849287](./react-maximilan.assets/image-20200222225849287.png)
 
-Click Go to console
+Click Go to console, chose add project
 
 ![image-20200222230548393](./react-maximilan.assets/image-20200222230548393.png)
 
@@ -7724,9 +7745,21 @@ Database
 
 Vào database thêm /rules
 
+![image-20200527140516518](react-maximilan.assets/image-20200527140516518.png)  
+
+
+
+![image-20200527141215182](react-maximilan.assets/image-20200527141215182.png)  
+
+
+
 ![image-20200222232009009](./react-maximilan.assets/image-20200222232009009.png)
 
-Set rules là true rồi chọn PUBLISH; có thể set là "true " đặt trong dấu ""
+Set rules là true rồi chọn PUBLISH; có thể set là "true " đặt trong dấu ""  
+
+https://console.firebase.google.com/u/0/project/react-burger-d285d/database/react-burger-d285d/rules
+
+
 
 ### 4. Creating the Axios Instance
 
