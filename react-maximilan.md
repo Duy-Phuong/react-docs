@@ -3332,9 +3332,9 @@ useEffect(() => {
 // Nếu để là [] nó sẽ chạy lần đầu khi load để ấn button còn các lần sau sẽ không hiển thị nữa
 ```
 
-Tham số thứ 2: nếu không có khi ta reload hay ấn button hay xóa person sẽ alert
+Tham số thứ 2: nếu không có khi ta reload hay ấn button toggle hay xóa person sẽ alert
 
-[props.persons] : second arguments is point to all variable or all data use in that actually are used in your effect
+[props.persons] : second arguments is point to all variable or all data use in that actually are used in your effect => xóa hay sửa mới alert còn ấn toggle nó sẽ không hiện alert
 
 Có thể SD cùng lúc nhiều hàm useEffect
 
@@ -3500,7 +3500,7 @@ if you wrap all your components with such checks and let's say 60% of your compo
 
 ### 17. PureComponents instead of shouldComponentUpdate
 
-Person.js
+Persons.js
 
 ```js
 // shouldComponentUpdate(nextProps, nextState) {
@@ -4709,7 +4709,7 @@ componentWillReceiveProps ( nextProps ) {
     shouldComponentUpdate ( nextProps, nextState ) {
         console.log( '[UPDATE Persons.js] Inside shouldComponentUpdate', nextProps, nextState );
         return nextProps.persons !== this.props.persons;
-        // Neu delete return false => wil not update real DOM
+        // Neu delete return false => will not update real DOM
     }
 
     componentWillUpdate ( nextProps, nextState ) {
@@ -5685,6 +5685,10 @@ Towards the end of the course, we'll have an entire module where we convert it t
 ### 2. Module Introduction
 
 Build a burger app
+
+![image-20200531173304289](react-maximilan.assets/image-20200531173304289.png)  
+
+
 
 ### 3. Planning an App in React - Core Steps
 
@@ -8653,6 +8657,8 @@ Posts.js comment
 
 ```js
 postSelectedHandler = ( id ) => {
+    	// xóa         this.setState({selectedPostId: id});
+    	// replace by 
         // this.props.history.push({pathname: '/' + id});
         this.props.history.push( '/' + id );
     }
@@ -8938,7 +8944,7 @@ Webpack will to prepare extra bundle for this potentially loaded code
 
 ![image-20200223134303260](./react-maximilan.assets/image-20200223134303260.png)
 
-Sau đó thay cho NewPost trong Route tag => load asyn chỉ cs thêm 1 file chunk load thêm
+Sau đó thay cho NewPost trong Route tag => load asyn chỉ có thêm 1 file chunk load thêm
 
 ```js
 import React, { Component } from 'react';
@@ -9051,7 +9057,7 @@ class App extends Component {
       //     <Route path="/" component={Welcome} exact />
       //     <Route path="/user" component={User} />
 
-// ----------------- add ---------------
+	  // ----------------- add ---------------
       //     <Route
       //       path="/posts"
       //       render={() => (
@@ -9163,6 +9169,10 @@ export default checkoutSummary;
 ```
 
 Vào file app.js thêm Checkout tag
+
+![image-20200531080524478](react-maximilan.assets/image-20200531080524478.png)  
+
+![image-20200310234634644](./react-maximilan.assets/image-20200310234634644.png)
 
 ### 3. Setting Up Routing & Routes
 
@@ -9536,7 +9546,7 @@ class Checkout extends Component {
     }
 ```
 
-Khi ấn ORDER post ok tại file ContactData
+Khi ấn ORDER post ok tại file ContactData sẽ về trang chủ
 
 ### 9. Adding an Orders Page
 
@@ -9747,7 +9757,7 @@ import classes from "./Input.css";
 const input = props => {
   let inputElement = null;
 
-  // Nếu để inputType nó sẽ báo error vì react 16
+  // Nếu để inputType(viết hoa) nó sẽ báo error vì react 16
   switch (props.inputtype) {
     case "input":
       inputElement = <input className={classes.InputElement} {...props} />;
@@ -11582,6 +11592,7 @@ updatePurchaseState ( ingredients ) {
             .reduce( ( sum, el ) => {
                 return sum + el;
             }, 0 );
+    // xoa this.setState( { purchasable: sum > 0 } );
     // modify return
         return sum > 0;
     }
@@ -12373,7 +12384,7 @@ class BurgerBuilder extends Component {
         purchasing: false
     }
 
-// Xóa vì k SD code asyn trongd đây
+// Xóa vì k SD code asyn trong đây
 // delete start
 /*
 	if ( this.state.loading ) {
@@ -13348,7 +13359,19 @@ Copy web api key
 
 Whether or not to return an ID and refresh token. Should always be true
 
-![image-20200314174735421](./react-maximilan.assets/image-20200314174735421.png)
+![image-20200314174735421](./react-maximilan.assets/image-20200314174735421.png)  
+
+data was added
+
+![image-20200531215305694](react-maximilan.assets/image-20200531215305694.png)  
+
+If pass error
+
+![image-20200531215405545](react-maximilan.assets/image-20200531215405545.png)  
+
+![image-20200531215418924](react-maximilan.assets/image-20200531215418924.png)  
+
+localId là userId
 
 ### 7. Adding Sign-In
 
@@ -13542,6 +13565,10 @@ axios
 
 Vd: invalid email or email exist, xem thêm err in docs firebase
 
+![image-20200531220153375](react-maximilan.assets/image-20200531220153375.png)  
+
+
+
 ### 10. Logging Users Out
 
 action/auth.js
@@ -13557,7 +13584,7 @@ export const checkAuthTimeout = expirationTime => {
   return dispatch => {
     setTimeout(() => {
       dispatch(logout());
-    }, expirationTime * 1000); // ms 3.6s
+    }, expirationTime * 1000); // vì đơn vị là s nên t: 3600s => convert to ms 3600 * 1000 ms
   };
 };
 ```
@@ -13822,12 +13849,13 @@ const navigationItems = props => (
 export default navigationItems;
 ```
 
-container/Auth/Auth.js xem lại video chỗ check Redirect có khác
+container/Auth/Auth.js xem lại video chỗ check Redirect có khác("/")
 
 ```js
 // add
         let authRedirect = null;
         if (this.props.isAuthenticated) {
+            // redirect to /
             authRedirect = <Redirect to={this.props.authRedirectPath}/>
         }
 // add end
@@ -13962,6 +13990,7 @@ Auth.js
 ```js
 let authRedirect = null;
 if (this.props.isAuthenticated) {
+   // xóa authRedirect = <Redirect to="/" />;
   // redirect
   authRedirect = <Redirect to={this.props.authRedirectPath} />;
 }
@@ -14045,6 +14074,14 @@ const mapDispatchToProps = dispatch => {
     }
 }
 ```
+
+Khi log in sẽ có token => purchasing = true mới có thể thấy order summary Ngược lại thì sign up to order về trang chủ
+
+Login xong ta log out => mất token => về page auth và push "checkout" để nếu log in xong sẽ đi thẳng đến page checkout
+
+`  onInitPurchase: () => dispatch(actions.purchaseInit()),` : để vào được page checkout k bị redirect có purchased
+
+
 
 ### 16. Persistent Auth State with localStorage
 
