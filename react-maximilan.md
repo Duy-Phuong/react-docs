@@ -14140,16 +14140,22 @@ export const authCheckState = () => {
 
 Document firebase có get user info khi truyền vào user id
 
+![image-20200601010244675](react-maximilan.assets/image-20200601010244675.png)  
+
+
+
 App.js
 
 ```js
 
 class App extends Component {
+    // add
   componentDidMount () {
     this.props.onTryAutoSignup();
   }
 
 ...
+// add
 
 const mapStateToProps = state => {
   return {
@@ -14170,17 +14176,25 @@ withRouter will enforce your props pass down component
 
 ### 17. Fixing Connect + Routing Errors
 
-Khi log in reload page
+Khi log in rồi reload page thì sẽ tư động log in lại
 
 ![image-20200315074911458](./react-maximilan.assets/image-20200315074911458.png)
 
 if (expirationDate <= new Date())
 
-![image-20200315075149626](./react-maximilan.assets/image-20200315075149626.png)
+![image-20200315075149626](./react-maximilan.assets/image-20200315075149626.png)  
+
+Sửa đoạn `dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000 ));` thay sửa getSeconds thành getTime fix lỗi
 
 ### 18. Ensuring App Security
 
-![image-20200315080511543](./react-maximilan.assets/image-20200315080511543.png)
+![image-20200315080511543](./react-maximilan.assets/image-20200315080511543.png)  
+
+Lưu ý ta có thể lấy được refresh token và từ đó có thể get được id token
+
+![image-20200601012627423](react-maximilan.assets/image-20200601012627423.png)  
+
+
 
 ![image-20200315080610923](./react-maximilan.assets/image-20200315080610923.png)
 
@@ -14201,6 +14215,10 @@ https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=[AP
 ```
 
 có thể get refresh token => not use
+
+It's also safe because we can store the refresh token in local storage and as I mentioned, this is only accessible with cross-site scripting attacks.
+
+Still, having a token which never expires and which you can exchange for a token which gives you access to everything could lead to security issues or at least you should be very careful about protecting it if you are using the refresh token.
 
 ### 19. Guarding Routes
 
@@ -14294,7 +14312,11 @@ componentDidMount () {
 
 ```
 
-![image-20200315084515002](./react-maximilan.assets/image-20200315084515002.png)
+![image-20200315084515002](./react-maximilan.assets/image-20200315084515002.png)  
+
+![image-20200601013918270](react-maximilan.assets/image-20200601013918270.png)  
+
+Sau đó ấn publish
 
 ### 21. Wrap Up
 
@@ -14309,13 +14331,33 @@ componentDidMount () {
 
 ### 2. Fixing the Redirect to the Frontpage
 
-reducer/ order.js
+reducer/ order.js sửa loading từ false sang true
 
 ```js
 const fetchOrdersStart = (state, action) => {
   return updateObject(state, { loading: true });
 };
 ```
+
+App.js
+
+```js
+if ( this.props.isAuthenticated ) {
+      routes = (
+        <Switch>
+          <Route path="/checkout" component={asyncCheckout} />
+          <Route path="/orders" component={asyncOrders} />
+          <Route path="/logout" component={Logout} />
+              // add auth
+          <Route path="/auth" component={asyncAuth} />
+          <Route path="/" exact component={BurgerBuilder} />
+          <Redirect to="/" />
+        </Switch>
+      );
+    }
+```
+
+Khi orders rồi login bị redirect to home page
 
 CheckoutSummary.css
 
@@ -14325,11 +14367,14 @@ CheckoutSummary.css
     width: 80%;
     margin: auto;
 }
+// xóa phần dưới đi chỉ để lại phần này
 ```
 
-Để auto center for Burger
+Để auto center for Burger khi < 500px sẽ không bị lệch nữa  
 
-Should close SideBar when click in link
+Should close SideBar when click in link orders in SideDrawer  
+
+![image-20200601015741174](react-maximilan.assets/image-20200601015741174.png)  
 
 SideDrawer.js
 
@@ -14540,6 +14585,10 @@ const asyncAuth = asyncComponent(() => {
 ### 5. Writing our First Test
 
 npm install enzyme và jest
+
+`npm install --save jest react-test-renderer enzyme-adpter-react-16` 
+
+
 
 ### 6. Testing Components Continued
 
