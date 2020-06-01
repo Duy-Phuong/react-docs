@@ -14588,7 +14588,61 @@ npm install enzyme và jest
 
 `npm install --save jest react-test-renderer enzyme-adpter-react-16` 
 
+NavigationItems.test.js
 
+```js
+import React from 'react';
+
+import { configure, shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+import NavigationItems from './NavigationItems';
+import NavigationItem from './NavigationItem/NavigationItem';
+
+configure({adapter: new Adapter()});
+
+describe('<NavigationItems />', () => {
+    let wrapper;
+
+    beforeEach(() => {
+        wrapper = shallow(<NavigationItems />);
+    });
+
+    it('should render two <NavigationItem /> elements if not authenticated', () => {
+        expect(wrapper.find(NavigationItem)).toHaveLength(2);
+    });
+
+    it('should render three <NavigationItem /> elements if authenticated', () => {
+        // wrapper = shallow(<NavigationItems isAuthenticated />);
+        wrapper.setProps({isAuthenticated: true});
+        expect(wrapper.find(NavigationItem)).toHaveLength(3);
+    });
+
+    it('should an exact logout button', () => {
+        wrapper.setProps({isAuthenticated: true});
+        expect(wrapper.contains(<NavigationItem link="/logout">Logout</NavigationItem>)).toEqual(true);
+    });
+});
+```
+
+The first important method is the describe method, you don't need to import it in that file,
+
+it will automatically be made available in our create react app project once we run the test command. Describe is a function that takes two arguments, the first is just a description of the test bundle  
+
+Enzyme allows us to just render this navigation items component standalone independent of the entire other react application,
+
+Shallow is the most popular or the best way of rendering react components in many circumstances,  
+
+enzyme offers two alternatives which I'll also point you to later but shallow is the one you should use as often as possible because one thing shallow does is it renders the component with all its content but the content isn't deeply rendered.  
+So the navigation items component here has navigation item components but these are only rendered as placeholders,
+
+the content of them isn't rendered and that of course again is important for creating isolated tests where we don't then render a whole sub tree of components,  
+
+we just want to render this component and know what's inside of it without rendering everything which is nested inside its included components.
+
+`npm run test` hay `npm test`
+
+![image-20200601023015217](react-maximilan.assets/image-20200601023015217.png)  
 
 ### 6. Testing Components Continued
 
@@ -14598,7 +14652,79 @@ npm install enzyme và jest
 
 ### 9. Testing Containers
 
+BurgerBuilder.test.js
+
+```js
+import React from 'react';
+
+import { configure, shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+import { BurgerBuilder } from './BurgerBuilder';
+import BuildControls from '../../components/Burger/BuildControls/BuildControls';
+
+configure({adapter: new Adapter()});
+
+describe('<BurgerBuilder />', () => {
+    let wrapper;
+    
+    beforeEach(() => {
+        // vì componentDidMount có call
+        wrapper = shallow(<BurgerBuilder onInitIngredients={() => {}}/>);
+    });
+
+    it('should render <BuildControls /> when receiving ingredients', () => {
+        wrapper.setProps({ings: {salad: 0}});
+        expect(wrapper.find(BuildControls)).toHaveLength(1);
+    });
+});
+```
+
+
+
 ### 10. How to Test Redux
+
+auth.test.js
+
+```js
+import reducer from './auth';
+import * as actionTypes from '../actions/actionTypes';
+
+describe('auth reducer', () => {
+    it('should return the initial state', () => {
+        expect(reducer(undefined, {})).toEqual({
+            token: null,
+            userId: null,
+            error: null,
+            loading: false,
+            authRedirectPath: '/'
+        });
+    });
+
+    it('should store the token upon login', () => {
+        expect(reducer({
+            token: null,
+            userId: null,
+            error: null,
+            loading: false,
+            authRedirectPath: '/'
+        }, { 
+            type: actionTypes.AUTH_SUCCESS,
+            idToken: 'some-token',
+            userId: 'some-user-id'
+         })).toEqual({
+            token: 'some-token',
+            userId: 'some-user-id',
+            error: null,
+            loading: false,
+            authRedirectPath: '/'
+        });
+    })
+});
+
+```
+
+
 
 ### 11. Wrap Up
 
@@ -14623,17 +14749,37 @@ Bây giờ bạn sẽ có build folder
 
 ### 4. Example Deploying on Firebase
 
-![image-20200315143502000](./react-maximilan.assets/image-20200315143502000.png)
+![image-20200315143502000](./react-maximilan.assets/image-20200315143502000.png)  
 
-npm install -g firebase-tools
+![image-20200601082728506](react-maximilan.assets/image-20200601082728506.png)  
+
+`npm install -g firebase-tools`
 
 ![image-20200315143655433](./react-maximilan.assets/image-20200315143655433.png)
+
+`firebase init` check hosting
+
+![image-20200601083945845](react-maximilan.assets/image-20200601083945845.png)  
+
+![image-20200601084056551](react-maximilan.assets/image-20200601084056551.png)  
+
+![image-20200601084128633](react-maximilan.assets/image-20200601084128633.png)  
+
+![image-20200315143910218](./react-maximilan.assets/image-20200315143910218.png)  
+
+
 
 Khi init nhớ chọn hosting, ấn space to select
 
 Khi hỏi do you want to use publuc dir? **build**
 
-![image-20200315143910218](./react-maximilan.assets/image-20200315143910218.png)
+SInh ra 2 file .firebaserc and firebase.json
+
+`firebase deloy`
+
+![image-20200601084357400](react-maximilan.assets/image-20200601084357400.png)  
+
+link URL
 
 https://morioh.com/p/66918873ff30?fbclid=IwAR3uKX8cy8_ogYFPnBmNqllqlmS6zuAN-7sK6nEjHfHtVa72rZI5sz6iW3k
 
