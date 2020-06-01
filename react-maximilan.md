@@ -14930,9 +14930,21 @@ ReactDOM.render(app, document.getElementById("root"));
 
 ### 9. Installing Production Dependencies
 
-npm install --save react-dom react-router-dom
+`npm install --save react react-dom react-router-dom`
 
 ### 10. Setting Up the Basic Webpack Config
+
+package.json
+
+```json
+"scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server",
+    "build": "rimraf dist && webpack --config webpack.prod.config.js --progress --profile --color"
+  },
+```
+
+
 
 webpack.config.js
 
@@ -14942,7 +14954,7 @@ const autoprefixer = require("autoprefixer");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  devtool: "cheap-module-eval-source-map",
+  devtool: "cheap-module-eval-source-map",  // for development get source map easy debug
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -15004,7 +15016,20 @@ module.exports = {
 };
 ```
 
+So here it should be the root folder so public path is just an empty string which means you store the files in a specific folder and you don't need to adjust any imports or adjust for anything, the file structure, the folder structure will be the folder structure as we deployed in the end  
+
+The path object here has a resolve method which allows us to generate an absolute path in the end, here we can pass a special variable which we have available in node systems and webpack will use node behind the scenes,
+
+so it will have access to that variable, it's __dirname and it refers to the directory
+
+this is running and then the second argument to resolve is the folder where we want to create it and resolve will then create an absolute path taking the full path to the current folder on our operating system and appending dist,
+
 ### 11. Adding File Rules
+
+That takes a javascript object and there we can resolve some extensions, so we can basically tell webpack that it should be aware of certain extensions
+and if it encounters an import without an extension, it should try these extensions and see if it finds a file of one of these.
+
+So that's an array of possible extensions and I want to support .js and .jsx here so that it will see if it finds a file with that extension if no extension is defined, that's one important thing.
 
 ### 12. Introducing Babel
 
@@ -15033,6 +15058,16 @@ npm install --save-dev babel-loader babel-core babel-preset-react babel-preset-e
 ```
 
 targets: which browser version I want to support
+
+https://github.com/browserslist/browserslist 
+
+### Query Composition
+
+An `or` combiner can use the keyword `or` as well as `,`. `last 1 version or > 1%` is equal to `last 1 version, > 1%`.
+
+`and` query combinations are also supported to perform an intersection of the previous query: `last 1 version and > 1%`.
+
+There is 3 different ways to combine queries as depicted below. First you start with a single query and then we combine the queries to get our final list.
 
 ### 13. Adding CSS File Support
 
@@ -15117,7 +15152,9 @@ package.json
 
 `npm run build` : sau đó vào folder dist xem nhưng file quá dài => xóa tạo file mới
 
-webpack.prod.config.js
+Ban đầu build : "webpack"
+
+webpack.prod.config.js new file
 
 ```js
 const path = require("path");
@@ -15329,7 +15366,46 @@ Github repo tại đây : [webpack-4-quickstart](https://github.com/valentinogag
 
 ### 19. Adding babel-polyfill.html
 
+The current setup won't support all browsers theoretically supported by React. Features like Promises and `Object.assign()` are missing in older browsers - especially in IE of course.
+
+If you need to support these browsers, you need to add a polyfill (a package which provides these features for older browsers). `babel-polyfill` is a great and easy-to-use choice.
+
+Add it like this:
+
+```
+npm install --save babel-polyfill
+```
+
+Add the following import to the top of your index.js file:
+
+```
+import 'babel-polyfill';
+```
+
+Change the config of your `env` babel preset in the `.babelrc` file: 
+
+```
+"presets": [
+    ["env", {
+        "targets": {
+            "browsers": [
+                "> 1%",
+                "last 2 versions"
+            ]
+        },
+        "useBuiltIns": "entry"
+     }],
+     "stage-2",
+     "react"
+ ],
+```
+
+`useBuiltIns` was added and by setting it to `'entry'` , the import in the `index.js` file (`import 'babel-polyfill'` ) is actually changed to import whatever features need to be supported for your chosen browsers and environment. More information can be found here: https://github.com/babel/babel-preset-env#usebuiltins-entry
+
 ### 20. Useful Resources & Links.html
+
+- Webpack Docs: https://webpack.js.org/concepts/
+- More about Babel: https://babeljs.io/
 
 ## 23. Bonus Next.js
 
@@ -15413,6 +15489,11 @@ Không cần setting routing bạn có thể load these two different components
 
 `npm run dev` và xem tab [http://localhost:3000](http://localhost:3000/) bạn sẽ thấy page với text "Hello Next.js" hiện ra
 
+instead we create folders and files to reflect our URLs in the file system
+and Next.js, the package will automatically pass that and use its own internal router to handle all the heavy lifting.
+Now along the way, it pre-renders the content we load as pages on the server, it automatically
+code splits, so lazy loads that, all of that out of the box without us configuring anything, that is why Next is such a great package and could be worth a look in your next project.
+
 ### 4. Understanding the Basics
 
 index.js
@@ -15458,7 +15539,8 @@ const user = props => (
   <div>
     <h1>{props.name}</h1>
     <p>Age: {props.age}</p>
-    // # 5<style jsx>{`
+    // # 5
+	<style jsx>{`
       div {
         border: 1px solid #eee;
         box-shadow: 0 2p 3px #ccc;
@@ -15478,6 +15560,7 @@ auth/index.js
 const authIndexPage = props => (
   <div>
     <h1>The Auth Index Page - {props.appName}</h1>
+// add
     <User name="Max" age={28} />
   </div>
 );
@@ -15554,6 +15637,8 @@ export default authIndexPage;
 ### 9. Deploying our App
 
 `npm run build`: create dist folder
+
+Next.js Repo & Docs: https://github.com/zeit/next.js/
 
 ## 24. Bonus Animations in React Apps
 
@@ -15662,7 +15747,9 @@ class App extends Component {
 }
 ```
 
-![image-20200316230939478](./react-maximilan.assets/image-20200316230939478.png)
+![image-20200316230939478](./react-maximilan.assets/image-20200316230939478.png)  
+
+![image-20200601104951273](react-maximilan.assets/image-20200601104951273.png)
 
 ### 3. Using CSS Transitions
 
@@ -15726,6 +15813,14 @@ Modal.css
 
 ### 4. Using CSS Animations
 
+
+
+### 5. CSS Transition & Animations Limitations
+
+ ![image-20200601105321474](react-maximilan.assets/image-20200601105321474.png) 
+
+Lúc nào cũng có chỉ có ẩn hay hiện ra hay k
+
 App.js
 
 ```js
@@ -15737,10 +15832,8 @@ App.js
 {
   this.state.modalIsOpen ? <Backdrop show={this.state.modalIsOpen} /> : null;
 }
-// Khi ấn DISSMISS thì không có animation
+// Khi ấn DISSMISS thì không có animation vì nó bị remove chưa kịp đợi render
 ```
-
-### 5. CSS Transition & Animations Limitations
 
 ### 6. Using ReactTransitionGroup
 
@@ -16052,10 +16145,10 @@ export function* logoutSaga(action) {
   yield localStorage.removeItem("token");
   yield localStorage.removeItem("expirationDate");
   yield localStorage.removeItem("userId");
-  yield put(actions.logoutSucceed());
+  yield put(actions.logoutSucceed()); // như dispatch action
 }
 
----------------------auth.js;
+// --------------------- actions/auth.js; add
 
 export const logoutSucceed = () => {
   return {
@@ -16085,7 +16178,7 @@ const store = createStore(
   composeEnhancers(applyMiddleware(thunk, sagaMiddleware))
 );
 
-sagaMiddleware.run(logoutSaga);
+sagaMiddleware.run(logoutSaga); // sau khi test comment dòng này lại
 ```
 
 F12 chạy tab redux thấy 2 cái logout
@@ -16136,8 +16229,11 @@ const store = createStore(
   composeEnhancers(applyMiddleware(thunk, sagaMiddleware))
 );
 
-sagaMiddleware.run(watchAuth);
+sagaMiddleware.run(watchAuth); // add
 ```
+
+![image-20200601134432142](react-maximilan.assets/image-20200601134432142.png)  
+
 
 ### 6. Moving More Logic Into Sagas
 
@@ -16148,6 +16244,7 @@ saga/auth.js
 ```js
 import { delay } from "redux-saga";
 
+// Sửa lại hàm này
 export function* checkAuthTimeoutSaga(action) {
   yield delay(action.expirationTime * 1000);
   yield put(actions.logout());
@@ -16658,7 +16755,8 @@ const todo = props => {
         onChange={inputChangeHandler}
         value={todoName}
       />
-      // 6<button type="button" onClick={todoAddHandler}>
+      // 6
+       <button type="button" onClick={todoAddHandler}>
         Add
       </button>
       <ul>
@@ -16764,7 +16862,7 @@ Important is that it has to be a component function
 
 ### 9. Sending Data via Http
 
-Sử dụng firebase => reala time database
+Sử dụng firebase => real time database
 
 Set rule là true hết
 
@@ -16815,6 +16913,10 @@ const todoAddHandler = () => {
 useEffect run every render cycle, Tham số thử 2 quyết định sẽ render khi nào
 
 If you want to replicate componentDidMount => tham số thứ 2 là []
+
+![image-20200601151608901](react-maximilan.assets/image-20200601151608901.png)  
+
+
 
 ### 10. The useEffect() Hook
 
@@ -16934,7 +17036,11 @@ export default authContext;
 
 Khi nhập name rồi ấn nút add => tab console hiển thị error
 
-Fix thêm: `const todoItem = { id: res.data.name, name: todoName };`
+![image-20200601161241736](react-maximilan.assets/image-20200601161241736.png)  
+
+
+
+Fix thêm: `const todoItem = { id: res.data.name, name: todoName };` vì data có kiểu dự liệu object có id
 
 New issue: time for response is 3000 => add new err
 
@@ -16965,6 +17071,7 @@ const todoAddHandler = () => {
     .post("https://test-3e15a.firebaseio.com/todos.json", { name: todoName })
     .then(res => {
       setTimeout(() => {
+         // add
         const todoItem = { id: res.data.name, name: todoName };
         // setSubmittedTodo(todoItem)
         dispatch({ type: "ADD", payload: todoItem });
@@ -17140,7 +17247,13 @@ Khi nhập input List bị re-render => ảnh hưởng
 
 ### 20. Avoiding Unnecessary Re-Rendering
 
+Khi valid list không đổi thì k cần render xem log
+
+![image-20200601165346382](react-maximilan.assets/image-20200601165346382.png)
+
 ### 21. How to think about Functional Components with Hooks
+
+complex
 
 ### 22. Creating a Custom Hook
 
@@ -17187,6 +17300,8 @@ Todo.js
         style={{ backgroundColor: todoInput.validity === true ? 'transparent' : 'red' }}
       />
 ```
+
+  
 
 ### 23. Wrap Up
 
