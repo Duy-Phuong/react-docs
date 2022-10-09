@@ -497,6 +497,7 @@
     - [10. Setting Up the Basic Webpack Config](#10-setting-up-the-basic-webpack-config)
     - [11. Adding File Rules](#11-adding-file-rules)
     - [12. Introducing Babel](#12-introducing-babel)
+    - [Query Composition](#query-composition)
     - [13. Adding CSS File Support](#13-adding-css-file-support)
     - [14. Creating Rules for Images](#14-creating-rules-for-images)
     - [15. Lazy Loading](#15-lazy-loading)
@@ -504,8 +505,8 @@
     - [16. Injecting the Script into the index.html File.vtt](#16-injecting-the-script-into-the-indexhtml-filevtt)
     - [17. Creating the Production Workflow](#17-creating-the-production-workflow)
     - [18. Wrap Up](#18-wrap-up)
-  - [**Webpack 4 gần như không cần cấu hình module bundler**](#webpack-4-g%e1%ba%a7n-nh%c6%b0-kh%c3%b4ng-c%e1%ba%a7n-c%e1%ba%a5u-h%c3%acnh-module-bundler)
-  - [**Webpack 4: production và development mode**](#webpack-4-production-v%c3%a0-development-mode)
+  - [**Webpack 4 gần như không cần cấu hình module bundler**](#webpack-4-gần-như-không-cần-cấu-hình-module-bundler)
+  - [**Webpack 4: production và development mode**](#webpack-4-production-và-development-mode)
   - [**Resources**](#resources)
     - [19. Adding babel-polyfill.html](#19-adding-babel-polyfillhtml)
     - [20. Useful Resources & Links.html](#20-useful-resources--linkshtml)
@@ -605,8 +606,8 @@
     - [7. Smaller Apps with Preact](#7-smaller-apps-with-preact)
     - [8. Comparing React with Preact](#8-comparing-react-with-preact)
     - [9. Congratulations](#9-congratulations)
-- [Tìm hiểu về Hooks trong React](#t%c3%acm-hi%e1%bb%83u-v%e1%bb%81-hooks-trong-react)
-  - [1. Mở đầu](#1-m%e1%bb%9f-%c4%91%e1%ba%a7u)
+- [Tìm hiểu về Hooks trong React](#tìm-hiểu-về-hooks-trong-react)
+  - [1. Mở đầu](#1-mở-đầu)
   - [2. React Hook](#2-react-hook)
     - [a. useState](#a-usestate)
     - [b. useReducer](#b-usereducer)
@@ -697,17 +698,17 @@ ReactDOM.render(app, document.querySelector("#app"));
 
 ### 5. Why Should we Choose React
 
-![](./root/img/2020-01-19-14-56-40.png)
+![](./react-maximilan.assets/2020-01-19-14-56-40.png)
 
 ### 6. React Alternatives
 
 ### 7. Understanding Single Page Applications and Multi Page Applications
 
-![](./root/img/2020-01-19-15-07-15.png)
+![](./react-maximilan.assets/2020-01-19-15-07-15.png)
 
 ### 8. Course Outline
 
-![](./root/img/2020-01-19-15-09-27.png)
+![](./react-maximilan.assets/2020-01-19-15-09-27.png)
 
 ### 9. How to get the Most out of This Course
 
@@ -738,8 +739,8 @@ console.log(this.y); // undefined
 
 ### 4. Exports and Imports
 
-![](./root/img/2020-01-19-15-38-40.png)
-![](./root/img/2020-01-19-15-37-23.png)
+![](./react-maximilan.assets/2020-01-19-15-38-40.png)
+![](./react-maximilan.assets/2020-01-19-15-37-23.png)
 
 ### 5. Understanding Classes
 
@@ -755,7 +756,7 @@ Class kế thừa trong constructor phải có super(); nếu không sẽ báo l
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/constructor
 
-![](./root/img/2020-01-19-15-50-03.png)
+![](./react-maximilan.assets/2020-01-19-15-50-03.png)
 
 Cú pháp mới không cần constructor:
 
@@ -763,7 +764,7 @@ Cú pháp mới không cần constructor:
 
 ### 7. The Spread & Rest Operator
 
-![](./root/img/2020-01-19-15-53-42.png)
+![](./react-maximilan.assets/2020-01-19-15-53-42.png)
 
 ![image-20200214220834325](./react-maximilan.assets/image-20200214220834325.png)
 
@@ -775,7 +776,7 @@ const abc = (...args) => {
 
 ### 8. Destructuring
 
-![](./root/img/2020-01-19-16-00-23.png)
+![](./react-maximilan.assets/2020-01-19-16-00-23.png)
 
 ![image-20200214221128199](./react-maximilan.assets/image-20200214221128199.png)
 
@@ -1099,7 +1100,7 @@ splice() => https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Gl
 
 ### 2. The Build Workflow
 
-![](./root/img/2020-01-19-16-31-14.png)
+![](./react-maximilan.assets/2020-01-19-16-31-14.png)
 
 ### 3. Using Create React App
 
@@ -1296,7 +1297,7 @@ Khi có code js cần xử lý thì đặt trong dấu {}; đây là cú pháp c
 
 Đối với class thì truy cập từ khóa props thông qua this.props
 
-![](./root/img/2020-01-19-18-09-16.png)
+![](./react-maximilan.assets/2020-01-19-18-09-16.png)
 
 ### 12.1 props-learning-card.pdf.pdf
 
@@ -1447,7 +1448,7 @@ Whenever `state` changes (taught over the next lectures), the component will re-
 
 ### 15.1 props&state.pdf.pdf
 
-![](./root/img/2020-01-19-18-51-39.png)
+![](./react-maximilan.assets/2020-01-19-18-51-39.png)
 
 ### 16. Handling Events with Methods
 
@@ -1791,7 +1792,7 @@ export default app;
 
 ### 20.3 usestate-learning-card.pdf.pdf
 
-![](./root/img/2020-01-19-19-39-00.png)
+![](./react-maximilan.assets/2020-01-19-19-39-00.png)
 
 ### 21. Stateless vs Stateful Components
 
@@ -2149,7 +2150,7 @@ if (this.state.showPersons) {
 
 ### 5.1 jsx-lists-learning-card.pdf.pdf
 
-![](./root/img/2020-01-20-09-37-08.png)
+![](./react-maximilan.assets/2020-01-20-09-37-08.png)
 
 ### 6. Lists & State
 
@@ -2751,7 +2752,7 @@ Person.js sửa thành
 
 ### 8.1 css-modules-learning-card.pdf.pdf
 
-![](./root/img/2020-01-22-10-10-01.png)
+![](./react-maximilan.assets/2020-01-22-10-10-01.png)
 
 ### 9. More on CSS Modules.html
 
@@ -3091,7 +3092,7 @@ presentational component is func component does not manage state
 
 ### 5. Class-based vs Functional Components
 
-![](./root/img/2020-01-23-10-26-42.png)
+![](./react-maximilan.assets/2020-01-23-10-26-42.png)
 index
 
 ```js
@@ -3103,7 +3104,7 @@ ReactDOM.render(
 
 ### 6. class Component Lifecycle Overview
 
-![](./root/img/2020-01-24-15-56-35.png)
+![](./react-maximilan.assets/2020-01-24-15-56-35.png)
 
 Side effect: mean call something like https or store somethings in local storage of the browser or sending something to gg analysic => affect performance
 
@@ -3112,7 +3113,7 @@ You don't really want to do things like that in the constructor because that can
 
 getDiverStateFromProps that is lifecycle hook from react 16.3, the idea is whenever props change  
 
-![](./root/img/2020-01-24-16-10-26.png)
+![](./react-maximilan.assets/2020-01-24-16-10-26.png)
 
 ### 7. Component Creation Lifecycle in Action
 
@@ -3147,7 +3148,7 @@ Cách init state ở ngoài là cách hiện đại trong js, behind the sence
 
 ### 7.1 lifecycle-creation-learning-card.pdf.pdf
 
-![](./root/img/2020-01-24-16-10-19.png)
+![](./react-maximilan.assets/2020-01-24-16-10-19.png)
 
 ### 8. Component Update Lifecycle (for props Changes)
 
@@ -3281,7 +3282,7 @@ componentWillReceiveProps don't support any more
 
 ### 8.1 lifecycle-update-external-learning-card.pdf.pdf
 
-![](./root/img/2020-01-25-18-06-36.png)
+![](./react-maximilan.assets/2020-01-25-18-06-36.png)
 
 ### 9. Component Update Lifecycle (for state Changes)
 
